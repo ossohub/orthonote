@@ -1,0 +1,7 @@
+node_modules/
+.vercel/
+.next/
+*.min.html
+package-lock.json
+.env
+.env.local

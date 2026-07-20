@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Master • Ferramentas PDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #22263a;
+            --border: #2e3248;
+            --border-hover: #4a5180;
+            --accent: #10B981;
+            --accent-hover: #34D399;
+            --accent-glow: rgba(16,185,129,0.18);
+            --success: #22c55e;
+            --success-bg: rgba(34,197,94,0.12);
+            --error: #ef4444;
+            --error-bg: rgba(239,68,68,0.12);
+            --warn: #f59e0b;
+            --warn-bg: rgba(245,158,11,0.12);
+            --text: #e8eaf5;
+            --text-2: #9195b0;
+            --text-3: #5a5f7a;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --radius-lg: 20px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(15,17,23,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+        }
+        .header-inner {
+            max-width: 1280px; margin: 0 auto;
+            height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--accent), #7c5cfc);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: #fff;
+            box-shadow: 0 0 18px var(--accent-glow);
+        }
+        .logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+        .logo-sub { font-size: 11px; color: var(--text-2); margin-top: 1px; }
+        .badges { display: flex; gap: 8px; }
+        .badge {
+            display: flex; align-items: center; gap: 6px;
+            padding: 4px 12px; border-radius: 999px;
+            font-size: 11px; font-weight: 600; border: 1px solid;
+        }
+        .badge-green { color: var(--success); border-color: rgba(34,197,94,0.3); background: var(--success-bg); }
+        .badge-blue { color: var(--accent); border-color: rgba(16,185,129,0.3); background: var(--accent-glow); }
+
+        /* ── LAYOUT ── */
+        .page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 80px; }
+
+        /* ── UPLOAD ── */
+        #upload-section { max-width: 600px; margin: 80px auto 0; }
+        .upload-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 4px;
+        }
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: calc(var(--radius-lg) - 4px);
+            padding: 56px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+        .drop-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(124,92,252,0.2));
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: var(--accent);
+            margin: 0 auto 20px;
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+        .drop-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+        .drop-sub { color: var(--text-2); font-size: 14px; margin-bottom: 24px; }
+        .btn-upload {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--accent); color: #fff;
+            border: none; padding: 10px 24px; border-radius: var(--radius);
+            font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(16,185,129,0.35);
+        }
+        .btn-upload:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .drop-note { margin-top: 16px; font-size: 12px; color: var(--text-3); }
+        .upload-tip {
+            text-align: center; margin-top: 16px;
+            font-size: 12px; color: var(--text-3);
+        }
+        .upload-tip span { color: var(--accent); }
+
+        /* ── PDF INFO BAR ── */
+        .pdf-bar {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+        .pdf-bar-left { display: flex; align-items: center; gap: 14px; }
+        .pdf-icon {
+            width: 44px; height: 44px; min-width: 44px;
+            background: rgba(239,68,68,0.12);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; color: #ef4444;
+        }
+        .pdf-name { font-weight: 600; font-size: 15px; color: var(--text); }
+        .pdf-meta { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+        .pdf-meta-item { font-size: 12px; color: var(--text-2); display: flex; align-items: center; gap: 5px; }
+        .pdf-meta-dot { color: var(--border); }
+        .pdf-bar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 18px; border-radius: var(--radius);
+            font-size: 13px; font-weight: 600; cursor: pointer;
+            border: none; transition: all 0.18s; white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--accent); color: #fff;
+            box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+        }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .btn-secondary {
+            background: var(--surface2); color: var(--text-2);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { color: var(--text); border-color: var(--border-hover); }
+        .btn-success { background: rgba(34,197,94,0.15); color: var(--success); border: 1px solid rgba(34,197,94,0.3); }
+        .btn-success:hover { background: rgba(34,197,94,0.25); }
+        .btn-danger { background: rgba(239,68,68,0.12); color: var(--error); border: 1px solid rgba(239,68,68,0.25); }
+        .btn-danger:hover { background: rgba(239,68,68,0.2); }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+        /* ── TABS ── */
+        .tabs-wrapper {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .tabs-nav {
+            display: flex; align-items: stretch;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: var(--surface);
+        }
+        .tabs-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 14px 20px;
+            font-size: 13px; font-weight: 500;
+            color: var(--text-2);
+            cursor: pointer; border: none; background: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.18s;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .tab-btn i { font-size: 13px; }
+        .tab-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .tab-content { display: none; padding: 28px; }
+        .tab-content.active { display: block; }
+
+        /* ── SECTION HEADER ── */
+        .section-head { margin-bottom: 20px; }
+        .section-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .section-desc { font-size: 13px; color: var(--text-2); }
+
+        /* ── CHAPTERS TABLE ── */
+        .chapters-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
+        }
+        .chapters-count { font-size: 13px; color: var(--text-2); }
+        .chapters-count strong { color: var(--text); font-weight: 600; }
+        .chapters-actions { display: flex; gap: 8px; }
+
+        /* Search input */
+        .search-box {
+            position: relative; margin-bottom: 12px;
+        }
+        .search-box i {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            color: var(--text-3); font-size: 13px;
+        }
+        .search-box input {
+            width: 100%; padding: 9px 12px 9px 36px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text); font-size: 13px; font-family: inherit;
+            transition: border-color 0.18s;
+        }
+        .search-box input:focus { outline: none; border-color: var(--accent); }
+        .search-box input::placeholder { color: var(--text-3); }
+
+        .table-wrap {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            max-height: 440px; overflow-y: auto;
+        }
+        .table-wrap::-webkit-scrollbar { width: 4px; }
+        .table-wrap::-webkit-scrollbar-track { background: transparent; }
+        .table-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        thead { position: sticky; top: 0; z-index: 2; }
+        thead tr { background: var(--surface2); }
+        th { padding: 12px 16px; text-align: left; font-weight: 600; color: var(--text-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+        td { padding: 12px 16px; vertical-align: middle; border-top: 1px solid var(--border); }
+        tbody tr { transition: background 0.15s; }
+        tbody tr:hover { background: rgba(255,255,255,0.025); }
+
+        .chapter-num { font-family: 'JetBrains Mono', monospace; color: var(--text-3); font-size: 11px; }
+        .chapter-title { font-weight: 500; color: var(--text); line-height: 1.4; }
+        .chapter-sub { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+        .chapter-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 8px; border-radius: 6px;
+            background: var(--surface2); color: var(--text-2);
+            font-family: 'JetBrains Mono', monospace; font-size: 11px;
+        }
+        .chapter-pages { color: var(--text-3); font-size: 11px; margin-top: 3px; }
+        .progress-wrap { margin-top: 12px; }
+        .progress-bar-bg { height: 4px; background: var(--border); border-radius: 4px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #7c5cfc); border-radius: 4px; transition: width 0.3s; }
+        .progress-text { font-size: 11px; color: var(--text-2); margin-top: 6px; }
+
+        /* ── MANUAL CUT ── */
+        .range-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 340px; margin-bottom: 20px; }
+        .field-group label { font-size: 11px; color: var(--text-2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; display: block; margin-bottom: 6px; }
+        .field-group input[type="number"] {
+            width: 100%; padding: 10px 14px;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); color: var(--text);
+            font-size: 15px; font-family: 'JetBrains Mono', monospace;
+            transition: border-color 0.18s;
+        }
+        .field-group input[type="number"]:focus { outline: none; border-color: var(--accent); }
+
+        /* ── MULTI SPLIT ── */
+        .multi-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .ranges-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .range-row {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-sm); padding: 10px 14px;
+        }
+        .range-row input[type="number"] {
+            width: 80px; padding: 6px 10px;
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text);
+            font-family: 'JetBrains Mono', monospace; font-size: 13px;
+        }
+        .range-row input[type="text"] {
+            flex: 1; padding: 6px 10px;
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text); font-size: 13px; font-family: inherit;
+        }
+        .range-row input:focus { outline: none; border-color: var(--accent); }
+        .range-label { font-size: 11px; color: var(--text-3); min-width: 10px; }
+        .btn-remove { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 14px; padding: 4px; transition: color 0.15s; }
+        .btn-remove:hover { color: var(--error); }
+
+        /* ── COMPRESS ── */
+        .compress-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .compress-option {
+            background: var(--bg); border: 2px solid var(--border);
+            border-radius: var(--radius); padding: 16px;
+            cursor: pointer; transition: all 0.18s;
+        }
+        .compress-option:hover { border-color: var(--accent); }
+        .compress-option.selected { border-color: var(--accent); background: var(--accent-glow); }
+        .compress-option-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+        .compress-option-desc { font-size: 11px; color: var(--text-2); }
+
+        /* ── CONVERT ── */
+        .convert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+        .convert-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px;
+            text-align: center; cursor: pointer; transition: all 0.2s;
+        }
+        .convert-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+        .convert-card i { font-size: 28px; margin-bottom: 12px; display: block; }
+        .convert-card-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+        .convert-card-desc { font-size: 11px; color: var(--text-2); }
+
+        /* ── TRANSLATE ── */
+        .translate-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px;
+            display: flex; align-items: flex-start; gap: 14px;
+            margin-bottom: 12px; cursor: pointer; transition: all 0.18s;
+        }
+        .translate-card:hover { border-color: var(--accent); background: var(--accent-glow); }
+        .translate-card-icon { font-size: 20px; margin-top: 2px; color: var(--accent); }
+        .translate-card-title { font-weight: 600; font-size: 14px; }
+        .translate-card-desc { font-size: 12px; color: var(--text-2); margin-top: 3px; }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center; padding: 48px 24px;
+        }
+        .empty-state i { font-size: 40px; color: var(--text-3); margin-bottom: 14px; display: block; }
+        .empty-title { font-size: 15px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+        .empty-desc { font-size: 13px; color: var(--text-3); }
+
+        /* ── TOAST ── */
+        #toast {
+            position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: var(--surface2); border: 1px solid var(--border);
+            border-radius: 999px; padding: 12px 22px;
+            display: flex; align-items: center; gap: 10px;
+            font-size: 13px; font-weight: 500;
+            box-shadow: var(--shadow);
+            z-index: 999; opacity: 0;
+            transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1);
+            pointer-events: none; white-space: nowrap;
+        }
+        #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        #toast.error { background: var(--error-bg); border-color: rgba(239,68,68,0.4); color: var(--error); }
+        #toast.success { background: var(--success-bg); border-color: rgba(34,197,94,0.4); color: var(--success); }
+        #toast.loading { color: var(--accent); border-color: rgba(16,185,129,0.3); background: var(--accent-glow); }
+
+        /* ── LOADING OVERLAY ── */
+        #loading-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(15,17,23,0.8); backdrop-filter: blur(6px);
+            z-index: 200; align-items: center; justify-content: center; flex-direction: column; gap: 16px;
+        }
+        #loading-overlay.active { display: flex; }
+        .spinner {
+            width: 44px; height: 44px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { font-size: 14px; color: var(--text-2); font-weight: 500; }
+
+        /* ── MISC ── */
+        .divider { height: 1px; background: var(--border); margin: 20px 0; }
+        .info-box {
+            background: var(--accent-glow); border: 1px solid rgba(16,185,129,0.25);
+            border-radius: var(--radius-sm); padding: 12px 16px;
+            font-size: 12px; color: var(--text-2); display: flex; gap: 10px; align-items: flex-start;
+        }
+        .info-box i { color: var(--accent); margin-top: 1px; }
+        .warn-box {
+            background: var(--warn-bg); border: 1px solid rgba(245,158,11,0.3);
+            border-radius: var(--radius-sm); padding: 12px 16px;
+            font-size: 12px; color: #fcd34d; display: flex; gap: 10px; align-items: flex-start;
+        }
+        .warn-box i { color: var(--warn); margin-top: 1px; }
+
+        /* ── LEVEL BUTTONS ── */
+        #level-buttons .btn-primary { font-size:12px; border-radius:999px !important; }
+        #level-buttons .btn-secondary { font-size:12px; border-radius:999px !important; }
+
+        @media (max-width: 640px) {
+            .page { padding: 16px; }
+            .header { padding: 0 16px; }
+            .pdf-bar { flex-direction: column; align-items: flex-start; }
+            .badges .badge:last-child { display: none; }
+            .range-grid { grid-template-columns: 1fr 1fr; }
+            .tab-content { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-file-pdf"></i></div>
+            <div>
+                <div class="logo-text">PDF Master</div>
+                <div class="logo-sub">Ferramentas PDF Offline</div>
+            </div>
+        </div>
+        <div class="badges">
+            <span class="badge badge-green"><i class="fa-solid fa-shield-halved"></i> 100% Offline</span>
+            <span class="badge badge-blue"><i class="fa-solid fa-lock"></i> Sem upload</span>
+        </div>
+    </div>
+</header>
+
+<div class="page">
+
+    <!-- UPLOAD SECTION -->
+    <div id="upload-section">
+        <div class="upload-card">
+            <div class="drop-zone" id="drop-zone"
+                onclick="document.getElementById('file-input').click()"
+                ondragover="onDragOver(event)"
+                ondragleave="onDragLeave(event)"
+                ondrop="onDrop(event)">
+                <div class="drop-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <div class="drop-title">Arraste o PDF aqui</div>
+                <div class="drop-sub">ou clique para selecionar o arquivo</div>
+                <button class="btn-upload"><i class="fa-solid fa-folder-open"></i> Selecionar PDF</button>
+                <input type="file" id="file-input" accept=".pdf" class="hidden" style="display:none" onchange="handleFileSelect(event)">
+                <div class="drop-note">Máx. 2 GB • Processamento local e seguro</div>
+            </div>
+        </div>
+        <div class="upload-tip">Ideal para <span>Rockwood, Campbell's</span> e outros livros de ortopedia em PDF</div>
+    </div>
+
+    <!-- APP SECTION -->
+    <div id="app-section" style="display:none">
+
+        <!-- PDF Info Bar -->
+        <div class="pdf-bar">
+            <div class="pdf-bar-left">
+                <div class="pdf-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                <div>
+                    <div class="pdf-name" id="pdf-filename">—</div>
+                    <div class="pdf-meta">
+                        <span class="pdf-meta-item"><i class="fa-regular fa-file"></i> <span id="pdf-pages">—</span></span>
+                        <span class="pdf-meta-dot">·</span>
+                        <span class="pdf-meta-item"><i class="fa-solid fa-weight-hanging"></i> <span id="pdf-size">—</span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="pdf-bar-right">
+                <button class="btn btn-secondary btn-sm" onclick="resetApp()"><i class="fa-solid fa-arrow-left"></i> Novo PDF</button>
+                <button class="btn btn-primary" onclick="analyzeTOC()" id="btn-detect-toc">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Detectar Sumário
+                </button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-wrapper">
+            <div class="tabs-nav">
+                <button class="tab-btn active" id="tab-0" onclick="switchTab(0)">
+                    <i class="fa-solid fa-list-ul"></i> Sumário Inteligente
+                </button>
+                <button class="tab-btn" id="tab-1" onclick="switchTab(1)">
+                    <i class="fa-solid fa-scissors"></i> Cortar PDF
+                </button>
+                <button class="tab-btn" id="tab-2" onclick="switchTab(2)">
+                    <i class="fa-solid fa-layer-group"></i> Múltiplos Recortes
+                </button>
+                <button class="tab-btn" id="tab-3" onclick="switchTab(3)">
+                    <i class="fa-solid fa-minimize"></i> Comprimir
+                </button>
+                <button class="tab-btn" id="tab-4" onclick="switchTab(4)">
+                    <i class="fa-solid fa-repeat"></i> Converter
+                </button>
+                <button class="tab-btn" id="tab-5" onclick="switchTab(5)">
+                    <i class="fa-solid fa-language"></i> Traduzir
+                </button>
+            </div>
+
+            <!-- TAB 0: SUMÁRIO INTELIGENTE -->
+            <div class="tab-content active" id="tab-content-0">
+                <div class="section-head">
+                    <div class="section-title">Divisão por Capítulos do Sumário</div>
+                    <div class="section-desc">Detecta automaticamente o índice do PDF e permite baixar cada capítulo separadamente.</div>
+                </div>
+
+                <!-- Controles de nível -->
+                <div id="level-controls" style="display:none; margin-bottom:18px;">
+                    <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-2);margin-bottom:10px;">
+                        <i class="fa-solid fa-sliders" style="color:var(--accent)"></i>&nbsp; Filtrar por nível do sumário
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;" id="level-buttons"></div>
+                    <div style="margin-top:10px;font-size:12px;color:var(--text-3);" id="level-hint">
+                        Nível 0 = capítulos principais · Nível 1 = seções · Nível 2+ = subseções
+                    </div>
+                </div>
+
+                <!-- Empty state before detection -->
+                <div id="toc-empty" class="empty-state">
+                    <i class="fa-solid fa-book-open"></i>
+                    <div class="empty-title">Sumário ainda não detectado</div>
+                    <div class="empty-desc">Clique em <strong>Detectar Sumário</strong> no topo para analisar o PDF.</div>
+                </div>
+
+                <!-- No TOC message -->
+                <div id="no-toc-msg" class="empty-state" style="display:none">
+                    <i class="fa-solid fa-circle-xmark" style="color:var(--error)"></i>
+                    <div class="empty-title">Nenhum sumário estruturado encontrado</div>
+                    <div class="empty-desc">Este PDF não possui índice interno. Use a aba <strong>Cortar PDF</strong> para dividir manualmente.</div>
+                </div>
+
+                <!-- Chapters list -->
+                <div id="chapters-area" style="display:none">
+                    <div class="chapters-header">
+                        <div class="chapters-count">
+                            <span id="chapters-count-text">0</span> capítulos detectados
+                        </div>
+                        <div class="chapters-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="clearChapters()">
+                                <i class="fa-solid fa-trash"></i> Limpar
+                            </button>
+                            <button class="btn btn-success" onclick="splitAllChapters()">
+                                <i class="fa-solid fa-download"></i> Baixar todos (ZIP)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress bar (for batch download) -->
+                    <div id="split-progress" style="display:none" class="progress-wrap">
+                        <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+                        <div class="progress-text" id="progress-text">Processando...</div>
+                    </div>
+
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Buscar capítulo..." oninput="filterChapters(this.value)" id="chapter-search">
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width:40px">#</th>
+                                    <th>Capítulo / Seção</th>
+                                    <th style="width:120px; text-align:center">Páginas</th>
+                                    <th style="width:90px; text-align:center">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="chapters-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 1: CORTAR MANUAL -->
+            <div class="tab-content" id="tab-content-1">
+                <div class="section-head">
+                    <div class="section-title">Extrair intervalo de páginas</div>
+                    <div class="section-desc">Selecione o intervalo exato e gere um novo PDF com as páginas escolhidas.</div>
+                </div>
+
+                <div class="range-grid">
+                    <div class="field-group">
+                        <label>Página inicial</label>
+                        <input type="number" id="manual-start" value="1" min="1">
+                    </div>
+                    <div class="field-group">
+                        <label>Página final</label>
+                        <input type="number" id="manual-end" min="1">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px">
+                    <button class="btn btn-primary" onclick="splitManualRange()">
+                        <i class="fa-solid fa-scissors"></i> Extrair páginas
+                    </button>
+                    <button class="btn btn-secondary" onclick="setFullRange()">
+                        <i class="fa-solid fa-expand"></i> Todo o documento
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>O arquivo gerado conterá apenas as páginas do intervalo selecionado. O PDF original não é alterado.</span>
+                </div>
+            </div>
+
+            <!-- TAB 2: MÚLTIPLOS RECORTES -->
+            <div class="tab-content" id="tab-content-2">
+                <div class="section-head">
+                    <div class="section-title">Múltiplos recortes em lote</div>
+                    <div class="section-desc">Defina vários intervalos de uma vez e baixe todos em um ZIP.</div>
+                </div>
+
+                <div class="multi-header">
+                    <span class="chapters-count"><strong id="ranges-count">0</strong> intervalos definidos</span>
+                    <button class="btn btn-secondary btn-sm" onclick="addRange()">
+                        <i class="fa-solid fa-plus"></i> Adicionar intervalo
+                    </button>
+                </div>
+
+                <div id="ranges-list" class="ranges-list"></div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px">
+                    <button class="btn btn-primary" onclick="splitMultiRanges()">
+                        <i class="fa-solid fa-download"></i> Extrair todos (ZIP)
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearRanges()">
+                        <i class="fa-solid fa-trash"></i> Limpar
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Útil para extrair vários capítulos definidos manualmente. Nomeie cada seção para identificar os arquivos no ZIP.</span>
+                </div>
+            </div>
+
+            <!-- TAB 3: COMPRIMIR -->
+            <div class="tab-content" id="tab-content-3">
+                <div class="section-head">
+                    <div class="section-title">Comprimir PDF</div>
+                    <div class="section-desc">Otimiza a estrutura do PDF para reduzir o tamanho do arquivo.</div>
+                </div>
+
+                <div class="compress-grid">
+                    <div class="compress-option selected" onclick="selectCompressMode(this,'basic')" data-mode="basic">
+                        <div class="compress-option-title">⚡ Básico</div>
+                        <div class="compress-option-desc">Re-salva com streams otimizados. Rápido, sem perda visual.</div>
+                    </div>
+                    <div class="compress-option" onclick="selectCompressMode(this,'meta')" data-mode="meta">
+                        <div class="compress-option-title">🔍 Remover metadados</div>
+                        <div class="compress-option-desc">Remove autor, datas e propriedades do documento.</div>
+                    </div>
+                    <div class="compress-option" onclick="selectCompressMode(this,'full')" data-mode="full">
+                        <div class="compress-option-title">🗜️ Máximo</div>
+                        <div class="compress-option-desc">Combina os dois modos acima para maior redução.</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="compressPDF()">
+                    <i class="fa-solid fa-minimize"></i> Comprimir e baixar
+                </button>
+
+                <div class="divider"></div>
+                <div class="warn-box">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>Compressão no navegador remove metadados e otimiza streams. Para comprimir imagens dentro do PDF, use ferramentas desktop como Ghostscript ou Smallpdf.</span>
+                </div>
+            </div>
+
+            <!-- TAB 4: CONVERTER -->
+            <div class="tab-content" id="tab-content-4">
+                <div class="section-head">
+                    <div class="section-title">Converter PDF</div>
+                    <div class="section-desc">Exporte o conteúdo do PDF em outros formatos.</div>
+                </div>
+
+                <div class="convert-grid">
+                    <div class="convert-card" onclick="convertToImages()">
+                        <i class="fa-regular fa-image" style="color:#60a5fa"></i>
+                        <div class="convert-card-title">PDF → Imagens PNG</div>
+                        <div class="convert-card-desc">Converte cada página em imagem de alta resolução. Baixa como ZIP.</div>
+                    </div>
+                    <div class="convert-card" onclick="extractText()">
+                        <i class="fa-regular fa-file-lines" style="color:#a78bfa"></i>
+                        <div class="convert-card-title">PDF → Texto TXT</div>
+                        <div class="convert-card-desc">Extrai todo o texto do documento em arquivo .txt.</div>
+                    </div>
+                    <div class="convert-card" onclick="extractTextHTML()">
+                        <i class="fa-brands fa-html5" style="color:#f97316"></i>
+                        <div class="convert-card-title">PDF → HTML</div>
+                        <div class="convert-card-desc">Extrai texto com separação de páginas em arquivo HTML.</div>
+                    </div>
+                    <div class="convert-card" onclick="generateMetaReport()">
+                        <i class="fa-solid fa-circle-info" style="color:#34d399"></i>
+                        <div class="convert-card-title">Relatório de metadados</div>
+                        <div class="convert-card-desc">Exporta informações internas do PDF em arquivo de texto.</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <div class="info-box">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>A conversão para imagens é limitada a 60 páginas por questões de desempenho do navegador. Para livros completos, use ferramentas dedicadas.</span>
+                </div>
+            </div>
+
+            <!-- TAB 5: TRADUZIR -->
+            <div class="tab-content" id="tab-content-5">
+                <div class="section-head">
+                    <div class="section-title">Traduzir PDF</div>
+                    <div class="section-desc">Extraia o texto e abra em ferramentas de tradução externas.</div>
+                </div>
+
+                <div class="translate-card" onclick="translateGoogle()">
+                    <div class="translate-card-icon"><i class="fa-brands fa-google"></i></div>
+                    <div>
+                        <div class="translate-card-title">Abrir no Google Tradutor</div>
+                        <div class="translate-card-desc">Extrai o texto da primeira página e abre o Google Tradutor em uma nova aba (limite de ~4500 caracteres).</div>
+                    </div>
+                </div>
+
+                <div class="translate-card" onclick="extractAndCopy()">
+                    <div class="translate-card-icon"><i class="fa-solid fa-copy"></i></div>
+                    <div>
+                        <div class="translate-card-title">Copiar texto para tradução manual</div>
+                        <div class="translate-card-desc">Extrai o texto das páginas iniciais e copia para a área de transferência. Cole em qualquer serviço de tradução.</div>
+                    </div>
+                </div>
+
+                <div class="translate-card" onclick="openDeepL()">
+                    <div class="translate-card-icon" style="color:#0f62fe"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                    <div>
+                        <div class="translate-card-title">Abrir no DeepL</div>
+                        <div class="translate-card-desc">Extrai o texto e abre o DeepL com o conteúdo. Melhor qualidade de tradução para textos médicos.</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <div class="info-box">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Para tradução de livros completos (ex.: Rockwood), recomendamos usar o script Python com a API da Anthropic que você já possui — ele processa capítulo por capítulo com qualidade superior.</span>
+                </div>
+            </div>
+
+        </div><!-- /tabs-wrapper -->
+    </div><!-- /app-section -->
+</div><!-- /page -->
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- LOADING OVERLAY -->
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loading-text">Processando...</div>
+</div>
+
+<!-- SCRIPTS -->
+<!-- PDF.js via unpkg (versão compatível com workerSrc CDN) -->
+<script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<!-- pdf-lib via unpkg (expõe window.PDFLib corretamente) -->
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<!-- JSZip -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script>
+'use strict';
+
+// ── STATE ──
+let currentPDF    = null;
+let currentBytes  = null;
+let pdfDoc        = null;   // pdf-lib
+let pdfjsDoc      = null;   // pdf.js
+let chapters      = [];
+let totalPages    = 0;
+let compressMode  = 'basic';
+let customRanges  = [];
+
+const MAX_SIZE = 2 * 1024 * 1024 * 1024;
+
+// ── TOAST ──
+let toastTimer = null;
+function showToast(msg, type = '', duration = 3500) {
+    const el = document.getElementById('toast');
+    el.className = type ? `show ${type}` : 'show';
+    el.innerHTML = `${iconFor(type)}${msg}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.className = ''; }, duration);
+}
+function iconFor(type) {
+    if (type === 'error')   return '<i class="fa-solid fa-circle-xmark" style="margin-right:8px"></i>';
+    if (type === 'success') return '<i class="fa-solid fa-circle-check" style="margin-right:8px"></i>';
+    if (type === 'loading') return '<i class="fa-solid fa-spinner fa-spin" style="margin-right:8px"></i>';
+    return '';
+}
+
+// ── LOADING OVERLAY ──
+function showLoading(msg = 'Processando...') {
+    document.getElementById('loading-text').textContent = msg;
+    document.getElementById('loading-overlay').classList.add('active');
+}
+function hideLoading() {
+    document.getElementById('loading-overlay').classList.remove('active');
+}
+
+// ── DRAG & DROP ──
+function onDragOver(e) {
+    e.preventDefault();
+    document.getElementById('drop-zone').classList.add('drag-over');
+}
+function onDragLeave(e) {
+    document.getElementById('drop-zone').classList.remove('drag-over');
+}
+function onDrop(e) {
+    e.preventDefault();
+    document.getElementById('drop-zone').classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f && f.type === 'application/pdf') loadPDF(f);
+    else showToast('Apenas arquivos PDF são aceitos.', 'error');
+}
+
+function handleFileSelect(e) {
+    const f = e.target.files[0];
+    if (f) loadPDF(f);
+}
+
+// ── LOAD PDF ──
+async function loadPDF(file) {
+    if (file.size > MAX_SIZE) {
+        showToast(`Arquivo muito grande: ${(file.size/1024/1024).toFixed(1)} MB. Limite: 2 GB.`, 'error', 5000);
+        return;
+    }
+    showLoading('Carregando PDF...');
+    try {
+        const buf = await file.arrayBuffer();
+        currentBytes = buf;
+        currentPDF   = file;
+
+        const pdfjsBuf  = buf.slice(0);
+        const pdflibBuf = buf.slice(0);
+
+        pdfjsDoc   = await pdfjsLib.getDocument({ data: pdfjsBuf }).promise;
+        totalPages = pdfjsDoc.numPages;
+        pdfDoc     = await PDFLib.PDFDocument.load(pdflibBuf);
+
+        // Update UI
+        document.getElementById('pdf-filename').textContent = file.name;
+        document.getElementById('pdf-pages').textContent    = `${totalPages} páginas`;
+        document.getElementById('pdf-size').textContent     = formatSize(file.size);
+        document.getElementById('manual-end').value         = totalPages;
+
+        document.getElementById('upload-section').style.display = 'none';
+        document.getElementById('app-section').style.display    = 'block';
+
+        switchTab(0);
+        hideLoading();
+        showToast('PDF carregado com sucesso!', 'success');
+    } catch (err) {
+        hideLoading();
+        let msg = 'Erro ao carregar o PDF.';
+        if (err.name === 'InvalidPDFException') msg = 'O arquivo não é um PDF válido ou está corrompido.';
+        else if (err.message) msg += ' ' + err.message;
+        showToast(msg, 'error', 6000);
+        console.error('[loadPDF]', err);
+    }
+}
+
+function formatSize(bytes) {
+    if (bytes >= 1024*1024*1024) return (bytes/1024/1024/1024).toFixed(2) + ' GB';
+    if (bytes >= 1024*1024)      return (bytes/1024/1024).toFixed(1) + ' MB';
+    return (bytes/1024).toFixed(0) + ' KB';
+}
+
+// ── TABS ──
+function switchTab(n) {
+    document.querySelectorAll('.tab-btn').forEach((el, i) => {
+        el.classList.toggle('active', i === n);
+    });
+    document.querySelectorAll('.tab-content').forEach((el, i) => {
+        el.classList.toggle('active', i === n);
+    });
+}
+
+// ── RESET ──
+function resetApp() {
+    currentPDF = null; currentBytes = null;
+    pdfDoc = null; pdfjsDoc = null;
+    chapters = []; totalPages = 0; customRanges = [];
+    document.getElementById('file-input').value = '';
+    document.getElementById('app-section').style.display  = 'none';
+    document.getElementById('upload-section').style.display = 'block';
+    document.getElementById('toc-empty').style.display    = 'block';
+    document.getElementById('no-toc-msg').style.display   = 'none';
+    document.getElementById('chapters-area').style.display = 'none';
+    document.getElementById('chapters-list').innerHTML    = '';
+    document.getElementById('ranges-list').innerHTML      = '';
+    updateRangesCount();
+}
+
+// ── TOC DETECTION ──
+
+// allOutlineItems: lista COMPLETA e PLANA de todos os itens do sumário (com level)
+let allOutlineItems = [];
+let activeLevel = 0;
+
+async function analyzeTOC() {
+    if (!pdfjsDoc) { showToast('Nenhum PDF carregado.', 'error'); return; }
+
+    const btn = document.getElementById('btn-detect-toc');
+    btn.disabled = true;
+    showLoading('Lendo sumário do PDF...');
+
+    try {
+        const outline = await pdfjsDoc.getOutline();
+
+        if (!outline || outline.length === 0) {
+            document.getElementById('toc-empty').style.display    = 'none';
+            document.getElementById('no-toc-msg').style.display   = 'block';
+            document.getElementById('chapters-area').style.display = 'none';
+            hideLoading();
+            showToast('Nenhum sumário estruturado encontrado neste PDF.', 'error', 5000);
+            btn.disabled = false;
+            return;
+        }
+
+        document.getElementById('loading-text').textContent = 'Resolvendo páginas...';
+        allOutlineItems = [];
+        await parseOutlineFull(outline, allOutlineItems, pdfjsDoc, 0);
+
+        if (allOutlineItems.length === 0) {
+            hideLoading();
+            showToast('Sumário encontrado, mas não foi possível extrair capítulos.', 'error');
+            btn.disabled = false;
+            return;
+        }
+
+        // Descobre os níveis disponíveis
+        const maxLevel = Math.max(...allOutlineItems.map(i => i.level));
+
+        // Log de debug
+        console.group('[PDF Master] Outline completo detectado');
+        allOutlineItems.forEach((c, i) =>
+            console.log(`${'  '.repeat(c.level)}[L${c.level}] ${c.title} → pág. ${c.startPage}`)
+        );
+        console.groupEnd();
+
+        // Monta botões de nível
+        buildLevelButtons(maxLevel);
+
+        // Aplica nível 0 por padrão (apenas capítulos principais)
+        activeLevel = 0;
+        applyLevelFilter(0);
+
+        document.getElementById('toc-empty').style.display     = 'none';
+        document.getElementById('no-toc-msg').style.display    = 'none';
+        document.getElementById('chapters-area').style.display = 'block';
+        document.getElementById('level-controls').style.display = 'block';
+
+        hideLoading();
+        showToast(`Sumário carregado! ${chapters.length} capítulos principais.`, 'success');
+    } catch (err) {
+        hideLoading();
+        showToast('Erro ao analisar sumário: ' + (err.message || err), 'error', 6000);
+        console.error('[analyzeTOC]', err);
+    }
+    btn.disabled = false;
+}
+
+// Coleta TODOS os itens em lista plana, preservando o level de cada um
+async function parseOutlineFull(items, result, doc, level) {
+    for (const item of items) {
+        if (!item) continue;
+        const title = (item.title || '').trim() || 'Sem título';
+
+        let pageNum = null;
+        try {
+            if (item.dest) {
+                const dest = item.dest;
+                if (typeof dest === 'string') {
+                    const resolved = await doc.getDestination(dest);
+                    if (resolved && resolved[0]) {
+                        pageNum = (await doc.getPageIndex(resolved[0])) + 1;
+                    }
+                } else if (Array.isArray(dest) && dest.length > 0) {
+                    try {
+                        pageNum = (await doc.getPageIndex(dest[0])) + 1;
+                    } catch {
+                        const resolved = await doc.getDestination(dest[0]);
+                        if (resolved && resolved[0]) {
+                            pageNum = (await doc.getPageIndex(resolved[0])) + 1;
+                        }
+                    }
+                }
+            } else if (typeof item.pageNumber === 'number') {
+                pageNum = item.pageNumber + 1;
+            }
+        } catch (e) {
+            console.warn('[TOC] Falha ao resolver:', title, e.message);
+        }
+
+        if (pageNum !== null && pageNum >= 1 && pageNum <= totalPages) {
+            result.push({ title, startPage: pageNum, endPage: null, level });
+        }
+
+        if (item.items && item.items.length > 0) {
+            await parseOutlineFull(item.items, result, doc, level + 1);
+        }
+    }
+}
+
+// Filtra itens até o nível maxLevel E calcula endPage corretamente:
+// O fim de um capítulo de nível N é a página anterior ao próximo item
+// de nível <= N (não do próximo item qualquer).
+function applyLevelFilter(maxLevel) {
+    activeLevel = maxLevel;
+
+    // Filtra apenas itens com level <= maxLevel
+    const filtered = allOutlineItems.filter(i => i.level <= maxLevel);
+
+    // Para cada item filtrado, o endPage é:
+    // - página anterior ao próximo item de mesmo nível ou nível mais alto (menor número) na lista filtrada
+    // - ou totalPages se for o último
+    const result = filtered.map((item, idx) => {
+        // Próximo item de nível <= item.level
+        let endPage = totalPages;
+        for (let j = idx + 1; j < filtered.length; j++) {
+            if (filtered[j].level <= item.level) {
+                endPage = filtered[j].startPage - 1;
+                break;
+            }
+        }
+        // Garante que endPage nunca seja menor que startPage
+        endPage = Math.max(endPage, item.startPage);
+        return { ...item, endPage };
+    });
+
+    chapters = result;
+
+    // Atualiza UI
+    document.getElementById('chapters-count-text').innerHTML = `<strong>${chapters.length}</strong>`;
+    renderChapters(chapters);
+    updateLevelButtons(maxLevel);
+
+    console.log(`[PDF Master] Nível ${maxLevel}: ${chapters.length} itens`);
+}
+
+function buildLevelButtons(maxLevel) {
+    const container = document.getElementById('level-buttons');
+    container.innerHTML = '';
+
+    const labels = ['0 — Capítulos principais', '1 — + Seções', '2 — + Subseções', '3 — Todos os níveis'];
+    for (let l = 0; l <= Math.min(maxLevel, 3); l++) {
+        const btn = document.createElement('button');
+        btn.id = `lvl-btn-${l}`;
+        btn.className = 'btn btn-secondary btn-sm';
+        btn.style.cssText = 'border-radius:999px;font-size:12px;';
+        btn.innerHTML = `<i class="fa-solid fa-layer-group" style="font-size:10px"></i> ${labels[l] || 'Nível ' + l}`;
+        btn.onclick = () => applyLevelFilter(l);
+        container.appendChild(btn);
+    }
+
+    // Hint de contagem por nível
+    const hint = document.getElementById('level-hint');
+    const counts = [];
+    for (let l = 0; l <= maxLevel; l++) {
+        const n = allOutlineItems.filter(i => i.level === l).length;
+        counts.push(`Nível ${l}: ${n} itens`);
+    }
+    hint.textContent = counts.join('  ·  ');
+}
+
+function updateLevelButtons(activeL) {
+    for (let l = 0; l <= 3; l++) {
+        const btn = document.getElementById(`lvl-btn-${l}`);
+        if (!btn) continue;
+        if (l === activeL) {
+            btn.className = 'btn btn-primary btn-sm';
+            btn.style.borderRadius = '999px';
+        } else {
+            btn.className = 'btn btn-secondary btn-sm';
+            btn.style.borderRadius = '999px';
+        }
+    }
+}
+
+function renderChapters(list) {
+    const tbody = document.getElementById('chapters-list');
+    tbody.innerHTML = '';
+
+    if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:32px;color:var(--text-3)">
+            Nenhum capítulo neste nível.</td></tr>`;
+        return;
+    }
+
+    list.forEach((ch, displayIdx) => {
+        const tr = document.createElement('tr');
+        const pagesCount = Math.max(0, ch.endPage - ch.startPage + 1);
+        const indent = ch.level > 0 ? ch.level * 14 : 0;
+        const levelDot = ch.level > 0
+            ? `<span style="color:var(--accent);opacity:0.5;margin-right:5px;font-size:10px">${'›'.repeat(ch.level)}</span>`
+            : '';
+
+        // Cor do badge por nível
+        const badgeColors = ['var(--accent)', '#a78bfa', '#34d399', '#f97316'];
+        const badgeColor = badgeColors[Math.min(ch.level, badgeColors.length - 1)];
+
+        tr.innerHTML = `
+            <td style="width:40px">
+                <span class="chapter-num">${displayIdx + 1}</span>
+            </td>
+            <td>
+                <div class="chapter-title" style="padding-left:${indent}px">
+                    ${levelDot}${escHtml(ch.title)}
+                </div>
+                <div style="padding-left:${indent}px;font-size:11px;color:var(--text-3);margin-top:2px">
+                    ${pagesCount} página${pagesCount !== 1 ? 's' : ''}
+                    ${ch.level > 0 ? `<span style="color:var(--border);margin:0 4px">·</span><span style="color:var(--text-3)">nível ${ch.level}</span>` : ''}
+                </div>
+            </td>
+            <td style="text-align:center;width:120px">
+                <span class="chapter-badge" style="color:${badgeColor};border-color:${badgeColor}33;background:${badgeColor}11">
+                    ${ch.startPage}–${ch.endPage}
+                </span>
+            </td>
+            <td style="text-align:center;width:90px">
+                <button class="btn btn-success btn-sm"
+                    title="Baixar: ${escHtml(ch.title)} (págs. ${ch.startPage}–${ch.endPage})"
+                    onclick="splitSingleChapterDirect(${ch.startPage}, ${ch.endPage}, ${JSON.stringify(ch.title).replace(/'/g, "\'")})"
+                >
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function filterChapters(q) {
+    const base = chapters; // já é a lista filtrada pelo nível ativo
+    const filtered = q.trim()
+        ? base.filter(c => c.title.toLowerCase().includes(q.toLowerCase()))
+        : base;
+    renderChapters(filtered);
+}
+
+function clearChapters() {
+    chapters = [];
+    allOutlineItems = [];
+    document.getElementById('chapters-area').style.display  = 'none';
+    document.getElementById('level-controls').style.display = 'none';
+    document.getElementById('toc-empty').style.display      = 'block';
+    document.getElementById('chapter-search').value         = '';
+    document.getElementById('level-buttons').innerHTML      = '';
+}
+
+// ── SINGLE CHAPTER SPLIT ──
+// Recebe startPage, endPage e title diretamente (evita problema de índice pós-filtro)
+async function splitSingleChapterDirect(startPage, endPage, title) {
+    showLoading(`Extraindo: ${String(title).substring(0, 50)}...`);
+    try {
+        const blob = await extractPageRange(startPage, endPage);
+        const name = sanitize(String(title), 60);
+        downloadBlob(blob, `${pad(startPage)}-${pad(endPage)}_${name}.pdf`);
+        hideLoading();
+        showToast(`Capítulo baixado! (págs. ${startPage}–${endPage})`, 'success');
+    } catch (e) {
+        hideLoading();
+        showToast('Erro ao extrair capítulo: ' + (e.message || e), 'error');
+        console.error('[splitSingleChapter]', e);
+    }
+}
+
+// Mantém compatibilidade com chamadas por índice
+async function splitSingleChapter(idx) {
+    const ch = chapters[idx];
+    if (!ch) { showToast('Capítulo não encontrado.', 'error'); return; }
+    await splitSingleChapterDirect(ch.startPage, ch.endPage, ch.title);
+}
+
+// ── SPLIT ALL CHAPTERS ──
+async function splitAllChapters() {
+    if (chapters.length === 0) { showToast('Detecte o sumário primeiro.', 'error'); return; }
+    const progressWrap = document.getElementById('split-progress');
+    const progressFill = document.getElementById('progress-fill');
+    const progressText = document.getElementById('progress-text');
+    progressWrap.style.display = 'block';
+
+    const zip = new JSZip();
+    let ok = 0, fail = 0;
+
+    for (let i = 0; i < chapters.length; i++) {
+        const ch = chapters[i];
+        const pct = Math.round(((i) / chapters.length) * 100);
+        progressFill.style.width = pct + '%';
+        progressText.textContent = `Processando ${i + 1}/${chapters.length}: ${ch.title.substring(0, 50)}...`;
+        try {
+            const blob = await extractPageRange(ch.startPage, ch.endPage);
+            const name = sanitize(ch.title, 50);
+            zip.file(`${pad(ch.startPage)}-${pad(ch.endPage)}_${name}.pdf`, await blob.arrayBuffer());
+            ok++;
+        } catch (e) { fail++; console.error(e); }
+    }
+
+    progressFill.style.width = '100%';
+    progressText.textContent = 'Gerando ZIP...';
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const zipName = currentPDF.name.replace('.pdf', '') + '_capitulos.zip';
+    downloadBlob(zipBlob, zipName);
+
+    setTimeout(() => { progressWrap.style.display = 'none'; }, 2000);
+    showToast(`${ok} capítulos extraídos${fail > 0 ? ` (${fail} com erro)` : ''}!`, fail ? 'error' : 'success', 5000);
+}
+
+// ── MANUAL RANGE ──
+function setFullRange() {
+    document.getElementById('manual-start').value = 1;
+    document.getElementById('manual-end').value   = totalPages;
+}
+
+async function splitManualRange() {
+    const s = parseInt(document.getElementById('manual-start').value) || 1;
+    const e = parseInt(document.getElementById('manual-end').value)   || totalPages;
+    if (s < 1 || e > totalPages || s > e) {
+        showToast(`Intervalo inválido. O PDF tem ${totalPages} páginas.`, 'error'); return;
+    }
+    showLoading(`Extraindo páginas ${s}–${e}...`);
+    try {
+        const blob = await extractPageRange(s, e);
+        downloadBlob(blob, `paginas_${s}-${e}.pdf`);
+        hideLoading();
+        showToast(`Páginas ${s}–${e} extraídas!`, 'success');
+    } catch (err) {
+        hideLoading();
+        showToast('Erro ao extrair páginas.', 'error');
+    }
+}
+
+// ── MULTI RANGES ──
+function addRange() {
+    const id = Date.now();
+    customRanges.push({ id, start: 1, end: totalPages || 1, label: '' });
+    renderRanges();
+}
+
+function removeRange(id) {
+    customRanges = customRanges.filter(r => r.id !== id);
+    renderRanges();
+}
+
+function clearRanges() { customRanges = []; renderRanges(); }
+
+function renderRanges() {
+    const el = document.getElementById('ranges-list');
+    el.innerHTML = '';
+    customRanges.forEach((r, i) => {
+        const div = document.createElement('div');
+        div.className = 'range-row';
+        div.innerHTML = `
+            <span class="range-label">${i+1}</span>
+            <input type="number" min="1" max="${totalPages}" value="${r.start}"
+                oninput="customRanges[${i}].start=+this.value" placeholder="Início">
+            <span class="range-label" style="color:var(--text-3)">–</span>
+            <input type="number" min="1" max="${totalPages}" value="${r.end}"
+                oninput="customRanges[${i}].end=+this.value" placeholder="Fim">
+            <input type="text" value="${r.label}" placeholder="Nome (opcional)"
+                oninput="customRanges[${i}].label=this.value" style="flex:1">
+            <button class="btn-remove" onclick="removeRange(${r.id})"><i class="fa-solid fa-times"></i></button>
+        `;
+        el.appendChild(div);
+    });
+    updateRangesCount();
+}
+
+function updateRangesCount() {
+    document.getElementById('ranges-count').textContent = customRanges.length;
+}
+
+async function splitMultiRanges() {
+    if (customRanges.length === 0) { showToast('Adicione ao menos um intervalo.', 'error'); return; }
+    showLoading('Processando intervalos...');
+    const zip = new JSZip();
+    let ok = 0;
+    for (let i = 0; i < customRanges.length; i++) {
+        const r = customRanges[i];
+        if (r.start < 1 || r.end > totalPages || r.start > r.end) continue;
+        try {
+            const blob = await extractPageRange(r.start, r.end);
+            const label = r.label.trim() || `secao_${i+1}`;
+            zip.file(`${pad(r.start)}-${pad(r.end)}_${sanitize(label, 50)}.pdf`, await blob.arrayBuffer());
+            ok++;
+        } catch (e) { console.error(e); }
+    }
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    downloadBlob(zipBlob, currentPDF.name.replace('.pdf','') + '_recortes.zip');
+    hideLoading();
+    showToast(`${ok} recortes extraídos com sucesso!`, 'success');
+}
+
+// ── CORE EXTRACT ──
+// Sempre recarrega o documento pdf-lib a partir dos bytes originais
+// para evitar o bug de ArrayBuffer detached / página 1 repetida.
+async function extractPageRange(startPage, endPage) {
+    if (!currentBytes) throw new Error('PDF não carregado.');
+
+    // Cria cópia fresca dos bytes para esta operação
+    const freshBytes = currentBytes.slice(0);
+    const srcDoc = await PDFLib.PDFDocument.load(freshBytes, { ignoreEncryption: true });
+
+    const newPdf = await PDFLib.PDFDocument.create();
+
+    const indices = [];
+    const pageCount = srcDoc.getPageCount();
+    const realEnd = Math.min(endPage, pageCount);
+    for (let p = startPage - 1; p < realEnd; p++) {
+        if (p >= 0) indices.push(p);
+    }
+
+    if (indices.length === 0) throw new Error(`Nenhuma página válida no intervalo ${startPage}-${endPage}.`);
+
+    const copied = await newPdf.copyPages(srcDoc, indices);
+    copied.forEach(pg => newPdf.addPage(pg));
+
+    const bytes = await newPdf.save();
+    return new Blob([bytes], { type: 'application/pdf' });
+}
+
+// ── COMPRESS ──
+function selectCompressMode(el, mode) {
+    document.querySelectorAll('.compress-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    compressMode = mode;
+}
+
+async function compressPDF() {
+    showLoading('Comprimindo PDF...');
+    try {
+        const opts = { useObjectStreams: true };
+        if (compressMode === 'meta' || compressMode === 'full') opts.addDefaultPage = false;
+        if (compressMode === 'full') {
+            // Remove metadata
+            pdfDoc.setTitle(''); pdfDoc.setAuthor('');
+            pdfDoc.setSubject(''); pdfDoc.setKeywords([]);
+            pdfDoc.setProducer(''); pdfDoc.setCreator('');
+        }
+        const bytes = await pdfDoc.save(opts);
+        const blob = new Blob([bytes], { type: 'application/pdf' });
+        const suffix = compressMode === 'full' ? '_otimizado' : '_comprimido';
+        downloadBlob(blob, currentPDF.name.replace('.pdf', suffix + '.pdf'));
+        const original = currentPDF.size;
+        const saved = Math.max(0, original - bytes.byteLength);
+        const pct = ((saved / original) * 100).toFixed(1);
+        hideLoading();
+        showToast(`PDF comprimido! ${pct > 0 ? `Economia: ${pct}%` : 'Sem redução significativa'}`, 'success', 5000);
+    } catch (e) {
+        hideLoading();
+        showToast('Erro ao comprimir.', 'error');
+    }
+}
+
+// ── CONVERT ──
+async function convertToImages() {
+    const limit = Math.min(totalPages, 60);
+    showLoading(`Convertendo ${limit} páginas para PNG...`);
+    const zip = new JSZip();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    for (let i = 1; i <= limit; i++) {
+        document.getElementById('loading-text').textContent = `Convertendo página ${i}/${limit}...`;
+        try {
+            const page = await pdfjsDoc.getPage(i);
+            const vp   = page.getViewport({ scale: 1.5 });
+            canvas.width = vp.width; canvas.height = vp.height;
+            await page.render({ canvasContext: ctx, viewport: vp }).promise;
+            const b64 = canvas.toDataURL('image/png').split(',')[1];
+            zip.file(`pagina_${String(i).padStart(3,'0')}.png`, b64, { base64: true });
+        } catch (e) { console.warn('Erro na página', i); }
+    }
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    downloadBlob(zipBlob, currentPDF.name.replace('.pdf', '_imagens.zip'));
+    hideLoading();
+    showToast(`${limit} páginas convertidas!`, 'success');
+}
+
+async function extractText() {
+    showLoading('Extraindo texto...');
+    let out = `Texto extraído de: ${currentPDF.name}\nTotal de páginas: ${totalPages}\nData: ${new Date().toLocaleString('pt-BR')}\n\n`;
+    for (let i = 1; i <= totalPages; i++) {
+        if (i % 10 === 0) document.getElementById('loading-text').textContent = `Extraindo página ${i}/${totalPages}...`;
+        try {
+            const pg   = await pdfjsDoc.getPage(i);
+            const txt  = await pg.getTextContent();
+            const text = txt.items.map(t => t.str).join(' ').trim();
+            if (text) out += `\n--- Página ${i} ---\n${text}\n`;
+        } catch (e) {}
+    }
+    downloadBlob(new Blob([out], { type: 'text/plain;charset=utf-8' }), currentPDF.name.replace('.pdf', '_texto.txt'));
+    hideLoading();
+    showToast('Texto extraído com sucesso!', 'success');
+}
+
+async function extractTextHTML() {
+    showLoading('Gerando HTML...');
+    let html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>${escHtml(currentPDF.name)}</title>
+<style>body{font-family:Georgia,serif;max-width:800px;margin:0 auto;padding:32px;line-height:1.6}
+.page{border-top:2px solid #ccc;margin:32px 0;padding-top:16px}
+.page-label{font-size:12px;color:#999;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+</style></head><body><h1>${escHtml(currentPDF.name)}</h1>`;
+    for (let i = 1; i <= totalPages; i++) {
+        if (i % 10 === 0) document.getElementById('loading-text').textContent = `Página ${i}/${totalPages}...`;
+        try {
+            const pg  = await pdfjsDoc.getPage(i);
+            const txt = await pg.getTextContent();
+            const t   = txt.items.map(x => x.str).join(' ').trim();
+            if (t) html += `<div class="page"><div class="page-label">Página ${i}</div><p>${escHtml(t)}</p></div>`;
+        } catch (e) {}
+    }
+    html += '</body></html>';
+    downloadBlob(new Blob([html], { type: 'text/html;charset=utf-8' }), currentPDF.name.replace('.pdf', '.html'));
+    hideLoading();
+    showToast('HTML gerado!', 'success');
+}
+
+async function generateMetaReport() {
+    showLoading('Lendo metadados...');
+    try {
+        const meta = await pdfjsDoc.getMetadata();
+        const info = meta.info || {};
+        let report = `=== RELATÓRIO DE METADADOS ===\nArquivo: ${currentPDF.name}\nTamanho: ${formatSize(currentPDF.size)}\nPáginas: ${totalPages}\n\n`;
+        report += `--- Informações do documento ---\n`;
+        for (const [k, v] of Object.entries(info)) {
+            if (v) report += `${k}: ${v}\n`;
+        }
+        const outline = await pdfjsDoc.getOutline();
+        report += `\n--- Sumário ---\n`;
+        report += outline ? `${outline.length} itens de nível raiz encontrados\n` : 'Nenhum sumário\n';
+        if (chapters.length > 0) {
+            report += `\n--- Capítulos detectados ---\n`;
+            chapters.forEach((c, i) => {
+                report += `${i+1}. ${c.title} (págs. ${c.startPage}–${c.endPage})\n`;
+            });
+        }
+        downloadBlob(new Blob([report], { type: 'text/plain;charset=utf-8' }), currentPDF.name.replace('.pdf', '_metadados.txt'));
+        hideLoading();
+        showToast('Relatório gerado!', 'success');
+    } catch (e) {
+        hideLoading();
+        showToast('Erro ao ler metadados.', 'error');
+    }
+}
+
+// ── TRANSLATE ──
+async function getFirstPageText() {
+    const pg  = await pdfjsDoc.getPage(1);
+    const txt = await pg.getTextContent();
+    return txt.items.map(t => t.str).join(' ').substring(0, 4500);
+}
+
+async function translateGoogle() {
+    showLoading('Extraindo texto...');
+    try {
+        const text = await getFirstPageText();
+        const url  = `https://translate.google.com/?sl=en&tl=pt&text=${encodeURIComponent(text)}&op=translate`;
+        window.open(url, '_blank');
+        hideLoading();
+        showToast('Google Tradutor aberto em nova aba!', 'success');
+    } catch (e) { hideLoading(); showToast('Erro ao extrair texto.', 'error'); }
+}
+
+async function openDeepL() {
+    showLoading('Extraindo texto...');
+    try {
+        const text = await getFirstPageText();
+        const url  = `https://www.deepl.com/translator#en/pt/${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+        hideLoading();
+        showToast('DeepL aberto em nova aba!', 'success');
+    } catch (e) { hideLoading(); showToast('Erro ao extrair texto.', 'error'); }
+}
+
+async function extractAndCopy() {
+    showLoading('Extraindo texto...');
+    try {
+        let text = '';
+        const limit = Math.min(totalPages, 5);
+        for (let i = 1; i <= limit; i++) {
+            const pg  = await pdfjsDoc.getPage(i);
+            const txt = await pg.getTextContent();
+            text += txt.items.map(t => t.str).join(' ') + '\n\n';
+        }
+        await navigator.clipboard.writeText(text.trim());
+        hideLoading();
+        showToast('Texto das primeiras páginas copiado!', 'success');
+    } catch (e) {
+        hideLoading();
+        showToast('Não foi possível copiar. Verifique as permissões do navegador.', 'error');
+    }
+}
+
+// ── UTILS ──
+function downloadBlob(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a   = document.createElement('a');
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function sanitize(str, max = 60) {
+    return str.replace(/[^a-zA-Z0-9À-ÿ\s\-_]/g, '_').replace(/\s+/g, '_').substring(0, max);
+}
+
+function pad(n) { return String(n).padStart(4, '0'); }
+
+function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── KEYBOARD ──
+document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'o') {
+        e.preventDefault();
+        document.getElementById('file-input').click();
+    }
+});
+
+// ── INIT ──
+window.addEventListener('load', () => {
+    // Verificação de dependências
+    const missing = [];
+    if (typeof pdfjsLib === 'undefined')  missing.push('PDF.js');
+    if (typeof PDFLib === 'undefined')    missing.push('pdf-lib');
+    if (typeof JSZip === 'undefined')     missing.push('JSZip');
+
+    if (missing.length > 0) {
+        const msg = `Erro: bibliotecas não carregadas: ${missing.join(', ')}. Verifique sua conexão e recarregue.`;
+        console.error('[PDF Master]', msg);
+        document.body.insertAdjacentHTML('afterbegin',
+            `<div style="position:fixed;inset:0;z-index:9999;background:#0f1117;display:flex;align-items:center;justify-content:center;padding:32px">
+              <div style="background:#1a1d27;border:1px solid #ef444455;border-radius:16px;padding:32px;max-width:480px;text-align:center">
+                <i class="fa-solid fa-triangle-exclamation" style="font-size:40px;color:#ef4444;margin-bottom:16px;display:block"></i>
+                <div style="font-size:16px;font-weight:700;color:#e8eaf5;margin-bottom:8px">Erro ao carregar bibliotecas</div>
+                <div style="font-size:13px;color:#9195b0;margin-bottom:20px">${msg}</div>
+                <button onclick="location.reload()" style="background:#10B981;color:#fff;border:none;padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer">Recarregar</button>
+              </div>
+            </div>`
+        );
+        return;
+    }
+
+    // Configura worker PDF.js
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+    addRange();
+    console.log('%c[PDF Master v3] Todas as libs carregadas. Pronto.', 'color:#10B981;font-weight:bold');
+});
+</script>
+</body>
+</html>
