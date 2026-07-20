@@ -196,14 +196,14 @@ export interface SignupForm {
 export interface Database {
   public: {
     Tables: {
-      profiles:      { Row: Profile };
-      posts:         { Row: Post };
-      comments:      { Row: Comment };
-      likes:         { Row: Like };
-      follows:       { Row: Follow };
-      achievements:  { Row: Achievement };
-      xp_logs:       { Row: XpLog };
-      notifications: { Row: Notification };
+      profiles:      { Row: Profile; Insert: Partial<Profile>; Update: Partial<Profile> };
+      posts:         { Row: Post; Insert: Partial<Post>; Update: Partial<Post> };
+      comments:      { Row: Comment; Insert: Partial<Comment>; Update: Partial<Comment> };
+      likes:         { Row: Like; Insert: Partial<Like>; Update: Partial<Like> };
+      follows:       { Row: Follow; Insert: Partial<Follow>; Update: Partial<Follow> };
+      achievements:  { Row: Achievement; Insert: Partial<Achievement>; Update: Partial<Achievement> };
+      xp_logs:       { Row: XpLog; Insert: Partial<XpLog>; Update: Partial<XpLog> };
+      notifications: { Row: Notification; Insert: Partial<Notification>; Update: Partial<Notification> };
     };
   };
 }
