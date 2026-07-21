@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, Bone, LogOut, Pencil } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
@@ -31,13 +31,10 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href={isAuthenticated ? "/feed" : "/"}
-            className="flex items-center gap-2 font-bold text-ossohub-navy hover:opacity-80 transition-opacity">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ossohub-navy">
-              <Bone className="h-4 w-4 text-ossohub-green" />
+            className="flex items-center hover:opacity-80 transition-opacity">
+            <div className="flex items-center rounded-lg bg-ossohub-navy px-2.5 py-1.5">
+              <img src="/logo.png" alt="OssoHub" className="h-6 w-auto" />
             </div>
-            <span className="text-xl tracking-tight">
-              Osso<span className="text-ossohub-green">Hub</span>
-            </span>
           </Link>
 
           {/* Nav links — autenticado */}
@@ -60,6 +57,12 @@ export function Navbar() {
 
           {/* Direita */}
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
+              <a href="https://ossohub.com" target="_blank" rel="noopener noreferrer">
+                Ferramenta Clínica <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </Button>
+
             {!isAuthenticated ? (
               <>
                 <Button variant="ghost" size="sm" asChild><Link href="/login">Entrar</Link></Button>
@@ -139,6 +142,11 @@ export function Navbar() {
             <div className="pt-2 border-t border-slate-100 mt-1 space-y-1">
               <Button size="sm" className="w-full" asChild>
                 <Link href="/post/new" onClick={() => setMobileOpen(false)}>+ Publicar</Link>
+              </Button>
+              <Button variant="outline" size="sm" className="w-full" asChild>
+                <a href="https://ossohub.com" target="_blank" rel="noopener noreferrer">
+                  Ferramenta Clínica <ExternalLink className="h-3.5 w-3.5" />
+                </a>
               </Button>
               <button onClick={signOut}
                 className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">

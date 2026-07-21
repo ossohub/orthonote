@@ -250,9 +250,8 @@ function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white py-8">
       <div className="ossohub-container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ossohub-slate">
-        <div className="flex items-center gap-2 font-semibold text-ossohub-navy">
-          <Bone className="h-4 w-4 text-ossohub-green" />
-          OssoHub
+        <div className="flex items-center rounded-lg bg-ossohub-navy px-2 py-1">
+          <img src="/logo.png" alt="OssoHub" className="h-5 w-auto" />
         </div>
         <p>© 2024 OssoHub — Todos os direitos reservados</p>
         <div className="flex gap-4">

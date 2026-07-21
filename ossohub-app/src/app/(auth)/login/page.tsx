@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Bone, Loader2, Eye, EyeOff } from "lucide-react";
+import { Loader2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -66,13 +66,10 @@ function LoginForm() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ossohub-navy">
-              <Bone className="h-5 w-5 text-ossohub-green" />
+          <Link href="/" className="inline-flex items-center">
+            <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
+              <img src="/logo.png" alt="OssoHub" className="h-8 w-auto" />
             </div>
-            <span className="text-2xl font-bold text-ossohub-navy">
-              Osso<span className="text-ossohub-green">Hub</span>
-            </span>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Entrar na plataforma</h1>
           <p className="mt-1 text-sm text-ossohub-slate">

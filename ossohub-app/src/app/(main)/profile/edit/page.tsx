@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, ArrowLeft, Plus, X } from "lucide-react";
+import { Loader2, ArrowLeft, Plus, X, Camera } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/lib/supabase/client";
+import { getInitials } from "@/lib/utils";
 import Link from "next/link";
 
 const SPECIALTIES = [
@@ -32,6 +34,12 @@ export default function EditProfilePage() {
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string>("");
+  const [fullName, setFullName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -57,6 +65,8 @@ export default function EditProfilePage() {
           rqe:        profile.rqe ?? "",
         });
         setSpecialties(profile.specialties ?? []);
+        setFullName(profile.full_name);
+        setPhotoUrl(profile.photo_url ?? null);
       }
       setLoading(false);
     }
@@ -69,7 +79,46 @@ export default function EditProfilePage() {
     );
   }
 
+  function handleAvatarSelect(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Selecione um arquivo de imagem");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("A imagem deve ter no máximo 5MB");
+      return;
+    }
+
+    setAvatarFile(file);
+    setAvatarPreview(URL.createObjectURL(file));
+  }
+
   async function onSubmit(data: FormData) {
+    let newPhotoUrl = photoUrl;
+
+    if (avatarFile) {
+      setUploadingAvatar(true);
+      const ext = avatarFile.name.split(".").pop() ?? "jpg";
+      const path = `${userId}/${Date.now()}.${ext}`;
+
+      const { error: uploadError } = await supabase
+        .storage.from("avatars")
+        .upload(path, avatarFile, { cacheControl: "3600", upsert: true });
+
+      setUploadingAvatar(false);
+
+      if (uploadError) {
+        toast.error("Erro ao enviar a foto de perfil");
+        return;
+      }
+
+      const { data: publicUrlData } = supabase.storage.from("avatars").getPublicUrl(path);
+      newPhotoUrl = publicUrlData.publicUrl;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
@@ -77,6 +126,7 @@ export default function EditProfilePage() {
         bio:         data.bio || null,
         city_state:  data.city_state || null,
         rqe:         data.rqe || null,
+        photo_url:   newPhotoUrl,
         specialties,
       })
       .eq("id", userId);
@@ -105,6 +155,43 @@ export default function EditProfilePage() {
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6">Editar perfil</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {/* Foto de perfil */}
+          <div className="ossohub-card p-5 flex items-center gap-4">
+            <div className="relative">
+              <Avatar className="h-20 w-20">
+                <AvatarImage src={avatarPreview ?? photoUrl ?? undefined} />
+                <AvatarFallback className="text-lg">{getInitials(fullName || "U")}</AvatarFallback>
+              </Avatar>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingAvatar}
+                className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-ossohub-green text-white shadow hover:bg-ossohub-green-dark transition-colors disabled:opacity-60"
+                aria-label="Trocar foto de perfil"
+              >
+                {uploadingAvatar ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Camera className="h-3.5 w-3.5" />}
+              </button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAvatarSelect}
+              />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-ossohub-navy">Foto de perfil</p>
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="text-sm text-ossohub-green hover:underline"
+              >
+                Alterar foto
+              </button>
+              <p className="text-xs text-ossohub-slate mt-0.5">JPG ou PNG, até 5MB</p>
+            </div>
+          </div>
+
           {/* Nome */}
           <div className="ossohub-card p-5">
             <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Nome completo *</label>
