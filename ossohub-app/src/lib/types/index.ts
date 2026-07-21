@@ -193,17 +193,55 @@ export interface SignupForm {
 // ============================================================
 // Supabase Database type (generated manually)
 // ============================================================
+// Interfaces don't get an implicit string index signature in TypeScript,
+// so they don't structurally satisfy Record<string, unknown> on their own.
+// This mapped type creates a plain object type from each interface so the
+// Database shape below is compatible with Supabase's GenericSchema constraint.
+type Loose<T> = { [K in keyof T]: T[K] };
+
+// Foreign-key relationships (mirrors supabase/schema.sql) so embedded
+// selects like `.select("*, author:profiles!posts_user_id_fkey(*)")`
+// resolve to real types instead of `never`.
+type Rel<Name extends string, Cols extends string[], Ref extends string, RefCols extends string[]> = {
+  foreignKeyName: Name;
+  columns: Cols;
+  isOneToOne: boolean;
+  referencedRelation: Ref;
+  referencedColumns: RefCols;
+};
+
 export interface Database {
   public: {
     Tables: {
-      profiles:      { Row: Profile; Insert: Partial<Profile>; Update: Partial<Profile> };
-      posts:         { Row: Post; Insert: Partial<Post>; Update: Partial<Post> };
-      comments:      { Row: Comment; Insert: Partial<Comment>; Update: Partial<Comment> };
-      likes:         { Row: Like; Insert: Partial<Like>; Update: Partial<Like> };
-      follows:       { Row: Follow; Insert: Partial<Follow>; Update: Partial<Follow> };
-      achievements:  { Row: Achievement; Insert: Partial<Achievement>; Update: Partial<Achievement> };
-      xp_logs:       { Row: XpLog; Insert: Partial<XpLog>; Update: Partial<XpLog> };
-      notifications: { Row: Notification; Insert: Partial<Notification>; Update: Partial<Notification> };
+      profiles:      { Row: Loose<Profile>; Insert: Partial<Loose<Profile>>; Update: Partial<Loose<Profile>>; Relationships: [] };
+      posts:         { Row: Loose<Post>; Insert: Partial<Loose<Post>>; Update: Partial<Loose<Post>>; Relationships: [
+        Rel<"posts_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      comments:      { Row: Loose<Comment>; Insert: Partial<Loose<Comment>>; Update: Partial<Loose<Comment>>; Relationships: [
+        Rel<"comments_user_id_fkey", ["user_id"], "profiles", ["id"]>,
+        Rel<"comments_post_id_fkey", ["post_id"], "posts", ["id"]>,
+        Rel<"comments_parent_comment_id_fkey", ["parent_comment_id"], "comments", ["id"]>
+      ] };
+      likes:         { Row: Loose<Like>; Insert: Partial<Loose<Like>>; Update: Partial<Loose<Like>>; Relationships: [
+        Rel<"likes_post_id_fkey", ["post_id"], "posts", ["id"]>,
+        Rel<"likes_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      follows:       { Row: Loose<Follow>; Insert: Partial<Loose<Follow>>; Update: Partial<Loose<Follow>>; Relationships: [
+        Rel<"follows_follower_id_fkey", ["follower_id"], "profiles", ["id"]>,
+        Rel<"follows_following_id_fkey", ["following_id"], "profiles", ["id"]>
+      ] };
+      achievements:  { Row: Loose<Achievement>; Insert: Partial<Loose<Achievement>>; Update: Partial<Loose<Achievement>>; Relationships: [
+        Rel<"achievements_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      xp_logs:       { Row: Loose<XpLog>; Insert: Partial<Loose<XpLog>>; Update: Partial<Loose<XpLog>>; Relationships: [
+        Rel<"xp_logs_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      notifications: { Row: Loose<Notification>; Insert: Partial<Loose<Notification>>; Update: Partial<Loose<Notification>>; Relationships: [
+        Rel<"notifications_user_id_fkey", ["user_id"], "profiles", ["id"]>,
+        Rel<"notifications_actor_id_fkey", ["actor_id"], "profiles", ["id"]>
+      ] };
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }
