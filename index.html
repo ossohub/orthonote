@@ -1515,10 +1515,29 @@ function filtrarClassif() {
 
 /* ── IMAGENS CLASSIFICAÇÕES ── */
 const _uploadTimes = {};
-function triggerUpload(id) { document.getElementById('file-' + id).click(); }
-function loadImg(id, input) {
+// ── Imagens de referência (Classificações/Vias de Acesso) ──
+// Substituição de imagem é GLOBAL (vale pra todo mundo) e só o
+// admin autenticado (Firebase Auth) consegue subir/remover — a
+// regra do Firestore em global_images/{id} é quem garante isso
+// de verdade; a checagem isAdminLoggedIn() aqui é só pra
+// esconder os controles de quem não é admin.
+let GLOBAL_IMG = {};
+
+async function carregarImagensGlobais() {
+  try {
+    const snap = await db.collection('global_images').get();
+    const map = {};
+    snap.forEach(d => { map[d.id] = d.data().data; });
+    GLOBAL_IMG = map;
+  } catch (e) { console.warn('Não foi possível carregar imagens globais:', e.message); }
+}
+
+function triggerUpload(ns, id) { document.getElementById('file-' + ns + '-' + id).click(); }
+
+function loadImg(ns, id, input) {
+  if (!isAdminLoggedIn()) { mostrarToast('Só o admin pode alterar esta imagem.'); input.value = ''; return; }
   const file = input.files[0]; if (!file) return;
-  const uid = currentRoom || 'local';
+  const uid = _auth.currentUser.uid;
   if (!_uploadTimes[uid]) _uploadTimes[uid] = [];
   const now = Date.now();
   _uploadTimes[uid] = _uploadTimes[uid].filter(t => now - t < 60000);
@@ -1528,13 +1547,20 @@ function loadImg(id, input) {
   _uploadTimes[uid].push(now);
   const reader = new FileReader();
   reader.onload = e => {
-    comprimirImg(e.target.result, 900, compressed => {
-      exibirImg(id, compressed);
-      salvarImgFirestore(id, compressed);
+    const raw = e.target.result;
+    // Documentos do Firestore têm limite de ~1MB. Comprime e, se
+    // ainda assim ficar grande, tenta de novo menor antes de desistir.
+    comprimirImg(raw, 1100, c1 => {
+      if (c1.length < 900000) return salvarImagemGlobal(ns, id, c1);
+      comprimirImg(raw, 800, c2 => {
+        if (c2.length < 900000) return salvarImagemGlobal(ns, id, c2);
+        comprimirImg(raw, 550, c3 => salvarImagemGlobal(ns, id, c3));
+      });
     });
   };
   reader.readAsDataURL(file);
 }
+
 function comprimirImg(dataUrl, maxW, cb) {
   const img = new Image();
   img.onload = () => {
@@ -1543,63 +1569,42 @@ function comprimirImg(dataUrl, maxW, cb) {
     if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
     canvas.width = w; canvas.height = h;
     canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-    cb(canvas.toDataURL('image/jpeg', 0.82));
+    cb(canvas.toDataURL('image/jpeg', 0.85));
   };
   img.src = dataUrl;
 }
-function exibirImg(id, src) {
-  const imgEl = document.getElementById('imgel-' + id);
-  const preview = document.getElementById('preview-' + id);
-  const ph = document.getElementById('img-' + id)?.querySelector('.img-placeholder');
-  const figWrap = document.getElementById('clfig-' + id);
-  if (imgEl) imgEl.src = src;
-  if (preview) preview.style.display = 'block';
-  if (ph) ph.style.display = 'none';
-  if (figWrap) figWrap.style.display = 'none';
-}
-function removeImg(id) {
-  const imgEl = document.getElementById('imgel-' + id);
-  const preview = document.getElementById('preview-' + id);
-  const ph = document.getElementById('img-' + id)?.querySelector('.img-placeholder');
-  const figWrap = document.getElementById('clfig-' + id);
-  if (imgEl) imgEl.src = '';
-  if (preview) preview.style.display = 'none';
-  if (ph) ph.style.display = 'flex';
-  if (figWrap) figWrap.style.display = 'flex';
-  document.getElementById('file-' + id).value = '';
-  try { localStorage.removeItem('ossohub_img_' + currentRoom + '_' + id); } catch(e) {}
-  if (currentRoom && !useLocalMode) db.collection('rooms').doc(currentRoom).collection('images').doc(id).delete().catch(() => {});
-}
-async function salvarImgFirestore(id, dataUrl) {
-  if (!currentRoom) return;
-  if (useLocalMode) {
-    try { localStorage.setItem('ossohub_img_' + currentRoom + '_' + id, dataUrl); mostrarToast('Imagem salva (local)!'); } catch(e) { mostrarToast('Imagem grande demais para armazenamento local.'); }
-    return;
-  }
+
+async function salvarImagemGlobal(ns, id, dataUrl) {
+  if (!isAdminLoggedIn()) return;
+  const key = ns + '_' + id;
   try {
-    await db.collection('rooms').doc(currentRoom).collection('images').doc(id)
-            .set({ data: dataUrl, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
-    mostrarToast('Imagem salva!');
+    await db.collection('global_images').doc(key).set({
+      data: dataUrl,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedBy: _auth.currentUser.email
+    });
+    GLOBAL_IMG[key] = dataUrl;
+    mostrarToast('Imagem atualizada para todos os usuários!');
+    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
   } catch (e) {
-    console.warn('Fallback imagem local:', e.message);
-    try { localStorage.setItem('ossohub_img_' + currentRoom + '_' + id, dataUrl); mostrarToast('Imagem salva (local)!'); } catch(e2) {}
+    mostrarToast(e.code === 'permission-denied' ? 'Sem permissão de admin para alterar esta imagem.' : 'Erro ao salvar imagem.');
+    console.error(e);
   }
 }
-async function carregarImagensFirestore() {
-  if (!currentRoom) return;
-  // Carrega do localStorage (modo local ou fallback)
+
+async function removerImagemGlobal(ns, id) {
+  if (!isAdminLoggedIn()) return;
+  if (!confirm('Remover esta imagem e voltar à imagem padrão?')) return;
+  const key = ns + '_' + id;
   try {
-    const prefix = 'ossohub_img_' + currentRoom + '_';
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (k && k.startsWith(prefix)) exibirImg(k.slice(prefix.length), localStorage.getItem(k));
-    }
-  } catch(e) {}
-  if (useLocalMode) return;
-  try {
-    const snap = await db.collection('rooms').doc(currentRoom).collection('images').get();
-    snap.forEach(doc => exibirImg(doc.id, doc.data().data));
-  } catch (e) { console.warn('Não foi possível carregar imagens do Firebase:', e.message); }
+    await db.collection('global_images').doc(key).delete();
+    delete GLOBAL_IMG[key];
+    mostrarToast('Imagem removida.');
+    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
+  } catch (e) {
+    mostrarToast('Erro ao remover imagem.');
+    console.error(e);
+  }
 }
 
 /* ── EXPORTAR ANAMNESE ── */
@@ -2004,7 +2009,13 @@ _auth.onAuthStateChanged((user) => {
   } else {
     _showAdminLogin();
   }
+  // Mostra/esconde os controles de editar imagem (só admin) na hora,
+  // sem precisar recarregar a página.
+  if (typeof renderClassificacoes === 'function' && document.getElementById('cl-regions')) renderClassificacoes();
+  if (typeof renderVias === 'function' && document.getElementById('va-regions')) renderVias();
 });
+
+function isAdminLoggedIn() { return !!(_auth && _auth.currentUser); }
 
 async function carregarSugestoes() {
   const list = document.getElementById('admin-list');
@@ -3288,14 +3299,24 @@ function renderVias() {
     let cardsHtml = '';
     vias.forEach(v => {
       const notaHtml = v.nota ? `<div class="va-nota">${escHtml(v.nota)}</div>` : '';
-      const hasImg = VA_IMG_MAP.has(v.id);
-      const hasRW = VA_RW_MAP.has(v.id);
+      const admin = isAdminLoggedIn();
+      const override = GLOBAL_IMG['va_' + v.id];
+      const hasImg = !!override || VA_IMG_MAP.has(v.id);
+      const hasRW = !override && VA_RW_MAP.has(v.id);
       const rwSrc = hasRW ? `'/img/va/${v.id}_rw.jpg'` : 'undefined';
+      const imgSrc = override || `/img/va/${v.id}.jpg`;
       const figIco = hasImg ? `<svg class="va-fig-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--og)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>` : '';
-      const figBtn = hasImg ? `<button class="va-fig-btn" onclick="abrirFigura('/img/va/${v.id}.jpg','${escHtml(v.nome)}',${rwSrc});event.stopPropagation()">
+      const figBtn = hasImg ? `<button class="va-fig-btn" onclick="abrirFigura('${imgSrc}','${escHtml(v.nome)}',${rwSrc});event.stopPropagation()">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Ver Figuras${hasRW ? ' (CB + RW)' : ' do Campbell\'s'}
+            ${override ? 'Ver Figura (atualizada)' : ('Ver Figuras' + (hasRW ? ' (CB + RW)' : ' do Campbell\'s'))}
           </button>` : '';
+      const adminImgCtrls = admin ? `
+          <button class="va-fig-btn" onclick="triggerUpload('va','${v.id}');event.stopPropagation()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            ${override ? 'Trocar imagem (admin)' : 'Adicionar imagem (admin)'}
+          </button>
+          ${override ? `<button class="va-fig-btn" onclick="removerImagemGlobal('va','${v.id}');event.stopPropagation()">✕ Remover imagem</button>` : ''}
+          <input type="file" id="file-va-${v.id}" accept="image/*" style="display:none" onchange="loadImg('va','${v.id}', this)"/>` : '';
       cardsHtml += `
       <div class="va-card" id="vacard-${v.id}">
         <div class="va-hdr" onclick="toggleVaCard(this)">
@@ -3321,6 +3342,7 @@ function renderVias() {
           </div>
           ${notaHtml}
           ${figBtn}
+          ${adminImgCtrls}
         </div>
       </div>`;
     });
@@ -3338,20 +3360,42 @@ function renderVias() {
 }
 
 function imgSlot(id, nome) {
+  const tit = (nome || id).replace(/'/g, "\\'");
+  const admin = isAdminLoggedIn();
+  const override = GLOBAL_IMG['cl_' + id];
+  const fileInput = `<input type="file" id="file-cl-${id}" accept="image/*" style="display:none" onchange="loadImg('cl','${id}', this)"/>`;
+
+  // Admin já substituiu a imagem padrão — vale para todos os usuários.
+  if (override) {
+    return `<div class="img-slot" id="img-${id}">
+    <div class="cl-fig-wrap" id="clfig-${id}">
+      <div class="cl-fig-thumb" onclick="abrirFigura('${override}','${tit}',undefined)">
+        <img src="${override}" alt="${tit}" loading="lazy"/>
+        <div class="cl-fig-overlay">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+          <span>Imagem atualizada</span>
+        </div>
+      </div>
+      ${admin ? `<button class="cl-upload-alt" onclick="triggerUpload('cl','${id}')">Trocar imagem</button>
+      <button class="img-remove" onclick="removerImagemGlobal('cl','${id}')">✕ Remover, voltar ao padrão</button>` : ''}
+    </div>
+    ${admin ? fileInput : ''}
+  </div>`;
+  }
+
   const hasCB = CL_IMG_MAP.has(id);
   const hasRW = CL_RW_MAP.has(id);
   const hasWEB = CL_WEB_MAP.has(id);
-  const tit = (nome || id).replace(/'/g, "\\'");
+  const adminUploadBtn = admin ? `<button class="cl-upload-alt" onclick="triggerUpload('cl','${id}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Substituir imagem (admin)
+      </button>` : '';
 
   if (hasCB) {
     const cbSrc = `/img/cl/${id}_cb.jpg`;
     const rwSrc = hasRW ? `'/img/cl/${id}_rw.jpg'` : 'undefined';
     const label = hasRW ? "Campbell's + Rockwood" : "Campbell's 15ª ed";
     return `<div class="img-slot" id="img-${id}">
-    <div class="img-preview" id="preview-${id}" style="display:none">
-      <img id="imgel-${id}" src="" alt="Imagem"/>
-      <button class="img-remove" onclick="removeImg('${id}')">✕ Remover imagem própria</button>
-    </div>
     <div class="cl-fig-wrap" id="clfig-${id}">
       <div class="cl-fig-thumb" onclick="abrirFigura('${cbSrc}','${tit}',${rwSrc})">
         <img src="${cbSrc}" alt="${tit}" loading="lazy"/>
@@ -3360,12 +3404,9 @@ function imgSlot(id, nome) {
           <span>${label}</span>
         </div>
       </div>
-      <button class="cl-upload-alt" onclick="triggerUpload('${id}')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        Adicionar imagem própria
-      </button>
+      ${adminUploadBtn}
     </div>
-    <input type="file" id="file-${id}" accept="image/*" style="display:none" onchange="loadImg('${id}', this)"/>
+    ${admin ? fileInput : ''}
   </div>`;
   }
 
@@ -3374,10 +3415,6 @@ function imgSlot(id, nome) {
     const rwSrc = hasRW ? `'/img/cl/${id}_rw.jpg'` : 'undefined';
     const label = hasRW ? "Literatura + Rockwood" : "Literatura científica";
     return `<div class="img-slot" id="img-${id}">
-    <div class="img-preview" id="preview-${id}" style="display:none">
-      <img id="imgel-${id}" src="" alt="Imagem"/>
-      <button class="img-remove" onclick="removeImg('${id}')">✕ Remover imagem própria</button>
-    </div>
     <div class="cl-fig-wrap" id="clfig-${id}">
       <div class="cl-fig-thumb" onclick="abrirFigura('${webSrc}','${tit}',${rwSrc})">
         <img src="${webSrc}" alt="${tit}" loading="lazy"/>
@@ -3386,25 +3423,20 @@ function imgSlot(id, nome) {
           <span>${label}</span>
         </div>
       </div>
-      <button class="cl-upload-alt" onclick="triggerUpload('${id}')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        Adicionar imagem própria
-      </button>
+      ${adminUploadBtn}
     </div>
-    <input type="file" id="file-${id}" accept="image/*" style="display:none" onchange="loadImg('${id}', this)"/>
+    ${admin ? fileInput : ''}
   </div>`;
   }
 
+  if (!admin) return ''; // sem imagem padrão e usuário não é admin: nada pra mostrar
+
   return `<div class="img-slot" id="img-${id}">
-    <div class="img-placeholder" onclick="triggerUpload('${id}')">
+    <div class="img-placeholder" onclick="triggerUpload('cl','${id}')">
       <svg width="28" height="28" style="color:#90A4AE"><use href="#i-img"/></svg>
-      <span>Clique para adicionar imagem</span><span class="img-hint">JPEG/PNG · Imagem da classificação</span>
+      <span>Clique para adicionar imagem (admin)</span><span class="img-hint">JPEG/PNG · Imagem da classificação</span>
     </div>
-    <input type="file" id="file-${id}" accept="image/*" style="display:none" onchange="loadImg('${id}', this)"/>
-    <div class="img-preview" id="preview-${id}" style="display:none">
-      <img id="imgel-${id}" src="" alt="Imagem"/>
-      <button class="img-remove" onclick="removeImg('${id}')">✕ Remover</button>
-    </div>
+    ${fileInput}
   </div>`;
 }
 
@@ -3432,7 +3464,7 @@ function renderClassificacoes() {
           <table class="cl-table"><tbody>${rows}</tbody></table>
           ${notaHtml}
           ${imgSlot(c.id, c.nome)}
-          ${!CL_IMG_MAP.has(c.id) && !CL_WEB_MAP.has(c.id) && CL_RW_MAP.has(c.id) ? `<button class="va-fig-btn" style="margin-top:8px" onclick="abrirFigura(undefined,'${(c.nome||c.id).replace(/'/g,"\\'")}','/img/cl/${c.id}_rw.jpg')">
+          ${!GLOBAL_IMG['cl_' + c.id] && !CL_IMG_MAP.has(c.id) && !CL_WEB_MAP.has(c.id) && CL_RW_MAP.has(c.id) ? `<button class="va-fig-btn" style="margin-top:8px" onclick="abrirFigura(undefined,'${(c.nome||c.id).replace(/'/g,"\\'")}','/img/cl/${c.id}_rw.jpg')">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             Ver Figura (Rockwood)
           </button>` : ''}
@@ -3465,10 +3497,10 @@ function inicializarApp() {
   buildMedList();
   renderClassificacoes();
   renderVias();
+  carregarImagensGlobais().then(() => { renderClassificacoes(); renderVias(); });
   // Renderiza abas (NÃO reseta — dados já foram carregados por carregarDados ou estão no estado padrão)
   notaDirty = false;
   renderNotaTabs();
-  carregarImagensFirestore();
   inserirDataHoje();
 }
 
