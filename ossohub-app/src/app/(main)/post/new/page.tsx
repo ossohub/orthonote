@@ -9,7 +9,7 @@ import { Loader2, Plus, X, Upload, AlertTriangle, Stethoscope, BookOpen, Message
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { awardXP, checkPostBadges } from "@/lib/xp";
+import { awardSelfXP, checkPostBadges } from "@/lib/xp";
 import type { PostType, ClinicalCaseData } from "@/lib/types";
 
 const TAGS_SUGGESTIONS = [
@@ -111,14 +111,14 @@ export default function NewPostPage() {
     }
 
     // XP + badges
-    const { newXP, leveledUp, newLevel } = await awardXP(user.id, xpActionMap[postType], post.id);
+    const result = await awardSelfXP(xpActionMap[postType], post.id);
     await checkPostBadges(user.id, postType, tags);
 
     const xpAmount = { post_clinical_case: 60, post_article: 80, post_experience: 40, post_question: 40 }[xpActionMap[postType]];
     toast.success(`Post publicado! +${xpAmount} XP 🎉`);
 
-    if (leveledUp) {
-      setTimeout(() => toast.success(`⬆️ Subiu para o nível ${newLevel}!`), 1000);
+    if (result?.leveledUp) {
+      setTimeout(() => toast.success(`⬆️ Subiu para o nível ${result.newLevel}!`), 1000);
     }
 
     router.push(`/post/${post.id}`);

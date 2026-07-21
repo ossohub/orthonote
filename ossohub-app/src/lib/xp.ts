@@ -48,45 +48,33 @@ export function getProgressToNextLevel(xp: number) {
 // ============================================================
 // Adicionar XP
 // ============================================================
-export async function awardXP(
-  userId: string,
-  action: XpAction,
+// A concessão de XP roda inteiramente no banco (função
+// SECURITY DEFINER `award_self_xp`), validada contra as regras
+// oficiais — o cliente não tem mais permissão para escrever
+// diretamente em profiles.total_xp/current_level nem em
+// xp_logs, então não dá pra forjar XP chamando a API direto.
+// Só concede XP para o próprio usuário autenticado (auth.uid());
+// XP por curtida recebida é creditado automaticamente por um
+// trigger no banco quando alguém curte um post de outra pessoa.
+export async function awardSelfXP(
+  action: Exclude<XpAction, "like_received">,
   referenceId?: string
-): Promise<{ newXP: number; newLevel: Level; leveledUp: boolean }> {
+): Promise<{ newXP: number; newLevel: Level; leveledUp: boolean } | null> {
   const supabase = createClient();
-  const xpGained = XP_RULES[action];
 
-  // 1. Buscar XP atual
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("total_xp, current_level")
-    .eq("id", userId)
+  const { data, error } = await supabase
+    .rpc("award_self_xp", { p_action: action, p_reference_id: referenceId ?? null })
     .single();
 
-  const oldXP = profile?.total_xp ?? 0;
-  const oldLevel = getLevelFromXP(oldXP);
-  const newXP = oldXP + xpGained;
-  const newLevel = getLevelFromXP(newXP);
-  const leveledUp = newLevel > oldLevel;
+  if (error || !data) return null;
 
-  // 2. Atualizar XP e nível
-  await supabase
-    .from("profiles")
-    .update({ total_xp: newXP, current_level: newLevel })
-    .eq("id", userId);
+  const result = data as { new_xp: number; new_level: number; leveled_up: boolean };
 
-  // 3. Registrar log
-  await supabase.from("xp_logs").insert({
-    user_id: userId,
-    action_type: action,
-    xp_gained: xpGained,
-    reference_id: referenceId ?? null,
-  });
+  if (result.leveled_up) {
+    await checkAndUnlockBadges(result.new_xp);
+  }
 
-  // 4. Verificar badges
-  await checkAndUnlockBadges(userId, newXP);
-
-  return { newXP, newLevel, leveledUp };
+  return { newXP: result.new_xp, newLevel: result.new_level as Level, leveledUp: result.leveled_up };
 }
 
 // ============================================================
@@ -106,45 +94,18 @@ export const BADGES: Record<BadgeKey, { name: string; description: string; emoji
   xp_master:         { name: "Mestre do XP",         emoji: "🏆", color: "bg-emerald-100 text-emerald-700", description: "Acumulou 1000+ XP" },
 };
 
-async function checkAndUnlockBadges(userId: string, totalXP: number) {
-  const supabase = createClient();
-
-  // Badges que podem ser verificados por XP total
-  const badgesToCheck: BadgeKey[] = [];
-  if (totalXP >= 1000) badgesToCheck.push("xp_master");
-
-  // Buscar badges já conquistados
-  const { data: existing } = await supabase
-    .from("achievements")
-    .select("badge_key")
-    .eq("user_id", userId);
-
-  const existingKeys = new Set(existing?.map((a) => a.badge_key) ?? []);
-
-  for (const key of badgesToCheck) {
-    if (!existingKeys.has(key)) {
-      await unlockBadge(userId, key);
-    }
+async function checkAndUnlockBadges(totalXP: number) {
+  if (totalXP >= 1000) {
+    await unlockBadge("xp_master");
   }
 }
 
-export async function unlockBadge(userId: string, badgeKey: BadgeKey) {
+// Desbloqueio de badge roda via função SECURITY DEFINER no banco
+// (`unlock_badge`), que valida a chave contra a lista oficial e
+// já cria a notificação — sempre para o próprio usuário logado.
+export async function unlockBadge(badgeKey: BadgeKey) {
   const supabase = createClient();
-  const badge = BADGES[badgeKey];
-
-  const { error } = await supabase.from("achievements").insert({
-    user_id: userId,
-    badge_key: badgeKey,
-  });
-
-  if (!error) {
-    // Notificar o usuário
-    await supabase.from("notifications").insert({
-      user_id: userId,
-      type: "badge_unlocked",
-      message: `Você conquistou o badge "${badge.name}" ${badge.emoji}`,
-    });
-  }
+  await supabase.rpc("unlock_badge", { p_badge_key: badgeKey });
 }
 
 // Verificar badges baseados em ações específicas
@@ -166,7 +127,7 @@ export async function checkPostBadges(userId: string, postType: string, tags: st
 
   // Primeiro post
   if (totalPosts === 1 && !existingKeys.has("first_post")) {
-    await unlockBadge(userId, "first_post");
+    await unlockBadge("first_post");
   }
 
   // 5 casos clínicos
@@ -177,13 +138,13 @@ export async function checkPostBadges(userId: string, postType: string, tags: st
       .eq("user_id", userId)
       .eq("type", "clinical_case");
     if ((caseCount ?? 0) >= 5 && !existingKeys.has("case_publisher")) {
-      await unlockBadge(userId, "case_publisher");
+      await unlockBadge("case_publisher");
     }
   }
 
   // Artigo científico
   if (postType === "scientific_article" && !existingKeys.has("article_publisher")) {
-    await unlockBadge(userId, "article_publisher");
+    await unlockBadge("article_publisher");
   }
 
   // Especialidades por tags
@@ -195,7 +156,7 @@ export async function checkPostBadges(userId: string, postType: string, tags: st
       .eq("user_id", userId)
       .contains("tags", ["ombro"]);
     if ((c ?? 0) >= 5 && !existingKeys.has("specialist_shoulder")) {
-      await unlockBadge(userId, "specialist_shoulder");
+      await unlockBadge("specialist_shoulder");
     }
   }
 }

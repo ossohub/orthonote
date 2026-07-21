@@ -242,6 +242,15 @@ export interface Database {
       ] };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      award_self_xp: {
+        Args: { p_action: XpAction; p_reference_id?: string | null };
+        Returns: { new_xp: number; new_level: number; leveled_up: boolean }[];
+      };
+      unlock_badge: {
+        Args: { p_badge_key: string };
+        Returns: boolean;
+      };
+    };
   };
 }

@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import { awardXP } from "@/lib/xp";
+import { awardSelfXP } from "@/lib/xp";
 import { formatRelativeDate, getInitials } from "@/lib/utils";
 import type { Post, Comment } from "@/lib/types";
 
@@ -66,10 +66,9 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
       await supabase.from("likes").delete().match({ post_id: post.id, user_id: currentUserId });
     } else {
       await supabase.from("likes").insert({ post_id: post.id, user_id: currentUserId });
-      // XP para o autor do post
-      if (post.user_id !== currentUserId) {
-        await awardXP(post.user_id, "like_received", post.id);
-      }
+      // O XP para o autor do post é creditado automaticamente por um
+      // trigger no banco (não confiamos mais no cliente pra dizer
+      // "credite fulano" — isso permitia forjar XP para qualquer um).
     }
   }
 
@@ -86,7 +85,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
     if (!error && data) {
       setComments((prev) => [...prev, data]);
       setCommentText("");
-      await awardXP(currentUserId, "comment", data.id);
+      await awardSelfXP("comment", data.id);
       toast.success("+15 XP pelo comentário 💬");
     }
 
