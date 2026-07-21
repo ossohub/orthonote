@@ -94,6 +94,13 @@ export default function SignupPage() {
       }
     }
 
+    if (!authData.session) {
+      // Confirmação de email exigida — ainda não há sessão ativa.
+      toast.success("Conta criada! Confira seu email para confirmar antes de entrar.");
+      router.push("/login");
+      return;
+    }
+
     toast.success("Conta criada! Bem-vindo ao OssoHub 🦴");
     router.push("/feed");
     router.refresh();

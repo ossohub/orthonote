@@ -46,7 +46,13 @@ function LoginForm() {
     });
 
     if (error) {
-      toast.error("Email ou senha incorretos");
+      if (error.code === "email_not_confirmed") {
+        toast.error("Confirme seu email antes de entrar. Verifique sua caixa de entrada (e spam).");
+      } else if (error.code === "invalid_credentials") {
+        toast.error("Email ou senha incorretos");
+      } else {
+        toast.error(error.message || "Erro ao entrar. Tente novamente.");
+      }
       return;
     }
 
