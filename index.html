@@ -110,7 +110,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 .s-tit{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:.88rem;color:var(--og);margin-bottom:.75rem}
 .s-num{background:var(--og);color:#fff;font-size:.72rem;font-weight:900;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .lbl{display:block;font-size:.75rem;font-weight:600;color:#5A7A9A;margin-bottom:.28rem;text-transform:uppercase;letter-spacing:.03em}
-input[type=text],input[type=number],textarea,select.fsel{width:100%;border:1.5px solid #1E3550;border-radius:7px;padding:.52rem .7rem;font-size:.88rem;font-family:inherit;color:var(--tx);background:#0E1C30;transition:border .18s,box-shadow .18s;resize:vertical}
+input[type=text],input[type=number],input[type=password],input[type=email],textarea,select.fsel{width:100%;border:1.5px solid #1E3550;border-radius:7px;padding:.52rem .7rem;font-size:.88rem;font-family:inherit;color:var(--tx);background:#0E1C30;transition:border .18s,box-shadow .18s;resize:vertical}
 input:focus,textarea:focus,select.fsel:focus{outline:none;border-color:var(--og);box-shadow:0 0 0 3px rgba(16,185,129,.15)}
 input::placeholder,textarea::placeholder{color:#2A4560;font-size:.85rem}
 textarea{min-height:110px;line-height:1.55}
@@ -497,6 +497,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
 </style>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js" crossorigin="anonymous"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
   integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -966,18 +967,32 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
             </button>
           </div>
         </div>
-        <div class="admin-filters" id="admin-filters">
-          <button class="admin-filter-btn active" onclick="filtrarAdmin('todos')" data-f="todos">Todos</button>
-          <button class="admin-filter-btn" onclick="filtrarAdmin('pendente')" data-f="pendente">Pendentes</button>
-          <button class="admin-filter-btn" onclick="filtrarAdmin('revisado')" data-f="revisado">Revisados</button>
-          <button class="admin-filter-btn" onclick="filtrarAdmin('sugestao')" data-f="sugestao">Sugestões</button>
-          <button class="admin-filter-btn" onclick="filtrarAdmin('erro')" data-f="erro">Erros</button>
+        <div id="admin-login" style="display:none;max-width:340px;margin:2rem auto;text-align:center">
+          <svg width="32" height="32" style="color:var(--og);margin-bottom:.5rem"><use href="#i-admin"/></svg>
+          <p style="font-size:.85rem;color:#888;margin-bottom:1rem">Login administrativo necessário para ver as sugestões.</p>
+          <input type="email" id="admin-email" placeholder="seu@email.com" autocomplete="username"
+            class="input" style="margin-bottom:.5rem;width:100%" onkeydown="if(event.key==='Enter')document.getElementById('admin-pass').focus()"/>
+          <input type="password" id="admin-pass" placeholder="Senha" autocomplete="current-password"
+            class="input" style="width:100%" onkeydown="if(event.key==='Enter')loginAdmin()"/>
+          <button class="btn btn-c" onclick="loginAdmin()" style="margin-top:.75rem;width:100%">Entrar</button>
+          <p id="admin-login-err" style="color:#F87171;font-size:.75rem;margin-top:.6rem;display:none"></p>
         </div>
-        <div id="admin-list">
-          <div class="admin-empty">
-            <svg width="36" height="36"><use href="#i-admin"/></svg>
-            <span>Carregando sugestões…</span>
+        <div id="admin-content" style="display:none">
+          <div class="admin-filters" id="admin-filters">
+            <button class="admin-filter-btn active" onclick="filtrarAdmin('todos')" data-f="todos">Todos</button>
+            <button class="admin-filter-btn" onclick="filtrarAdmin('pendente')" data-f="pendente">Pendentes</button>
+            <button class="admin-filter-btn" onclick="filtrarAdmin('revisado')" data-f="revisado">Revisados</button>
+            <button class="admin-filter-btn" onclick="filtrarAdmin('sugestao')" data-f="sugestao">Sugestões</button>
+            <button class="admin-filter-btn" onclick="filtrarAdmin('erro')" data-f="erro">Erros</button>
+            <button class="admin-filter-btn" onclick="logoutAdmin()" style="margin-left:auto;color:#F87171">Sair do admin</button>
           </div>
+          <div id="admin-list">
+            <div class="admin-empty">
+              <svg width="36" height="36"><use href="#i-admin"/></svg>
+              <span>Carregando sugestões…</span>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
       </div>
@@ -1334,6 +1349,7 @@ function sairSala(force = false) {
   document.removeEventListener('keydown',  _resetActivity);
   document.removeEventListener('touchstart', _resetActivity);
   document.getElementById('sb-admin').style.display = 'none';
+  if (_auth.currentUser) _auth.signOut(); // encerra também a sessão de admin, se houver
   // Clear form
   ['nome','idade','prof','proc','qp','hma','hpp','hfam','hsoc','interr','obs'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
@@ -1930,11 +1946,56 @@ const ADMIN_ROOM = 'ossohub-admin'; // sala reservada para o administrador
 let adminFilter = 'todos';
 let todasSugestoes = [];
 
+// A visibilidade do botão "Admin" na barra lateral é só uma
+// conveniência de navegação (mostra o link pra quem entrar numa
+// sala com esse nome) — NÃO é o controle de segurança. Quem
+// realmente decide o que pode ser lido/editado são as regras do
+// Firestore, checadas contra o e-mail autenticado via Firebase
+// Auth (ver login abaixo e as regras "suggestions" no console).
 function verificarAdmin(roomId) {
   const isAdmin = roomId === ADMIN_ROOM;
   document.getElementById('sb-admin').style.display = isAdmin ? 'block' : 'none';
-  if (isAdmin) carregarSugestoes();
 }
+
+const _auth = firebase.auth();
+
+function _showAdminLogin(msg) {
+  document.getElementById('admin-login').style.display = 'block';
+  document.getElementById('admin-content').style.display = 'none';
+  const err = document.getElementById('admin-login-err');
+  if (msg) { err.textContent = msg; err.style.display = 'block'; }
+  else { err.style.display = 'none'; }
+}
+
+function _showAdminContent() {
+  document.getElementById('admin-login').style.display = 'none';
+  document.getElementById('admin-content').style.display = 'block';
+}
+
+async function loginAdmin() {
+  const email = document.getElementById('admin-email').value.trim();
+  const pass  = document.getElementById('admin-pass').value;
+  if (!email || !pass) return;
+  try {
+    await _auth.signInWithEmailAndPassword(email, pass);
+    document.getElementById('admin-pass').value = '';
+  } catch (e) {
+    _showAdminLogin('Email ou senha inválidos.');
+  }
+}
+
+function logoutAdmin() {
+  _auth.signOut();
+}
+
+_auth.onAuthStateChanged((user) => {
+  if (user) {
+    _showAdminContent();
+    carregarSugestoes();
+  } else {
+    _showAdminLogin();
+  }
+});
 
 async function carregarSugestoes() {
   const list = document.getElementById('admin-list');
@@ -1944,7 +2005,13 @@ async function carregarSugestoes() {
     todasSugestoes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderizarSugestoes();
   } catch(e) {
-    list.innerHTML = '<div class="admin-empty"><span>Erro ao carregar. Verifique as regras do Firebase.</span></div>';
+    if (e.code === 'permission-denied') {
+      // Autenticado, mas o e-mail não é o admin autorizado nas regras.
+      _showAdminLogin('Este usuário não tem permissão de administrador.');
+      _auth.signOut();
+    } else {
+      list.innerHTML = '<div class="admin-empty"><span>Erro ao carregar. Verifique as regras do Firebase.</span></div>';
+    }
     console.error(e);
   }
 }
