@@ -1980,7 +1980,16 @@ async function loginAdmin() {
     await _auth.signInWithEmailAndPassword(email, pass);
     document.getElementById('admin-pass').value = '';
   } catch (e) {
-    _showAdminLogin('Email ou senha inválidos.');
+    console.error('loginAdmin:', e.code, e.message);
+    const msgs = {
+      'auth/user-not-found':      'Esse email não está cadastrado no Authentication.',
+      'auth/wrong-password':      'Senha incorreta.',
+      'auth/invalid-credential':  'Email ou senha incorretos.',
+      'auth/invalid-email':       'Email inválido.',
+      'auth/too-many-requests':   'Muitas tentativas. Aguarde um pouco e tente de novo.',
+      'auth/operation-not-allowed': 'Login por email/senha não está habilitado no Firebase (Authentication → Sign-in method).',
+    };
+    _showAdminLogin(msgs[e.code] || ('Erro: ' + (e.code || e.message)));
   }
 }
 
