@@ -852,6 +852,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
             <svg width="16" height="16" style="color:var(--sx);flex-shrink:0"><use href="#i-srch"/></svg>
             <input type="text" id="cl-filter" placeholder="Buscar em todas as regiões: classificação, sigla, segmento…" oninput="filtrarClassif()"/>
           </div>
+          <button class="sug-btn" id="btn-nova-cl" style="display:none;position:static;flex-shrink:0;background:#0B2A22;color:var(--og);border-color:#1E3A5A" onclick="abrirModalNovaCl()" title="Adicionar nova classificação (admin)">+</button>
           <button class="sug-btn" style="position:static;flex-shrink:0" onclick="abrirModal('Classificações')" title="Sugerir nova classificação ou reportar erro">!</button>
         </div>
 
@@ -1132,6 +1133,50 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
     <div class="modal-footer">
       <button class="btn btn-c" onclick="fecharModalFonte()">Cancelar</button>
       <button class="btn btn-e" onclick="salvarFonteImagem()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL NOVA CLASSIFICAÇÃO / EDITAR (admin) ══ -->
+<div class="modal-overlay" id="modal-nova-cl" style="display:none" onclick="if(event.target===this)fecharModalNovaCl()">
+  <div class="modal-box" style="max-width:520px">
+    <div class="modal-title" id="modal-nova-cl-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--og)" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+      Nova Classificação
+    </div>
+    <p class="modal-sub">Criada por você, aparece para todos os usuários. Só o admin pode editar ou remover.</p>
+    <input type="hidden" id="ncl-id"/>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.72rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.35rem">Título</label>
+      <input type="text" id="ncl-titulo" placeholder="Ex: Classificação de..." maxlength="140"/>
+    </div>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.72rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.35rem">Região</label>
+      <select id="ncl-regiao" class="fsel"></select>
+    </div>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.72rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.35rem">Fonte (opcional)</label>
+      <input type="text" id="ncl-fonte" placeholder="Ex: Campbell's Operative Orthopaedics 15ª ed." maxlength="140"/>
+    </div>
+    <div style="margin-bottom:.75rem">
+      <label style="font-size:.72rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.35rem">Texto</label>
+      <textarea class="modal-textarea" id="ncl-texto" placeholder="Descrição, tipos, conduta..."></textarea>
+    </div>
+    <div style="margin-bottom:.5rem">
+      <label style="font-size:.72rem;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.35rem">Figura (opcional)</label>
+      <div id="ncl-fig-preview" style="display:none;margin-bottom:.5rem">
+        <img id="ncl-fig-preview-img" style="max-width:100%;max-height:160px;border-radius:8px;border:1px solid #1E3550"/>
+      </div>
+      <input type="file" id="ncl-figura" accept="image/*" onchange="onNclFigChange(this)"/>
+      <button type="button" class="btn btn-c" id="ncl-fig-remove" style="display:none;margin-top:.5rem;font-size:.75rem" onclick="removerNclFigura()">✕ Remover figura</button>
+    </div>
+    <div id="ncl-err" class="room-err" style="display:none"></div>
+    <div class="modal-footer">
+      <button class="btn btn-c" onclick="fecharModalNovaCl()">Cancelar</button>
+      <button class="btn btn-e" id="ncl-save-btn" onclick="salvarClassificacaoCustom()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
         Salvar
       </button>
@@ -1607,6 +1652,151 @@ async function salvarFonteImagem() {
   } catch (e) {
     console.error('salvarFonteImagem falhou:', e.code, e.message);
     mostrarToast('Erro ao salvar fonte: ' + (e.code || e.message));
+  }
+}
+
+// ── Classificações criadas pelo admin ──
+// Coleção separada (custom_classificacoes) das classificações fixas do
+// código (CL_DATA). Só o admin autenticado pode criar/editar/excluir —
+// garantido pela regra do Firestore; a checagem isAdminLoggedIn() aqui
+// só esconde os controles de quem não é admin.
+let CUSTOM_CL = [];
+let _nclFiguraData = null; // dataURL da figura pendente de salvar no modal
+
+async function carregarClassificacoesCustom() {
+  try {
+    const snap = await db.collection('custom_classificacoes').get();
+    const list = [];
+    snap.forEach(d => list.push({ id: d.id, ...d.data() }));
+    CUSTOM_CL = list;
+  } catch (e) {
+    console.warn('Não foi possível carregar classificações personalizadas:', e.code, e.message);
+    if (isAdminLoggedIn()) mostrarToast('Erro ao carregar classificações adicionadas (' + (e.code || e.message) + ').');
+  }
+}
+
+function _popularSelectRegiaoNcl() {
+  const sel = document.getElementById('ncl-regiao');
+  if (sel.options.length) return;
+  REGIOES.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.id; opt.textContent = r.nome;
+    sel.appendChild(opt);
+  });
+}
+
+function abrirModalNovaCl(editId) {
+  if (!isAdminLoggedIn()) return;
+  _popularSelectRegiaoNcl();
+  _nclFiguraData = undefined; // undefined = não mexeu; null = removida; string = nova
+  document.getElementById('ncl-err').style.display = 'none';
+  document.getElementById('ncl-fig-preview').style.display = 'none';
+  document.getElementById('ncl-fig-remove').style.display = 'none';
+  document.getElementById('ncl-figura').value = '';
+  if (editId) {
+    const cc = CUSTOM_CL.find(c => c.id === editId);
+    if (!cc) return;
+    document.getElementById('modal-nova-cl-title').lastChild.textContent = ' Editar Classificação';
+    document.getElementById('ncl-id').value = cc.id;
+    document.getElementById('ncl-titulo').value = cc.titulo || '';
+    document.getElementById('ncl-regiao').value = cc.regiao || REGIOES[0].id;
+    document.getElementById('ncl-fonte').value = cc.fonte || '';
+    document.getElementById('ncl-texto').value = cc.texto || '';
+    if (cc.figura) {
+      document.getElementById('ncl-fig-preview-img').src = cc.figura;
+      document.getElementById('ncl-fig-preview').style.display = 'block';
+      document.getElementById('ncl-fig-remove').style.display = 'inline-block';
+    }
+  } else {
+    document.getElementById('modal-nova-cl-title').lastChild.textContent = ' Nova Classificação';
+    document.getElementById('ncl-id').value = '';
+    document.getElementById('ncl-titulo').value = '';
+    document.getElementById('ncl-regiao').value = REGIOES[0].id;
+    document.getElementById('ncl-fonte').value = '';
+    document.getElementById('ncl-texto').value = '';
+  }
+  document.getElementById('modal-nova-cl').style.display = 'flex';
+}
+function fecharModalNovaCl() { document.getElementById('modal-nova-cl').style.display = 'none'; }
+
+function onNclFigChange(input) {
+  const file = input.files[0]; if (!file) return;
+  if (!['image/jpeg','image/png','image/webp'].includes(file.type)) { mostrarToast('Use JPEG, PNG ou WebP.'); input.value = ''; return; }
+  if (file.size > 10 * 1024 * 1024) { mostrarToast('Imagem muito grande (máx 10MB).'); input.value = ''; return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const raw = e.target.result;
+    comprimirImg(raw, 1100, c1 => {
+      const done = dataUrl => {
+        _nclFiguraData = dataUrl;
+        document.getElementById('ncl-fig-preview-img').src = dataUrl;
+        document.getElementById('ncl-fig-preview').style.display = 'block';
+        document.getElementById('ncl-fig-remove').style.display = 'inline-block';
+      };
+      if (c1.length < 900000) return done(c1);
+      comprimirImg(raw, 800, c2 => {
+        if (c2.length < 900000) return done(c2);
+        comprimirImg(raw, 550, c3 => done(c3));
+      });
+    });
+  };
+  reader.readAsDataURL(file);
+}
+function removerNclFigura() {
+  _nclFiguraData = null;
+  document.getElementById('ncl-figura').value = '';
+  document.getElementById('ncl-fig-preview').style.display = 'none';
+  document.getElementById('ncl-fig-remove').style.display = 'none';
+}
+
+async function salvarClassificacaoCustom() {
+  if (!isAdminLoggedIn()) { mostrarToast('Sessão de admin expirou — faça login novamente.'); return; }
+  const errEl = document.getElementById('ncl-err');
+  errEl.style.display = 'none';
+  const id = document.getElementById('ncl-id').value;
+  const titulo = document.getElementById('ncl-titulo').value.trim().slice(0, 140);
+  const regiao = document.getElementById('ncl-regiao').value;
+  const fonte = document.getElementById('ncl-fonte').value.trim().slice(0, 140);
+  const texto = document.getElementById('ncl-texto').value.trim().slice(0, 4000);
+  if (!titulo) { errEl.textContent = 'Digite um título.'; errEl.style.display = 'block'; return; }
+  if (!texto) { errEl.textContent = 'Digite um texto.'; errEl.style.display = 'block'; return; }
+  const payload = {
+    titulo, regiao, fonte, texto,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedBy: _auth.currentUser.email
+  };
+  if (_nclFiguraData === null) payload.figura = firebase.firestore.FieldValue.delete();
+  else if (typeof _nclFiguraData === 'string') payload.figura = _nclFiguraData;
+  try {
+    if (id) {
+      await db.collection('custom_classificacoes').doc(id).set(payload, { merge: true });
+      mostrarToast('Classificação atualizada!');
+    } else {
+      payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection('custom_classificacoes').add(payload);
+      mostrarToast('Classificação adicionada!');
+    }
+    fecharModalNovaCl();
+    await carregarClassificacoesCustom();
+    renderClassificacoes();
+  } catch (e) {
+    console.error('salvarClassificacaoCustom falhou:', e.code, e.message);
+    errEl.textContent = 'Erro ao salvar: ' + (e.code || e.message);
+    errEl.style.display = 'block';
+  }
+}
+
+async function excluirClassificacaoCustom(id) {
+  if (!isAdminLoggedIn()) return;
+  if (!confirm('Excluir esta classificação para todos os usuários?')) return;
+  try {
+    await db.collection('custom_classificacoes').doc(id).delete();
+    mostrarToast('Classificação removida.');
+    await carregarClassificacoesCustom();
+    renderClassificacoes();
+  } catch (e) {
+    console.error('excluirClassificacaoCustom falhou:', e.code, e.message);
+    mostrarToast('Erro ao excluir: ' + (e.code || e.message));
   }
 }
 
@@ -2106,6 +2296,8 @@ _auth.onAuthStateChanged((user) => {
   } else {
     _showAdminLogin();
   }
+  const btnNovaCl = document.getElementById('btn-nova-cl');
+  if (btnNovaCl) btnNovaCl.style.display = user ? 'flex' : 'none';
   // Mostra/esconde os controles de editar imagem (só admin) na hora,
   // sem precisar recarregar a página.
   if (typeof renderClassificacoes === 'function' && document.getElementById('cl-regions')) renderClassificacoes();
@@ -3537,11 +3729,44 @@ function imgSlot(id, nome) {
   </div>`;
 }
 
+function renderCustomClCard(cc) {
+  const admin = isAdminLoggedIn();
+  const idJs = cc.id.replace(/'/g, "\\'");
+  const titSafe = (cc.titulo || '').replace(/'/g, "\\'");
+  const figHtml = cc.figura ? `
+      <div class="cl-fig-wrap">
+        <div class="cl-fig-thumb" onclick="abrirFigura('${cc.figura}','${titSafe}',undefined)">
+          <img src="${cc.figura}" alt="${escHtml(cc.titulo)}" loading="lazy"/>
+        </div>
+      </div>` : '';
+  const adminCtrls = admin ? `
+      <div style="display:flex;gap:.5rem;margin-top:.6rem;flex-wrap:wrap">
+        <button class="cl-upload-alt" onclick="event.stopPropagation();abrirModalNovaCl('${idJs}')">✎ Editar</button>
+        <button class="img-remove" onclick="event.stopPropagation();excluirClassificacaoCustom('${idJs}')">✕ Excluir</button>
+      </div>` : '';
+  return `
+      <div class="cl-card" id="ccard-${escHtml(cc.id)}">
+        <div class="cl-hdr" onclick="toggleCard(this)">
+          <span class="cl-sigla">NOVO</span>
+          <div class="cl-hdr-mid"><span class="cl-nome">${escHtml(cc.titulo)}</span><div style="display:flex;align-items:center;min-width:0;margin-top:.1rem"><span class="cl-fonte" style="margin-top:0">${escHtml(cc.fonte || 'Adicionado pelo admin')}</span></div></div>
+          <svg class="cl-chevron" width="18" height="18"><use href="#i-chev"/></svg>
+        </div>
+        <div class="cl-body">
+          <p class="cl-nota" style="margin-top:0;white-space:pre-wrap">${escHtml(cc.texto)}</p>
+          ${figHtml}
+          ${adminCtrls}
+        </div>
+      </div>`;
+}
+
 function renderClassificacoes() {
   const container = document.getElementById('cl-regions');
   let html = '';
+  const contagens = {};
   REGIOES.forEach(reg => {
     const cards = CL_DATA.filter(c => c.regiao === reg.id);
+    const customCards = CUSTOM_CL.filter(cc => cc.regiao === reg.id);
+    contagens[reg.id] = cards.length + customCards.length;
     let cardsHtml = '';
     cards.forEach(c => {
       const rows = c.rows.map(r => `<tr class="${r.r}"><td>${r.l}</td><td>${r.d}</td></tr>`).join('');
@@ -3568,16 +3793,21 @@ function renderClassificacoes() {
         </div>
       </div>`;
     });
+    customCards.forEach(cc => { cardsHtml += renderCustomClCard(cc); });
     html += `
     <div class="region-section" id="region-${reg.id}" style="display:none">
       <div class="region-header">
         <div class="region-info"><h2 class="region-title">${reg.nome}</h2><p class="region-desc">${reg.desc}</p></div>
-        <span class="region-count">${reg.count} classificações</span>
+        <span class="region-count">${contagens[reg.id]} classificações</span>
       </div>
       <div class="cl-grid">${cardsHtml}</div>
     </div>`;
   });
   container.innerHTML = html;
+  REGIOES.forEach(reg => {
+    const badge = document.querySelector(`.region-btn[data-region="${reg.id}"] .rbadge`);
+    if (badge) badge.textContent = contagens[reg.id];
+  });
 }
 
 /* ── INIT ── */
@@ -3595,6 +3825,7 @@ function inicializarApp() {
   renderClassificacoes();
   renderVias();
   carregarImagensGlobais().then(() => { renderClassificacoes(); renderVias(); });
+  carregarClassificacoesCustom().then(() => renderClassificacoes());
   // Renderiza abas (NÃO reseta — dados já foram carregados por carregarDados ou estão no estado padrão)
   notaDirty = false;
   renderNotaTabs();
