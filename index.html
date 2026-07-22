@@ -251,10 +251,18 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .doc-verify-text b{color:#1A2230;font-family:'Courier New',monospace;font-size:.68rem}
 .doc-verify-warn{color:#B45309;font-weight:700}
 .doc-toolbar{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.85rem}
+
+/* Receituário de controle especial — 2 vias (Farmácia / Paciente) */
+.doc-addr-line{font-size:.78rem;color:#1A2230;margin:-.4rem 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #E2E8F0}
+.doc-addr-line b{color:#5A6B80;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.03em;margin-right:.4rem;display:inline-block}
+.doc-comp-block{margin-top:1.3rem;padding-top:.8rem;border-top:1px dashed #E2E8F0}
+.doc-comp-tit{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#5A6B80;margin-bottom:.5rem}
+.doc-via-cut{text-align:center;font-size:.68rem;color:#5A7A9A;letter-spacing:.03em;margin:1.25rem auto;max-width:720px}
 @media print{
   .no-print{display:none!important}
   .doc-sheet-wrap{background:none;border:none;padding:0;overflow:visible}
   .doc-sheet{box-shadow:none;max-width:100%;margin:0;padding:.4in .5in}
+  .doc-sheet-controlado:first-of-type{page-break-after:always}
 }
 
 /* ── CLASSIFICAÇÕES ── */
@@ -985,7 +993,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
 
         <div class="doc-subnav no-print" id="doc-subnav">
           <button class="doc-sub-btn active" data-docsub="simples" onclick="showDocSub('simples')"><svg width="16" height="16"><use href="#i-rx"/></svg>Receituário Simples</button>
-          <button class="doc-sub-btn" data-docsub="controlado" onclick="showDocSub('controlado')"><svg width="16" height="16"><use href="#i-doc-lock"/></svg>Receituário Controlado <span class="doc-soon-badge">em breve</span></button>
+          <button class="doc-sub-btn" data-docsub="controlado" onclick="showDocSub('controlado')"><svg width="16" height="16"><use href="#i-doc-lock"/></svg>Receituário Controlado</button>
           <button class="doc-sub-btn" data-docsub="laudo" onclick="showDocSub('laudo')"><svg width="16" height="16"><use href="#i-note"/></svg>Laudo Médico <span class="doc-soon-badge">em breve</span></button>
           <button class="doc-sub-btn" data-docsub="atestado" onclick="showDocSub('atestado')"><svg width="16" height="16"><use href="#i-attest"/></svg>Atestado Médico <span class="doc-soon-badge">em breve</span></button>
         </div>
@@ -1058,12 +1066,137 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           </div>
         </div>
 
-        <!-- ── SUB: RECEITUÁRIO CONTROLADO (em breve) ── -->
+        <!-- ── SUB: RECEITUÁRIO CONTROLADO ── -->
         <div class="doc-sub-content" id="doc-sub-controlado">
-          <div class="card doc-soon-card">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#i-doc-lock"/></svg>
-            <div class="tit">Receituário de Controle Especial — em breve</div>
-            <div class="sub">Modelo em 2 vias com identificação do emitente, comprador e fornecedor, conforme Portaria SVS/MS 344/98, será adicionado em um próximo lote.</div>
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-id"/></svg>Dados do Paciente</div>
+            <div class="rx-patient">
+              <div><label class="lbl" for="rxc-nome">Nome</label><input type="text" id="rxc-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-idade">Idade</label><input type="text" id="rxc-idade" placeholder="Ex: 45 anos" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-data">Data</label><input type="text" id="rxc-data" placeholder="dd/mm/aaaa" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div style="display:flex;align-items:flex-end"><button class="btn btn-c" style="white-space:nowrap" onclick="inserirDataHoje('rxc-data');atualizarPreviewDoc()">Hoje</button></div>
+            </div>
+            <div style="margin-top:.65rem"><label class="lbl" for="rxc-endereco">Endereço do paciente</label><input type="text" id="rxc-endereco" placeholder="Rua, número, bairro, cidade/UF" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+          </div>
+
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-id"/></svg>Identificação do Comprador <span style="font-weight:400;color:#5A7A9A;font-size:.72rem">(quando a retirada é feita por terceiro — exigência da Portaria SVS/MS 344/98)</span></div>
+            <div class="doc-profile-grid2">
+              <div><label class="lbl" for="rxc-comp-nome">Nome do comprador</label><input type="text" id="rxc-comp-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-comp-doc">RG ou CPF</label><input type="text" id="rxc-comp-doc" placeholder="Nº do documento" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            </div>
+            <div style="margin-top:.65rem"><label class="lbl" for="rxc-comp-end">Endereço do comprador</label><input type="text" id="rxc-comp-end" placeholder="Rua, número, bairro, cidade/UF" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+          </div>
+
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-doc-lock"/></svg>Prescrição de Controle Especial</div>
+            <div class="tpl-row">
+              <button class="tpl-btn" onclick="aplicarTemplate('benzo','rxc-text',TEMPLATES_CONTROLADO)">Benzodiazepínico</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('opioideForte','rxc-text',TEMPLATES_CONTROLADO)">Opioide Forte</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('metilfenidato','rxc-text',TEMPLATES_CONTROLADO)">Metilfenidato</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('zolpidem','rxc-text',TEMPLATES_CONTROLADO)">Zolpidem</button>
+              <button class="tpl-btn" onclick="document.getElementById('rxc-text').value='';atualizarPreviewDoc()">Limpar</button>
+            </div>
+            <textarea class="rx-textarea" id="rxc-text" placeholder="Digite ou selecione um template acima…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+          </div>
+
+          <div class="doc-sheet-wrap">
+            <div class="doc-sheet doc-sheet-controlado">
+              <div class="doc-sheet-hdr">
+                <div class="doc-logo-box dcv-logo"><div class="doc-logo-placeholder">logo da instituição</div></div>
+                <div class="doc-title-box">
+                  <h2>Receituário de Controle Especial</h2>
+                  <div class="inst dcv-inst"></div>
+                </div>
+                <div class="doc-via-badge">1ª VIA<br/>FARMÁCIA</div>
+              </div>
+              <hr class="doc-hr"/>
+              <div class="doc-patient-line">
+                <div><b>Paciente</b><span class="dcv-nome">—</span></div>
+                <div><b>Idade</b><span class="dcv-idade">—</span></div>
+                <div><b>Data</b><span class="dcv-data">—</span></div>
+              </div>
+              <div class="doc-addr-line"><b>Endereço do paciente</b><span class="dcv-endereco">—</span></div>
+              <div class="doc-body-label">Prescrição — uso sob controle especial (Portaria SVS/MS 344/98)</div>
+              <div class="doc-body-text dcv-texto"></div>
+              <div class="doc-comp-block">
+                <div class="doc-comp-tit">Identificação do comprador (se retirada por terceiro)</div>
+                <div class="doc-patient-line" style="grid-template-columns:2fr 1fr 2fr">
+                  <div><b>Nome</b><span class="dcv-comp-nome">—</span></div>
+                  <div><b>RG/CPF</b><span class="dcv-comp-doc">—</span></div>
+                  <div><b>Endereço</b><span class="dcv-comp-end">—</span></div>
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-sign-line"></div>
+                <div class="doc-sign-block">
+                  <div class="dr-nome dcv-dr">Dr(a). ___________________________</div>
+                  <div class="dr-crm dcv-crm">CRM ______ / UF</div>
+                  <div class="dr-esp dcv-esp"></div>
+                </div>
+                <div class="doc-carimbo-box">carimbo</div>
+              </div>
+              <div class="doc-verify">
+                <div class="doc-verify-qr doc-qr-controlado"></div>
+                <div class="doc-verify-text">
+                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
+                  Código: <b class="doc-code-controlado">—</b><br/>
+                  Gerado em: <span class="doc-code-data-controlado">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="doc-via-cut no-print">✂ — — — — — — — — — recortar / 2ª via inicia em nova página na impressão — — — — — — — — — ✂</div>
+
+            <div class="doc-sheet doc-sheet-controlado">
+              <div class="doc-sheet-hdr">
+                <div class="doc-logo-box dcv-logo"><div class="doc-logo-placeholder">logo da instituição</div></div>
+                <div class="doc-title-box">
+                  <h2>Receituário de Controle Especial</h2>
+                  <div class="inst dcv-inst"></div>
+                </div>
+                <div class="doc-via-badge">2ª VIA<br/>PACIENTE</div>
+              </div>
+              <hr class="doc-hr"/>
+              <div class="doc-patient-line">
+                <div><b>Paciente</b><span class="dcv-nome">—</span></div>
+                <div><b>Idade</b><span class="dcv-idade">—</span></div>
+                <div><b>Data</b><span class="dcv-data">—</span></div>
+              </div>
+              <div class="doc-addr-line"><b>Endereço do paciente</b><span class="dcv-endereco">—</span></div>
+              <div class="doc-body-label">Prescrição — uso sob controle especial (Portaria SVS/MS 344/98)</div>
+              <div class="doc-body-text dcv-texto"></div>
+              <div class="doc-comp-block">
+                <div class="doc-comp-tit">Identificação do comprador (se retirada por terceiro)</div>
+                <div class="doc-patient-line" style="grid-template-columns:2fr 1fr 2fr">
+                  <div><b>Nome</b><span class="dcv-comp-nome">—</span></div>
+                  <div><b>RG/CPF</b><span class="dcv-comp-doc">—</span></div>
+                  <div><b>Endereço</b><span class="dcv-comp-end">—</span></div>
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-sign-line"></div>
+                <div class="doc-sign-block">
+                  <div class="dr-nome dcv-dr">Dr(a). ___________________________</div>
+                  <div class="dr-crm dcv-crm">CRM ______ / UF</div>
+                  <div class="dr-esp dcv-esp"></div>
+                </div>
+                <div class="doc-carimbo-box">carimbo</div>
+              </div>
+              <div class="doc-verify">
+                <div class="doc-verify-qr doc-qr-controlado"></div>
+                <div class="doc-verify-text">
+                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
+                  Código: <b class="doc-code-controlado">—</b><br/>
+                  Gerado em: <span class="doc-code-data-controlado">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-toolbar no-print">
+            <button class="btn btn-c" onclick="gerarCodigoVerificacao('controlado')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
+            <button class="btn btn-c" onclick="exportarRxControlado()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
+            <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
         </div>
 
@@ -1737,6 +1870,7 @@ function sairSala(force = false) {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('rx-text').value = '';
+  const rxcText = document.getElementById('rxc-text'); if (rxcText) rxcText.value = '';
   document.getElementById('app').style.display = 'none';
   document.getElementById('app-footer').style.display = 'none';
   document.getElementById('room-screen').style.display = 'flex';
@@ -1754,6 +1888,10 @@ function coletarDados() {
       hsoc: v('hsoc'), interr: v('interr'), obs: v('obs')
     },
     prescricao: { texto: v('rx-text'), nome: v('rx-nome'), idade: v('rx-idade'), data: v('rx-data') },
+    receituarioControlado: {
+      texto: v('rxc-text'), nome: v('rxc-nome'), idade: v('rxc-idade'), data: v('rxc-data'), endereco: v('rxc-endereco'),
+      compradorNome: v('rxc-comp-nome'), compradorDoc: v('rxc-comp-doc'), compradorEnd: v('rxc-comp-end')
+    },
     nota: { tabs: notaTabs.map(t => ({ id: t.id, titulo: t.titulo, texto: t.id === notaActiveId ? (document.getElementById('nota-textarea')?.value ?? t.texto) : t.texto })), activeId: notaActiveId }
   };
 }
@@ -1772,6 +1910,14 @@ function carregarDados(data) {
     const p = data.prescricao;
     ['texto','nome','idade','data'].forEach(k => {
       const el = document.getElementById('rx-' + k); if (el && p[k] !== undefined) el.value = p[k];
+    });
+  }
+  if (data.receituarioControlado) {
+    const rc = data.receituarioControlado;
+    const map = { texto:'rxc-text', nome:'rxc-nome', idade:'rxc-idade', data:'rxc-data', endereco:'rxc-endereco',
+                  compradorNome:'rxc-comp-nome', compradorDoc:'rxc-comp-doc', compradorEnd:'rxc-comp-end' };
+    Object.keys(map).forEach(k => {
+      const el = document.getElementById(map[k]); if (el && rc[k] !== undefined) el.value = rc[k];
     });
   }
   if (data.nota) {
@@ -2251,22 +2397,54 @@ const TEMPLATES = {
    * Reavaliar necessidade de opioide em 5–7 dias`
 };
 
-function aplicarTemplate(key) {
-  const ta = document.getElementById('rx-text');
-  const tpl = TEMPLATES[key];
-  if (!tpl) return;
+/* Templates para o Receituário de Controle Especial (Portaria SVS/MS 344/98) */
+const TEMPLATES_CONTROLADO = {
+  benzo: `1. CLONAZEPAM 2mg — 1 comprimido VO à noite, por ___ dias
+   * Uso contínuo somente sob reavaliação médica periódica
+   * Notificação de Receita B — Lista B1 (Portaria SVS/MS 344/98)`,
+
+  opioideForte: `1. MORFINA (sulfato) 10mg — 1 comprimido VO de 12/12h, por ___ dias
+   * Ajustar dose conforme escala de dor (EVA)
+   * Orientar sobre risco de sonolência e constipação
+   * Notificação de Receita A — Lista A1 (Portaria SVS/MS 344/98)`,
+
+  metilfenidato: `1. METILFENIDATO 10mg — 1 comprimido VO pela manhã, por ___ dias
+   * Reavaliação em 30 dias
+   * Notificação de Receita A — Lista A3 (Portaria SVS/MS 344/98)`,
+
+  zolpidem: `1. ZOLPIDEM 10mg — 1 comprimido VO ao deitar, por ___ dias (uso pontual)
+   * Não associar a bebida alcoólica
+   * Notificação de Receita B — Lista B1 (Portaria SVS/MS 344/98)`
+};
+
+function aplicarTemplate(key, targetId, dict) {
+  targetId = targetId || 'rx-text';
+  dict = dict || TEMPLATES;
+  const ta = document.getElementById(targetId);
+  const tpl = dict[key];
+  if (!ta || !tpl) return;
   if (ta.value.trim() && !confirm('Substituir o conteúdo atual?')) return;
   ta.value = tpl;
   scheduleSave();
 }
-function inserirDataHoje() {
-  document.getElementById('rx-data').value = new Date().toLocaleDateString('pt-BR');
+function inserirDataHoje(id) {
+  const el = document.getElementById(id || 'rx-data');
+  if (el) el.value = new Date().toLocaleDateString('pt-BR');
 }
 function exportarRx() {
   const nome = v('rx-nome') || 'Paciente', dt = v('rx-data') || new Date().toLocaleDateString('pt-BR');
   const txt = `PRESCRIÇÃO MÉDICA — OssoHub\nPaciente: ${nome}\nIdade: ${v('rx-idade')}\nData: ${dt}\n\n${v('rx-text')}`;
   baixarTxt(txt, `Prescricao_${dt.replace(/\//g,'-')}.txt`);
   mostrarToast('Prescrição salva!');
+}
+function exportarRxControlado() {
+  const nome = v('rxc-nome') || 'Paciente', dt = v('rxc-data') || new Date().toLocaleDateString('pt-BR');
+  const txt = `RECEITUÁRIO DE CONTROLE ESPECIAL — OssoHub\n`
+    + `Paciente: ${nome}\nIdade: ${v('rxc-idade')}\nEndereço: ${v('rxc-endereco')}\nData: ${dt}\n`
+    + `Comprador (se terceiro): ${v('rxc-comp-nome')} | RG/CPF: ${v('rxc-comp-doc')} | Endereço: ${v('rxc-comp-end')}\n\n`
+    + `${v('rxc-text')}`;
+  baixarTxt(txt, `Receituario_Controlado_${dt.replace(/\//g,'-')}.txt`);
+  mostrarToast('Receituário salvo!');
 }
 function imprimirRx() { window.print(); }
 
@@ -2373,6 +2551,33 @@ function atualizarPreviewDoc() {
   const pIdade = document.getElementById('doc-prev-idade'); if (pIdade) pIdade.textContent = v('rx-idade') || '—';
   const pData = document.getElementById('doc-prev-data'); if (pData) pData.textContent = v('rx-data') || new Date().toLocaleDateString('pt-BR');
   const pTexto = document.getElementById('doc-prev-texto'); if (pTexto) pTexto.textContent = v('rx-text');
+
+  /* Receituário Controlado — preenche as 2 vias (Farmácia/Paciente) via classes, não ids */
+  const rcNome = v('rxc-nome'), rcIdade = v('rxc-idade'),
+        rcData = v('rxc-data') || new Date().toLocaleDateString('pt-BR'), rcEnd = v('rxc-endereco'),
+        rcCompNome = v('rxc-comp-nome'), rcCompDoc = v('rxc-comp-doc'), rcCompEnd = v('rxc-comp-end'),
+        rcTexto = v('rxc-text');
+  document.querySelectorAll('.doc-sheet-controlado').forEach(sheet => {
+    const logoEl = sheet.querySelector('.dcv-logo');
+    if (logoEl) logoEl.innerHTML = _docLogoDataUrl
+      ? `<img src="${_docLogoDataUrl}" alt="Logo da instituição"/>`
+      : `<div class="doc-logo-placeholder">logo da instituição</div>`;
+    const set = (cls, val) => { const el = sheet.querySelector(cls); if (el) el.textContent = val; };
+    set('.dcv-inst', inst || '');
+    set('.dcv-nome', rcNome || '—');
+    set('.dcv-idade', rcIdade || '—');
+    set('.dcv-data', rcData);
+    set('.dcv-endereco', rcEnd || '—');
+    set('.dcv-comp-nome', rcCompNome || '—');
+    set('.dcv-comp-doc', rcCompDoc || '—');
+    set('.dcv-comp-end', rcCompEnd || '—');
+    set('.dcv-texto', rcTexto);
+    set('.dcv-dr', nome ? ('Dr(a). ' + nome) : 'Dr(a). ___________________________');
+    let crmTxt2 = crm ? ('CRM ' + crm + (uf ? ' / ' + uf : '')) : 'CRM ______ / UF';
+    if (rqe) crmTxt2 += '   |   RQE ' + rqe;
+    set('.dcv-crm', crmTxt2);
+    set('.dcv-esp', esp || '');
+  });
 }
 
 /* Hash simples (não criptográfico) só para compor um código de conferência legível —
@@ -2383,25 +2588,38 @@ function _hashSimples(str) {
   return h.toString(36).toUpperCase();
 }
 function gerarCodigoVerificacao(docTipo) {
-  const conteudo = [v('rx-nome'), v('rx-idade'), v('rx-data'), v('rx-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
+  let conteudo;
+  if (docTipo === 'controlado') {
+    conteudo = [v('rxc-nome'), v('rxc-idade'), v('rxc-data'), v('rxc-endereco'), v('rxc-comp-nome'), v('rxc-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
+  } else {
+    conteudo = [v('rx-nome'), v('rx-idade'), v('rx-data'), v('rx-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
+  }
   const agora = new Date();
   const codigo = 'OH-' + agora.getTime().toString(36).toUpperCase() + '-' + _hashSimples(conteudo);
   const dataFmt = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  // documentos com uma única via (ex: Receituário Simples) usam id único
   const codEl = document.getElementById('doc-code-' + docTipo);
   const dataEl = document.getElementById('doc-code-data-' + docTipo);
   if (codEl) codEl.textContent = codigo;
   if (dataEl) dataEl.textContent = dataFmt;
+  // documentos com múltiplas vias (ex: Receituário Controlado) usam classes — mesmo código em todas as vias
+  document.querySelectorAll('.doc-code-' + docTipo).forEach(el => { el.textContent = codigo; });
+  document.querySelectorAll('.doc-code-data-' + docTipo).forEach(el => { el.textContent = dataFmt; });
   atualizarQR(docTipo, codigo, dataFmt);
   return codigo;
 }
 function atualizarQR(docTipo, codigo, dataFmt) {
-  const el = document.getElementById('doc-qr-' + docTipo);
-  if (!el || typeof QRCode === 'undefined') return;
-  el.innerHTML = '';
+  if (typeof QRCode === 'undefined') return;
   const texto = `OssoHub — Código de conferência interna (NÃO é assinatura ICP-Brasil): ${codigo} — Gerado em ${dataFmt}`;
-  try {
-    new QRCode(el, { text: texto, width: 74, height: 74, colorDark: '#1A2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-  } catch (e) { console.warn('Falha ao gerar QR code:', e); }
+  const desenhar = el => {
+    el.innerHTML = '';
+    try {
+      new QRCode(el, { text: texto, width: 74, height: 74, colorDark: '#1A2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+    } catch (e) { console.warn('Falha ao gerar QR code:', e); }
+  };
+  const single = document.getElementById('doc-qr-' + docTipo);
+  if (single) desenhar(single);
+  document.querySelectorAll('.doc-qr-' + docTipo).forEach(desenhar);
 }
 
 /* ── MEDICAMENTOS PEDIÁTRICOS ── */
@@ -7194,6 +7412,7 @@ function inicializarApp() {
   showDocSub('simples');
   atualizarPreviewDoc();
   gerarCodigoVerificacao('simples');
+  gerarCodigoVerificacao('controlado');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
