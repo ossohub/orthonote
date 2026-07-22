@@ -266,6 +266,11 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .doc-cid-line b{color:#5A6B80;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.03em;margin-right:.4rem}
 .doc-section{margin-bottom:1.1rem}
 .doc-section:last-of-type{margin-bottom:0}
+
+/* Meus modelos salvos (permanentes, reaproveitáveis em qualquer paciente) */
+.doc-modelo-row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-bottom:.75rem;padding:.55rem .65rem;background:#0E1C30;border:1px solid #1E3550;border-radius:8px}
+.doc-modelo-row .doc-modelo-lbl{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#5A7A9A;white-space:nowrap;margin-right:.15rem}
+.doc-modelo-row select{flex:1;min-width:160px;max-width:280px}
 @media print{
   .no-print{display:none!important}
   .doc-sheet-wrap{background:none;border:none;padding:0;overflow:visible}
@@ -1027,6 +1032,13 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <button class="tpl-btn" onclick="aplicarTemplate('opioide')">Opioides</button>
               <button class="tpl-btn" onclick="document.getElementById('rx-text').value='';atualizarPreviewDoc()">Limpar</button>
             </div>
+            <div class="doc-modelo-row no-print">
+              <span class="doc-modelo-lbl">Meus modelos</span>
+              <select id="modelo-select-simples" class="fsel"><option value="">— nenhum salvo —</option></select>
+              <button class="tpl-btn" onclick="aplicarModeloSalvo('simples')">Usar</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('simples')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="excluirModeloSalvo('simples')">Excluir</button>
+            </div>
             <textarea class="rx-textarea" id="rx-text" placeholder="Digite ou selecione um template acima…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
           </div>
 
@@ -1104,6 +1116,13 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <button class="tpl-btn" onclick="aplicarTemplate('metilfenidato','rxc-text',TEMPLATES_CONTROLADO)">Metilfenidato</button>
               <button class="tpl-btn" onclick="aplicarTemplate('zolpidem','rxc-text',TEMPLATES_CONTROLADO)">Zolpidem</button>
               <button class="tpl-btn" onclick="document.getElementById('rxc-text').value='';atualizarPreviewDoc()">Limpar</button>
+            </div>
+            <div class="doc-modelo-row no-print">
+              <span class="doc-modelo-lbl">Meus modelos</span>
+              <select id="modelo-select-controlado" class="fsel"><option value="">— nenhum salvo —</option></select>
+              <button class="tpl-btn" onclick="aplicarModeloSalvo('controlado')">Usar</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('controlado')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="excluirModeloSalvo('controlado')">Excluir</button>
             </div>
             <textarea class="rx-textarea" id="rxc-text" placeholder="Digite ou selecione um template acima…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
           </div>
@@ -1226,6 +1245,13 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
             <div class="tpl-row">
               <button class="tpl-btn" onclick="['ld-hist','ld-exame','ld-compl','ld-concl'].forEach(id=>document.getElementById(id).value='');atualizarPreviewDoc()">Limpar tudo</button>
             </div>
+            <div class="doc-modelo-row no-print">
+              <span class="doc-modelo-lbl">Meus modelos (aplica às 4 seções)</span>
+              <select id="modelo-select-laudo" class="fsel"><option value="">— nenhum salvo —</option></select>
+              <button class="tpl-btn" onclick="aplicarModeloSalvo('laudo')">Usar</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('laudo')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="excluirModeloSalvo('laudo')">Excluir</button>
+            </div>
             <label class="lbl" for="ld-hist">História Clínica</label>
             <textarea class="ld-textarea" id="ld-hist" placeholder="Motivo da avaliação, história da moléstia atual, antecedentes relevantes…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
             <div style="margin-top:.75rem"></div>
@@ -1336,6 +1362,13 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <button class="tpl-btn" onclick="gerarAtestadoTexto('repouso')">Repouso Domiciliar</button>
               <button class="tpl-btn" onclick="gerarAtestadoTexto('restricao')">Restrição de Atividades</button>
               <button class="tpl-btn" onclick="document.getElementById('at-text').value='';atualizarPreviewDoc()">Limpar</button>
+            </div>
+            <div class="doc-modelo-row no-print">
+              <span class="doc-modelo-lbl">Meus modelos</span>
+              <select id="modelo-select-atestado" class="fsel"><option value="">— nenhum salvo —</option></select>
+              <button class="tpl-btn" onclick="aplicarModeloSalvo('atestado')">Usar</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('atestado')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="excluirModeloSalvo('atestado')">Excluir</button>
             </div>
             <textarea class="rx-textarea" id="at-text" placeholder="Digite ou selecione um modelo acima…" style="min-height:180px" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
           </div>
@@ -2920,6 +2953,99 @@ function atualizarQR(docTipo, codigo, dataFmt) {
   const single = document.getElementById('doc-qr-' + docTipo);
   if (single) desenhar(single);
   document.querySelectorAll('.doc-qr-' + docTipo).forEach(desenhar);
+}
+
+/* ── MEUS MODELOS (permanentes, salvos neste dispositivo) ──
+   Diferente do texto do paciente (que fica no blob criptografado da sala), os modelos
+   são reutilizáveis entre pacientes/salas — por isso ficam fora do blob, como o perfil do médico. */
+let _docModelos = { simples: [], controlado: [], laudo: [], atestado: [] };
+
+function carregarModelosDoc() {
+  try {
+    const salvo = JSON.parse(localStorage.getItem('ossohub_doc_modelos') || 'null');
+    if (salvo && typeof salvo === 'object') {
+      _docModelos = Object.assign({ simples: [], controlado: [], laudo: [], atestado: [] }, salvo);
+    }
+  } catch (e) { console.warn('Não foi possível carregar os modelos salvos:', e); }
+  ['simples', 'controlado', 'laudo', 'atestado'].forEach(renderModelosSelect);
+}
+function _salvarModelosDoc() {
+  try { localStorage.setItem('ossohub_doc_modelos', JSON.stringify(_docModelos)); }
+  catch (e) { console.warn('Não foi possível salvar os modelos:', e); }
+}
+function renderModelosSelect(tipo) {
+  const sel = document.getElementById('modelo-select-' + tipo);
+  if (!sel) return;
+  const atual = sel.value;
+  const lista = _docModelos[tipo] || [];
+  sel.innerHTML = '<option value="">— nenhum salvo —</option>' +
+    lista.map(m => `<option value="${m.id}">${escHtml(m.nome)}</option>`).join('');
+  if (lista.some(m => m.id === atual)) sel.value = atual;
+}
+function _conteudoModeloAtual(tipo) {
+  if (tipo === 'simples') return { texto: v('rx-text') };
+  if (tipo === 'controlado') return { texto: v('rxc-text') };
+  if (tipo === 'atestado') return { texto: v('at-text') };
+  if (tipo === 'laudo') return { hist: v('ld-hist'), exame: v('ld-exame'), compl: v('ld-compl'), concl: v('ld-concl') };
+  return {};
+}
+function _modeloEstaVazio(conteudo) {
+  return Object.values(conteudo).every(val => !val || !String(val).trim());
+}
+function salvarModeloAtual(tipo) {
+  const conteudo = _conteudoModeloAtual(tipo);
+  if (_modeloEstaVazio(conteudo)) { mostrarToast('Nada para salvar — preencha o texto primeiro.'); return; }
+  const nome = prompt('Nome deste modelo (ex: "Pós-op Joelho"):');
+  if (!nome || !nome.trim()) return;
+  const nomeLimpo = nome.trim();
+  const lista = _docModelos[tipo] || (_docModelos[tipo] = []);
+  const existente = lista.find(m => m.nome.toLowerCase() === nomeLimpo.toLowerCase());
+  if (existente) {
+    if (!confirm(`Já existe um modelo chamado "${nomeLimpo}". Substituir pelo conteúdo atual?`)) return;
+    existente.conteudo = conteudo;
+  } else {
+    lista.push({ id: 'm_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), nome: nomeLimpo, conteudo });
+  }
+  _salvarModelosDoc();
+  renderModelosSelect(tipo);
+  const sel = document.getElementById('modelo-select-' + tipo);
+  if (sel) sel.value = existente ? existente.id : lista[lista.length - 1].id;
+  mostrarToast('Modelo salvo neste dispositivo — disponível para qualquer paciente.');
+}
+function aplicarModeloSalvo(tipo) {
+  const sel = document.getElementById('modelo-select-' + tipo);
+  const id = sel ? sel.value : '';
+  if (!id) { mostrarToast('Selecione um modelo salvo primeiro.'); return; }
+  const modelo = (_docModelos[tipo] || []).find(m => m.id === id);
+  if (!modelo) return;
+  const conteudoAtual = _conteudoModeloAtual(tipo);
+  if (!_modeloEstaVazio(conteudoAtual) && !confirm('Substituir o conteúdo atual pelo modelo selecionado?')) return;
+  const c = modelo.conteudo || {};
+  if (tipo === 'simples') { document.getElementById('rx-text').value = c.texto || ''; }
+  else if (tipo === 'controlado') { document.getElementById('rxc-text').value = c.texto || ''; }
+  else if (tipo === 'atestado') { document.getElementById('at-text').value = c.texto || ''; }
+  else if (tipo === 'laudo') {
+    document.getElementById('ld-hist').value = c.hist || '';
+    document.getElementById('ld-exame').value = c.exame || '';
+    document.getElementById('ld-compl').value = c.compl || '';
+    document.getElementById('ld-concl').value = c.concl || '';
+  }
+  scheduleSave();
+  atualizarPreviewDoc();
+  mostrarToast('Modelo aplicado!');
+}
+function excluirModeloSalvo(tipo) {
+  const sel = document.getElementById('modelo-select-' + tipo);
+  const id = sel ? sel.value : '';
+  if (!id) { mostrarToast('Selecione um modelo salvo para excluir.'); return; }
+  const lista = _docModelos[tipo] || [];
+  const modelo = lista.find(m => m.id === id);
+  if (!modelo) return;
+  if (!confirm(`Excluir o modelo "${modelo.nome}"? Esta ação não pode ser desfeita.`)) return;
+  _docModelos[tipo] = lista.filter(m => m.id !== id);
+  _salvarModelosDoc();
+  renderModelosSelect(tipo);
+  mostrarToast('Modelo excluído.');
 }
 
 /* ── MEDICAMENTOS PEDIÁTRICOS ── */
@@ -7709,6 +7835,7 @@ function inicializarApp() {
   renderNotaTabs();
   inserirDataHoje();
   carregarPerfilMedico();
+  carregarModelosDoc();
   showDocSub('simples');
   atualizarPreviewDoc();
   gerarCodigoVerificacao('simples');
