@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OssoHub — Preview MVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0F172A;
+    --green:  #10B981;
+    --green-light: #D1FAE5;
+    --green-dark:  #059669;
+    --bg:     #F8FAFC;
+    --white:  #FFFFFF;
+    --slate:  #475569;
+    --border: #E2E8F0;
+    --muted:  #F1F5F9;
+    --radius: 12px;
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); }
+
+  /* ─── NAVBAR ─── */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 20px; text-decoration: none; color: var(--navy); }
+  .logo-icon { background: var(--navy); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+  .logo-icon svg { width: 16px; height: 16px; }
+  .logo span { color: var(--green); }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-link { padding: 8px 12px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--slate); text-decoration: none; cursor: pointer; border: none; background: none; transition: background 0.15s; }
+  .nav-link:hover, .nav-link.active { background: var(--muted); color: var(--navy); }
+  .nav-link.active { background: var(--green-light); color: var(--green-dark); }
+  .nav-right { display: flex; gap: 8px; }
+  .btn { border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-sm { padding: 6px 14px; font-size: 13px; }
+  .btn-md { padding: 10px 20px; font-size: 14px; }
+  .btn-lg { padding: 14px 28px; font-size: 16px; }
+  .btn-primary { background: var(--green); color: #fff; }
+  .btn-primary:hover { background: var(--green-dark); }
+  .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+  .btn-outline:hover { background: var(--muted); }
+  .btn-ghost { background: transparent; color: var(--slate); }
+  .btn-ghost:hover { background: var(--muted); }
+  .btn-outline-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+
+  /* ─── VIEW SYSTEM ─── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--navy); position: relative; overflow: hidden;
+    padding: 96px 24px 80px;
+  }
+  .hero-dot-bg {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+  .hero-glow {
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(16,185,129,0.12); filter: blur(80px); pointer-events: none;
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; position: relative; }
+  .pill-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid rgba(16,185,129,0.35); background: rgba(16,185,129,0.1);
+    color: var(--green); border-radius: 999px; padding: 6px 16px;
+    font-size: 13px; font-weight: 500; margin-bottom: 28px;
+  }
+  .hero h1 { font-size: clamp(32px,5vw,56px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 20px; }
+  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero p { font-size: 18px; color: #CBD5E1; margin-bottom: 36px; line-height: 1.7; max-width: 560px; margin-left: auto; margin-right: auto; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; }
+  .stat-val { font-size: 24px; font-weight: 700; color: var(--green); }
+  .stat-lbl { font-size: 12px; color: #94A3B8; margin-top: 4px; }
+
+  /* ─── SECTIONS ─── */
+  .section { padding: 80px 24px; }
+  .section-white { background: var(--white); }
+  .section-bg { background: var(--bg); }
+  .section-navy { background: var(--navy); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 56px; }
+  .badge-tag {
+    display: inline-block; background: var(--green-light); color: var(--green-dark);
+    font-size: 12px; font-weight: 600; border-radius: 999px; padding: 4px 12px;
+    margin-bottom: 16px; letter-spacing: 0.02em;
+  }
+  .section-title { font-size: clamp(24px,4vw,36px); font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+  .section-sub { font-size: 15px; color: var(--slate); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+  /* How it works */
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; }
+  .step-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px 24px; transition: border-color 0.2s;
+  }
+  .step-card:hover { border-color: rgba(16,185,129,0.4); }
+  .step-num { font-size: 48px; font-weight: 900; color: #F1F5F9; line-height: 1; margin-bottom: 16px; }
+  .step-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--green-light); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .step-icon svg { width: 20px; height: 20px; color: var(--green-dark); }
+  .step-title { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
+  .step-desc { font-size: 13px; color: var(--slate); line-height: 1.6; }
+
+  /* Benefits */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  @media(max-width:768px) { .two-col { grid-template-columns: 1fr; gap: 40px; } }
+  .benefit-list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+  .benefit-item { display: flex; align-items: flex-start; gap: 12px; }
+  .benefit-item svg { width: 20px; height: 20px; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+  .benefit-item p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+  .levels-list { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; }
+  .level-row {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px 16px;
+  }
+  .level-badge { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .lv1 { background: #E2E8F0; color: #475569; }
+  .lv2 { background: #DBEAFE; color: #1D4ED8; }
+  .lv3 { background: #D1FAE5; color: #059669; }
+  .lv4 { background: #EDE9FE; color: #7C3AED; }
+  .lv5 { background: #FEF3C7; color: #D97706; }
+  .level-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .level-xp { font-size: 11px; color: var(--slate); }
+
+  /* CTA */
+  .cta-section { padding: 80px 24px; background: var(--navy); text-align: center; }
+  .cta-section h2 { font-size: clamp(24px,4vw,36px); font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .cta-section p { color: #CBD5E1; margin-bottom: 32px; font-size: 15px; }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--border); background: var(--white); padding: 28px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--slate); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { color: var(--slate); text-decoration: none; }
+  .footer-links a:hover { color: var(--navy); }
+
+  /* ─── FEED VIEW ─── */
+  .feed-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+  @media(max-width:900px) { .feed-layout { grid-template-columns: 1fr; } }
+  .feed-filters { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .filter-btn { padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--white); font-size: 13px; font-weight: 500; color: var(--slate); cursor: pointer; transition: all 0.15s; }
+  .filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .filter-btn:hover:not(.active) { border-color: var(--navy); color: var(--navy); }
+
+  /* PostCard */
+  .post-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; transition: box-shadow 0.2s; }
+  .post-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .post-author-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .post-author-meta { font-size: 12px; color: var(--slate); }
+  .post-type-badge { margin-left: auto; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .type-case { background: #FEE2E2; color: #DC2626; }
+  .type-discuss { background: #DBEAFE; color: #2563EB; }
+  .type-article { background: #D1FAE5; color: #059669; }
+  .type-question { background: #FEF3C7; color: #D97706; }
+  .post-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.4; }
+  .post-content { font-size: 13px; color: var(--slate); line-height: 1.7; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .post-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .tag { font-size: 11px; background: var(--muted); color: var(--slate); border-radius: 999px; padding: 3px 10px; }
+  .post-footer { display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .post-action { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--slate); cursor: pointer; border: none; background: none; font-family: 'Inter', sans-serif; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; }
+  .post-action:hover { background: var(--muted); color: var(--navy); }
+  .post-action svg { width: 15px; height: 15px; }
+  .post-time { margin-left: auto; font-size: 11px; color: #94A3B8; }
+
+  /* Level badge inline */
+  .lvl-chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; margin-left: 6px; }
+
+  /* Sidebar */
+  .sidebar-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+  .sidebar-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  .suggestion-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .suggestion-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .suggestion-name { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .suggestion-meta { font-size: 11px; color: var(--slate); }
+  .suggestion-follow { margin-left: auto; padding: 4px 12px; border: 1.5px solid var(--green); color: var(--green); border-radius: 999px; font-size: 11px; font-weight: 600; cursor: pointer; background: none; font-family: 'Inter', sans-serif; }
+  .suggestion-follow:hover { background: var(--green); color: #fff; }
+  .xp-item { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .xp-item:last-child { border-bottom: none; }
+  .xp-item .action { color: var(--slate); }
+  .xp-item .xp { color: var(--green); font-weight: 700; }
+
+  /* ─── PROFILE VIEW ─── */
+  .profile-layout { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+  .profile-header-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; margin-bottom: 20px; }
+  .profile-top { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .profile-avatar { width: 88px; height: 88px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 28px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .profile-info { flex: 1; min-width: 200px; }
+  .profile-name { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .profile-crm { font-size: 13px; color: var(--slate); margin-bottom: 8px; }
+  .profile-bio { font-size: 14px; color: var(--slate); line-height: 1.6; margin-bottom: 12px; }
+  .profile-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .profile-btns { display: flex; gap: 8px; align-items: flex-start; margin-left: auto; flex-wrap: wrap; }
+  .xp-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .xp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .xp-label { font-size: 13px; font-weight: 600; color: var(--navy); }
+  .xp-value { font-size: 13px; color: var(--slate); }
+  .xp-bar-wrap { background: var(--muted); border-radius: 999px; height: 8px; }
+  .xp-bar { background: var(--green); border-radius: 999px; height: 8px; transition: width 0.5s; }
+  .xp-next { font-size: 11px; color: var(--slate); margin-top: 6px; }
+  .profile-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 16px; }
+  .pstat { background: var(--muted); border-radius: 8px; padding: 12px; text-align: center; }
+  .pstat-val { font-size: 20px; font-weight: 700; color: var(--navy); }
+  .pstat-lbl { font-size: 11px; color: var(--slate); margin-top: 2px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+  .tab { padding: 10px 18px; font-size: 14px; font-weight: 500; color: var(--slate); cursor: pointer; border: none; background: none; font-family: 'Inter', sans-serif; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 600; }
+  .badges-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 12px; margin-bottom: 24px; }
+  .badge-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+  .badge-card.locked { opacity: 0.4; }
+  .badge-icon { font-size: 28px; margin-bottom: 8px; }
+  .badge-name { font-size: 11px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+
+  /* Login view */
+  .auth-wrap { min-height: calc(100vh - 64px); display: flex; align-items: center; justify-content: center; padding: 40px 24px; background: var(--bg); }
+  .auth-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 40px; width: 100%; max-width: 420px; }
+  .auth-logo { text-align: center; margin-bottom: 28px; }
+  .auth-title { font-size: 22px; font-weight: 700; color: var(--navy); text-align: center; margin-bottom: 6px; }
+  .auth-sub { font-size: 13px; color: var(--slate); text-align: center; margin-bottom: 28px; }
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 13px; font-weight: 500; color: var(--navy); margin-bottom: 6px; }
+  .form-input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); background: var(--white); transition: border-color 0.15s; }
+  .form-input:focus { outline: none; border-color: var(--green); }
+  .form-input::placeholder { color: #94A3B8; }
+  .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; font-size: 12px; color: var(--slate); }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* SVG icons inline */
+  svg { display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar">
+  <a class="logo" href="#" onclick="showView('landing')">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69-1 2.5-1a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 1-4.5-4.5c0-.81.3-1.8 1-2.5l5-5"/><path d="M7 10c-.7-.7-1.69-1-2.5-1a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 4.5-4.5c0-.81-.3-1.8-1-2.5l-5-5"/></svg>
+    </div>
+    Osso<span>Hub</span>
+  </a>
+
+  <div class="nav-links" id="mainNav" style="display:none">
+    <button class="nav-link active" onclick="showView('feed'); setActive(this)">Início</button>
+    <button class="nav-link" onclick="showView('explore'); setActive(this)">Explorar</button>
+    <button class="nav-link" onclick="showView('network'); setActive(this)">Minha Rede</button>
+    <button class="nav-link" onclick="alert('Notificações (sem notificações novas)')">Notificações</button>
+  </div>
+
+  <div class="nav-right" id="navGuest">
+    <button class="btn btn-ghost btn-sm" onclick="showView('login')">Entrar</button>
+    <button class="btn btn-primary btn-sm" onclick="showView('signup')">Criar conta</button>
+  </div>
+  <div class="nav-right" id="navUser" style="display:none">
+    <button class="btn btn-primary btn-sm" onclick="showView('new-post')">+ Publicar</button>
+    <div style="width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;cursor:pointer" onclick="showView('profile')">RF</div>
+  </div>
+</nav>
+
+<!-- ══════════ VIEWS ══════════ -->
+
+<!-- LANDING -->
+<div class="view active" id="view-landing">
+  <section class="hero">
+    <div class="hero-dot-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="pill-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        A rede que a ortopedia brasileira precisava
+      </div>
+      <h1>Compartilhe conhecimento. <em>Evolua junto.</em></h1>
+      <p>OssoHub é a rede profissional exclusiva para ortopedistas brasileiros. Publique casos clínicos, discuta artigos e conecte-se com especialistas de todo o Brasil — com sistema de recompensa por contribuição.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary btn-lg" onclick="simulateSignup()">Criar conta gratuita →</button>
+        <button class="btn btn-outline-white btn-lg" onclick="simulateLogin()">Já tenho conta</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-val">100%</div><div class="stat-lbl">Verificados por CRM</div></div>
+        <div><div class="stat-val">Gratuito</div><div class="stat-lbl">Para sempre</div></div>
+        <div><div class="stat-val">LGPD</div><div class="stat-lbl">Compliant</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como funciona -->
+  <section class="section section-white">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge-tag">Como funciona</span>
+        <div class="section-title">Simples. Profissional. Recompensador.</div>
+        <div class="section-sub">Em 4 passos você começa a contribuir e se destacar na maior rede de ortopedistas do Brasil.</div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="step-title">Cadastre-se com seu CRM</div>
+          <div class="step-desc">Somente ortopedistas verificados. Seu CRM garante que a rede mantém a qualidade e seriedade que a medicina exige.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="step-title">Publique casos e artigos</div>
+          <div class="step-desc">Compartilhe casos clínicos (anonimizados), resumos de artigos, experiências cirúrgicas e tire dúvidas com colegas.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div>
+          <div class="step-title">Ganhe XP e suba de nível</div>
+          <div class="step-desc">Cada publicação e comentário construtivo gera XP. Suba de Aprendiz a Lenda da Ortopedia e conquiste badges exclusivos.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green-dark)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="step-title">Conecte-se com especialistas</div>
+          <div class="step-desc">Siga colegas, filtre por subspecialidade e construa sua rede profissional dentro da ortopedia brasileira.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefícios + Gamificação -->
+  <section class="section section-bg">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="badge-tag">Por que OssoHub</span>
+          <div class="section-title" style="text-align:left;margin-top:8px">Feito por ortopedistas, <span style="color:var(--green)">para ortopedistas</span></div>
+          <div class="benefit-list">
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Casos clínicos com template estruturado e revisão por pares</p></div>
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Comentários threaded em tempo real com colegas especialistas</p></div>
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Sistema de XP justo que reconhece quem mais contribui</p></div>
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Anonimização automática — nenhum dado de paciente exposto</p></div>
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Filtro por subspecialidade: Ombro, Joelho, Coluna, Quadril e mais</p></div>
+            <div class="benefit-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>Badges exclusivos: Case Publisher, Mentor Ativo, Lenda do Ombro...</p></div>
+          </div>
+        </div>
+        <div>
+          <span class="badge-tag">Sistema de Recompensa</span>
+          <div class="section-title" style="text-align:left;margin-top:8px">Quanto mais você contribui, <span style="color:var(--green)">mais você cresce</span></div>
+          <p style="font-size:14px;color:var(--slate);margin-top:8px;margin-bottom:4px">Publique casos, comente, receba likes e suba na hierarquia da ortopedia brasileira.</p>
+          <div class="levels-list">
+            <div class="level-row"><div class="level-badge lv1">1</div><div><div class="level-name">Aprendiz</div><div class="level-xp">0 – 150 XP</div></div></div>
+            <div class="level-row"><div class="level-badge lv2">2</div><div><div class="level-name">Residente</div><div class="level-xp">151 – 400 XP</div></div></div>
+            <div class="level-row"><div class="level-badge lv3">3</div><div><div class="level-name">Especialista</div><div class="level-xp">401 – 800 XP</div></div></div>
+            <div class="level-row"><div class="level-badge lv4">4</div><div><div class="level-name">Mestre</div><div class="level-xp">801 – 1500 XP</div></div></div>
+            <div class="level-row"><div class="level-badge lv5">5</div><div><div class="level-name">Lenda da Ortopedia</div><div class="level-xp">1501+ XP</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Pronto para fazer parte?</h2>
+    <p>Cadastre-se gratuitamente com seu CRM e comece a compartilhar<br>conhecimento com ortopedistas de todo o Brasil.</p>
+    <button class="btn btn-primary btn-lg" onclick="simulateSignup()">Criar conta grátis →</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="logo" style="font-size:15px">
+        <div class="logo-icon" style="width:24px;height:24px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><path d="M17 10c.7-.7 1.69-1 2.5-1a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 1-4.5-4.5c0-.81.3-1.8 1-2.5l5-5"/><path d="M7 10c-.7-.7-1.69-1-2.5-1a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 4.5-4.5c0-.81-.3-1.8-1-2.5l-5-5"/></svg>
+        </div>
+        Osso<span style="color:var(--green)">Hub</span>
+      </div>
+      <p>© 2024 OssoHub — Todos os direitos reservados</p>
+      <div class="footer-links"><a href="#">Privacidade</a><a href="#">Termos</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- FEED -->
+<div class="view" id="view-feed">
+  <div class="feed-layout">
+    <div>
+      <div class="feed-filters">
+        <button class="filter-btn active">Todos</button>
+        <button class="filter-btn">Casos Clínicos</button>
+        <button class="filter-btn">Artigos</button>
+        <button class="filter-btn">Experiências</button>
+        <button class="filter-btn">Minhas Conexões</button>
+      </div>
+
+      <!-- Post 1 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar">MA</div>
+          <div>
+            <div class="post-author-name">Dr. Marcos Almeida <span class="lvl-chip lv3">Especialista</span></div>
+            <div class="post-author-meta">Ombro e Cotovelo · São Paulo, SP · 2h atrás</div>
+          </div>
+          <span class="post-type-badge type-case">Caso Clínico</span>
+        </div>
+        <div class="post-title">Luxação glenoumeral recidivante em atleta jovem — Latarjet vs Bankart artroscópico</div>
+        <div class="post-content">Paciente masculino, 22–28 anos, atleta de arremesso com 4 episódios de luxação anterior em 18 meses. Instabilidade anterior grau III. RNM evidencia lesão de Bankart óssea com perda de 20% da glenoide. Índice de ISIS = 6. Discuto aqui minha tomada de decisão para indicação cirúrgica...</div>
+        <div class="post-tags">
+          <span class="tag">#Ombro</span>
+          <span class="tag">#Instabilidade</span>
+          <span class="tag">#Latarjet</span>
+          <span class="tag">#Artroscopia</span>
+        </div>
+        <div class="post-footer">
+          <button class="post-action">❤️ 47</button>
+          <button class="post-action">💬 23</button>
+          <button class="post-action">🔗 Compartilhar</button>
+          <span class="post-time">2h atrás</span>
+        </div>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#7C3AED">CS</div>
+          <div>
+            <div class="post-author-name">Dra. Carla Santos <span class="lvl-chip lv4">Mestre</span></div>
+            <div class="post-author-meta">Joelho · Belo Horizonte, MG · 5h atrás</div>
+          </div>
+          <span class="post-type-badge type-article">Artigo</span>
+        </div>
+        <div class="post-title">Revisão sistemática: retorno ao esporte após LCA — quando liberar?</div>
+        <div class="post-content">Revisão de 42 artigos (2018–2024) sobre critérios para retorno ao esporte após reconstrução do LCA. LSI ≥ 90%, força do quadríceps, testes funcionais e aspectos psicológicos. Spoiler: o tempo isolado (12 meses) não é suficiente como critério único de liberação...</div>
+        <div class="post-tags">
+          <span class="tag">#LCA</span>
+          <span class="tag">#Joelho</span>
+          <span class="tag">#RetornoEsporte</span>
+        </div>
+        <div class="post-footer">
+          <button class="post-action">❤️ 89</button>
+          <button class="post-action">💬 31</button>
+          <button class="post-action">🔗 Compartilhar</button>
+          <span class="post-time">5h atrás</span>
+        </div>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#D97706">RL</div>
+          <div>
+            <div class="post-author-name">Dr. Ricardo Lima <span class="lvl-chip lv2">Residente</span></div>
+            <div class="post-author-meta">Trauma · Curitiba, PR · 1d atrás</div>
+          </div>
+          <span class="post-type-badge type-question">Dúvida</span>
+        </div>
+        <div class="post-title">Fratura de calcâneo tipo Sanders IV — cirurgia ou conservador?</div>
+        <div class="post-content">Paciente 45–55 anos, trabalhador braçal, fratura cominutiva de calcâneo Sanders IV bilateral após queda de andaime. Comorbidades: DM2 compensado, tabagista. Qual a conduta de vocês? Tenho dúvida sobre o risco de deiscência versus qualidade de vida a longo prazo sem a reconstrução...</div>
+        <div class="post-tags">
+          <span class="tag">#Trauma</span>
+          <span class="tag">#Pé</span>
+          <span class="tag">#Calcâneo</span>
+        </div>
+        <div class="post-footer">
+          <button class="post-action">❤️ 12</button>
+          <button class="post-action">💬 18</button>
+          <button class="post-action">🔗 Compartilhar</button>
+          <span class="post-time">1d atrás</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">Sugestões para seguir</div>
+        <div class="suggestion-item">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:#059669">PF</div>
+          <div><div class="suggestion-name">Dr. Paulo Figueiredo</div><div class="suggestion-meta">Coluna · SP</div></div>
+          <button class="suggestion-follow">Seguir</button>
+        </div>
+        <div class="suggestion-item">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:#DC2626">AM</div>
+          <div><div class="suggestion-name">Dra. Ana Mendes</div><div class="suggestion-meta">Quadril · RJ</div></div>
+          <button class="suggestion-follow">Seguir</button>
+        </div>
+        <div class="suggestion-item">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:#7C3AED">JO</div>
+          <div><div class="suggestion-name">Dr. João Oliveira</div><div class="suggestion-meta">Mão · MG</div></div>
+          <button class="suggestion-follow">Seguir</button>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">Como ganhar XP</div>
+        <div class="xp-item"><span class="action">Publicar caso clínico</span><span class="xp">+50 XP</span></div>
+        <div class="xp-item"><span class="action">Publicar artigo</span><span class="xp">+30 XP</span></div>
+        <div class="xp-item"><span class="action">Comentário construtivo</span><span class="xp">+10 XP</span></div>
+        <div class="xp-item"><span class="action">Like recebido</span><span class="xp">+5 XP</span></div>
+        <div class="xp-item"><span class="action">Badge desbloqueado</span><span class="xp">+25 XP</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div class="view" id="view-profile">
+  <div class="profile-layout">
+    <div class="profile-header-card">
+      <div class="profile-top">
+        <div class="profile-avatar">RF</div>
+        <div class="profile-info">
+          <div class="profile-name">Dr. Roberto Figueiredo</div>
+          <div class="profile-crm">CRM/SP 123456 · Ombro e Cotovelo, Artroscopia</div>
+          <div class="profile-bio">Ortopedista com foco em cirurgia do ombro e cotovelo. Apaixonado por ensino e casos complexos. Membro da SBOT e SBCJ.</div>
+          <div class="profile-tags">
+            <span class="tag">#Ombro</span>
+            <span class="tag">#Cotovelo</span>
+            <span class="tag">#Artroscopia</span>
+            <span class="tag">São Paulo, SP</span>
+          </div>
+        </div>
+        <div class="profile-btns">
+          <button class="btn btn-outline btn-sm">Editar Perfil</button>
+        </div>
+      </div>
+      <div class="xp-section">
+        <div class="xp-header">
+          <div><span class="xp-label">Nível 2 — Residente</span> <span class="lvl-chip lv2" style="margin-left:8px">Residente</span></div>
+          <div class="xp-value">210 / 400 XP</div>
+        </div>
+        <div class="xp-bar-wrap"><div class="xp-bar" style="width:52%"></div></div>
+        <div class="xp-next">190 XP para Especialista</div>
+      </div>
+      <div class="profile-stats">
+        <div class="pstat"><div class="pstat-val">7</div><div class="pstat-lbl">Posts</div></div>
+        <div class="pstat"><div class="pstat-val">210</div><div class="pstat-lbl">XP Total</div></div>
+        <div class="pstat"><div class="pstat-val">3</div><div class="pstat-lbl">Badges</div></div>
+        <div class="pstat"><div class="pstat-val">24</div><div class="pstat-lbl">Seguidores</div></div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">Conquistas</button>
+      <button class="tab">Publicações</button>
+      <button class="tab">Estatísticas</button>
+    </div>
+
+    <div class="badges-grid">
+      <div class="badge-card"><div class="badge-icon">🏆</div><div class="badge-name">Primeiro Post</div></div>
+      <div class="badge-card"><div class="badge-icon">🩺</div><div class="badge-name">Caso Clínico</div></div>
+      <div class="badge-card"><div class="badge-icon">💬</div><div class="badge-name">Comentarista</div></div>
+      <div class="badge-card locked"><div class="badge-icon">⭐</div><div class="badge-name">Popular</div></div>
+      <div class="badge-card locked"><div class="badge-icon">🧭</div><div class="badge-name">Explorador</div></div>
+      <div class="badge-card locked"><div class="badge-icon">🤝</div><div class="badge-name">Colaborador</div></div>
+      <div class="badge-card locked"><div class="badge-icon">👨‍🏫</div><div class="badge-name">Mentor</div></div>
+      <div class="badge-card locked"><div class="badge-icon">🦴</div><div class="badge-name">Guru Coluna</div></div>
+      <div class="badge-card locked"><div class="badge-icon">🏅</div><div class="badge-name">Lenda</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div class="view" id="view-login">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="logo" style="justify-content:center">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69-1 2.5-1a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 1-4.5-4.5c0-.81.3-1.8 1-2.5l5-5"/><path d="M7 10c-.7-.7-1.69-1-2.5-1a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 4.5-4.5c0-.81-.3-1.8-1-2.5l-5-5"/></svg></div>
+          Osso<span>Hub</span>
+        </div>
+      </div>
+      <div class="auth-title">Entrar na sua conta</div>
+      <div class="auth-sub">Acesse a maior rede de ortopedistas do Brasil</div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary btn-md" style="width:100%;justify-content:center;margin-top:8px" onclick="simulateLogin()">Entrar →</button>
+      <div class="divider">ou</div>
+      <p style="text-align:center;font-size:13px;color:var(--slate)">Não tem conta? <a href="#" style="color:var(--green);font-weight:600" onclick="showView('signup')">Cadastre-se grátis</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP -->
+<div class="view" id="view-signup">
+  <div class="auth-wrap">
+    <div class="auth-card" style="max-width:480px">
+      <div class="auth-logo">
+        <div class="logo" style="justify-content:center">
+          <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69-1 2.5-1a4.5 4.5 0 0 1 0 9 4.5 4.5 0 0 1-4.5-4.5c0-.81.3-1.8 1-2.5l5-5"/><path d="M7 10c-.7-.7-1.69-1-2.5-1a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 4.5-4.5c0-.81-.3-1.8-1-2.5l-5-5"/></svg></div>
+          Osso<span>Hub</span>
+        </div>
+      </div>
+      <div class="auth-title">Criar conta gratuita</div>
+      <div class="auth-sub">Exclusivo para ortopedistas verificados por CRM</div>
+      <div class="form-group">
+        <label class="form-label">Nome completo</label>
+        <input class="form-input" type="text" placeholder="Dr(a). Seu Nome">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label class="form-label">CRM</label>
+          <input class="form-input" type="text" placeholder="123456">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estado (CRM)</label>
+          <input class="form-input" type="text" placeholder="SP">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" placeholder="seu@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Senha</label>
+        <input class="form-input" type="password" placeholder="Mínimo 8 caracteres">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Especialidade principal</label>
+        <select class="form-input">
+          <option>Ombro e Cotovelo</option>
+          <option>Joelho</option>
+          <option>Coluna</option>
+          <option>Quadril</option>
+          <option>Pé e Tornozelo</option>
+          <option>Trauma</option>
+          <option>Mão e Microcirurgia</option>
+        </select>
+      </div>
+      <button class="btn btn-primary btn-md" style="width:100%;justify-content:center;margin-top:8px" onclick="simulateSignup()">Criar conta grátis →</button>
+      <p style="text-align:center;font-size:12px;color:var(--slate);margin-top:16px">Ao criar conta, você aceita nossos <a href="#" style="color:var(--green)">Termos</a> e <a href="#" style="color:var(--green)">Política de Privacidade</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORE -->
+<div class="view" id="view-explore">
+  <div class="feed-layout">
+    <div>
+      <div style="margin-bottom:20px">
+        <input class="form-input" type="text" placeholder="🔍 Buscar por tag, especialidade ou nome..." style="font-size:14px;padding:12px 16px">
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">Posts em Destaque ⭐</div>
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar" style="background:#D97706">JM</div>
+          <div>
+            <div class="post-author-name">Dr. Jorge Motta <span class="lvl-chip lv5">Lenda</span></div>
+            <div class="post-author-meta">Coluna · Recife, PE · 3d atrás</div>
+          </div>
+          <span class="post-type-badge type-article">Destaque ⭐</span>
+        </div>
+        <div class="post-title">10 erros mais comuns no diagnóstico de hérnia de disco lombar</div>
+        <div class="post-content">Após revisar mais de 300 casos encaminhados erroneamente, listo os erros mais frequentes no diagnóstico diferencial da hérnia lombar e como evitá-los na prática clínica diária...</div>
+        <div class="post-tags"><span class="tag">#Coluna</span><span class="tag">#Diagnóstico</span><span class="tag">#HérniaDisco</span></div>
+        <div class="post-footer">
+          <button class="post-action">❤️ 234</button>
+          <button class="post-action">💬 67</button>
+          <span class="post-time">3d atrás</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">Usuários Sugeridos</div>
+        <div class="suggestion-item">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:#D97706">JM</div>
+          <div><div class="suggestion-name">Dr. Jorge Motta</div><div class="suggestion-meta">Lenda · Coluna</div></div>
+          <button class="suggestion-follow">Seguir</button>
+        </div>
+        <div class="suggestion-item">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:#059669">BL</div>
+          <div><div class="suggestion-name">Dra. Beatriz Lima</div><div class="suggestion-meta">Mestre · Quadril</div></div>
+          <button class="suggestion-follow">Seguir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NETWORK -->
+<div class="view" id="view-network">
+  <div style="max-width:700px;margin:0 auto;padding:32px 24px">
+    <h2 style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:20px">Minha Rede</h2>
+    <div class="tabs">
+      <button class="tab active">Seguindo (8)</button>
+      <button class="tab">Seguidores (24)</button>
+    </div>
+    <div class="sidebar-card">
+      <div class="suggestion-item">
+        <div class="avatar" style="background:#059669">CS</div>
+        <div><div class="suggestion-name">Dra. Carla Santos</div><div class="suggestion-meta">Mestre · Joelho · BH, MG</div></div>
+        <button class="suggestion-follow" style="color:var(--slate);border-color:var(--border)">Seguindo</button>
+      </div>
+      <div class="suggestion-item">
+        <div class="avatar">MA</div>
+        <div><div class="suggestion-name">Dr. Marcos Almeida</div><div class="suggestion-meta">Especialista · Ombro · SP</div></div>
+        <button class="suggestion-follow" style="color:var(--slate);border-color:var(--border)">Seguindo</button>
+      </div>
+      <div class="suggestion-item">
+        <div class="avatar" style="background:#7C3AED">PF</div>
+        <div><div class="suggestion-name">Dr. Paulo Figueiredo</div><div class="suggestion-meta">Mestre · Coluna · SP</div></div>
+        <button class="suggestion-follow" style="color:var(--slate);border-color:var(--border)">Seguindo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+
+  const loggedIn = ['feed','profile','explore','network','new-post'].includes(name);
+  document.getElementById('mainNav').style.display = loggedIn ? 'flex' : 'none';
+  document.getElementById('navGuest').style.display = loggedIn ? 'none' : 'flex';
+  document.getElementById('navUser').style.display = loggedIn ? 'flex' : 'none';
+
+  // active nav link
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const map = { feed: 0, explore: 1, network: 2 };
+  const links = document.querySelectorAll('#mainNav .nav-link');
+  if (map[name] !== undefined) links[map[name]].classList.add('active');
+}
+
+function setActive(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function simulateLogin() {
+  showView('feed');
+}
+
+function simulateSignup() {
+  showView('feed');
+}
+
+// filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.feed-filters').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// tabs in profile
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    this.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

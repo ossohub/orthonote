@@ -3018,7 +3018,493 @@ const CL_DATA = [
      {r:'r2',l:'Zona II — Foraminal',d:'Através dos forames sacros. Risco de lesão das raízes L4–S3 (30–35%). RAFI se instável; exploração neurológica se déficit.'},
      {r:'r3',l:'Zona III — Canal central',d:'Através do canal central do sacro. Alto risco de lesão da cauda equina e disfunção vesicorretal (60%). RAFI + descompressão quando indicado.'}
    ],
-   nota:'⚠️ Zonas II–III: investigar com TC + RM. Fraturas em "H" (bilateral, Zona III bilateral) são as mais graves com alta taxa de lesão neurológica. ⚠️ Diferente da Classificação de Denis toracolombar (teoria das 3 colunas).'}
+   nota:'⚠️ Zonas II–III: investigar com TC + RM. Fraturas em "H" (bilateral, Zona III bilateral) são as mais graves com alta taxa de lesão neurológica. ⚠️ Diferente da Classificação de Denis toracolombar (teoria das 3 colunas).'},
+
+  // ══════════════════════════════════════════════════════════════
+  // NOVAS CLASSIFICAÇÕES — traduzidas e adicionadas a partir de
+  // "Fracture Classification" (PDF de referência). Somente sistemas
+  // que ainda não constavam no site; nenhuma classificação existente
+  // foi alterada. Sem imagem própria ainda — administrador poderá
+  // adicionar posteriormente pelo botão de upload de cada card.
+  // ══════════════════════════════════════════════════════════════
+
+  // ── COLUNA (novas) ──
+  {id:'occipital-condilo', sigla:'ANDERSON-MONTISANO', nome:'Anderson e Montisano — Fratura do Côndilo Occipital', fonte:'Anderson PA, Montisano PA, Spine 1988', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Impactação cominutiva por compressão axial. Geralmente estável. Colar cervical.'},
+     {r:'r1',l:'Tipo II',d:'Extensão de fratura da base do crânio até o côndilo. Geralmente estável. Colar cervical.'},
+     {r:'r3',l:'Tipo III',d:'Fratura por avulsão do côndilo pelo ligamento alar. Potencialmente instável — halo ou fusão occipitocervical se instabilidade confirmada.'}
+   ],
+   nota:'Avaliar sempre a junção craniocervical (dissociação atlanto-occipital) na presença de fratura do côndilo occipital.'},
+  {id:'atlanto-occipital-dissociacao', sigla:'TRAYNELIS', nome:'Traynelis — Dissociação Atlanto-Occipital', fonte:'Traynelis VC et al., J Neurosurg 1986', regiao:'coluna',
+   rows:[
+     {r:'r4',l:'Tipo I',d:'Desvio anterior do occipício em relação a C1.'},
+     {r:'r4',l:'Tipo II',d:'Distração longitudinal pura entre occipício e C1.'},
+     {r:'r4',l:'Tipo III',d:'Desvio posterior do occipício em relação a C1.'}
+   ],
+   nota:'⚠️ Lesão de altíssima mortalidade (frequentemente fatal no local do trauma). Halo-colete ou fusão occipitocervical de urgência nos sobreviventes.'},
+  {id:'atlas-levine-edwards', sigla:'LEVINE-EDWARDS-C1', nome:'Levine e Edwards — Fratura do Atlas (C1)', fonte:'Levine AM, Edwards CC, Orthop Clin North Am 1986', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura isolada do arco posterior. Estável. Colar cervical.'},
+     {r:'r3',l:'Tipo II',d:'Fratura cominutiva de ambos os arcos, anterior e posterior (fratura de Jefferson). Estabilidade depende da integridade do ligamento transverso.'},
+     {r:'r3',l:'Tipo III',d:'Fratura da massa lateral. Potencialmente instável, sobretudo se bilateral.'}
+   ],
+   nota:'Regra de Spence: overhang combinado das massas laterais >6,9mm na incidência transoral sugere ruptura do ligamento transverso — instabilidade C1–C2.'},
+  {id:'rotatoria-c1c2-fielding', sigla:'FIELDING-C1C2', nome:'Fielding — Subluxação/Luxação Rotatória Atlantoaxial', fonte:'Fielding JW, Hawkins RJ, JBJS 1977', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Rotação simples sem desvio anterior; ligamento transverso íntegro (odontóide como pivô). Tração + colar.'},
+     {r:'r2',l:'Tipo II',d:'Desvio anterior de 3–5mm; uma massa articular atua como pivô. Redução seguida de imobilização.'},
+     {r:'r3',l:'Tipo III',d:'Desvio anterior >5mm; ambas as massas articulares deslocadas anteriormente. Redução + fusão se persistir instabilidade.'},
+     {r:'r4',l:'Tipo IV',d:'Desvio posterior — raro, geralmente associado à erosão do odontóide (artrite reumatoide). Instável, requer fusão.'}
+   ]},
+  {id:'hangman-levine-edwards', sigla:'HANGMAN-LEVINE-EDWARDS', nome:'Levine e Edwards — Espondilolistese Traumática do Áxis (Fratura do Enforcado)', fonte:'Levine AM, Edwards CC, JBJS 1985', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Desvio <3mm, sem angulação significativa. Estável. Colar rígido.'},
+     {r:'r3',l:'Tipo II',d:'Desvio significativo + angulação por falha do disco C2–C3. Tração seguida de halo-colete.'},
+     {r:'r3',l:'Tipo IIA',d:'Angulação grave sem translação (mecanismo de flexão-distração). ⚠️ Tração pode agravar a angulação — halo com cautela, sem tração longitudinal.'},
+     {r:'r4',l:'Tipo III',d:'Fratura + luxação facetária bilateral C2–C3. Muito instável — tratamento cirúrgico.'}
+   ]},
+  {id:'allen-ferguson-subaxial', sigla:'ALLEN-FERGUSON', nome:'Allen-Ferguson — Lesões da Coluna Cervical Subaxial (C3–C7) por Mecanismo', fonte:'Allen BL, Ferguson RL et al., Spine 1982', regiao:'coluna',
+   rows:[
+     {r:'r2',l:'Compressão-flexão (5 estágios)',d:'Falha progressiva do corpo vertebral anterior, do arredondamento simples até o deslizamento do corpo para o canal.'},
+     {r:'r3',l:'Distração-flexão (4 estágios)',d:'Subluxação facetária progressiva até luxação bilateral completa e deslizamento vertebral.'},
+     {r:'r3',l:'Compressão vertical (3 estágios)',d:'Fratura em explosão (burst) da placa terminal com cominuição progressiva do corpo.'},
+     {r:'r2',l:'Compressão-extensão (5 estágios)',d:'Fratura uni ou bilateral do arco posterior/lâmina, progredindo a luxação anterior.'},
+     {r:'r3',l:'Distração-extensão (2 estágios)',d:'Ruptura do disco e ligamento longitudinal anterior, com ou sem deslocamento posterior do corpo.'},
+     {r:'r2',l:'Flexão lateral (2 estágios)',d:'Fratura compressiva assimétrica de um lado com distração/fratura contralateral.'}
+   ],
+   nota:'Classificação por mecanismo de lesão; estágios mais avançados dentro de cada grupo indicam maior instabilidade.'},
+  {id:'ota-cervical-subaxial', sigla:'AO-CERVICAL', nome:'AO Spine / OTA — Coluna Cervical Subaxial', fonte:'Vaccaro AR et al., AO Spine, Global Spine J 2016', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Tipo A — Compressão',d:'A0 sem lesão óssea/discoligamentar relevante; A1 impacção; A2 split; A3 burst incompleto; A4 burst completo.'},
+     {r:'r3',l:'Tipo B — Tensão-banda',d:'Falha em distração, anterior (através do disco) ou posterior (através dos elementos posteriores).'},
+     {r:'r4',l:'Tipo C — Translação/Rotação',d:'Luxação facetária, deslocamento — instabilidade completa nas 3 colunas.'}
+   ],
+   nota:'Modificador neurológico associado: N0 (sem déficit) a N4 (lesão medular completa), NX (exame indeterminado).'},
+  {id:'mcafee-toracolombar', sigla:'MCAFEE', nome:'McAfee — Fraturas Toracolombares (por Mecanismo)', fonte:'McAfee PC et al., JBJS 1983', regiao:'coluna',
+   rows:[
+     {r:'r1',l:'Compressão em cunha',d:'Coluna média intacta. Estável.'},
+     {r:'r2',l:'Burst estável',d:'Coluna média em compressão; arco posterior íntegro.'},
+     {r:'r3',l:'Burst instável',d:'Coluna média + posterior comprometidas; risco de cifose progressiva.'},
+     {r:'r3',l:'Chance (flexão-distração)',d:'Falha em tensão através das três colunas, geralmente no mesmo nível ósseo ou ligamentar.'},
+     {r:'r4',l:'Flexão-distração translacional',d:'Cisalhamento com luxação — lesão muito instável.'},
+     {r:'r2',l:'Distração em extensão',d:'Falha em tensão anterior (posterior a posterior) por mecanismo de extensão.'}
+   ],
+   nota:'Baseada em TC, com foco especial na integridade da coluna média (complementa Denis).'},
+
+  // ── OMBRO (novas) ──
+  {id:'clavicula-craig', sigla:'CRAIG-CLAVICULA', nome:'Craig (Allman/Neer combinados) — Fratura da Clavícula (Terços)', fonte:'Craig EV, in Rockwood & Green\'s Fractures 1996', regiao:'ombro',
+   rows:[
+     {r:'r1',l:'Grupo I — Terço médio',d:'Mais comum (~80%). Geralmente tratamento conservador se desvio mínimo.'},
+     {r:'r3',l:'Grupo II — Terço distal',d:'IIA: ligamentos coracoclaviculares íntegros nos dois fragmentos (estável). IIB: ligamentos rotos ou presos apenas no fragmento medial (instável). Variante com traço intra-articular.'},
+     {r:'r2',l:'Grupo III — Terço proximal',d:'Raro. Avaliar lesão intratorácica/mediastinal associada em traumas de alta energia.'}
+   ],
+   nota:'Grupo II é o mais propenso à pseudartrose; considerar RAFI se desvio >100% da largura do osso ou encurtamento >2cm.'},
+  {id:'coracoide-eyres-brooks', sigla:'EYRES-BROOKS', nome:'Eyres, Brooks e Wells — Fratura do Processo Coracóide', fonte:'Eyres KS, Brooks A, Wells L, JBJS Br 1995', regiao:'ombro',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura na base do processo, próxima à glenóide.'},
+     {r:'r2',l:'Tipo II',d:'Fratura através da curvatura do coracóide.'},
+     {r:'r2',l:'Tipo III',d:'Fratura acima da inserção do ligamento coracoclavicular.'},
+     {r:'r1',l:'Tipo IV',d:'Fratura da ponta do coracóide (avulsão do bíceps/coracobraquial).'},
+     {r:'r3',l:'Tipo V',d:'Fratura do coracóide associada à fratura da glenóide.'}
+   ],
+   nota:'Geralmente por trauma direto ou avulsão ligamentar/muscular; investigar lesões associadas do complexo acromioclavicular e da glenóide.'},
+  {id:'luxacao-post-ombro-anatomica', sigla:'LUX-POST-OMBRO', nome:'Classificação Anatômica — Luxação Glenoumeral Posterior', fonte:'Rockwood & Green\'s Fractures in Adults', regiao:'ombro',
+   rows:[
+     {r:'r3',l:'Subacromial',d:'Cabeça umeral posicionada posterior ao acrômio. Forma mais comum (>98% dos casos).'},
+     {r:'r4',l:'Subglenóide',d:'Cabeça umeral posterior e inferior à borda da glenóide.'},
+     {r:'r4',l:'Subespinhosa',d:'Cabeça umeral medial à espinha da escápula. Raríssima.'}
+   ],
+   nota:'Frequentemente associada à lesão de Hill-Sachs reversa (impacção anteromedial da cabeça umeral); causas clássicas: convulsão, choque elétrico, trauma direto.'},
+  {id:'umero-diafise-ao', sigla:'AO-12', nome:'AO/OTA 12 — Fratura da Diáfise Umeral', fonte:'AO Foundation / OTA 2018', regiao:'ombro',
+   rows:[
+     {r:'r1',l:'Tipo A — Simples',d:'Espiral, oblíqua ou transversa.'},
+     {r:'r2',l:'Tipo B — Cunha',d:'Cunha intacta ou fragmentada.'},
+     {r:'r3',l:'Tipo C — Complexa',d:'Espiral, segmentar ou irregular.'}
+   ],
+   nota:'⚠️ Avaliar sempre a função do nervo radial (paralisia em até 18% dos casos, geralmente neuropraxia transitória — sobretudo no terço distal/Holstein-Lewis).'},
+
+  // ── COTOVELO (novas) ──
+  {id:'intercondilar-riseborough-radin', sigla:'RISEBOROUGH-RADIN', nome:'Riseborough e Radin — Fratura Intercondilar do Úmero Distal', fonte:'Riseborough EJ, Radin EL, JBJS 1969', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio entre os côndilos.'},
+     {r:'r2',l:'Tipo II',d:'Desvio sem rotação entre os côndilos (fragmentos em "T"/"Y" simples).'},
+     {r:'r3',l:'Tipo III',d:'Desvio com rotação dos côndilos no plano frontal.'},
+     {r:'r4',l:'Tipo IV',d:'Cominuição articular grave com ampla separação dos côndilos.'}
+   ],
+   nota:'Tipos III–IV geralmente exigem RAFI com dupla placa (paralela ou 90-90) ou artroplastia total do cotovelo em pacientes idosos.'},
+  {id:'condilo-milch', sigla:'MILCH', nome:'Milch — Fratura Condilar do Úmero Distal (Medial/Lateral)', fonte:'Milch H, J Trauma 1964', regiao:'cotovelo',
+   rows:[
+     {r:'r2',l:'Tipo I',d:'Traço lateral (ou medial) à crista troclear, que permanece unida à haste umeral. Padrão mais estável.'},
+     {r:'r3',l:'Tipo II',d:'Traço através do sulco/crista troclear, incluindo a crista no fragmento condilar. Instável — risco de luxação em varo/valgo; RAFI.'}
+   ]},
+  {id:'capitulo-hahn-steinthal-kocher-lorenz', sigla:'HAHN-STEINTHAL/KOCHER-LORENZ', nome:'Hahn-Steinthal / Kocher-Lorenz — Fratura do Capítulo', fonte:'Hahn NF 1853; Steinthal D 1898; Kocher T; Lorenz A', regiao:'cotovelo',
+   rows:[
+     {r:'r2',l:'Tipo I (Hahn-Steinthal)',d:'Grande fragmento osteocondral com osso subcondral significativo. RAFI com parafusos.'},
+     {r:'r3',l:'Tipo II (Kocher-Lorenz)',d:'Fragmento predominantemente cartilaginoso, com pouco osso subcondral ("cartilagem descascada"). Fixação difícil; considerar excisão se pequeno.'},
+     {r:'r4',l:'Tipo III',d:'Cominuição grave do capítulo.'},
+     {r:'r3',l:'Tipo IV (McKee)',d:'Extensão da fratura para a tróclea lateral.'}
+   ]},
+  {id:'coronoide-regan-morrey', sigla:'REGAN-MORREY', nome:'Regan e Morrey — Fratura do Processo Coronóide', fonte:'Regan W, Morrey B, JBJS 1989', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Avulsão da ponta do coronóide.'},
+     {r:'r2',l:'Tipo II',d:'Fragmento único ou múltiplo envolvendo ≤50% do processo.'},
+     {r:'r4',l:'Tipo III',d:'Fragmento envolvendo >50% do processo. Alto risco de instabilidade do cotovelo — RAFI.'}
+   ],
+   nota:'O coronóide é estabilizador anterior primário do cotovelo; tipo III frequentemente associado à "tríade terrível" (coronóide + cabeça do rádio + luxação).'},
+  {id:'olecrano-morrey', sigla:'MORREY-OLECRANO', nome:'Morrey — Fratura do Olécrano', fonte:'Morrey BF, in Rockwood & Green\'s Fractures', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio, estável. Tratamento conservador (gesso em leve flexão).'},
+     {r:'r2',l:'Tipo II',d:'Com desvio, estável (mecanismo extensor íntegro, sem instabilidade associada). RAFI (banda de tensão ou placa).'},
+     {r:'r4',l:'Tipo III',d:'Com desvio, instável (associada à luxação do cotovelo). RAFI + reparo dos estabilizadores associados.'}
+   ],
+   nota:'Cada tipo subdividido em A (sem cominuição) e B (com cominuição).'},
+  {id:'luxacao-cotovelo-descritiva', sigla:'LUX-COTOVELO', nome:'Classificação Descritiva/Cronológica — Luxação do Cotovelo', fonte:'Rockwood & Green\'s Fractures in Adults', regiao:'cotovelo',
+   rows:[
+     {r:'r2',l:'Aguda simples',d:'Sem fratura associada; direção posterior é a mais comum (>80%). Redução fechada + mobilização precoce.'},
+     {r:'r4',l:'Aguda complexa',d:'Associada a fratura (tríade terrível: coronóide + cabeça radial + luxação). RAFI/reconstrução dos estabilizadores.'},
+     {r:'r3',l:'Crônica/recidivante',d:'Instabilidade recorrente por insuficiência ligamentar. Reconstrução do ligamento colateral ulnar.'},
+     {r:'r4',l:'Inveterada (não reduzida)',d:'>3 semanas sem redução. Redução aberta + liberação de partes moles.'}
+   ]},
+  {id:'monteggia-bado', sigla:'BADO-MONTEGGIA', nome:'Bado — Fratura-Luxação de Monteggia', fonte:'Bado JL, Clin Orthop 1967', regiao:'cotovelo',
+   rows:[
+     {r:'r3',l:'Tipo I',d:'Luxação anterior da cabeça do rádio + fratura da diáfise ulnar com angulação anterior. Mais comum (~70%).'},
+     {r:'r3',l:'Tipo II',d:'Luxação posterior/posterolateral da cabeça do rádio + fratura ulnar com angulação posterior.'},
+     {r:'r2',l:'Tipo III',d:'Luxação lateral/anterolateral da cabeça do rádio + fratura da metáfise ulnar. Mais comum em crianças.'},
+     {r:'r4',l:'Tipo IV',d:'Luxação anterior da cabeça do rádio + fraturas do rádio e da ulna no mesmo nível.'}
+   ],
+   nota:'⚠️ Avaliar sempre o nervo interósseo posterior (ramo do radial) antes e após a redução da cabeça radial.'},
+
+  // ── PUNHO (novas) ──
+  {id:'smith-thomas', sigla:'SMITH-THOMAS', nome:'Thomas (modificada) — Fratura de Smith do Rádio Distal', fonte:'Thomas FB, JBJS Br 1957', regiao:'punho',
+   rows:[
+     {r:'r2',l:'Tipo I',d:'Extra-articular, transversa. Fratura de Smith clássica ("Colles reverso"). Mais comum.'},
+     {r:'r3',l:'Tipo II',d:'Intra-articular, oblíqua dorsal (equivale ao Barton volar invertido).'},
+     {r:'r1',l:'Tipo III',d:'Extra-articular, oblíqua juvenil (através da fise, em crianças).'}
+   ],
+   nota:'Fratura instável — desvio volar do fragmento distal com o carpo. Geralmente requer RAFI com placa volar bloqueada.'},
+  {id:'escafoide-russe', sigla:'RUSSE', nome:'Russe — Fratura do Escafoide (por Orientação da Linha)', fonte:'Russe O, JBJS 1960', regiao:'punho',
+   rows:[
+     {r:'r1',l:'Horizontal-oblíqua',d:'Linha mais estável; forças de cisalhamento mínimas.'},
+     {r:'r2',l:'Transversa',d:'Orientação intermediária.'},
+     {r:'r3',l:'Vertical-oblíqua',d:'Linha menos estável, maior força de cisalhamento — maior risco de pseudartrose e retardo de consolidação.'}
+   ],
+   nota:'Complementa Herbert-Fisher; a localização (proximal/médio/distal) também influencia o risco de necrose avascular — o polo proximal tem pior suprimento vascular (retrógrado).'},
+  {id:'semilunar-teisen-hjarkbaek', sigla:'TEISEN-HJARKBAEK', nome:'Teisen e Hjarkbaek — Fratura Isolada do Semilunar', fonte:'Teisen H, Hjarkbaek J, J Hand Surg Br 1988', regiao:'punho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura do polo palmar.'},
+     {r:'r1',l:'Tipo II',d:'Fratura do polo dorsal.'},
+     {r:'r2',l:'Tipo III',d:'Fratura transversa do corpo.'},
+     {r:'r2',l:'Tipo IV',d:'Fratura sagital.'},
+     {r:'r4',l:'Tipo V',d:'Cominutiva.'}
+   ],
+   nota:'Fratura isolada rara — excluir doença de Kienböck subjacente.'},
+
+  // ── MÃO (novas) ──
+  {id:'falange-distal-kaplan', sigla:'KAPLAN', nome:'Kaplan — Fratura da Falange Distal', fonte:'Kaplan EB, Hand Surgery', regiao:'mao',
+   rows:[
+     {r:'r1',l:'Tipo A',d:'Sem desvio.'},
+     {r:'r2',l:'Tipo B',d:'Com desvio/angulação.'},
+     {r:'r3',l:'Tipo C',d:'Intra-articular, com ou sem subluxação.'},
+     {r:'r2',l:'Tipo D',d:'Epifisária (crianças) — associar Salter-Harris.'}
+   ],
+   nota:'Avaliar sempre lesão de leito ungueal e integridade do mecanismo extensor/flexor associado.'},
+  {id:'mallet-wehbe-schneider', sigla:'WEHBE-SCHNEIDER', nome:'Wehbe e Schneider — Fratura em Martelo (Mallet Finger)', fonte:'Wehbe MA, Schneider LH, JBJS 1984', regiao:'mao',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem fratura (lesão tendínea pura). Tala em extensão por 6–8 semanas.'},
+     {r:'r2',l:'Tipo II',d:'Fratura com desvio articular <1/3 da superfície, sem subluxação.'},
+     {r:'r4',l:'Tipo III',d:'Fratura com desvio articular ≥1/3, com subluxação volar da falange distal.'}
+   ],
+   nota:'Subtipos A/B/C conforme a placa fisária esteja aberta/fechando/fechada (fraturas em crianças). Fragmentos >30–50% da superfície articular ou com subluxação → considerar RAFI.'},
+
+  // ── QUADRIL (novas) ──
+  {id:'luxacao-ant-quadril-epstein', sigla:'EPSTEIN', nome:'Epstein — Luxação Anterior do Quadril', fonte:'Epstein HC, JBJS 1974', regiao:'quadril',
+   rows:[
+     {r:'r2',l:'Tipo I — Obturatriz/púbica (superior)',d:'IA sem fratura associada; IB com fratura/impacção da cabeça femoral; IC com fratura do acetábulo.'},
+     {r:'r3',l:'Tipo II — Púbica/obturatriz (inferior)',d:'Subtipos IIA/IIB/IIC análogos ao Tipo I.'}
+   ],
+   nota:'Redução urgente (<6h) para minimizar risco de necrose avascular da cabeça femoral.'},
+  {id:'luxacao-post-quadril-thompson-epstein', sigla:'THOMPSON-EPSTEIN', nome:'Thompson e Epstein — Luxação Posterior do Quadril', fonte:'Thompson VP, Epstein HC, JBJS 1951', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Luxação simples, sem fratura significativa ou com pequeno fragmento da parede posterior.'},
+     {r:'r2',l:'Tipo II',d:'Luxação + fratura de um único e grande fragmento da parede posterior do acetábulo.'},
+     {r:'r3',l:'Tipo III',d:'Luxação + cominuição da parede posterior (com ou sem fragmento maior).'},
+     {r:'r3',l:'Tipo IV',d:'Luxação + fratura do assoalho acetabular.'},
+     {r:'r4',l:'Tipo V',d:'Luxação + fratura da cabeça femoral (associar classificação de Pipkin).'}
+   ],
+   nota:'⚠️ Emergência ortopédica — redução em <6h reduz o risco de necrose avascular de ~50% para <10%.'},
+  {id:'intertrocanterica-boyd-griffin', sigla:'BOYD-GRIFFIN', nome:'Boyd e Griffin — Fratura Intertrocantérica', fonte:'Boyd HB, Griffin LL, Arch Surg 1949', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Linha simples ao longo da linha intertrocantérica; redução fácil.'},
+     {r:'r2',l:'Tipo II',d:'Linha cominutiva com múltiplos fragmentos corticais; redução mais difícil.'},
+     {r:'r3',l:'Tipo III',d:'Fratura subtrocantérica associada (traço estendendo-se abaixo do pequeno trocanter).'},
+     {r:'r4',l:'Tipo IV',d:'Fratura em qualquer plano com extensão subtrocantérica adicional na diáfise proximal.'}
+   ],
+   nota:'Tipos III–IV são instáveis e propensos ao colapso em varo — considerar clavo cefalomedular longo.'},
+  {id:'intertrocanterica-evans', sigla:'EVANS-JENSEN', nome:'Evans (Jensen) — Fratura Intertrocantérica por Estabilidade', fonte:'Evans EM, JBJS Br 1949; Jensen JS 1980', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Traço do pequeno trocanter em direção superolateral. Ia sem desvio (estável); Ib com desvio redutível (estável após redução).'},
+     {r:'r3',l:'Tipo I (Ic/Id)',d:'Ic irredutível/cominutiva (instável); Id cominuição em 4 partes (instável).'},
+     {r:'r4',l:'Tipo II (reversa)',d:'Traço em direção oposta (do grande trocanter para inferomedial). Sempre instável.'}
+   ],
+   nota:'Fragmento posteromedial (córtex do calcar) cominuído é o principal determinante de instabilidade.'},
+  {id:'subtrocanterica-fielding', sigla:'FIELDING-SUBTROC', nome:'Fielding — Fratura Subtrocantérica', fonte:'Fielding JW, Clin Orthop 1973', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura ao nível do pequeno trocanter.'},
+     {r:'r2',l:'Tipo II',d:'Fratura até 2,5cm abaixo do pequeno trocanter.'},
+     {r:'r3',l:'Tipo III',d:'Fratura entre 2,5 e 5cm abaixo do pequeno trocanter.'}
+   ]},
+  {id:'subtrocanterica-seinsheimer', sigla:'SEINSHEIMER', nome:'Seinsheimer — Fratura Subtrocantérica', fonte:'Seinsheimer F, JBJS 1978', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio (<2mm).'},
+     {r:'r2',l:'Tipo II',d:'2 fragmentos: IIA transversa; IIB espiral com pequeno trocanter no fragmento proximal; IIC espiral com pequeno trocanter no fragmento distal.'},
+     {r:'r3',l:'Tipo III',d:'3 fragmentos: IIIA com fragmento em asa de borboleta ligado ao proximal; IIIB ligado ao distal.'},
+     {r:'r4',l:'Tipo IV',d:'Cominutiva, com 4 ou mais fragmentos.'},
+     {r:'r4',l:'Tipo V',d:'Fratura subtrocantérica-intertrocantérica combinada.'}
+   ]},
+  {id:'subtrocanterica-russell-taylor', sigla:'RUSSELL-TAYLOR', nome:'Russell-Taylor — Fratura Subtrocantérica (Guia de Fixação)', fonte:'Russell TA, Taylor JC, in Skeletal Trauma 1992', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo IA',d:'Traço não se estende à fossa piriforme; pequeno trocanter íntegro. Haste intramedular padrão.'},
+     {r:'r2',l:'Tipo IB',d:'Traço não se estende à fossa piriforme; pequeno trocanter comprometido/instável. Haste com parafuso cefálico.'},
+     {r:'r2',l:'Tipo IIA',d:'Traço estende-se à fossa piriforme; parede medial (calcar) íntegra.'},
+     {r:'r4',l:'Tipo IIB',d:'Traço estende-se à fossa piriforme; parede medial comprometida — instabilidade em varo, dificultando haste anterógrada padrão.'}
+   ],
+   nota:'Orientada especificamente para a escolha da técnica de haste intramedular (entrada piriforme vs. trocantérica).'},
+
+  // ── FÊMUR/JOELHO (novas) ──
+  {id:'femur-distal-ao', sigla:'AO-33', nome:'AO/OTA 33 — Fratura do Fêmur Distal', fonte:'AO Foundation / OTA 2018', regiao:'femur',
+   rows:[
+     {r:'r1',l:'Tipo A — Extra-articular',d:'A1: simples; A2: cunha metafisária; A3: metafisária complexa.'},
+     {r:'r2',l:'Tipo B — Articular parcial',d:'B1: sagital lateral (côndilo lateral); B2: sagital medial (côndilo medial); B3: coronal (equivale à fratura de Hoffa).'},
+     {r:'r4',l:'Tipo C — Articular completa',d:'C1: articular simples/metafisária simples; C2: articular simples/metafisária complexa; C3: articular complexa.'}
+   ],
+   nota:'B3 corresponde à fratura de Hoffa; a classificação AO orienta a escolha entre placa bloqueada e haste retrógrada.'},
+  {id:'patela-saunders', sigla:'SAUNDERS', nome:'Saunders — Fratura da Patela', fonte:'Saunders JB, in Fractures and Joint Injuries', regiao:'joelho',
+   rows:[
+     {r:'r2',l:'Tipo I — Transversa',d:'Mais comum (~50–80%). RAFI (banda de tensão) se desvio >2–3mm ou degrau articular >2mm.'},
+     {r:'r1',l:'Tipo II — Polo (avulsão)',d:'Fratura do polo superior ou inferior.'},
+     {r:'r2',l:'Tipo III — Vertical (marginal)',d:'Traço vertical, geralmente estável.'},
+     {r:'r1',l:'Tipo IV — Osteocondral',d:'Fragmento osteocondral isolado, frequentemente pós-luxação patelar.'},
+     {r:'r4',l:'Tipo V — Cominutiva (estrelada)',d:'Múltiplos fragmentos, alta energia.'}
+   ],
+   nota:'Avaliar sempre a integridade do mecanismo extensor (teste de extensão ativa contra a gravidade).'},
+  {id:'luxacao-joelho-descritiva', sigla:'LUX-JOELHO', nome:'Classificação Descritiva (Anatômica) — Luxação do Joelho', fonte:'Rockwood & Green\'s Fractures in Adults', regiao:'joelho',
+   rows:[
+     {r:'r4',l:'Anterior',d:'Mecanismo de hiperextensão; a mais comum. Alto risco de lesão da artéria poplítea por estiramento.'},
+     {r:'r4',l:'Posterior',d:'Trauma direto na tíbia proximal com o joelho fletido ("dashboard injury"). Maior risco de lesão vascular direta (íntima).'},
+     {r:'r3',l:'Lateral',d:'Estresse em valgo; associada a lesão do nervo fibular comum.'},
+     {r:'r3',l:'Medial',d:'Estresse em varo.'},
+     {r:'r4',l:'Rotatória',d:'Posterolateral é a mais grave — pode ser irredutível (botoeira do côndilo femoral medial pela cápsula).'}
+   ],
+   nota:'⚠️ Emergência vascular — avaliar índice tornozelo-braquial (ITB) em toda luxação de joelho, mesmo após redução espontânea.'},
+
+  // ── TORNOZELO/PÉ (novas) ──
+  {id:'calcaneo-souer-remy', sigla:'SOEUR-REMY', nome:'Soeur e Remy — Fratura do Calcâneo (Extra vs. Intra-articular)', fonte:'Soeur R, Remy R, JBJS Br 1975', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Extra-articular (não envolve a faceta subtalar posterior).'},
+     {r:'r2',l:'Tipo II',d:'Intra-articular, 2 fragmentos.'},
+     {r:'r3',l:'Tipo III',d:'Intra-articular, 3 fragmentos (cominuição moderada).'},
+     {r:'r4',l:'Tipo IV',d:'Intra-articular, 4 ou mais fragmentos (cominuição grave).'}
+   ]},
+  {id:'calcaneo-extra-articular-anatomica', sigla:'CALCANEO-EXTRA-ART', nome:'Classificação Anatômica — Fratura Extra-articular do Calcâneo', fonte:'Rockwood & Green\'s Fractures in Adults', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Processo anterior',d:'Avulsão pelo ligamento bifurcado (entorse em inversão). Frequentemente confundida com entorse de tornozelo.'},
+     {r:'r2',l:'Tuberosidade (avulsão / "beak fracture")',d:'Tração pelo tendão do calcâneo; ⚠️ avaliar risco de necrose cutânea posterior — fixação urgente se desvio.'},
+     {r:'r1',l:'Corpo (extra-articular)',d:'Fora da faceta subtalar posterior.'},
+     {r:'r1',l:'Sustentáculo do tálus',d:'Geralmente estável, tratamento conservador.'},
+     {r:'r1',l:'Processo medial',d:'Raro; geralmente conservador.'}
+   ],
+   nota:'Correspondem a ~25–30% das fraturas do calcâneo; a maioria é estável e tratada conservadoramente, exceto avulsão de tuberosidade com desvio (risco cutâneo).'},
+  {id:'mediotarso-main-jowett', sigla:'MAIN-JOWETT', nome:'Main e Jowett — Lesão do Mediopé (Articulação de Chopart)', fonte:'Main BJ, Jowett RL, JBJS Br 1975', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Medial/plantar-medial',d:'Força medial; avulsão de pequeno fragmento.'},
+     {r:'r3',l:'Longitudinal',d:'Força axial; fratura-luxação através do complexo naviculocuneiforme.'},
+     {r:'r2',l:'Plantar',d:'Força de flexão plantar; avulsão dorsal.'},
+     {r:'r4',l:'Crush (esmagamento)',d:'Alta energia; cominuição grave, risco de síndrome compartimental do pé.'},
+     {r:'r3',l:'Lateral',d:'Força lateral; impacção do cuboide ("nutcracker").'}
+   ]},
+  {id:'navicular-eichenholtz-levin', sigla:'EICHENHOLTZ-LEVIN', nome:'Eichenholtz e Levin — Fratura do Navicular do Tarso', fonte:'Eichenholtz SN, Levin DB, Clin Orthop 1969', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Tipo I — Avulsão',d:'Fragmento dorsal, mais comum.'},
+     {r:'r1',l:'Tipo II — Tuberosidade',d:'Fratura da tuberosidade navicular.'},
+     {r:'r3',l:'Tipo III — Corpo',d:'Fratura do corpo do navicular, subtipos por padrão do traço (ver Sangeorzan).'}
+   ]},
+  {id:'navicular-sangeorzan', sigla:'SANGEORZAN', nome:'Sangeorzan — Fratura do Corpo do Navicular', fonte:'Sangeorzan BJ et al., JBJS 1989', regiao:'tornozelo',
+   rows:[
+     {r:'r2',l:'Tipo I',d:'Traço no plano coronal, sem angulação do antepé.'},
+     {r:'r3',l:'Tipo II',d:'Traço dorsolateral para plantar-medial, com desvio medial do antepé.'},
+     {r:'r4',l:'Tipo III',d:'Cominuição central/lateral, com abdução do antepé.'}
+   ],
+   nota:'Complementa Eichenholtz-Levin, detalhando especificamente as fraturas do corpo (tipo III daquela classificação).'},
+  {id:'cuboide-ota', sigla:'OTA-CUBOIDE', nome:'OTA — Fratura do Cuboide', fonte:'OTA Classification 2018', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Extra-articular/avulsão',d:'Geralmente estável, tratamento conservador.'},
+     {r:'r2',l:'Intra-articular simples',d:'Traço único através da articulação.'},
+     {r:'r4',l:'Intra-articular cominutiva ("nutcracker")',d:'Compressão entre calcâneo e metatarsais; frequentemente associada à lesão de Chopart/Lisfranc.'}
+   ]},
+  {id:'lisfranc-quenu-kuss-myerson', sigla:'QUENU-KUSS/MYERSON', nome:'Quenu-Kuss (modificada por Myerson) — Fratura-Luxação Tarsometatársica (Lisfranc)', fonte:'Quenu E, Kuss G, 1909; Myerson MS et al., Foot Ankle 1986', regiao:'tornozelo',
+   rows:[
+     {r:'r3',l:'Tipo A — Homolateral/Total',d:'Todos os 5 metatarsais deslocam na mesma direção.'},
+     {r:'r3',l:'Tipo B — Isolada/Parcial',d:'B1: deslocamento medial (1º raio isolado). B2: deslocamento lateral (2º–5º raios).'},
+     {r:'r4',l:'Tipo C — Divergente',d:'Deslocamento em direções opostas (medial e lateral), parcial (C1) ou total (C2).'}
+   ],
+   nota:'⚠️ Alto índice de suspeita necessário — o sinal do "fleck" (avulsão óssea entre M1–M2) na radiografia sugere lesão do ligamento de Lisfranc.'},
+  {id:'base-5o-mt-dameron', sigla:'DAMERON', nome:'Dameron — Fratura da Base do 5º Metatarsal (Zonas)', fonte:'Dameron TB, JBJS 1975', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Zona 1',d:'Avulsão do processo estiloide (tuberosidade). Boa cicatrização; tratamento conservador.'},
+     {r:'r3',l:'Zona 2 (fratura de Jones)',d:'Junção metáfise-diáfise, sem extensão distal à articulação intermetatarsal 4–5. Risco de pseudartrose — considerar fixação em atletas.'},
+     {r:'r3',l:'Zona 3',d:'Diáfise proximal (fratura de estresse), distal à articulação intermetatarsal. Alto risco de retardo/pseudartrose — fixação frequentemente indicada.'}
+   ]},
+  {id:'halux-mtf-bowers-martin', sigla:'BOWERS-MARTIN', nome:'Bowers e Martin — Fratura da Base da Falange Proximal do Hálux', fonte:'Bowers KD, Martin RB, Am J Sports Med 1976', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Extra-articular.'},
+     {r:'r2',l:'Tipo II',d:'Intra-articular, sem cominuição.'},
+     {r:'r4',l:'Tipo III',d:'Intra-articular, cominutiva.'}
+   ]},
+  {id:'luxacao-1mtf-jahss', sigla:'JAHSS', nome:'Jahss — Luxação da 1ª Articulação Metatarsofalângica', fonte:'Jahss MH, Foot Ankle 1980', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Placa plantar íntegra, sesamoides não separados; luxação dorsal simples. Redução fechada.'},
+     {r:'r3',l:'Tipo IIA',d:'Ruptura transversa entre os sesamoides, mantendo o ligamento intersesamoideo. Redução fechada difícil.'},
+     {r:'r4',l:'Tipo IIB',d:'Ruptura longitudinal de um sesamoide. Frequentemente irredutível por via fechada — cirurgia aberta.'}
+   ]},
+
+  // ── PEDIÁTRICAS (novas) ──
+  {id:'milch-condilo-lateral-pediatrico', sigla:'MILCH-PED', nome:'Milch — Fratura do Côndilo Lateral do Cotovelo (Pediátrica)', fonte:'Milch H, J Trauma 1964', regiao:'cotovelo',
+   rows:[
+     {r:'r2',l:'Tipo I',d:'Linha lateral à crista troclear (equivale a Salter-Harris IV); cotovelo permanece estável (articulação úmero-ulnar intacta).'},
+     {r:'r3',l:'Tipo II',d:'Linha através do sulco troclear (equivale a Salter-Harris II); cotovelo pode luxar — mais instável.'}
+   ],
+   nota:'2ª fratura mais comum do cotovelo na infância; risco de pseudartrose e deformidade em valgo tardia se não tratada adequadamente.'},
+  {id:'condilo-medial-kilfoyle-pediatrico', sigla:'KILFOYLE', nome:'Kilfoyle — Fratura do Côndilo Medial do Cotovelo (Pediátrica)', fonte:'Kilfoyle RM, Clin Orthop 1965', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura incompleta, sem desvio (linha metafisária).'},
+     {r:'r2',l:'Tipo II',d:'Fratura completa, com desvio mínimo em rotação.'},
+     {r:'r4',l:'Tipo III',d:'Fratura completa com desvio e rotação grave do fragmento condilar.'}
+   ]},
+  {id:'transfisaria-delee-pediatrico', sigla:'DELEE', nome:'DeLee — Fratura Transfisária Distal do Úmero (Pediátrica)', fonte:'DeLee JC et al., JBJS 1980', regiao:'cotovelo',
+   rows:[
+     {r:'r2',l:'Tipo A',d:'Sem centro de ossificação secundário visível (<2 anos) — diagnóstico difícil, frequentemente confundida com luxação do cotovelo.'},
+     {r:'r2',l:'Tipo B',d:'Com centro de ossificação capitular visível, sem fragmento metafisário.'},
+     {r:'r3',l:'Tipo C',d:'Com pequeno fragmento metafisário medial (sinal de Thurston-Holland).'},
+     {r:'r3',l:'Tipo D',d:'Com fragmento metafisário maior.'}
+   ],
+   nota:'Diferenciar de luxação do cotovelo — na fratura transfisária, o rádio permanece alinhado com o capítulo (mesmo quando desviado em bloco).'},
+  {id:'t-condilar-wilkins-beaty-pediatrico', sigla:'WILKINS-BEATY', nome:'Wilkins e Beaty — Fratura T-condilar do Úmero Distal (Pediátrica)', fonte:'Wilkins KE, Beaty JH, in Rockwood & Wilkins\' Fractures in Children', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Sem desvio',d:'Tratamento com imobilização gessada.'},
+     {r:'r3',l:'Com desvio, sem cominuição',d:'RAFI.'},
+     {r:'r4',l:'Com desvio e cominuição',d:'RAFI complexa; fixador externo se necessário.'}
+   ]},
+  {id:'cabeca-radial-wilkins-pediatrico', sigla:'WILKINS-RADIO', nome:'Wilkins — Fratura da Cabeça/Colo do Rádio (Pediátrica)', fonte:'Wilkins KE, in Rockwood & Wilkins\' Fractures in Children', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Angulação <30°.'},
+     {r:'r2',l:'Tipo II',d:'Angulação 30–60°.'},
+     {r:'r3',l:'Tipo III',d:'Angulação 60–90°.'},
+     {r:'r4',l:'Tipo IV',d:'Angulação >90° (deslocamento completo).'}
+   ],
+   nota:'Angulação >30–45° ou bloqueio da prono-supinação geralmente requer redução (fechada ou percutânea minimamente invasiva).'},
+  {id:'monteggia-letts-pediatrico', sigla:'LETTS', nome:'Letts — Fratura-Luxação de Monteggia (Pediátrica)', fonte:'Letts M et al., J Pediatr Orthop 1985', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo A',d:'Fratura em galho verde da ulna + luxação anterior da cabeça radial.'},
+     {r:'r2',l:'Tipo B',d:'Fratura da ulna com angulação anterior + luxação anterior da cabeça radial.'},
+     {r:'r2',l:'Tipo C',d:'Fratura da ulna com angulação posterior + luxação posterior da cabeça radial.'},
+     {r:'r2',l:'Tipo D',d:'Fratura da ulna com angulação lateral + luxação lateral da cabeça radial.'},
+     {r:'r3',l:'Tipo E',d:'Fratura completa de rádio e ulna + luxação da cabeça radial.'},
+     {r:'r3',l:'Tipo F',d:'Fratura do colo radial + fratura da ulna proximal.'}
+   ]},
+  {id:'quadril-pediatrico-delbet', sigla:'DELBET', nome:'Delbet — Fratura do Quadril na Criança', fonte:'Delbet P, cit. Colonna PC, JBJS 1929', regiao:'quadril',
+   rows:[
+     {r:'r4',l:'Tipo I — Transfisária',d:'Com ou sem luxação da epífise. Maior risco de necrose avascular (próximo de 100% se houver luxação associada).'},
+     {r:'r3',l:'Tipo II — Transcervical',d:'Tipo mais comum. Risco de necrose avascular 40–50%.'},
+     {r:'r2',l:'Tipo III — Cervicotrocantérica (basocervical)',d:'Risco de necrose avascular 25–30%.'},
+     {r:'r1',l:'Tipo IV — Intertrocantérica',d:'Menor risco de necrose avascular (<10%).'}
+   ],
+   nota:'Fixação urgente indicada na maioria dos tipos para reduzir o risco de necrose avascular; capsulotomia/descompressão associada é controversa mas frequentemente realizada.'},
+  {id:'eminencia-tibial-meyers-mckeever', sigla:'MEYERS-MCKEEVER', nome:'Meyers e McKeever — Fratura da Eminência Intercondilar da Tíbia', fonte:'Meyers MH, McKeever FM, JBJS 1959', regiao:'joelho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio ou desvio anterior mínimo.'},
+     {r:'r2',l:'Tipo II',d:'Desvio anterior parcial, com charneira posterior intacta ("boca de peixe"). Redução fechada + imobilização em extensão.'},
+     {r:'r3',l:'Tipo III',d:'Desvio completo, sem contato ósseo. RAFI/fixação artroscópica.'},
+     {r:'r4',l:'Tipo IV',d:'Cominutiva. RAFI.'}
+   ],
+   nota:'Equivalente pediátrico da avulsão do ligamento cruzado anterior; bloqueio de extensão sugere interposição do menisco ou do ligamento transverso.'},
+  {id:'tuberosidade-tibial-watson-jones', sigla:'WATSON-JONES-TT', nome:'Watson-Jones — Fratura da Tuberosidade Anterior da Tíbia', fonte:'Watson-Jones R, Fractures and Joint Injuries', regiao:'joelho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Pequeno fragmento distal à fise, mínimo desvio.'},
+     {r:'r2',l:'Tipo II',d:'Fratura na junção fise-metáfise, com charneira e desvio proximal.'},
+     {r:'r3',l:'Tipo III',d:'Fratura estende-se através da fise até a articulação (equivale a Salter-Harris III), com desvio.'}
+   ],
+   nota:'⚠️ Risco de síndrome compartimental por lesão da artéria recorrente tibial anterior — avaliar sempre.'},
+  {id:'calcaneo-schmidt-weiner-pediatrico', sigla:'SCHMIDT-WEINER', nome:'Schmidt e Weiner — Fratura do Calcâneo (Pediátrica)', fonte:'Schmidt TL, Weiner DS, Clin Orthop 1982', regiao:'tornozelo',
+   rows:[
+     {r:'r1',l:'Tipo I — Extra-articular',d:'Subtipos A–D por localização (processo anterior, corpo, tuberosidade, sustentáculo). Maioria dos casos (~63%).'},
+     {r:'r2',l:'Tipo II — Intra-articular sem cominuição',d:'Tratamento geralmente conservador.'},
+     {r:'r4',l:'Tipo III — Intra-articular cominutiva',d:'Padrão semelhante ao do adulto; considerar RAFI.'}
+   ],
+   nota:'Ao contrário do adulto (predomínio intra-articular), a maioria das fraturas pediátricas do calcâneo é extra-articular e de tratamento conservador.'},
+
+  // ── FRATURAS PERIPROTÉTICAS (novas) ──
+  {id:'periprotetica-quadril-vancouver', sigla:'VANCOUVER', nome:'Vancouver — Fratura Periprotética do Quadril (Fêmur)', fonte:'Duncan CP, Masri BA, Instr Course Lect 1995', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo A',d:'Região trocantérica. AG: grande trocanter. AL: pequeno trocanter.'},
+     {r:'r2',l:'Tipo B1',d:'Ao redor ou logo abaixo da haste; componente estável, osso de boa qualidade. RAFI.'},
+     {r:'r3',l:'Tipo B2',d:'Ao redor ou logo abaixo da haste; componente solto, estoque ósseo adequado. Revisão da haste + RAFI.'},
+     {r:'r4',l:'Tipo B3',d:'Ao redor ou logo abaixo da haste; componente solto + perda óssea significativa. Revisão com haste longa/enxerto ou aloenxerto estruturado.'},
+     {r:'r1',l:'Tipo C',d:'Bem distal à ponta da haste, sem afetar a fixação do implante. RAFI convencional.'}
+   ],
+   nota:'Classificação mais utilizada mundialmente para fraturas periprotéticas do fêmur após artroplastia total de quadril.'},
+  {id:'periprotetica-quadril-johansson', sigla:'JOHANSSON', nome:'Johansson — Fratura Periprotética do Quadril', fonte:'Johansson JE et al., JBJS 1981', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Proximal à ponta da haste, componente estável.'},
+     {r:'r3',l:'Tipo II',d:'Ao redor da ponta da haste, com desestabilização do implante.'},
+     {r:'r1',l:'Tipo III',d:'Totalmente distal à haste.'}
+   ]},
+  {id:'periprotetica-quadril-cooke-newman', sigla:'COOKE-NEWMAN', nome:'Cooke e Newman (modificação de Bethea) — Fratura Periprotética do Quadril', fonte:'Cooke PH, Newman JH, JBJS Br 1988', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura acima do meio da haste.'},
+     {r:'r2',l:'Tipo II',d:'Fratura ao nível ou logo abaixo da ponta da haste.'},
+     {r:'r1',l:'Tipo III',d:'Fratura bem abaixo da ponta da haste, sem envolver o implante.'}
+   ]},
+  {id:'periprotetica-quadril-aaos', sigla:'AAOS-PERIPROT', nome:'AAOS — Fratura Periprotética do Quadril', fonte:'American Academy of Orthopaedic Surgeons', regiao:'quadril',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fratura por avulsão (trocantérica).'},
+     {r:'r2',l:'Tipo II',d:'Fratura em espiral ao redor da haste.'},
+     {r:'r3',l:'Tipo III',d:'Fratura transversa/oblíqua ao nível ou distal à ponta da haste.'},
+     {r:'r4',l:'Tipo IV',d:'Fratura cominutiva distal ao componente.'}
+   ]},
+  {id:'periprotetica-joelho-lewis-rorabeck', sigla:'LEWIS-RORABECK', nome:'Lewis e Rorabeck — Fratura Periprotética Femoral do Joelho', fonte:'Lewis PL, Rorabeck CH, in Surgery of the Knee 1997', regiao:'joelho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio, componente estável. Tratamento conservador (gesso/órtese).'},
+     {r:'r2',l:'Tipo II',d:'Com desvio, componente estável. RAFI.'},
+     {r:'r4',l:'Tipo III',d:'Com desvio, componente solto (com ou sem desgaste). Revisão da artroplastia.'}
+   ]},
+  {id:'periprotetica-joelho-neer-merkel', sigla:'NEER-MERKEL', nome:'Neer/Merkel — Fratura Periprotética Femoral Supracondiliana do Joelho', fonte:'Neer CS et al.; Merkel KD, Fitzgerald RH, JBJS 1986', regiao:'joelho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Sem desvio significativo.'},
+     {r:'r2',l:'Tipo II',d:'Desvio >1cm ou angulação >5°, sem cominuição grave.'},
+     {r:'r4',l:'Tipo III',d:'Desvio associado a outras lesões (fratura patelar/tibial ipsilateral, luxação de componente protético).'}
+   ]},
+  {id:'periprotetica-tibial-goldberg', sigla:'GOLDBERG', nome:'Goldberg — Fratura Periprotética Tibial do Joelho', fonte:'Goldberg VM et al., Clin Orthop 1988', regiao:'joelho',
+   rows:[
+     {r:'r2',l:'Tipo I',d:'Platô tibial.'},
+     {r:'r3',l:'Tipo II',d:'Adjacente à haste/quilha do componente.'},
+     {r:'r1',l:'Tipo III',d:'Distal ao implante.'},
+     {r:'r2',l:'Tipo IV',d:'Envolvendo a tuberosidade tibial.'}
+   ]},
+  {id:'periprotetica-ombro-uthscsa', sigla:'UTHSCSA', nome:'University of Texas San Antonio — Fratura Periprotética do Úmero (Ombro)', fonte:'Wright TW, Cofield RH, JBJS 1995', regiao:'ombro',
+   rows:[
+     {r:'r2',l:'Tipo A',d:'Ao redor ou proximal à ponta da haste.'},
+     {r:'r2',l:'Tipo B',d:'Na ponta da haste ou logo abaixo, com pouca extensão distal.'},
+     {r:'r1',l:'Tipo C',d:'Bem distal à ponta da haste.'}
+   ],
+   nota:'Subclassificar conforme estabilidade do componente e estoque ósseo (raciocínio análogo ao de Vancouver), determinando RAFI vs. revisão da prótese.'},
+  {id:'periprotetica-cotovelo', sigla:'PERIPROT-COTOVELO', nome:'Classificação da Fratura Periprotética do Cotovelo', fonte:'Mayo Clinic, cit. Rockwood & Green\'s Fractures', regiao:'cotovelo',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Envolvendo apenas o osso, componente estável.'},
+     {r:'r3',l:'Tipo II',d:'Envolvendo o componente, com afrouxamento (haste umeral ou ulnar solta).'},
+     {r:'r4',l:'Tipo III',d:'Perda óssea grave, insuficiente para suportar revisão padrão.'}
+   ],
+   nota:'Baseada nos princípios da Clínica Mayo (lógica análoga à classificação de Vancouver, adaptada ao cotovelo).'}
 ];
 
 /* ── VIAS DE ACESSO DATA ── */
