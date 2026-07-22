@@ -247,12 +247,29 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .doc-carimbo-box{margin:1rem auto 0;width:190px;height:70px;border:1.3px dashed #C8D2E0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:#9AA6B8;text-align:center}
 .doc-toolbar{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.85rem}
 
-/* Receituário de controle especial — 2 vias (Farmácia / Paciente) */
-.doc-addr-line{font-size:.78rem;color:#1A2230;margin:-.4rem 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #E2E8F0}
-.doc-addr-line b{color:#5A6B80;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.03em;margin-right:.4rem;display:inline-block}
-.doc-comp-block{margin-top:1.3rem;padding-top:.8rem;border-top:1px dashed #E2E8F0}
-.doc-comp-tit{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#5A6B80;margin-bottom:.5rem}
-.doc-via-cut{text-align:center;font-size:.68rem;color:#5A7A9A;letter-spacing:.03em;margin:1.25rem auto;max-width:720px}
+/* Receituário de Controle Especial — layout conforme modelo oficial (Portaria SVS/MS 344/98) */
+.doc-rce-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.1rem}
+.doc-rce-title{font-size:1.2rem;font-weight:900;text-transform:uppercase;line-height:1.2;color:#132030}
+.doc-rce-via-badge{border:1.5px solid #1A2230;border-radius:4px;padding:.35rem .7rem;text-align:center;font-size:.64rem;font-weight:900;text-transform:uppercase;white-space:nowrap;color:#1A2230;flex-shrink:0}
+.doc-box{border:1.3px solid #1A2230;border-radius:4px;margin-bottom:1.1rem;overflow:hidden}
+.doc-box-hdr{font-size:.78rem;font-weight:900;text-transform:uppercase;text-align:center;padding:.4rem;border-bottom:1.3px solid #1A2230;letter-spacing:.02em;color:#132030}
+.doc-box-body-split{display:flex;gap:1rem;padding:.7rem .8rem}
+.doc-box-fields{flex:1;display:flex;flex-direction:column;gap:.45rem;padding:.7rem .8rem}
+.doc-box-body-split .doc-box-fields{padding:0}
+.doc-box-side{width:150px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:.7rem}
+.doc-box-side .doc-logo-box{max-width:140px}
+.doc-field-line{font-size:.8rem;color:#1A2230;display:flex;flex-wrap:wrap;gap:.35rem;align-items:baseline}
+.doc-field-line b{font-weight:700;color:#5A6B80;white-space:nowrap;font-size:.72rem;text-transform:uppercase;letter-spacing:.02em}
+.doc-field-plain{margin-bottom:.5rem}
+.doc-rce-assinatura{font-size:.64rem;text-align:center;color:#5A6B80;font-weight:700;text-transform:uppercase;width:100%}
+.doc-rce-assinatura .doc-sign-line{margin-bottom:.4rem}
+.doc-box-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem}
+@media(max-width:680px){.doc-box-pair{grid-template-columns:1fr}.doc-box-body-split{flex-direction:column}.doc-box-side{width:100%}}
+.doc-blank-line{flex:1;border-bottom:1px solid #C8D2E0;min-width:50px;height:1em}
+.doc-blank-line.short{flex:0 0 80px}
+.doc-blank-line.xs{flex:0 0 36px}
+.doc-body-text-lg{min-height:240px}
+.doc-rce-obs{font-size:.66rem;color:#8A96A8;text-align:center;margin-top:.4rem}
 
 /* Laudo Médico — seções estruturadas */
 .ld-textarea{width:100%;min-height:110px;font-family:'Courier New',Courier,monospace;font-size:.87rem;line-height:1.7;border:1.5px solid #1E3550;border-radius:9px;padding:.7rem .9rem;background:#0E1C30;color:#C8DCF0;resize:vertical}
@@ -270,7 +287,6 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
   .no-print{display:none!important}
   .doc-sheet-wrap{background:none;border:none;padding:0;overflow:visible}
   .doc-sheet{box-shadow:none;max-width:100%;margin:0;padding:.4in .5in}
-  .doc-sheet-controlado:first-of-type{page-break-after:always}
 }
 
 /* ── CLASSIFICAÇÕES ── */
@@ -996,6 +1012,17 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
             <div><label class="lbl" for="doc-med-esp">Especialidade</label><input type="text" id="doc-med-esp" placeholder="Ex: Ortopedia e Traumatologia" oninput="salvarPerfilMedico();atualizarPreviewDoc()"/></div>
             <div><label class="lbl" for="doc-med-inst">Instituição / Clínica</label><input type="text" id="doc-med-inst" placeholder="Nome da clínica (opcional)" oninput="salvarPerfilMedico();atualizarPreviewDoc()"/></div>
           </div>
+          <div style="margin-top:.65rem"><label class="lbl" for="doc-med-endereco">Endereço completo do consultório/instituição</label><input type="text" id="doc-med-endereco" placeholder="Rua, número, bairro" oninput="salvarPerfilMedico();atualizarPreviewDoc()"/></div>
+          <div class="doc-profile-grid" style="grid-template-columns:2fr 90px 1fr;margin-top:.65rem">
+            <div><label class="lbl" for="doc-med-cidade">Cidade</label><input type="text" id="doc-med-cidade" placeholder="Ex: São Paulo" oninput="salvarPerfilMedico();atualizarPreviewDoc()"/></div>
+            <div><label class="lbl" for="doc-med-cidade-uf">UF</label>
+              <select id="doc-med-cidade-uf" class="fsel" onchange="salvarPerfilMedico();atualizarPreviewDoc()">
+                <option value="">UF</option>
+                <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+              </select>
+            </div>
+            <div><label class="lbl" for="doc-med-telefone">Telefone</label><input type="text" id="doc-med-telefone" placeholder="(11) 99999-9999" oninput="salvarPerfilMedico();atualizarPreviewDoc()"/></div>
+          </div>
           <div style="margin-top:.65rem">
             <label class="lbl">Logo da instituição (JPEG/PNG)</label>
             <div class="doc-logo-upload">
@@ -1098,10 +1125,21 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <div class="card no-print">
             <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-id"/></svg>Identificação do Comprador <span style="font-weight:400;color:#5A7A9A;font-size:.72rem">(quando a retirada é feita por terceiro — exigência da Portaria SVS/MS 344/98)</span></div>
             <div class="doc-profile-grid2">
-              <div><label class="lbl" for="rxc-comp-nome">Nome do comprador</label><input type="text" id="rxc-comp-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
-              <div><label class="lbl" for="rxc-comp-doc">RG ou CPF</label><input type="text" id="rxc-comp-doc" placeholder="Nº do documento" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-comp-nome">Nome completo</label><input type="text" id="rxc-comp-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-comp-doc">RG</label><input type="text" id="rxc-comp-doc" placeholder="Nº do RG" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
             </div>
-            <div style="margin-top:.65rem"><label class="lbl" for="rxc-comp-end">Endereço do comprador</label><input type="text" id="rxc-comp-end" placeholder="Rua, número, bairro, cidade/UF" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            <div style="margin-top:.65rem"><label class="lbl" for="rxc-comp-org">Órgão emissor</label><input type="text" id="rxc-comp-org" placeholder="Ex: SSP/SP" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            <div style="margin-top:.65rem"><label class="lbl" for="rxc-comp-end">Endereço completo</label><input type="text" id="rxc-comp-end" placeholder="Rua, número, bairro" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            <div class="doc-profile-grid" style="grid-template-columns:2fr 90px 1fr;margin-top:.65rem">
+              <div><label class="lbl" for="rxc-comp-cidade">Cidade</label><input type="text" id="rxc-comp-cidade" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="rxc-comp-uf">UF</label>
+                <select id="rxc-comp-uf" class="fsel" onchange="scheduleSave();atualizarPreviewDoc()">
+                  <option value="">UF</option>
+                  <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+                </select>
+              </div>
+              <div><label class="lbl" for="rxc-comp-tel">Telefone</label><input type="text" id="rxc-comp-tel" placeholder="(11) 99999-9999" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            </div>
           </div>
 
           <div class="card no-print">
@@ -1124,80 +1162,61 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           </div>
 
           <div class="doc-sheet-wrap">
-            <div class="doc-sheet doc-sheet-controlado">
-              <div class="doc-sheet-hdr">
-                <div class="doc-logo-box dcv-logo"><div class="doc-logo-placeholder">logo da instituição</div></div>
-                <div class="doc-title-box">
-                  <h2>Receituário de Controle Especial</h2>
-                  <div class="inst dcv-inst"></div>
-                </div>
-                <div class="doc-via-badge">1ª VIA<br/>FARMÁCIA</div>
+            <div class="doc-sheet" id="doc-sheet-controlado">
+              <div class="doc-rce-hdr">
+                <div class="doc-rce-title">Receituário de<br/>Controle Especial</div>
+                <div class="doc-rce-via-badge">VIA DIGITAL</div>
               </div>
-              <hr class="doc-hr"/>
-              <div class="doc-patient-line">
-                <div><b>Paciente</b><span class="dcv-nome">—</span></div>
-                <div><b>Idade</b><span class="dcv-idade">—</span></div>
-                <div><b>Data</b><span class="dcv-data">—</span></div>
-              </div>
-              <div class="doc-addr-line"><b>Endereço do paciente</b><span class="dcv-endereco">—</span></div>
-              <div class="doc-body-label">Prescrição — uso sob controle especial (Portaria SVS/MS 344/98)</div>
-              <div class="doc-body-text dcv-texto"></div>
-              <div class="doc-comp-block">
-                <div class="doc-comp-tit">Identificação do comprador (se retirada por terceiro)</div>
-                <div class="doc-patient-line" style="grid-template-columns:2fr 1fr 2fr">
-                  <div><b>Nome</b><span class="dcv-comp-nome">—</span></div>
-                  <div><b>RG/CPF</b><span class="dcv-comp-doc">—</span></div>
-                  <div><b>Endereço</b><span class="dcv-comp-end">—</span></div>
-                </div>
-              </div>
-              <div class="doc-footer">
-                <div class="doc-sign-line"></div>
-                <div class="doc-sign-block">
-                  <div class="dr-nome dcv-dr">Dr(a). ___________________________</div>
-                  <div class="dr-crm dcv-crm">CRM ______ / UF</div>
-                  <div class="dr-esp dcv-esp"></div>
-                </div>
-                <div class="doc-carimbo-box">carimbo</div>
-              </div>
-            </div>
 
-            <div class="doc-via-cut no-print">✂ — — — — — — — — — recortar / 2ª via inicia em nova página na impressão — — — — — — — — — ✂</div>
+              <div class="doc-box">
+                <div class="doc-box-hdr">Identificação do Emitente</div>
+                <div class="doc-box-body-split">
+                  <div class="doc-box-fields">
+                    <div class="doc-field-line"><b>Nome completo</b><span id="doc-ctrl-emit-nome">—</span></div>
+                    <div class="doc-field-line"><b>CRM</b><span id="doc-ctrl-emit-crm">—</span><b style="margin-left:.9rem">UF</b><span id="doc-ctrl-emit-crm-uf">—</span></div>
+                    <div class="doc-field-line"><b>Endereço completo</b><span id="doc-ctrl-emit-end">—</span></div>
+                    <div class="doc-field-line"><b>Cidade</b><span id="doc-ctrl-emit-cidade">—</span><b style="margin-left:.9rem">UF</b><span id="doc-ctrl-emit-cidade-uf">—</span></div>
+                    <div class="doc-field-line"><b>Telefone</b><span id="doc-ctrl-emit-tel">—</span><b style="margin-left:.9rem">Data</b><span id="doc-ctrl-emit-data">—</span></div>
+                  </div>
+                  <div class="doc-box-side">
+                    <div class="doc-logo-box" id="doc-sheet-logo-controlado"><div class="doc-logo-placeholder">logo da instituição</div></div>
+                    <div class="doc-rce-assinatura"><div class="doc-sign-line"></div>Assinatura Médico(a)</div>
+                  </div>
+                </div>
+              </div>
 
-            <div class="doc-sheet doc-sheet-controlado">
-              <div class="doc-sheet-hdr">
-                <div class="doc-logo-box dcv-logo"><div class="doc-logo-placeholder">logo da instituição</div></div>
-                <div class="doc-title-box">
-                  <h2>Receituário de Controle Especial</h2>
-                  <div class="inst dcv-inst"></div>
+              <div class="doc-field-line doc-field-plain"><b>Nome paciente</b><span id="doc-ctrl-pac-nome">—</span></div>
+              <div class="doc-field-line doc-field-plain"><b>Endereço completo</b><span id="doc-ctrl-pac-end">—</span></div>
+
+              <div class="doc-body-label">Prescrição</div>
+              <div class="doc-body-text doc-body-text-lg" id="doc-ctrl-texto"></div>
+
+              <div class="doc-box-pair">
+                <div class="doc-box">
+                  <div class="doc-box-hdr">Identificação do Comprador</div>
+                  <div class="doc-box-fields">
+                    <div class="doc-field-line"><b>Nome completo</b><span id="doc-ctrl-comp-nome">—</span></div>
+                    <div class="doc-field-line"><b>RG</b><span id="doc-ctrl-comp-rg">—</span></div>
+                    <div class="doc-field-line"><b>Órgão emissor</b><span id="doc-ctrl-comp-org">—</span></div>
+                    <div class="doc-field-line"><b>Endereço completo</b><span id="doc-ctrl-comp-end">—</span></div>
+                    <div class="doc-field-line"><b>Cidade</b><span id="doc-ctrl-comp-cidade">—</span><b style="margin-left:.9rem">UF</b><span id="doc-ctrl-comp-uf">—</span></div>
+                    <div class="doc-field-line"><b>Telefone</b><span id="doc-ctrl-comp-tel">—</span></div>
+                  </div>
                 </div>
-                <div class="doc-via-badge">2ª VIA<br/>PACIENTE</div>
-              </div>
-              <hr class="doc-hr"/>
-              <div class="doc-patient-line">
-                <div><b>Paciente</b><span class="dcv-nome">—</span></div>
-                <div><b>Idade</b><span class="dcv-idade">—</span></div>
-                <div><b>Data</b><span class="dcv-data">—</span></div>
-              </div>
-              <div class="doc-addr-line"><b>Endereço do paciente</b><span class="dcv-endereco">—</span></div>
-              <div class="doc-body-label">Prescrição — uso sob controle especial (Portaria SVS/MS 344/98)</div>
-              <div class="doc-body-text dcv-texto"></div>
-              <div class="doc-comp-block">
-                <div class="doc-comp-tit">Identificação do comprador (se retirada por terceiro)</div>
-                <div class="doc-patient-line" style="grid-template-columns:2fr 1fr 2fr">
-                  <div><b>Nome</b><span class="dcv-comp-nome">—</span></div>
-                  <div><b>RG/CPF</b><span class="dcv-comp-doc">—</span></div>
-                  <div><b>Endereço</b><span class="dcv-comp-end">—</span></div>
+                <div class="doc-box">
+                  <div class="doc-box-hdr">Identificação do Fornecedor</div>
+                  <div class="doc-box-fields">
+                    <div class="doc-field-line"><b>Nome farmacêutico(a)</b><span class="doc-blank-line"></span></div>
+                    <div class="doc-field-line"><b>CRF</b><span class="doc-blank-line short"></span><b style="margin-left:.6rem">UF</b><span class="doc-blank-line xs"></span></div>
+                    <div class="doc-field-line"><b>Nome farmácia</b><span class="doc-blank-line"></span></div>
+                    <div class="doc-field-line"><b>Endereço</b><span class="doc-blank-line"></span></div>
+                    <div class="doc-field-line"><b>Cidade</b><span class="doc-blank-line short"></span><b style="margin-left:.6rem">UF</b><span class="doc-blank-line xs"></span></div>
+                    <div class="doc-field-line"><b>CNPJ</b><span class="doc-blank-line short"></span><b style="margin-left:.6rem">Telefone</b><span class="doc-blank-line short"></span></div>
+                    <div class="doc-rce-assinatura" style="margin-top:1.2rem"><div class="doc-sign-line"></div>Assinatura Farmacêutico(a)</div>
+                  </div>
                 </div>
               </div>
-              <div class="doc-footer">
-                <div class="doc-sign-line"></div>
-                <div class="doc-sign-block">
-                  <div class="dr-nome dcv-dr">Dr(a). ___________________________</div>
-                  <div class="dr-crm dcv-crm">CRM ______ / UF</div>
-                  <div class="dr-esp dcv-esp"></div>
-                </div>
-                <div class="doc-carimbo-box">carimbo</div>
-              </div>
+              <div class="doc-rce-obs">Preenchido pelo(a) farmacêutico(a) no ato da dispensação, conforme Portaria SVS/MS 344/98.</div>
             </div>
           </div>
           <div class="doc-toolbar no-print">
@@ -2061,7 +2080,8 @@ function coletarDados() {
     prescricao: { texto: v('rx-text'), nome: v('rx-nome'), idade: v('rx-idade'), data: v('rx-data') },
     receituarioControlado: {
       texto: v('rxc-text'), nome: v('rxc-nome'), idade: v('rxc-idade'), data: v('rxc-data'), endereco: v('rxc-endereco'),
-      compradorNome: v('rxc-comp-nome'), compradorDoc: v('rxc-comp-doc'), compradorEnd: v('rxc-comp-end')
+      compradorNome: v('rxc-comp-nome'), compradorDoc: v('rxc-comp-doc'), compradorOrg: v('rxc-comp-org'), compradorEnd: v('rxc-comp-end'),
+      compradorCidade: v('rxc-comp-cidade'), compradorUf: v('rxc-comp-uf'), compradorTel: v('rxc-comp-tel')
     },
     laudo: {
       nome: v('ld-nome'), idade: v('ld-idade'), data: v('ld-data'), cid: v('ld-cid'),
@@ -2094,7 +2114,8 @@ function carregarDados(data) {
   if (data.receituarioControlado) {
     const rc = data.receituarioControlado;
     const map = { texto:'rxc-text', nome:'rxc-nome', idade:'rxc-idade', data:'rxc-data', endereco:'rxc-endereco',
-                  compradorNome:'rxc-comp-nome', compradorDoc:'rxc-comp-doc', compradorEnd:'rxc-comp-end' };
+                  compradorNome:'rxc-comp-nome', compradorDoc:'rxc-comp-doc', compradorOrg:'rxc-comp-org', compradorEnd:'rxc-comp-end',
+                  compradorCidade:'rxc-comp-cidade', compradorUf:'rxc-comp-uf', compradorTel:'rxc-comp-tel' };
     Object.keys(map).forEach(k => {
       const el = document.getElementById(map[k]); if (el && rc[k] !== undefined) el.value = rc[k];
     });
@@ -2674,10 +2695,17 @@ function exportarRx() {
 }
 function exportarRxControlado() {
   const nome = v('rxc-nome') || 'Paciente', dt = v('rxc-data') || new Date().toLocaleDateString('pt-BR');
-  const txt = `RECEITUÁRIO DE CONTROLE ESPECIAL — OssoHub\n`
-    + `Paciente: ${nome}\nIdade: ${v('rxc-idade')}\nEndereço: ${v('rxc-endereco')}\nData: ${dt}\n`
-    + `Comprador (se terceiro): ${v('rxc-comp-nome')} | RG/CPF: ${v('rxc-comp-doc')} | Endereço: ${v('rxc-comp-end')}\n\n`
-    + `${v('rxc-text')}`;
+  const txt = `RECEITUÁRIO DE CONTROLE ESPECIAL — OssoHub\n\n`
+    + `IDENTIFICAÇÃO DO EMITENTE\n`
+    + `Nome: ${v('doc-med-nome') || '—'}\nCRM: ${v('doc-med-crm') || '—'} / UF: ${v('doc-med-uf') || '—'}\n`
+    + `Endereço: ${v('doc-med-endereco') || '—'}\nCidade: ${v('doc-med-cidade') || '—'} / UF: ${v('doc-med-cidade-uf') || '—'}\n`
+    + `Telefone: ${v('doc-med-telefone') || '—'}\nData: ${dt}\n\n`
+    + `PACIENTE\nNome: ${nome}\nIdade: ${v('rxc-idade') || '—'}\nEndereço: ${v('rxc-endereco') || '—'}\n\n`
+    + `PRESCRIÇÃO\n${v('rxc-text') || '(não preenchido)'}\n\n`
+    + `IDENTIFICAÇÃO DO COMPRADOR (se retirada por terceiro)\n`
+    + `Nome: ${v('rxc-comp-nome') || '—'}\nRG: ${v('rxc-comp-doc') || '—'}\nÓrgão emissor: ${v('rxc-comp-org') || '—'}\n`
+    + `Endereço: ${v('rxc-comp-end') || '—'}\nCidade: ${v('rxc-comp-cidade') || '—'} / UF: ${v('rxc-comp-uf') || '—'}\nTelefone: ${v('rxc-comp-tel') || '—'}\n\n`
+    + `IDENTIFICAÇÃO DO FORNECEDOR — a ser preenchido pela farmácia no ato da dispensação.`;
   baixarTxt(txt, `Receituario_Controlado_${dt.replace(/\//g,'-')}.txt`);
   mostrarToast('Receituário salvo!');
 }
@@ -2719,6 +2747,7 @@ function salvarPerfilMedico() {
   const perfil = {
     nome: v('doc-med-nome'), crm: v('doc-med-crm'), uf: v('doc-med-uf'),
     rqe: v('doc-med-rqe'), esp: v('doc-med-esp'), inst: v('doc-med-inst'),
+    endereco: v('doc-med-endereco'), cidade: v('doc-med-cidade'), cidadeUf: v('doc-med-cidade-uf'), telefone: v('doc-med-telefone'),
     logo: _docLogoDataUrl || ''
   };
   try { localStorage.setItem('ossohub_doc_perfil', JSON.stringify(perfil)); } catch (e) { console.warn('Não foi possível salvar o perfil do médico:', e); }
@@ -2734,6 +2763,10 @@ function carregarPerfilMedico() {
   if (perfil.rqe) document.getElementById('doc-med-rqe').value = perfil.rqe;
   if (perfil.esp) document.getElementById('doc-med-esp').value = perfil.esp;
   if (perfil.inst) document.getElementById('doc-med-inst').value = perfil.inst;
+  if (perfil.endereco) document.getElementById('doc-med-endereco').value = perfil.endereco;
+  if (perfil.cidade) document.getElementById('doc-med-cidade').value = perfil.cidade;
+  if (perfil.cidadeUf) document.getElementById('doc-med-cidade-uf').value = perfil.cidadeUf;
+  if (perfil.telefone) document.getElementById('doc-med-telefone').value = perfil.telefone;
   if (perfil.logo) { _docLogoDataUrl = perfil.logo; atualizarLogoPreview(); }
 }
 
@@ -2807,32 +2840,35 @@ function atualizarPreviewDoc() {
   const pData = document.getElementById('doc-prev-data'); if (pData) pData.textContent = v('rx-data') || new Date().toLocaleDateString('pt-BR');
   const pTexto = document.getElementById('doc-prev-texto'); if (pTexto) pTexto.textContent = v('rx-text');
 
-  /* Receituário Controlado — preenche as 2 vias (Farmácia/Paciente) via classes, não ids */
-  const rcNome = v('rxc-nome'), rcIdade = v('rxc-idade'),
-        rcData = v('rxc-data') || new Date().toLocaleDateString('pt-BR'), rcEnd = v('rxc-endereco'),
-        rcCompNome = v('rxc-comp-nome'), rcCompDoc = v('rxc-comp-doc'), rcCompEnd = v('rxc-comp-end'),
-        rcTexto = v('rxc-text');
-  document.querySelectorAll('.doc-sheet-controlado').forEach(sheet => {
-    const logoEl = sheet.querySelector('.dcv-logo');
-    if (logoEl) logoEl.innerHTML = _docLogoDataUrl
-      ? `<img src="${_docLogoDataUrl}" alt="Logo da instituição"/>`
-      : `<div class="doc-logo-placeholder">logo da instituição</div>`;
-    const set = (cls, val) => { const el = sheet.querySelector(cls); if (el) el.textContent = val; };
-    set('.dcv-inst', inst || '');
-    set('.dcv-nome', rcNome || '—');
-    set('.dcv-idade', rcIdade || '—');
-    set('.dcv-data', rcData);
-    set('.dcv-endereco', rcEnd || '—');
-    set('.dcv-comp-nome', rcCompNome || '—');
-    set('.dcv-comp-doc', rcCompDoc || '—');
-    set('.dcv-comp-end', rcCompEnd || '—');
-    set('.dcv-texto', rcTexto);
-    set('.dcv-dr', nome ? ('Dr(a). ' + nome) : 'Dr(a). ___________________________');
-    let crmTxt2 = crm ? ('CRM ' + crm + (uf ? ' / ' + uf : '')) : 'CRM ______ / UF';
-    if (rqe) crmTxt2 += '   |   RQE ' + rqe;
-    set('.dcv-crm', crmTxt2);
-    set('.dcv-esp', esp || '');
-  });
+  /* Receituário Controlado — folha única, layout do modelo oficial de Receituário de Controle Especial */
+  const emitEndereco = v('doc-med-endereco'), emitCidade = v('doc-med-cidade'), emitCidadeUf = v('doc-med-cidade-uf'), emitTelefone = v('doc-med-telefone');
+  const logoCtrl = document.getElementById('doc-sheet-logo-controlado');
+  if (logoCtrl) logoCtrl.innerHTML = _docLogoDataUrl
+    ? `<img src="${_docLogoDataUrl}" alt="Logo da instituição"/>`
+    : `<div class="doc-logo-placeholder">logo da instituição</div>`;
+  const setId = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setId('doc-ctrl-emit-nome', nome || '—');
+  setId('doc-ctrl-emit-crm', crm || '—');
+  setId('doc-ctrl-emit-crm-uf', uf || '—');
+  setId('doc-ctrl-emit-end', emitEndereco || '—');
+  setId('doc-ctrl-emit-cidade', emitCidade || '—');
+  setId('doc-ctrl-emit-cidade-uf', emitCidadeUf || '—');
+  setId('doc-ctrl-emit-tel', emitTelefone || '—');
+  setId('doc-ctrl-emit-data', v('rxc-data') || new Date().toLocaleDateString('pt-BR'));
+
+  const rcIdadeTxt = v('rxc-idade');
+  const rcNomeTxt = v('rxc-nome') ? (v('rxc-nome') + (rcIdadeTxt ? ' (' + rcIdadeTxt + ')' : '')) : '—';
+  setId('doc-ctrl-pac-nome', rcNomeTxt);
+  setId('doc-ctrl-pac-end', v('rxc-endereco') || '—');
+  setId('doc-ctrl-texto', v('rxc-text'));
+
+  setId('doc-ctrl-comp-nome', v('rxc-comp-nome') || '—');
+  setId('doc-ctrl-comp-rg', v('rxc-comp-doc') || '—');
+  setId('doc-ctrl-comp-org', v('rxc-comp-org') || '—');
+  setId('doc-ctrl-comp-end', v('rxc-comp-end') || '—');
+  setId('doc-ctrl-comp-cidade', v('rxc-comp-cidade') || '—');
+  setId('doc-ctrl-comp-uf', v('rxc-comp-uf') || '—');
+  setId('doc-ctrl-comp-tel', v('rxc-comp-tel') || '—');
 
   /* Laudo Médico — folha única (via digital) */
   const logoLaudo = document.getElementById('doc-sheet-logo-laudo');
