@@ -541,6 +541,8 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
 .oc-reset-btn{font-size:.7rem;color:#5A7A9A;background:none;border:1px solid #1E3550;border-radius:7px;padding:.3rem .65rem;cursor:pointer;margin-top:.7rem;font-family:inherit}
 .oc-reset-btn:hover{color:var(--og);border-color:var(--og)}
 .oc-empty-note{font-size:.68rem;color:#5A7A9A;font-style:italic;margin-top:.3rem}
+.oc-num-input{background:#0F2038;border:1px solid #24405E;border-radius:8px;color:#EAF2FB;font-size:.8rem;padding:.4rem .6rem;width:110px;font-family:inherit}
+.oc-num-input:focus{outline:none;border-color:var(--og)}
 </style>
 </head>
 <body>
@@ -4636,6 +4638,308 @@ const OC_DATA = [
     conduta: 'Sempre individualizar com base no risco tromboembólico do paciente, no risco hemorrágico específico do procedimento ortopédico planejado, e em discussão multidisciplinar (cirurgião, cardiologista/hematologista) quando aplicável.',
     fonte: 'Doherty et al. 2017 (ACC), Spyropoulos et al. 2022 (CHEST) · MDCalc',
   },
+
+  /* ══════ LOTE 2: REUMATOLOGIA ══════ */
+  {
+    id: 'das28-esr', categoria: 'reumatologia', nome: 'Disease Activity Score-28 with ESR (DAS28-ESR)',
+    resumo: 'Descreve a atividade da artrite reumatoide usando dados clínicos e VHS.',
+    tipo: 'formula',
+    campos: [
+      { key: 'tjc', label: 'Contagem de articulações dolorosas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'sjc', label: 'Contagem de articulações edemaciadas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'esr', label: 'VHS (mm/h)', min: 1, max: 150, step: 1 },
+      { key: 'gh', label: 'Saúde global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.5 },
+    ],
+    calc: v => 0.56 * Math.sqrt(v.tjc) + 0.28 * Math.sqrt(v.sjc) + 0.70 * Math.log(v.esr) + 0.014 * v.gh,
+    faixas: [
+      { max: 2.59, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão. Manter esquema terapêutico atual.' },
+      { min: 2.6, max: 3.2, label: 'Atividade baixa', cor: 'verde', conduta: 'Baixa atividade de doença.' },
+      { min: 3.21, max: 5.1, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Atividade moderada — considerar estratégia treat-to-target e intensificação terapêutica.' },
+      { min: 5.11, label: 'Atividade alta', cor: 'vermelho', conduta: 'Alta atividade de doença. Intensificação terapêutica (DMARD/biológico) fortemente recomendada.' },
+    ],
+    fonte: 'Prevoo et al. 1995 (van der Heijde) · MDCalc',
+  },
+  {
+    id: 'das28-crp', categoria: 'reumatologia', nome: 'Disease Activity Score-28 with CRP (DAS28-CRP)',
+    resumo: 'Descreve a atividade da artrite reumatoide usando dados clínicos e PCR.',
+    tipo: 'formula',
+    campos: [
+      { key: 'tjc', label: 'Contagem de articulações dolorosas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'sjc', label: 'Contagem de articulações edemaciadas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'crp', label: 'PCR (mg/dL)', min: 0, max: 30, step: 0.1 },
+      { key: 'gh', label: 'Saúde global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.5 },
+    ],
+    calc: v => 0.56 * Math.sqrt(v.tjc) + 0.28 * Math.sqrt(v.sjc) + 0.36 * Math.log(v.crp + 1) + 0.014 * v.gh + 0.96,
+    faixas: [
+      { max: 2.59, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão. Manter esquema terapêutico atual.' },
+      { min: 2.6, max: 3.2, label: 'Atividade baixa', cor: 'verde', conduta: 'Baixa atividade de doença.' },
+      { min: 3.21, max: 5.1, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Atividade moderada — considerar estratégia treat-to-target e intensificação terapêutica.' },
+      { min: 5.11, label: 'Atividade alta', cor: 'vermelho', conduta: 'Alta atividade de doença. Intensificação terapêutica (DMARD/biológico) fortemente recomendada.' },
+    ],
+    fonte: 'Fransen & van Riel · MDCalc · Ver diretriz ACR: Treatment of Rheumatoid Arthritis',
+  },
+  {
+    id: 'age-esr-crp-ra', categoria: 'reumatologia', nome: 'Age-Adjusted ESR/CRP for Rheumatoid Arthritis',
+    resumo: 'Calcula o limite superior normal de VHS e PCR ajustado pela idade.',
+    tipo: 'formula',
+    campos: [
+      { key: 'sexo', label: 'Sexo', opcoes: [{ label: 'Masculino', val: 'M' }, { label: 'Feminino', val: 'F' }] },
+      { key: 'idade', label: 'Idade (anos)', min: 18, max: 100, step: 1 },
+    ],
+    outputFn: v => {
+      const esrMax = v.sexo === 'M' ? v.idade / 2 : (v.idade + 10) / 2;
+      const crpMax = v.sexo === 'M' ? v.idade / 50 : (v.idade / 50) + 0.6;
+      return { label: `VHS máx. normal ≈ ${esrMax.toFixed(1)} mm/h  ·  PCR máx. normal ≈ ${crpMax.toFixed(2)} mg/dL`, cor: 'amarelo', conduta: 'Valores acima do limite ajustado pela idade sugerem processo inflamatório ativo e devem ser interpretados no contexto clínico — não são diagnósticos isoladamente.' };
+    },
+    fonte: 'Wener & Miller · MDCalc',
+  },
+  {
+    id: 'cdai', categoria: 'reumatologia', nome: 'Clinical Disease Activity Index (CDAI) for Rheumatoid Arthritis',
+    resumo: 'Determina a gravidade da AR usando apenas dados clínicos (sem provas de fase aguda).',
+    tipo: 'formula',
+    campos: [
+      { key: 'tjc', label: 'Contagem de articulações dolorosas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'sjc', label: 'Contagem de articulações edemaciadas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'pga', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ega', label: 'Avaliação global do médico (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+    ],
+    calc: v => v.tjc + v.sjc + v.pga + v.ega,
+    faixas: [
+      { max: 2.8, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão clínica.' },
+      { min: 2.81, max: 10, label: 'Atividade baixa', cor: 'verde', conduta: 'Baixa atividade de doença.' },
+      { min: 10.01, max: 22, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Considerar intensificação terapêutica (treat-to-target).' },
+      { min: 22.01, label: 'Atividade alta', cor: 'vermelho', conduta: 'Alta atividade de doença — intensificação terapêutica recomendada.' },
+    ],
+    fonte: 'Aletaha & Smolen · MDCalc · Ver diretriz ACR: Treatment of Rheumatoid Arthritis',
+  },
+  {
+    id: 'sdai', categoria: 'reumatologia', nome: 'Simple Disease Activity Index (SDAI) for Rheumatoid Arthritis',
+    resumo: 'Determina a gravidade da AR usando dados clínicos e laboratoriais.',
+    tipo: 'formula',
+    campos: [
+      { key: 'tjc', label: 'Contagem de articulações dolorosas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'sjc', label: 'Contagem de articulações edemaciadas (0–28)', min: 0, max: 28, step: 1 },
+      { key: 'pga', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ega', label: 'Avaliação global do médico (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'crp', label: 'PCR (mg/dL)', min: 0, max: 30, step: 0.1 },
+    ],
+    calc: v => v.tjc + v.sjc + v.pga + v.ega + v.crp,
+    faixas: [
+      { max: 3.3, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão clínica.' },
+      { min: 3.31, max: 11, label: 'Atividade baixa', cor: 'verde', conduta: 'Baixa atividade de doença.' },
+      { min: 11.01, max: 26, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Considerar intensificação terapêutica (treat-to-target).' },
+      { min: 26.01, label: 'Atividade alta', cor: 'vermelho', conduta: 'Alta atividade de doença — intensificação terapêutica recomendada.' },
+    ],
+    fonte: 'Smolen et al. · MDCalc',
+  },
+  {
+    id: 'asdas-crp', categoria: 'reumatologia', nome: 'Ankylosing Spondylitis Disease Activity Score with CRP (ASDAS-CRP)',
+    resumo: 'Estratifica a atividade da espondilite anquilosante usando PCR.',
+    tipo: 'formula',
+    campos: [
+      { key: 'backpain', label: 'Dor lombar (BASDAI Q2, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'stiffness', label: 'Duração da rigidez matinal (BASDAI Q6, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ptglobal', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'periph', label: 'Dor/edema periférico (BASDAI Q3, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'crp', label: 'PCR (mg/L)', min: 0, max: 100, step: 0.1 },
+    ],
+    calc: v => 0.12 * v.backpain + 0.06 * v.stiffness + 0.11 * v.ptglobal + 0.07 * v.periph + 0.58 * Math.log(v.crp + 1),
+    faixas: [
+      { max: 1.29, label: 'Doença inativa', cor: 'verde', conduta: 'Manter esquema terapêutico atual.' },
+      { min: 1.3, max: 2.09, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Considerar otimização terapêutica.' },
+      { min: 2.1, max: 3.49, label: 'Atividade alta', cor: 'vermelho', conduta: 'Considerar intensificação terapêutica (biológico anti-TNF/IL-17).' },
+      { min: 3.5, label: 'Atividade muito alta', cor: 'vermelho', conduta: 'Intensificação terapêutica fortemente recomendada.' },
+    ],
+    fonte: 'Lukas et al. 2009 (ASAS) · MDCalc',
+  },
+  {
+    id: 'asdas-esr', categoria: 'reumatologia', nome: 'Ankylosing Spondylitis Disease Activity Score with ESR (ASDAS-ESR)',
+    resumo: 'Estratifica a atividade da espondilite anquilosante usando VHS.',
+    tipo: 'formula',
+    campos: [
+      { key: 'backpain', label: 'Dor lombar (BASDAI Q2, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'stiffness', label: 'Duração da rigidez matinal (BASDAI Q6, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ptglobal', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'periph', label: 'Dor/edema periférico (BASDAI Q3, EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'esr', label: 'VHS (mm/h)', min: 0, max: 150, step: 1 },
+    ],
+    calc: v => 0.08 * v.backpain + 0.07 * v.stiffness + 0.11 * v.ptglobal + 0.09 * v.periph + 0.29 * Math.sqrt(v.esr),
+    faixas: [
+      { max: 1.29, label: 'Doença inativa', cor: 'verde', conduta: 'Manter esquema terapêutico atual.' },
+      { min: 1.3, max: 2.09, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Considerar otimização terapêutica.' },
+      { min: 2.1, max: 3.49, label: 'Atividade alta', cor: 'vermelho', conduta: 'Considerar intensificação terapêutica (biológico anti-TNF/IL-17).' },
+      { min: 3.5, label: 'Atividade muito alta', cor: 'vermelho', conduta: 'Intensificação terapêutica fortemente recomendada.' },
+    ],
+    fonte: 'Lukas et al. 2009 (ASAS) · MDCalc',
+  },
+  {
+    id: 'acr-eular-2010-ra', categoria: 'reumatologia', nome: '2010 ACR/EULAR Classification Criteria for Rheumatoid Arthritis',
+    resumo: 'Critérios de classificação de artrite reumatoide.',
+    tipo: 'sum',
+    prereq: { label: 'Presença de sinovite clínica (edema) em pelo menos 1 articulação, não mais bem explicada por outra doença' },
+    naoAplicavel: { label: 'Critério de entrada não atendido', cor: 'amarelo', conduta: 'Estes critérios só devem ser aplicados quando há sinovite clínica definida em pelo menos uma articulação, sem explicação alternativa melhor (é necessário também ao menos um resultado de sorologia e de prova de fase aguda para uso válido).' },
+    campos: [
+      { label: 'Acometimento articular (excluir IFD e 1ª MCF/MTF)', opcoes: [{ label: '1 grande articulação', pts: 0 }, { label: '2–10 grandes articulações', pts: 1 }, { label: '1–3 pequenas articulações (com ou sem grandes)', pts: 2 }, { label: '4–10 pequenas articulações (com ou sem grandes)', pts: 3 }, { label: '>10 articulações (ao menos 1 pequena)', pts: 5 }] },
+      { label: 'Sorologia', opcoes: [{ label: 'FR negativo e ACPA negativo', pts: 0 }, { label: 'FR ou ACPA baixo-positivo', pts: 2 }, { label: 'FR ou ACPA alto-positivo', pts: 3 }] },
+      { label: 'Provas de fase aguda', opcoes: [{ label: 'PCR normal e VHS normal', pts: 0 }, { label: 'PCR ou VHS anormal', pts: 1 }] },
+      { label: 'Duração dos sintomas', opcoes: [{ label: '<6 semanas', pts: 0 }, { label: '≥6 semanas', pts: 1 }] },
+    ],
+    faixas: [
+      { max: 5, label: 'Não classifica como AR definitiva', cor: 'verde', conduta: 'Considerar diagnósticos alternativos; reavaliar se os sintomas evoluírem.' },
+      { min: 6, label: 'AR definitiva (classificação positiva)', cor: 'vermelho', conduta: 'Altamente indicativo de AR. Encaminhar ao reumatologista para possível início de DMARD.' },
+    ],
+    fonte: 'Aletaha et al. 2010 · MDCalc',
+  },
+  {
+    id: 'pas', categoria: 'reumatologia', nome: 'Patient Activity Scale (PAS) for RA',
+    resumo: 'Quantifica a gravidade da AR usando apenas dados relatados pelo paciente.',
+    tipo: 'formula',
+    campos: [
+      { key: 'haq', label: 'HAQ-DI (índice de incapacidade, 0–3, já calculado pelo questionário completo)', min: 0, max: 3, step: 0.05 },
+      { key: 'pain', label: 'Dor (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ptga', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+    ],
+    calc: v => ((v.haq * 3.33) + v.pain + v.ptga) / 3,
+    faixas: [
+      { max: 0.25, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão segundo dados do paciente.' },
+      { min: 0.26, max: 3.7, label: 'Atividade mínima/baixa', cor: 'verde', conduta: 'Baixa atividade percebida pelo paciente.' },
+      { min: 3.71, max: 7.99, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Reavaliar esquema terapêutico; considerar causas não-inflamatórias (ex.: fibromialgia) se score persistir alto.' },
+      { min: 8.0, label: 'Atividade grave', cor: 'vermelho', conduta: 'Reavaliação e possível intensificação terapêutica recomendadas.' },
+    ],
+    fonte: 'Wolfe & Michaud · MDCalc (HAQ-DI de 20 itens calculado separadamente pelo questionário padrão)',
+  },
+  {
+    id: 'pas-ii', categoria: 'reumatologia', nome: 'Patient Activity Scale II (PAS-II) for RA',
+    resumo: 'Versão simplificada do PAS, com HAQ-II de 10 itens.',
+    tipo: 'formula',
+    campos: [
+      { key: 'haq2', label: 'HAQ-II (índice de incapacidade, 0–3, já calculado pelo questionário de 10 itens)', min: 0, max: 3, step: 0.05 },
+      { key: 'pain', label: 'Dor (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+      { key: 'ptga', label: 'Avaliação global do paciente (EVA 0–10)', min: 0, max: 10, step: 0.1 },
+    ],
+    calc: v => ((v.haq2 * 3.33) + v.pain + v.ptga) / 3,
+    faixas: [
+      { max: 0.25, label: 'Remissão', cor: 'verde', conduta: 'Doença em remissão segundo dados do paciente.' },
+      { min: 0.26, max: 3.7, label: 'Atividade mínima/baixa', cor: 'verde', conduta: 'Baixa atividade percebida pelo paciente.' },
+      { min: 3.71, max: 7.99, label: 'Atividade moderada', cor: 'amarelo', conduta: 'Reavaliar esquema terapêutico; considerar causas não-inflamatórias (ex.: fibromialgia) se score persistir alto.' },
+      { min: 8.0, label: 'Atividade grave', cor: 'vermelho', conduta: 'Reavaliação e possível intensificação terapêutica recomendadas.' },
+    ],
+    fonte: 'Wolfe & Michaud · MDCalc (HAQ-II de 10 itens calculado separadamente)',
+  },
+  {
+    id: 'caspar', categoria: 'reumatologia', nome: 'CASPAR Criteria for Psoriatic Arthritis',
+    resumo: 'Critérios de classificação de artrite psoriásica (APso).',
+    tipo: 'sum',
+    prereq: { label: 'Doença articular inflamatória presente (periférica, axial ou entesítica)' },
+    naoAplicavel: { label: 'Critério obrigatório não atendido', cor: 'amarelo', conduta: 'CASPAR exige a presença de doença articular inflamatória (critério obrigatório) antes de pontuar os demais itens.' },
+    campos: [
+      { label: 'Psoríase atual (pele/couro cabeludo)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 2 }] },
+      { label: 'História pessoal de psoríase (se não presente atualmente)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'História familiar de psoríase (1º ou 2º grau, se sem psoríase pessoal/atual)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Dactilite atual ou história documentada de dactilite', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Formação óssea justa-articular em radiografia de mãos/pés (excluindo osteófitos)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Fator reumatoide negativo', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Distrofia ungueal (onicólise, pitting, hiperceratose)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+    ],
+    faixas: [
+      { max: 2, label: 'Não preenche critérios CASPAR', cor: 'verde', conduta: 'Considerar diagnósticos alternativos (AR, artrite reativa, outras espondiloartropatias, artrose, artropatias por cristais).' },
+      { min: 3, label: 'Critérios CASPAR preenchidos', cor: 'vermelho', conduta: 'Classificação compatível com artrite psoriásica. Encaminhar ao reumatologista e considerar início/ajuste de tratamento (AINEs, DMARDs, biológicos).' },
+    ],
+    fonte: 'Taylor et al. 2006 · MDCalc · Ver diretriz ACR: Treatment of Psoriatic Arthritis',
+  },
+  {
+    id: 'leiden-rule', categoria: 'reumatologia', nome: 'Leiden Clinical Prediction Rule for Undifferentiated Arthritis',
+    resumo: 'Prediz progressão para artrite reumatoide em artrite indiferenciada recente.',
+    tipo: 'info',
+    descricao: 'Regra de predição clínica que combina 9 variáveis: sexo, idade, distribuição das articulações acometidas (pequenas articulações de mãos/pés, membros superiores, membros superiores e inferiores), distribuição simétrica, duração da rigidez matinal, número de articulações dolorosas (de 68) e edemaciadas (de 66), PCR, fator reumatoide e anticorpos anti-CCP. Score total de 0 a ~14: ≤6 = baixo risco (~10% progridem para AR em 1 ano); 6,1–7,9 = risco indeterminado (~45%); ≥8 = alto risco (~87%).',
+    conduta: 'O coeficiente exato atribuído à idade (variável contínua) não é divulgado de forma simples e aditiva na fonte pública — use a calculadora original do MDCalc para o escore numérico exato. Clinicamente: baixo risco → tratamento sintomático e reavaliação; risco indeterminado → acompanhamento próximo e considerar encaminhamento precoce à reumatologia; alto risco → encaminhar à reumatologia para terapia com DMARD.',
+    fonte: 'van der Helm-van Mil et al. 2007 · MDCalc',
+  },
+  {
+    id: 'pmr-2012', categoria: 'reumatologia', nome: '2012 ACR/EULAR Classification Criteria for Polymyalgia Rheumatica (PMR)',
+    resumo: 'Classifica polimialgia reumática por consenso de especialistas (critérios clínicos).',
+    tipo: 'sum',
+    prereq: { label: 'Paciente ≥50 anos, com dor bilateral no ombro e VHS e/ou PCR anormal' },
+    naoAplicavel: { label: 'Critério de entrada não atendido', cor: 'amarelo', conduta: 'Estes critérios só devem ser aplicados em pacientes com ≥50 anos, dor bilateral no ombro e VHS/PCR alterados.' },
+    campos: [
+      { label: 'Duração da rigidez matinal', opcoes: [{ label: '≤45 min', pts: 0 }, { label: '>45 min', pts: 2 }] },
+      { label: 'Dor ou limitação de amplitude de movimento do quadril', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Fator reumatoide ou ACPA', opcoes: [{ label: 'Presente', pts: 0 }, { label: 'Ausente', pts: 2 }] },
+      { label: 'Dor em outras articulações', opcoes: [{ label: 'Presente', pts: 0 }, { label: 'Ausente', pts: 1 }] },
+    ],
+    faixas: [
+      { max: 3, label: 'Não classifica como PMR (critérios clínicos, sem US)', cor: 'verde', conduta: 'Considerar diagnósticos alternativos.' },
+      { min: 4, label: 'Classifica como PMR (score ≥4, sem ultrassom)', cor: 'vermelho', conduta: 'Compatível com polimialgia reumática. Terapia inicial geralmente com corticosteroide oral, conforme julgamento clínico. (Critérios de ultrassonografia opcionais, com corte ≥5, não incluídos nesta ferramenta simplificada.)' },
+    ],
+    fonte: 'Dasgupta et al. 2012 · MDCalc',
+  },
+  {
+    id: 'acute-gout-rule', categoria: 'reumatologia', nome: 'Acute Gout Diagnosis Rule',
+    resumo: 'Estratifica risco de gota vs. artrite não-gotosa e orienta necessidade de artrocentese.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Sexo masculino', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 2 }] },
+      { label: 'Crise de artrite prévia relatada pelo paciente', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 2 }] },
+      { label: 'Início em até 1 dia', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 0.5 }] },
+      { label: 'Hiperemia articular', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Acometimento da 1ª articulação metatarsofalângica', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 2.5 }] },
+      { label: 'Hipertensão ou ≥1 doença cardiovascular (angina, IAM, ICC, AVC/AIT, DAP)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1.5 }] },
+      { label: 'Ácido úrico sérico > 5,88 mg/dL (0,35 mmol/L)', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 3.5 }] },
+    ],
+    faixas: [
+      { max: 4, label: 'Gota improvável', cor: 'verde', conduta: 'Considerar outras causas de monoartrite: pseudogota, artrite séptica, artrite reativa, psoriásica, reumatoide ou osteoartrite.' },
+      { min: 4.01, max: 7.99, label: 'Indeterminado', cor: 'amarelo', conduta: 'Maior benefício de artrocentese com análise de líquido sinovial para cristais de urato.' },
+      { min: 8, label: 'Gota muito provável', cor: 'vermelho', conduta: 'Gota altamente provável — medicações antigotosas empíricas podem ser iniciadas (em vez de tratamento genérico de artrite).' },
+    ],
+    fonte: 'Janssens et al. 2010 · MDCalc',
+  },
+  {
+    id: 'gout-2015-acr-eular', categoria: 'reumatologia', nome: '2015 ACR/EULAR Classification Criteria for Gout',
+    resumo: 'Critérios de classificação de gota por ACR/EULAR.',
+    tipo: 'sum',
+    prereq: { label: 'Critério de entrada: ≥1 episódio de edema, dor ou dor à palpação em articulação/bursa periférica' },
+    naoAplicavel: { label: 'Critério de entrada não atendido — critérios não se aplicam', cor: 'amarelo', conduta: 'Sem episódio prévio de edema/dor/dor à palpação em articulação ou bursa periférica, os critérios ACR/EULAR de gota não devem ser aplicados.' },
+    atalho: { label: 'Critério suficiente: cristais de urato monossódico (MSU) identificados em articulação, bursa ou tofo sintomático', positivo: { label: 'Critério suficiente atendido — classifica como GOTA', cor: 'vermelho', conduta: 'A presença de cristais de MSU classifica o paciente diretamente como gota, independentemente da pontuação dos demais domínios.' } },
+    campos: [
+      { label: 'Padrão de acometimento articular/bursa durante os episódios', opcoes: [{ label: 'Articulação/bursa que não tornozelo, médio-pé ou 1ª MTF (ou poliartrite)', pts: 0 }, { label: 'Tornozelo OU médio-pé (episódio mono/oligoarticular sem 1ª MTF)', pts: 1 }, { label: '1ª articulação MTF (episódio mono ou oligoarticular)', pts: 2 }] },
+      { label: 'Características do(s) episódio(s) (eritema; incapacidade de tocar/pressionar; grande dificuldade para andar/usar a articulação)', opcoes: [{ label: 'Nenhuma característica', pts: 0 }, { label: 'Uma característica', pts: 1 }, { label: 'Duas características', pts: 2 }, { label: 'Três características', pts: 3 }] },
+      { label: 'Curso temporal típico (≥2 de: pico de dor <24h; resolução em ≤14 dias; resolução completa entre episódios)', opcoes: [{ label: 'Nenhum episódio típico', pts: 0 }, { label: 'Um episódio típico', pts: 1 }, { label: 'Episódios típicos recorrentes', pts: 2 }] },
+      { label: 'Evidência de tofo (nódulo subcutâneo em localização típica)', opcoes: [{ label: 'Ausente', pts: 0 }, { label: 'Presente', pts: 4 }] },
+      { label: 'Ácido úrico sérico', opcoes: [{ label: '<4 mg/dL', pts: -4 }, { label: '≥4 e <6 mg/dL', pts: 0 }, { label: '≥6 e <8 mg/dL', pts: 2 }, { label: '≥8 e <10 mg/dL', pts: 3 }, { label: '≥10 mg/dL', pts: 4 }] },
+      { label: 'Análise de líquido sinovial de articulação sintomática (já realizada alguma vez)', opcoes: [{ label: 'Negativa para MSU', pts: -2 }, { label: 'Não realizada', pts: 0 }] },
+      { label: 'Imagem: evidência de depósito de urato (US "double contour sign" ou DECT)', opcoes: [{ label: 'Ausente ou não realizada', pts: 0 }, { label: 'Presente', pts: 4 }] },
+      { label: 'Imagem: evidência de dano articular relacionado à gota (radiografia de mãos/pés)', opcoes: [{ label: 'Ausente', pts: 0 }, { label: 'Presente', pts: 4 }] },
+    ],
+    faixas: [
+      { max: 7, label: 'Não classifica como gota', cor: 'verde', conduta: 'Considerar outras causas de monoartrite: pseudogota, artrite séptica, artrite reativa, psoriásica, reumatoide ou osteoartrite.' },
+      { min: 8, label: 'Classifica como gota', cor: 'vermelho', conduta: 'Score ≥8: classificação positiva para gota.' },
+    ],
+    fonte: 'Neogi et al. 2015 · MDCalc',
+  },
+  {
+    id: 'treatment-ra', categoria: 'reumatologia', nome: 'Treatment of Rheumatoid Arthritis (algoritmo ACR)',
+    resumo: 'Algoritmo de tratamento da artrite reumatoide baseado em diretrizes do ACR.',
+    tipo: 'info',
+    descricao: 'Abordagem geral (treat-to-target), de acordo com diretrizes do American College of Rheumatology:\n\n1) Doença ativa recém-diagnosticada: iniciar DMARD sintético convencional (csDMARD), preferencialmente metotrexato em monoterapia, com escalonamento de dose conforme tolerância.\n\n2) Se resposta inadequada ao csDMARD em monoterapia após otimização de dose (~3 meses): adicionar segundo csDMARD (terapia combinada) OU trocar para DMARD biológico (anti-TNF, anti-IL-6, abatacepte, rituximabe) OU DMARD sintético direcionado (inibidor de JAK), a depender de comorbidades e fatores de risco individuais (ex.: risco cardiovascular/tromboembólico influencia a escolha de inibidores de JAK).\n\n3) Reavaliar atividade de doença regularmente (DAS28, CDAI ou SDAI) e ajustar terapia a cada 3 meses até atingir remissão ou baixa atividade (estratégia treat-to-target).\n\n4) Uso de glicocorticoides em ponte, na menor dose e pelo menor tempo possível, durante o início/ajuste de DMARDs.',
+    conduta: 'As diretrizes do ACR são atualizadas periodicamente — sempre confirmar a versão mais recente antes de decisões terapêuticas definitivas, especialmente quanto à sequência exata de biológicos/JAKi e considerações de segurança cardiovascular.',
+    fonte: 'American College of Rheumatology (ACR) — Guideline for the Treatment of Rheumatoid Arthritis',
+  },
+  {
+    id: 'treatment-psa', categoria: 'reumatologia', nome: 'Treatment of Psoriatic Arthritis (algoritmo ACR)',
+    resumo: 'Algoritmo de tratamento da artrite psoriásica baseado em diretrizes do ACR.',
+    tipo: 'info',
+    descricao: 'Abordagem geral, de acordo com diretrizes do American College of Rheumatology:\n\n1) Paciente virgem de tratamento com doença ativa: DMARD biológico (preferencialmente anti-TNF) é geralmente recomendado sobre DMARD sintético convencional (ex.: metotrexato) como primeira linha, especialmente se houver acometimento articular relevante, entesite ou dactilite — embora o metotrexato continue sendo opção razoável, principalmente com psoríase cutânea proeminente ou contraindicação a biológicos.\n\n2) Resposta inadequada ao anti-TNF: trocar para outro anti-TNF, ou para inibidor de IL-17, IL-12/23 ou IL-23, a depender do fenótipo predominante (articular vs. cutâneo vs. axial vs. entesite/dactilite) e comorbidades (ex.: IBD favorece anti-TNF/IL-23; considerar risco cardiovascular para inibidores de JAK).\n\n3) Doença predominantemente axial: preferir anti-TNF ou anti-IL-17.\n\n4) Reavaliar periodicamente e ajustar conforme resposta clínica.',
+    conduta: 'As diretrizes do ACR são atualizadas periodicamente — sempre confirmar a versão mais recente antes de decisões terapêuticas definitivas.',
+    fonte: 'American College of Rheumatology (ACR) — Guideline for the Treatment of Psoriatic Arthritis',
+  },
+  {
+    id: 'treatment-as-nraxspa', categoria: 'reumatologia', nome: 'Treatment of Ankylosing Spondylitis and Nonradiographic Axial Spondyloarthritis (algoritmo ACR)',
+    resumo: 'Algoritmo de tratamento da espondilite anquilosante e espondiloartrite axial não-radiográfica.',
+    tipo: 'info',
+    descricao: 'Abordagem geral, de acordo com diretrizes do American College of Rheumatology:\n\n1) Primeira linha: AINE contínuo (não apenas sob demanda) em dose otimizada, associado a fisioterapia/exercício regular, que deve ser mantido em todas as fases do tratamento.\n\n2) Doença ativa apesar de AINE em dose otimizada (geralmente após ≥4 semanas): iniciar DMARD biológico — anti-TNF ou anti-IL-17 são as primeiras opções recomendadas (anti-IL-17 pode ser preferido se houver psoríase concomitante; anti-TNF pode ser preferido se houver doença inflamatória intestinal ou uveíte recorrente).\n\n3) Resposta inadequada ao primeiro biológico: trocar para outro anti-TNF ou para a outra classe (anti-IL-17), ou considerar inibidor de JAK conforme perfil de risco do paciente.\n\n4) DMARDs sintéticos convencionais (ex.: sulfassalazina) têm papel limitado, restrito principalmente a doença predominantemente periférica.',
+    conduta: 'As diretrizes do ACR são atualizadas periodicamente — sempre confirmar a versão mais recente antes de decisões terapêuticas definitivas, especialmente quanto a considerações de segurança cardiovascular dos inibidores de JAK.',
+    fonte: 'American College of Rheumatology (ACR) — Guideline for the Treatment of Ankylosing Spondylitis and Nonradiographic Axial Spondyloarthritis',
+  },
 ];
 
 const OC_CAT_ORDEM = ['trauma','coluna','infeccao','vte','perioperatorio','mao-punho','quadril-joelho','reumatologia','osteoporose','funcional'];
@@ -4695,6 +4999,20 @@ function toggleOCCard(id) {
 function ocFormHtml(o) {
   let html = '';
   if (o.tipo === 'sum') {
+    if (o.prereq) {
+      html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(o.prereq.label)}</span>
+        <div class="oc-opts">
+          <button type="button" class="oc-opt" data-prereq="1" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+          <button type="button" class="oc-opt" data-prereq="1" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+        </div></div>`;
+    }
+    if (o.atalho) {
+      html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(o.atalho.label)}</span>
+        <div class="oc-opts">
+          <button type="button" class="oc-opt" data-atalho="1" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+          <button type="button" class="oc-opt" data-atalho="1" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+        </div></div>`;
+    }
     o.campos.forEach((campo, ci) => {
       html += `<div class="oc-field-row">
         <span class="oc-field-label">${escHtml(campo.label)}</span>
@@ -4702,6 +5020,18 @@ function ocFormHtml(o) {
           ${campo.opcoes.map((op, oi) => `<button type="button" class="oc-opt" data-field="${ci}" data-val="${op.pts}" onclick="ocSelectOpt('${o.id}',${ci},this)">${escHtml(op.label)}</button>`).join('')}
         </div>
       </div>`;
+    });
+  } else if (o.tipo === 'formula') {
+    o.campos.forEach(campo => {
+      if (campo.opcoes) {
+        html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(campo.label)}</span>
+          <div class="oc-opts">
+            ${campo.opcoes.map(op => `<button type="button" class="oc-opt" data-key="${campo.key}" data-val="${op.val}" onclick="ocSelectFormulaOpt('${o.id}','${campo.key}',this)">${escHtml(op.label)}</button>`).join('')}
+          </div></div>`;
+      } else {
+        html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(campo.label)}</span>
+          <input type="number" class="oc-num-input" id="oc-inp-${o.id}-${campo.key}" min="${campo.min}" max="${campo.max}" step="${campo.step || 1}" placeholder="${campo.min}–${campo.max}" oninput="computeOC('${o.id}')"></div>`;
+      }
     });
   } else if (o.tipo === 'any') {
     if (o.prereq) {
@@ -4757,6 +5087,12 @@ function ocSelectOpt(id, campoIdx, btn) {
   btn.classList.add('sel');
   computeOC(id);
 }
+function ocSelectFormulaOpt(id, key, btn) {
+  const card = document.getElementById('oc-body-' + id);
+  card.querySelectorAll(`.oc-opt[data-key="${key}"]`).forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  computeOC(id);
+}
 function ocToggleCheck(id, btn) {
   const card = document.getElementById('oc-body-' + id);
   const keys = ['crit', 'grp', 'nivel', 'prereq'];
@@ -4781,6 +5117,16 @@ function computeOC(id) {
   const resultDiv = document.getElementById('oc-result-' + id);
   if (!resultDiv) return;
   if (o.tipo === 'sum') {
+    if (o.prereq) {
+      const prereqBtn = card.querySelector('.oc-opt.sel[data-prereq]');
+      if (!prereqBtn) { resultDiv.innerHTML = ''; return; }
+      if (prereqBtn.dataset.val === '0') { resultDiv.innerHTML = ocResultHtml(null, o.naoAplicavel); return; }
+    }
+    if (o.atalho) {
+      const atalhoBtn = card.querySelector('.oc-opt.sel[data-atalho]');
+      if (!atalhoBtn) { resultDiv.innerHTML = ''; return; }
+      if (atalhoBtn.dataset.val === '1') { resultDiv.innerHTML = ocResultHtml(null, o.atalho.positivo); return; }
+    }
     const selected = [...card.querySelectorAll('.oc-opt.sel[data-field]')];
     if (selected.length < o.campos.length) { resultDiv.innerHTML = ''; return; }
     let total = 0;
@@ -4792,6 +5138,31 @@ function computeOC(id) {
     }
     const faixa = o.faixas.find(f => (f.min === undefined || total >= f.min) && (f.max === undefined || total <= f.max));
     resultDiv.innerHTML = faixa ? ocResultHtml(total, faixa) : '';
+  } else if (o.tipo === 'formula') {
+    const vals = {};
+    let allFilled = true;
+    o.campos.forEach(campo => {
+      if (campo.opcoes) {
+        const sel = card.querySelector(`.oc-opt.sel[data-key="${campo.key}"]`);
+        if (!sel) { allFilled = false; return; }
+        vals[campo.key] = sel.dataset.val;
+      } else {
+        const el = document.getElementById(`oc-inp-${id}-${campo.key}`);
+        const v = el ? parseFloat(el.value) : NaN;
+        if (el && el.value !== '' && !isNaN(v)) vals[campo.key] = v; else allFilled = false;
+      }
+    });
+    if (!allFilled) { resultDiv.innerHTML = ''; return; }
+    if (o.outputFn) {
+      const r = o.outputFn(vals);
+      resultDiv.innerHTML = r ? ocResultHtml(null, r) : '';
+    } else {
+      const total = o.calc(vals);
+      if (!isFinite(total)) { resultDiv.innerHTML = ''; return; }
+      const rounded = Math.round(total * 100) / 100;
+      const faixa = o.faixas.find(f => (f.min === undefined || rounded >= f.min) && (f.max === undefined || rounded <= f.max));
+      resultDiv.innerHTML = faixa ? ocResultHtml(rounded, faixa) : '';
+    }
   } else if (o.tipo === 'any') {
     const prereqBtn = o.prereq ? card.querySelector('.oc-opt.sel[data-prereq]') : null;
     if (o.prereq) {
