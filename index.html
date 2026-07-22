@@ -3504,7 +3504,70 @@ const CL_DATA = [
      {r:'r3',l:'Tipo II',d:'Envolvendo o componente, com afrouxamento (haste umeral ou ulnar solta).'},
      {r:'r4',l:'Tipo III',d:'Perda óssea grave, insuficiente para suportar revisão padrão.'}
    ],
-   nota:'Baseada nos princípios da Clínica Mayo (lógica análoga à classificação de Vancouver, adaptada ao cotovelo).'}
+   nota:'Baseada nos princípios da Clínica Mayo (lógica análoga à classificação de Vancouver, adaptada ao cotovelo).'},
+
+  // ══════════════════════════════════════════════════════════════
+  // NOVAS CLASSIFICAÇÕES — traduzidas e adicionadas a partir de
+  // "Classification and Diagnosis in Orthopaedic Trauma" (Anwar,
+  // Tuson & Khan, Cambridge University Press). Somente sistemas
+  // que ainda não constavam no site (a grande maioria do livro já
+  // estava coberta pelas classificações existentes/adicionadas
+  // anteriormente); nenhuma classificação existente foi alterada.
+  // ══════════════════════════════════════════════════════════════
+
+  {id:'melone-radio-distal', sigla:'MELONE', nome:'Melone — Fratura Intra-articular do Rádio Distal (Complexo Medial)', fonte:'Melone CP Jr, Clin Orthop Relat Res 1986', regiao:'punho',
+   rows:[
+     {r:'r1',l:'Tipo I',d:'Fragmentos minimamente desviados/estáveis; complexo medial íntegro. Tratamento conservador com imobilização gessada.'},
+     {r:'r2',l:'Tipo II',d:'Complexo medial desviado ("die-punch"), com impactação articular. IIA redutível (RAFI); IIB irredutível/cominutiva (fixador externo + RAFI limitada).'},
+     {r:'r3',l:'Tipo III',d:'Como o Tipo II + fragmento em "espícula" que se estende proximalmente pela diáfise, com risco de lesão neurovascular/tendínea. RAFI com placa volar + fixação da espícula.'},
+     {r:'r4',l:'Tipo IV',d:'Fragmentos do complexo medial totalmente rodados (dorsomedial e palmar-medial separados/rodados) — fratura em 4 partes, a mais instável. RAFI complexa ou fixador externo em ponte.'}
+   ],
+   nota:'O "complexo medial" (porção articular medial que sustenta o carpo, formada pelos fragmentos dorsomedial e palmar-medial) é o conceito-chave — sua integridade determina a estabilidade do carpo.'},
+  {id:'luxacao-esternoclavicular', sigla:'LUX-ESTERNOCLAV', nome:'Classificação Anatômica — Luxação Esternoclavicular', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'ombro',
+   rows:[
+     {r:'r1',l:'Anterior (mais comum)',d:'Extremidade medial da clavícula desvia anterior/anterossuperiormente ao esterno. Tratamento: redução fechada; pequena deformidade residual é geralmente aceitável.'},
+     {r:'r4',l:'Posterior (rara, potencialmente grave)',d:'Extremidade medial desvia posterior/superiormente; risco de compressão mediastinal (dispneia, disfagia, parestesias). ⚠️ TC de tórax é o exame de escolha. Redução fechada sob anestesia geral; cirurgia aberta se falhar (via difícil, risco de lesão de grandes vasos).'}
+   ],
+   nota:'Incidência com angulação cefálica de 40° auxilia o diagnóstico radiográfico; TC é definitivo, especialmente para avaliar estruturas mediastinais nas luxações posteriores.'},
+  {id:'galeazzi', sigla:'GALEAZZI', nome:'Fratura de Galeazzi — Fratura do Rádio com Luxação Radioulnar Distal', fonte:'Galeazzi R 1934; Anwar R et al., Classification and Diagnosis in Orthopaedic Trauma', regiao:'punho',
+   rows:[
+     {r:'r3',l:'Fratura + luxação da RUD',d:'Fratura do terço distal (raramente médio) da diáfise do rádio associada a luxação/subluxação da articulação radioulnar distal (RUD). Também chamada "fratura reversa de Monteggia" ou "fratura de necessidade" (fixação interna é essencial). Tratamento: RAFI obrigatória (placa de compressão dinâmica) — tratamento conservador tem alta taxa de falha; a RUD geralmente se estabiliza após a fixação do rádio.'}
+   ],
+   nota:'Em crianças, pode ser tratada com redução fechada e imobilização (maior potencial de remodelação); considerar fratura supracondilar ipsilateral associada ("cotovelo flutuante").'},
+  {id:'instabilidade-carpal-disi-visi', sigla:'DISI/VISI', nome:'DISI/VISI — Instabilidade Carpal (Segmento Intercalado)', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'punho',
+   rows:[
+     {r:'r3',l:'DISI (dorsal)',d:'Translação volar do semilunar com perda do ritmo escafo-semilunar (semilunar "estende" quando o escafoide "flete"). Mecanismo mais comum (força trans-escafoide ou trans-escafolunar). Ângulo escafolunar >70° (normal 30–60°). Tratamento: geralmente cirúrgico — redução + reparo ligamentar escafolunar + fixação com fios-K; artrodese limitada se instabilidade crônica.'},
+     {r:'r2',l:'VISI (volar)',d:'Menos comum; força ulnar dirigida radialmente causa falha do ligamento semilunar-piramidal e colapso do piramidal. Tratamento: reparo ligamentar; princípios semelhantes ao DISI.'}
+   ],
+   nota:'O teste de Watson (shift test) avalia clinicamente a instabilidade escafolunar/DISI. Diagnóstico definitivo por radiografias dinâmicas, artrografia ou RM.'},
+  {id:'luxacao-polegar-ucl-gamekeeper', sigla:'GAMEKEEPER', nome:'Lesão do Ligamento Colateral Ulnar do Polegar ("Polegar do Guarda-Caça"/do Esquiador)', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'mao',
+   rows:[
+     {r:'r1',l:'Ruptura parcial',d:'Instabilidade discreta ao estresse em valgo da metacarpofalângica. Tratamento: imobilização tipo "spica" em leve flexão por 4–6 semanas.'},
+     {r:'r4',l:'Ruptura completa (± lesão de Stener)',d:'Instabilidade franca; a aponeurose do adutor do polegar pode interpor-se entre as extremidades rotas (lesão de Stener), impedindo a cicatrização espontânea. Tratamento: sutura cirúrgica direta.'},
+     {r:'r3',l:'Fratura por avulsão associada',d:'Se >25% da superfície articular da base da falange proximal: fixação com fio-K além da sutura ligamentar.'}
+   ],
+   nota:'Testar a estabilidade em flexão e extensão da MCF, idealmente sob anestesia local, sempre comparando com o lado contralateral.'},
+  {id:'luxacao-ip-mao-descritiva', sigla:'LUX-IP-MAO', nome:'Classificação Descritiva — Luxação Interfalângica da Mão (PIP/DIP)', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'mao',
+   rows:[
+     {r:'r2',l:'Dorsal (mais comum)',d:'Mecanismo de hiperextensão + compressão axial (esportes). Tratamento: redução fechada por tração longitudinal (bloqueio digital) + "neighbour strapping" por 2–3 semanas; mobilização precoce para evitar rigidez.'},
+     {r:'r2',l:'Volar',d:'Mecanismo de hiperflexão. Mesma abordagem inicial; avaliar integridade do mecanismo extensor central (risco de deformidade em botoeira se negligenciada).'},
+     {r:'r3',l:'Com fratura articular associada',d:'Fragmento grande: tala bloqueadora em extensão para prevenir subluxação dorsal recorrente; RAFI (fios-K/miniparafusos) se instável — resultados cirúrgicos menos previsíveis; fusão pode ser necessária em casos refratários.'}
+   ],
+   nota:'Redução precoce é essencial — quanto mais rápida, melhor a recuperação funcional.'},
+  {id:'lesao-mecanismo-extensor-joelho', sigla:'MEC-EXTENSOR-JOELHO', nome:'Lesão do Mecanismo Extensor do Joelho (Tendão Quadricipital/Patelar)', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'joelho',
+   rows:[
+     {r:'r2',l:'Ruptura parcial/incompleta',d:'Extensão ativa do joelho (elevação da perna estendida) preservada, ainda que dolorosa. Tratamento: imobilização gessada em extensão por 4–6 semanas.'},
+     {r:'r4',l:'Ruptura completa',d:'Perda da extensão ativa do joelho; patela alta (ruptura do tendão patelar) ou baixa/"baja" (ruptura do quadricipital). Tratamento: reparo cirúrgico término-terminal precoce com sutura não absorvível ± cerclagem de proteção; imobilização gessada 4–6 semanas + reabilitação intensiva.'}
+   ],
+   nota:'Fraturas transversas isoladas da patela sem lesão tendínea associada são comuns e devem ser diferenciadas (ver classificação de Saunders). Diagnóstico é clínico; USG/RM em casos duvidosos.'},
+  {id:'sindromes-medulares-incompletas', sigla:'SÍNDROMES-MEDULARES', nome:'Síndromes Medulares Incompletas (Padrão Anatômico da Lesão Medular)', fonte:'Anwar R, Tuson KWR, Khan SA, Classification and Diagnosis in Orthopaedic Trauma', regiao:'coluna',
+   rows:[
+     {r:'r3',l:'Síndrome de Brown-Séquard',d:'Hemissecção medular: paralisia motora ipsilateral + perda contralateral de dor/temperatura. Prognóstico relativamente favorável — maioria recupera alguma função motora e sensitiva.'},
+     {r:'r4',l:'Síndrome medular anterior',d:'Paralisia motora completa + perda de dor/temperatura bilateral abaixo da lesão; propriocepção/vibração (colunas posteriores) preservadas. Pior prognóstico — apenas 10–15% recuperação significativa.'},
+     {r:'r2',l:'Síndrome medular central',d:'Mais comum; maior comprometimento dos membros superiores (fraqueza flácida das mãos) que dos inferiores; comum em espondilose cervical prévia (mecanismo de hiperextensão). Prognóstico: 50–60% recuperação satisfatória, mas função da mão frequentemente permanece prejudicada.'},
+     {r:'r2',l:'Síndrome medular posterior',d:'Rara; afeta predominantemente propriocepção e sensação vibratória/pressão profunda, com função motora e demais modalidades sensitivas preservadas.'}
+   ],
+   nota:'Distintas da escala ASIA (que gradua a completude da lesão, A–E); as síndromes descrevem o padrão anatômico de acometimento. Diferenciar de "choque medular" (perda transitória completa de reflexos, resolve com retorno do reflexo bulbocavernoso) e "choque neurogênico" (hipotensão + bradicardia por perda do tônus simpático).'}
 ];
 
 /* ── VIAS DE ACESSO DATA ── */
