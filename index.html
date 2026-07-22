@@ -2771,7 +2771,7 @@ const CL_DATA = [
   // ── OMBRO ──
   {id:'neer-clavicula', sigla:'NEER-CLAV', nome:'Neer — Fratura da Clavícula Distal', fonte:'Neer CS, J Bone Joint Surg 1968', regiao:'ombro', open:true,
    rows:[{r:'r1',l:'Tipo I',d:'Ambos os ligamentos intactos fixados no fragmento medial. Tratamento conservador.'},{r:'r3',l:'Tipo II',d:'Lig. trapezóide fixado ao fragmento distal; lig. conóide rompido. Instável → cirurgia.'},{r:'r2',l:'Tipo III',d:'Fratura com extensão para articulação acromioclavicular.'}],
-   nota:'Tipo II é o mais instável e frequentemente requer RAFI.'},
+   nota:'Tipo II é o mais instável e frequentemente requer RAFI. ⚠️ Divergência: Anwar/Tuson/Khan tratam a maioria das fraturas claviculares, incluindo o terço distal, de forma conservadora (tipoia ~6 sem.), reservando cirurgia para tenting cutâneo, lesão neurovascular, fratura exposta ou pseudartrose — não recomendam RAFI rotineira apenas por instabilidade do tipo II.'},
   {id:'rockwood-lac', sigla:'ROCKWOOD-LAC', nome:'Rockwood — Luxação Acromioclavicular', fonte:'Rockwood CA, JBJS 1984', regiao:'ombro',
    rows:[{r:'r1',l:'Tipo I',d:'Entorse da articulação AC; ligamentos intactos.'},{r:'r2',l:'Tipo II',d:'Ruptura dos lig. acromioclaviculares; lig. coracoclaviculares intactos.'},{r:'r3',l:'Tipo III',d:'Rupturas dos lig. AC e CC; espaço coracoclavicular aumentado 25–100%.'},{r:'r3',l:'Tipo IV',d:'Rupturas dos lig. AC e CC; desvio posterior da clavícula (m. trapézio).'},{r:'r4',l:'Tipo V',d:'Desvio superior grosseiro da clavícula 100–300%; mm. trapézio e deltóide arrancados.'},{r:'r4',l:'Tipo VI',d:'Clavícula desviada inferiormente ao acrômio ou processo coracóide.'}],
    nota:'Tipos I–II: conservador. Tipo III: controverso. Tipos IV–VI: cirurgia.'},
@@ -2779,9 +2779,11 @@ const CL_DATA = [
    rows:[{r:'r1',l:'1 fragmento',d:'Sem desvio (qualquer nível). Tratamento conservador (tipoia 3–6 semanas).'},{r:'r2',l:'2 fragmentos',d:'1 fragmento com desvio >1cm ou >45°. RAFI artroscópica ou aberta.'},{r:'r3',l:'3 fragmentos',d:'Colo cirúrgico + tuberosidade maior ou menor. RAFI com placa angular.'},{r:'r4',l:'4 fragmentos',d:'Cabeça + colo + 2 tuberosidades. Artroplastia (reversa em >65 anos).'}],
    nota:'Desvio: >1cm translação ou >45° angulação.'},
   {id:'ideberg', sigla:'IDEBERG', nome:'Ideberg — Fratura da Escápula (Glenóide)', fonte:'Ideberg R, Acta Orthop Scand 1987', regiao:'ombro',
-   rows:[{r:'r1',l:'Tipo I',d:'Fratura da borda anterior (IA) ou posterior (IB) da glenóide.'},{r:'r2',l:'Tipo II',d:'Traço em direção à borda lateral.'},{r:'r2',l:'Tipo III',d:'Traço em direção à borda superior (próx. n. supraescapular).'},{r:'r3',l:'Tipo IV',d:'Traço em direção à borda medial.'},{r:'r3',l:'Tipo V',d:'Combinações: Va (II+IV), Vb (III+IV), Vc (II+III+IV).'},{r:'r4',l:'Tipo VI',d:'Cominutiva.'}]},
+   rows:[{r:'r1',l:'Tipo I',d:'Fratura da borda anterior (IA) ou posterior (IB) da glenóide.'},{r:'r2',l:'Tipo II',d:'Traço em direção à borda lateral.'},{r:'r2',l:'Tipo III',d:'Traço em direção à borda superior (próx. n. supraescapular).'},{r:'r3',l:'Tipo IV',d:'Traço em direção à borda medial.'},{r:'r3',l:'Tipo V',d:'Combinações: Va (II+IV), Vb (III+IV), Vc (II+III+IV).'},{r:'r4',l:'Tipo VI',d:'Cominutiva.'}],
+   nota:'Tratamento (Anwar/Tuson/Khan): maioria conservador (tipoia); RAFI se desvio >1cm ou angulação >40° da superfície glenoidal.'},
   {id:'zdravkovic', sigla:'ZDRAVKOVIC', nome:'Zdravkovic — Fratura do Corpo da Escápula', fonte:'Zdravkovic D, Arch Orthop Unfall-Chir 1974', regiao:'ombro',
-   rows:[{r:'r1',l:'Grupo I',d:'Fratura do corpo (trauma direto).'},{r:'r2',l:'Grupo II',d:'Fraturas de apófises: acrômio, espinha (trauma direto); coracóide (arrancamento).'},{r:'r2',l:'Grupo III',d:'Fraturas do colo da escápula.'},{r:'r3',l:'Grupo IV',d:'Fraturas intra-articulares da glenóide.'},{r:'r3',l:'Grupo V',d:'Fraturas combinadas corpo+glenóide+espinha + fratura concomitante da clavícula.'}]},
+   rows:[{r:'r1',l:'Grupo I',d:'Fratura do corpo (trauma direto).'},{r:'r2',l:'Grupo II',d:'Fraturas de apófises: acrômio, espinha (trauma direto); coracóide (arrancamento).'},{r:'r2',l:'Grupo III',d:'Fraturas do colo da escápula.'},{r:'r3',l:'Grupo IV',d:'Fraturas intra-articulares da glenóide.'},{r:'r3',l:'Grupo V',d:'Fraturas combinadas corpo+glenóide+espinha + fratura concomitante da clavícula.'}],
+   nota:'Tratamento: maioria conservador (tipoia + mobilização precoce); RAFI se fratura do acrômio deprimida comprometer o manguito rotador.'},
   {id:'cofield-manguito', sigla:'COFIELD', nome:'Cofield — Rotura do Manguito Rotador', fonte:'Cofield RH, Clin Orthop 1982', regiao:'ombro',
    rows:[{r:'r1',l:'Pequena (<1cm)',d:'Reparo artroscópico primário. Excelente prognóstico.'},{r:'r2',l:'Média (1–3cm)',d:'Reparo artroscópico; bons resultados.'},{r:'r3',l:'Grande (3–5cm)',d:'Reparo com técnica de dupla fileira. Resultado variável.'},{r:'r4',l:'Maciça (>5cm)',d:'Transferência tendinosa ou prótese reversa de ombro.'}]},
   // ── COTOVELO ──
@@ -2797,7 +2799,7 @@ const CL_DATA = [
   // ── PUNHO ──
   {id:'ao23', sigla:'AO-23', nome:'AO/OTA 23 — Fratura do Rádio Distal', fonte:'AO Foundation / OTA 2018', regiao:'punho', open:true,
    rows:[{r:'r1',l:'A — Extra-articular',d:'A1: ulnar isolada; A2: rádio simples (Colles/Smith); A3: rádio multifragmentária.'},{r:'r2',l:'B — Articular parcial',d:'B1: lateral (Chauffeur); B2: rebordo dorsal (Barton dorsal); B3: rebordo volar (Barton inversa).'},{r:'r3',l:'C — Articular completa',d:'C1: articular simples/metafisária simples; C2: articular simples/metafisária complexa; C3: ambas complexas.'}],
-   nota:'Colles = A2 (dorsal); Smith = A2 (volar); Barton = B2/B3.'},
+   nota:'Colles = A2 (dorsal); Smith = A2 (volar); Barton = B2/B3. Tratamento: conservador (gesso 4–6 sem) se estável/mínimo desvio; RAFI (placa volar bloqueada) se instável, colapso ou articular desviada.'},
   {id:'fernandez-radio', sigla:'FERNANDEZ', nome:'Fernandez — Fratura do Rádio Distal (por Mecanismo)', fonte:'Fernandez DL, J Hand Surg 1993', regiao:'punho',
    rows:[{r:'r1',l:'Tipo 1 — Flexão/Extensão',d:'Falha metafisária por tração (Colles, Smith). Tratamento: redução fechada + gesso/fixador externo.'},{r:'r3',l:'Tipo 2 — Compressão',d:'Fratura articular com impacção (die-punch, lunate-load). RAFI.'},{r:'r3',l:'Tipo 3 — Cisalhamento',d:'Fratura articular por cisalhamento (Barton, estilóide radial). RAFI com placa de sustentação.'},{r:'r2',l:'Tipo 4 — Avulsão',d:'Avulsão ligamentar (estilóide ulnar). Reparo ligamentar associado.'},{r:'r4',l:'Tipo 5 — Combinada',d:'Lesão de alta energia combinando mecanismos 1–4.'}]},
   {id:'palmer-cfct', sigla:'PALMER-CFCT', nome:'Palmer — Lesão do Complexo Fibrocartilagem Triangular (CFCT)', fonte:'Palmer AK, J Hand Surg 1989', regiao:'punho',
@@ -2809,7 +2811,8 @@ const CL_DATA = [
   {id:'kienboeck', sigla:'LICHTMAN', nome:'Lichtman-Stahl — Doença de Kienböck (Semilunar)', fonte:'Lichtman DM, J Hand Surg 1977', regiao:'mao',
    rows:[{r:'r1',l:'Estágio I',d:'Esclerose leve ou fratura linear (RX normal; RM positiva). Descarga + imobilização.'},{r:'r2',l:'Estágio II',d:'Esclerose e fragmentação sem colapso. Procedimentos de equalização ulnar.'},{r:'r3',l:'Estágio IIIA',d:'Fragmentação com colapso; escafóide alinhado. Procedimentos de encurtamento ou vascularização.'},{r:'r3',l:'Estágio IIIB',d:'Colapso + desalinhamento do escafóide (mais vertical). Artrodese limitada.'},{r:'r4',l:'Estágio IV',d:'Fragmentação, colapso e artrite generalizada. Artrodese total ou ressecção.'}]},
   {id:'bennett-green', sigla:'GREEN-BENNETT', nome:'Green — Fratura da Base do 1º Metacarpal', fonte:'Green DP, Hand Surgery 1982', regiao:'mao',
-   rows:[{r:'r3',l:'Tipo I — Bennett',d:'Fratura-luxação: fragmento volar + luxação do metacarpal. RAFI/redução fechada + fixação.'},{r:'r4',l:'Tipo II — Rolando',d:'Fratura em Y/T articular cominutiva. RAFI ou fixador externo.'},{r:'r1',l:'Tipo IIIA',d:'Fratura epibasal transversa. Gesso + redução fechada.'},{r:'r2',l:'Tipo IIIB',d:'Fratura epibasal oblíqua. RAFI se desvio.'},{r:'r2',l:'Tipo IV',d:'Fratura epifisária (crianças). Salter-Harris.'}]},
+   rows:[{r:'r3',l:'Tipo I — Bennett',d:'Fratura-luxação: fragmento volar + luxação do metacarpal. RAFI/redução fechada + fixação.'},{r:'r4',l:'Tipo II — Rolando',d:'Fratura em Y/T articular cominutiva. RAFI ou fixador externo.'},{r:'r1',l:'Tipo IIIA',d:'Fratura epibasal transversa. Gesso + redução fechada.'},{r:'r2',l:'Tipo IIIB',d:'Fratura epibasal oblíqua. RAFI se desvio.'},{r:'r2',l:'Tipo IV',d:'Fratura epifisária (crianças). Salter-Harris.'}],
+   nota:'⚠️ Divergência: Anwar/Tuson/Khan destacam que grandes cirurgias nessas fraturas têm resultados ruins (infecção, lesão do nervo radial superficial) e preferem redução fechada + fixação percutânea com fio-K sempre que possível, reservando RAFI aberta para casos selecionados.'},
   // ── COLUNA ──
   {id:'denis-coluna', sigla:'DENIS', nome:'Denis — Teoria das 3 Colunas', fonte:'Denis F, Spine 1983', regiao:'coluna', open:true, disc:true, discMsg:'Manual SBOT prefere Magerl/AO para decisão terapêutica. Denis mais usado didaticamente. Para uso clínico atual: combinar Denis (diagnóstico) + Magerl (conduta).',
    rows:[{r:'r0',l:'Coluna anterior',d:'½ ant. corpo + disco + lig. long. anterior. Lesão isolada = estável.'},{r:'r2',l:'Coluna média',d:'½ post. corpo + disco + lig. long. posterior. Lesão = instabilidade.'},{r:'r0',l:'Coluna posterior',d:'Arco posterior + ligamentos posteriores.'},{r:'r3',l:'2 colunas (instável)',d:'Envolvimento de coluna média + outra. Cirurgia considerada.'},{r:'r4',l:'3 colunas (muito instável)',d:'Burst completo. Cirurgia urgente.'}],
@@ -2819,14 +2822,14 @@ const CL_DATA = [
    nota:'Preferir ASIA 2019 para documentação clínica e científica.'},
   {id:'anderson-odontoid', sigla:'ANDERSON-C2', nome:'Anderson-D\'Alonzo — Fratura do Processo Odontóide C2', fonte:'Anderson LD, D\'Alonzo RT, JBJS 1974', regiao:'coluna',
    rows:[{r:'r1',l:'Tipo I',d:'Fratura oblíqua proximal do processo odontóide. Estável. Conservador.'},{r:'r3',l:'Tipo II',d:'Fratura na junção odontóide-corpo do áxis. Mais frequente. Alta taxa de não-consolidação. Cirurgia recomendada.'},{r:'r2',l:'Tipo III',d:'Fratura pelo osso esponjoso do corpo do áxis. Boa consolidação com imobilização externa (halo).'}],
-   nota:'Tipo II: maior risco de pseudartrose com tratamento conservador (30–60%). RAFI com parafuso de Anderson ou fusão C1–C2 indicada.'},
+   nota:'Tipo II: maior risco de pseudartrose com tratamento conservador (30–60%). RAFI com parafuso de Anderson ou fusão C1–C2 indicada. ⚠️ Divergência: Anwar/Tuson/Khan reservam halo-colete para a maioria do tipo I e "alguns" tipo II (não cirurgia rotineira); a tendência atual, adotada nesta entrada, favorece cirurgia já no tipo II pela alta taxa de pseudartrose.'},
   {id:'magerl-toracolombar', sigla:'MAGERL-AO', nome:'Magerl/AO — Fraturas Toracolombares', fonte:'Magerl F et al., Eur Spine J 1994', regiao:'coluna',
    rows:[{r:'r1',l:'Tipo A — Compressão',d:'A1: impacção; A2: split; A3: burst. Coluna posterior intacta.'},{r:'r3',l:'Tipo B — Distração',d:'B1: lig. posterior (Chance osseo); B2: Chance ligamentar; B3: hiperestensão. Instável.'},{r:'r4',l:'Tipo C — Rotação/Translação',d:'A+Rot, B+Rot ou cisalhamento puro. Lesão das 3 colunas. Muito instável.'}],
    nota:'Gravidade e instabilidade crescentes de A→C. Tipos B e C geralmente exigem estabilização cirúrgica.'},
   // ── QUADRIL ──
   {id:'letournel-acetabulo', sigla:'LETOURNEL', nome:'Letournel-Judet — Fratura do Acetábulo', fonte:'Letournel E, Judet R, 1993', regiao:'quadril', open:true,
    rows:[{r:'r2',l:'Parede posterior',d:'Mais comum. Associada à luxação posterior. Via KL.'},{r:'r2',l:'Coluna posterior',d:'Coluna ilio-isquiática. Via KL.'},{r:'r2',l:'Parede anterior',d:'Incomum. Via ilioinguinal.'},{r:'r2',l:'Coluna anterior',d:'Via ilioinguinal.'},{r:'r3',l:'Transversa',d:'Divide acetábulo em segmento cranial e caudal. Via KL ou ilioinguinal.'},{r:'r3',l:'Parede + coluna post.',d:'Via KL.'},{r:'r3',l:'Transversa + parede post.',d:'Via KL.'},{r:'r3',l:'Fratura em T',d:'Coluna posterior + traço transverso. Via KL.'},{r:'r3',l:'Coluna ant. + hemitransversa',d:'Via ilioinguinal.'},{r:'r4',l:'Ambas as colunas',d:'Sinal do "arco ilíaco". Via ilioinguinal.'}],
-   nota:'"Ambas as colunas" é a mais comum. Sinal do arco ilíaco (teardrop) patognomônico.'},
+   nota:'"Ambas as colunas" é a mais comum. Sinal do arco ilíaco (teardrop) patognomônico. Tratamento: sem desvio ou desvio <5mm → tração esquelética 4–6 semanas (conservador); incongruência articular ou desvio >5mm → RAFI.'},
   {id:'garden', sigla:'GARDEN', nome:'Garden — Fratura do Colo do Fêmur', fonte:'Garden RS, JBJS 1961', regiao:'quadril', disc:true, discMsg:'Rockwood & Green 10ª ed. recomenda agrupar I+II (sem desvio → fixação interna) vs III+IV (com desvio → artroplastia em >65 anos), simplificando a decisão clínica. Campbell\'s e SBOT mantêm os 4 tipos.',
    rows:[{r:'r1',l:'Garden I',d:'Incompleta em valgo (impactada). Parafuso canulado ou conservador.'},{r:'r1',l:'Garden II',d:'Completa sem desvio. Parafuso canulado / DHS.'},{r:'r3',l:'Garden III',d:'Completa com desvio parcial em varo. RAFI vs artroplastia (conforme idade/atividade).'},{r:'r4',l:'Garden IV',d:'Completa com desvio total (trabéculas realinhadas). Artroplastia (PTQ em ativos jovens: RAFI).'}],
    nota:'⚠️ Garden III e IV: alto risco de necrose avascular (15–50%). Artroplastia preferida em >65 anos ou baixa demanda funcional.'},
@@ -2834,7 +2837,7 @@ const CL_DATA = [
    rows:[{r:'r1',l:'Tipo I — 30°',d:'Horizontal. Forças predominantemente compressivas. Estável. Melhor prognóstico.'},{r:'r2',l:'Tipo II — 50°',d:'Intermediária. Forças mistas.'},{r:'r4',l:'Tipo III — 70°',d:'Vertical. Forças de cisalhamento predominam. Instável. Pior prognóstico → cirurgia precoce.'}]},
   {id:'pipkin', sigla:'PIPKIN', nome:'Pipkin — Fratura da Cabeça Femoral', fonte:'Pipkin G, JBJS 1957', regiao:'quadril',
    rows:[{r:'r1',l:'Tipo I',d:'Fratura inferior à fóvea (não sustentação de peso). Via anterior (Smith-Peterson).'},{r:'r2',l:'Tipo II',d:'Fratura superior à fóvea (sustentação de peso). Via anterior.'},{r:'r4',l:'Tipo III',d:'Qualquer fratura da cabeça + fratura do colo femoral. Pior prognóstico.'},{r:'r4',l:'Tipo IV',d:'Qualquer fratura da cabeça + fratura do acetábulo.'}],
-   nota:'Redução urgente (<6h) para preservar vascularização. Melhor acesso: via anterior de Smith-Peterson.'},
+   nota:'Redução urgente (<6h) para preservar vascularização. Melhor acesso: via anterior de Smith-Peterson. Tratamento por tipo: I/II → excisão ou RAFI com parafusos; III → RAFI se jovem, artroplastia se idoso; IV → como III + fixação do acetábulo.'},
   {id:'herring-perthes', sigla:'HERRING', nome:'Herring — Doença de Legg-Calvé-Perthes (Pilar Lateral)', fonte:'Herring JA, JBJS 1992', regiao:'quadril', disc:true, discMsg:'Catterall (I–IV) e Salter-Thompson (A–B) também presentes nos PDFs. Herring é mais reproduzível e atualmente preferida pela literatura.',
    rows:[{r:'r1',l:'Tipo A',d:'Pilar lateral preservado ou diminuição mínima. Bom prognóstico. Conservador.'},{r:'r2',l:'Tipo B',d:'Comprometimento até 50% da altura do pilar lateral. Tratamento conforme idade.'},{r:'r3',l:'Tipo B/C',d:'(Borderline) Entre B e C.'},{r:'r4',l:'Tipo C',d:'Diminuição >50% da altura do pilar lateral. Pior prognóstico. Osteotomia.'}],
    nota:'Mais preditiva que Catterall e Salter-Thompson para decisão cirúrgica. Manual SBOT prefere Herring por maior confiabilidade.'},
@@ -2850,9 +2853,10 @@ const CL_DATA = [
   // ── JOELHO ──
   {id:'schatzker', sigla:'SCHATZKER', nome:'Schatzker — Fratura do Platô Tibial', fonte:'Schatzker J, JBJS 1979', regiao:'joelho', open:true, disc:true, discMsg:'Rockwood & Green 10ª ed. descreve a classificação de Moore (I–V) para fratura-luxação do platô tibial como complemento à Schatzker: I (cunha split), II (coronal simples), III (rim medial), IV (rim + fíbula), V (bicondilar). Moore é usada quando há luxação associada.',
    rows:[{r:'r1',l:'Tipo I',d:'Fissura do platô lateral. Cunha lateral. RAFI com parafusos.'},{r:'r2',l:'Tipo II',d:'Fissura + depressão do platô lateral. RAFI + enxerto/substituto ósseo.'},{r:'r2',l:'Tipo III',d:'Depressão pura do platô lateral (sem cunha). RAFI.'},{r:'r3',l:'Tipo IV',d:'Fratura do platô medial ou ambos os espinhos. RAFI. Alta energia.'},{r:'r4',l:'Tipo V',d:'Fratura bicondilar. RAFI dupla placa. Alta energia.'},{r:'r4',l:'Tipo VI',d:'Fratura bicondilar + dissociação metáfise-diáfise. Alta energia. Fixador externo temporário.'}],
-   nota:'Tipo VI → fixador externo temporário ("damage control") antes da RAFI definitiva.'},
+   nota:'Tipo VI → fixador externo temporário ("damage control") antes da RAFI definitiva. Tipo I sem desvio (depressão <3mm) pode ser tratado conservadoramente (gesso/órtese + descarga tardia).'},
   {id:'ligamento-isakos', sigla:'ISAKOS-LIG', nome:'ISAKOS/Clancy — Gradação Ligamentar do Joelho', fonte:'ISAKOS 2005 / Clancy WG 1988', regiao:'joelho',
-   rows:[{r:'r1',l:'Grau I — Entorse',d:'Microlesões; integridade macroscópica preservada; teste de gaveta/Lachman negativo. Conservador.'},{r:'r2',l:'Grau II — Ruptura parcial',d:'Ruptura parcial; instabilidade discreta; Lachman fraco positivo. Reabilitação.'},{r:'r3',l:'Grau III — Ruptura total',d:'Ruptura completa; Lachman ++ / gaveta anterior +. Reconstrução ligamentar.'}]},
+   rows:[{r:'r1',l:'Grau I — Entorse',d:'Microlesões; integridade macroscópica preservada; teste de gaveta/Lachman negativo. Conservador.'},{r:'r2',l:'Grau II — Ruptura parcial',d:'Ruptura parcial; instabilidade discreta; Lachman fraco positivo. Reabilitação.'},{r:'r3',l:'Grau III — Ruptura total',d:'Ruptura completa; Lachman ++ / gaveta anterior +. Reconstrução ligamentar.'}],
+   nota:'⚠️ Divergência entre ligamentos: no LCP, mesmo lesões completas (grau III) são majoritariamente tratadas de forma conservadora (reabilitação de quadríceps), reservando-se cirurgia a poucos casos sintomáticos — diferente do LCA, onde grau III geralmente indica reconstrução.'},
   {id:'menisco-isakos', sigla:'ISAKOS-MEN', nome:'ISAKOS — Lesões Meniscais', fonte:'ISAKOS Committee Report 1997', regiao:'joelho',
    rows:[{r:'r2',l:'Vertical longitudinal',d:'Paralela à periferia. Reparável se <3cm da borda (zona vascularizada).'},{r:'r3',l:'Radial',d:'Perpendicular às fibras. Compromete integridade; ressecção parcial.'},{r:'r3',l:'Alça de balde',d:'Longitudinal deslocável; bloqueio articular. Reparo urgente.'},{r:'r2',l:'Oblíqua (flap)',d:'Ângulo 45°. Ressecção da aba.'},{r:'r2',l:'Degenerativa',d:'Associada à artrose ≥ KL3. Artroscopia com cautela (evidência limitada).'}]},
   {id:'kellgren', sigla:'KELLGREN', nome:'Kellgren-Lawrence — Osteoartrose do Joelho', fonte:'Kellgren & Lawrence, Ann Rheum Dis 1957', regiao:'joelho',
@@ -3049,14 +3053,15 @@ const CL_DATA = [
      {r:'r3',l:'Tipo II',d:'Fratura cominutiva de ambos os arcos, anterior e posterior (fratura de Jefferson). Estabilidade depende da integridade do ligamento transverso.'},
      {r:'r3',l:'Tipo III',d:'Fratura da massa lateral. Potencialmente instável, sobretudo se bilateral.'}
    ],
-   nota:'Regra de Spence: overhang combinado das massas laterais >6,9mm na incidência transoral sugere ruptura do ligamento transverso — instabilidade C1–C2.'},
+   nota:'Regra de Spence: overhang combinado das massas laterais >6,9mm na incidência transoral sugere ruptura do ligamento transverso — instabilidade C1–C2. Tratamento: fratura isolada geralmente estável → colar rígido; instabilidade por ruptura do lig. transverso → fixação transarticular C1–C2 posterior ou artrodese C1–C2.'},
   {id:'rotatoria-c1c2-fielding', sigla:'FIELDING-C1C2', nome:'Fielding — Subluxação/Luxação Rotatória Atlantoaxial', fonte:'Fielding JW, Hawkins RJ, JBJS 1977', regiao:'coluna',
    rows:[
      {r:'r1',l:'Tipo I',d:'Rotação simples sem desvio anterior; ligamento transverso íntegro (odontóide como pivô). Tração + colar.'},
      {r:'r2',l:'Tipo II',d:'Desvio anterior de 3–5mm; uma massa articular atua como pivô. Redução seguida de imobilização.'},
      {r:'r3',l:'Tipo III',d:'Desvio anterior >5mm; ambas as massas articulares deslocadas anteriormente. Redução + fusão se persistir instabilidade.'},
      {r:'r4',l:'Tipo IV',d:'Desvio posterior — raro, geralmente associado à erosão do odontóide (artrite reumatoide). Instável, requer fusão.'}
-   ]},
+   ],
+   nota:'⚠️ Divergência: Anwar/Tuson/Khan recomendam fusão para TODOS os tipos II–IV (não apenas se a instabilidade persistir), reservando tração + halo apenas ao tipo I.'},
   {id:'hangman-levine-edwards', sigla:'HANGMAN-LEVINE-EDWARDS', nome:'Levine e Edwards — Espondilolistese Traumática do Áxis (Fratura do Enforcado)', fonte:'Levine AM, Edwards CC, JBJS 1985', regiao:'coluna',
    rows:[
      {r:'r1',l:'Tipo I',d:'Desvio <3mm, sem angulação significativa. Estável. Colar rígido.'},
@@ -3122,7 +3127,7 @@ const CL_DATA = [
      {r:'r2',l:'Tipo B — Cunha',d:'Cunha intacta ou fragmentada.'},
      {r:'r3',l:'Tipo C — Complexa',d:'Espiral, segmentar ou irregular.'}
    ],
-   nota:'⚠️ Avaliar sempre a função do nervo radial (paralisia em até 18% dos casos, geralmente neuropraxia transitória — sobretudo no terço distal/Holstein-Lewis).'},
+   nota:'⚠️ Avaliar sempre a função do nervo radial (paralisia em até 18% dos casos, geralmente neuropraxia transitória — sobretudo no terço distal/Holstein-Lewis). Tratamento: >90% conservador (calha gessada pendente/órtese funcional); cirurgia se desvio importante, segmentar, exposta com lesão nervosa, politrauma ou pseudoartrose.'},
 
   // ── COTOVELO (novas) ──
   {id:'intercondilar-riseborough-radin', sigla:'RISEBOROUGH-RADIN', nome:'Riseborough e Radin — Fratura Intercondilar do Úmero Distal', fonte:'Riseborough EJ, Radin EL, JBJS 1969', regiao:'cotovelo',
@@ -3132,7 +3137,7 @@ const CL_DATA = [
      {r:'r3',l:'Tipo III',d:'Desvio com rotação dos côndilos no plano frontal.'},
      {r:'r4',l:'Tipo IV',d:'Cominuição articular grave com ampla separação dos côndilos.'}
    ],
-   nota:'Tipos III–IV geralmente exigem RAFI com dupla placa (paralela ou 90-90) ou artroplastia total do cotovelo em pacientes idosos.'},
+   nota:'Tipos II–III geralmente exigem RAFI com dupla placa (paralela ou 90-90). ⚠️ Divergência: Anwar/Tuson/Khan recomendam tala + mobilização precoce (NÃO cirurgia) quando o Tipo IV é irreconstrutível por cominuição extrema; RAFI/artroplastia total do cotovelo ficam reservadas a esses casos apenas se houver estabilidade suficiente para fixação.'},
   {id:'condilo-milch', sigla:'MILCH', nome:'Milch — Fratura Condilar do Úmero Distal (Medial/Lateral)', fonte:'Milch H, J Trauma 1964', regiao:'cotovelo',
    rows:[
      {r:'r2',l:'Tipo I',d:'Traço lateral (ou medial) à crista troclear, que permanece unida à haste umeral. Padrão mais estável.'},
@@ -3151,14 +3156,14 @@ const CL_DATA = [
      {r:'r2',l:'Tipo II',d:'Fragmento único ou múltiplo envolvendo ≤50% do processo.'},
      {r:'r4',l:'Tipo III',d:'Fragmento envolvendo >50% do processo. Alto risco de instabilidade do cotovelo — RAFI.'}
    ],
-   nota:'O coronóide é estabilizador anterior primário do cotovelo; tipo III frequentemente associado à "tríade terrível" (coronóide + cabeça do rádio + luxação).'},
+   nota:'O coronóide é estabilizador anterior primário do cotovelo; tipo III frequentemente associado à "tríade terrível" (coronóide + cabeça do rádio + luxação). Tratamento: Tipo I e Tipo II estável tratados como luxação simples (conservador + mobilização precoce); Tipo II instável e Tipo III → RAFI (sutura/fio).'},
   {id:'olecrano-morrey', sigla:'MORREY-OLECRANO', nome:'Morrey — Fratura do Olécrano', fonte:'Morrey BF, in Rockwood & Green\'s Fractures', regiao:'cotovelo',
    rows:[
      {r:'r1',l:'Tipo I',d:'Sem desvio, estável. Tratamento conservador (gesso em leve flexão).'},
      {r:'r2',l:'Tipo II',d:'Com desvio, estável (mecanismo extensor íntegro, sem instabilidade associada). RAFI (banda de tensão ou placa).'},
      {r:'r4',l:'Tipo III',d:'Com desvio, instável (associada à luxação do cotovelo). RAFI + reparo dos estabilizadores associados.'}
    ],
-   nota:'Cada tipo subdividido em A (sem cominuição) e B (com cominuição).'},
+   nota:'Cada tipo subdividido em A (sem cominuição) e B (com cominuição). Em idosos com cominuição grave, excisão do fragmento (± reinserção do tríceps) é opção aceita.'},
   {id:'luxacao-cotovelo-descritiva', sigla:'LUX-COTOVELO', nome:'Classificação Descritiva/Cronológica — Luxação do Cotovelo', fonte:'Rockwood & Green\'s Fractures in Adults', regiao:'cotovelo',
    rows:[
      {r:'r2',l:'Aguda simples',d:'Sem fratura associada; direção posterior é a mais comum (>80%). Redução fechada + mobilização precoce.'},
@@ -3173,7 +3178,7 @@ const CL_DATA = [
      {r:'r2',l:'Tipo III',d:'Luxação lateral/anterolateral da cabeça do rádio + fratura da metáfise ulnar. Mais comum em crianças.'},
      {r:'r4',l:'Tipo IV',d:'Luxação anterior da cabeça do rádio + fraturas do rádio e da ulna no mesmo nível.'}
    ],
-   nota:'⚠️ Avaliar sempre o nervo interósseo posterior (ramo do radial) antes e após a redução da cabeça radial.'},
+   nota:'⚠️ Avaliar sempre o nervo interósseo posterior (ramo do radial) antes e após a redução da cabeça radial. Tratamento: em adultos, RAFI da ulna com placa de compressão dinâmica — a cabeça radial geralmente reduz espontaneamente ao restaurar o comprimento ulnar; em crianças (<10 anos), redução fechada + gesso costuma ser suficiente.'},
 
   // ── PUNHO (novas) ──
   {id:'smith-thomas', sigla:'SMITH-THOMAS', nome:'Thomas (modificada) — Fratura de Smith do Rádio Distal', fonte:'Thomas FB, JBJS Br 1957', regiao:'punho',
@@ -3189,7 +3194,7 @@ const CL_DATA = [
      {r:'r2',l:'Transversa',d:'Orientação intermediária.'},
      {r:'r3',l:'Vertical-oblíqua',d:'Linha menos estável, maior força de cisalhamento — maior risco de pseudartrose e retardo de consolidação.'}
    ],
-   nota:'Complementa Herbert-Fisher; a localização (proximal/médio/distal) também influencia o risco de necrose avascular — o polo proximal tem pior suprimento vascular (retrógrado).'},
+   nota:'Complementa Herbert-Fisher; a localização (proximal/médio/distal) também influencia o risco de necrose avascular — o polo proximal tem pior suprimento vascular (retrógrado). Tratamento segue os mesmos princípios de Herbert-Fisher: gesso escafóideo se não desviada; parafuso percutâneo (Herbert/Acutrak) se desviada.'},
   {id:'semilunar-teisen-hjarkbaek', sigla:'TEISEN-HJARKBAEK', nome:'Teisen e Hjarkbaek — Fratura Isolada do Semilunar', fonte:'Teisen H, Hjarkbaek J, J Hand Surg Br 1988', regiao:'punho',
    rows:[
      {r:'r1',l:'Tipo I',d:'Fratura do polo palmar.'},
@@ -3296,7 +3301,7 @@ const CL_DATA = [
      {r:'r3',l:'Medial',d:'Estresse em varo.'},
      {r:'r4',l:'Rotatória',d:'Posterolateral é a mais grave — pode ser irredutível (botoeira do côndilo femoral medial pela cápsula).'}
    ],
-   nota:'⚠️ Emergência vascular — avaliar índice tornozelo-braquial (ITB) em toda luxação de joelho, mesmo após redução espontânea.'},
+   nota:'⚠️ Emergência vascular — avaliar índice tornozelo-braquial (ITB) em toda luxação de joelho, mesmo após redução espontânea. Reduzir antes do exame de imagem se possível; lesão vascular confirmada → reparo arterial urgente (enxerto venoso) ± fasciotomia; reparo ligamentar simultâneo se não houver contraindicação vascular.'},
 
   // ── TORNOZELO/PÉ (novas) ──
   {id:'calcaneo-souer-remy', sigla:'SOEUR-REMY', nome:'Soeur e Remy — Fratura do Calcâneo (Extra vs. Intra-articular)', fonte:'Soeur R, Remy R, JBJS Br 1975', regiao:'tornozelo',
@@ -3348,7 +3353,7 @@ const CL_DATA = [
      {r:'r3',l:'Tipo B — Isolada/Parcial',d:'B1: deslocamento medial (1º raio isolado). B2: deslocamento lateral (2º–5º raios).'},
      {r:'r4',l:'Tipo C — Divergente',d:'Deslocamento em direções opostas (medial e lateral), parcial (C1) ou total (C2).'}
    ],
-   nota:'⚠️ Alto índice de suspeita necessário — o sinal do "fleck" (avulsão óssea entre M1–M2) na radiografia sugere lesão do ligamento de Lisfranc.'},
+   nota:'⚠️ Alto índice de suspeita necessário — o sinal do "fleck" (avulsão óssea entre M1–M2) na radiografia sugere lesão do ligamento de Lisfranc. Tratamento: entorse sem desvio → gesso 6 semanas; qualquer subluxação/luxação (desvio >2mm ou ângulo tarsometatársico >15°) → redução + fixação percutânea (fios-K/parafusos) + gesso 6–8 semanas.'},
   {id:'base-5o-mt-dameron', sigla:'DAMERON', nome:'Dameron — Fratura da Base do 5º Metatarsal (Zonas)', fonte:'Dameron TB, JBJS 1975', regiao:'tornozelo',
    rows:[
      {r:'r1',l:'Zona 1',d:'Avulsão do processo estiloide (tuberosidade). Boa cicatrização; tratamento conservador.'},
