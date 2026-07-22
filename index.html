@@ -996,7 +996,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn" onclick="selectPeRegion('quadril')" data-pregion="quadril">Quadril e Coxa <span class="rbadge">14</span></button>
           <button class="region-btn" onclick="selectPeRegion('joelho')" data-pregion="joelho">Joelho <span class="rbadge">27</span></button>
           <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">10</span></button>
-          <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">16</span></button>
           <button class="region-btn" onclick="selectPeRegion('lombar')" data-pregion="lombar">Coluna Lombar <span class="rbadge">0</span></button>
         </div>
         <div id="pe-regions"></div>
@@ -4271,7 +4271,7 @@ const PE_REGIOES = [
   {id:'quadril',    nome:'Quadril e Coxa',             desc:'Contraturas musculares, testes de estresse pélvico, fraqueza de abdutores e fraturas de estresse', count:14},
   {id:'joelho',     nome:'Joelho',                     desc:'Derrame, estabilidade ligamentar (LCA/LCP/colaterais), testes meniscais e patelofemorais', count:27},
   {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Estabilidade ligamentar do tornozelo, tendão de Aquiles, túnel do tarso, neuroma de Morton e disfunção do tibial posterior', count:10},
-  {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Em breve', count:0},
+  {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Tensão radicular do membro superior, Spurling, Lhermitte, sinais de Waddell e reflexos neurológicos', count:16},
   {id:'lombar',     nome:'Coluna Lombar',              desc:'Em breve', count:0}
 ];
 
@@ -5177,7 +5177,135 @@ const PE_DATA = [
    alerta:'Lesão do complexo gastrocsóleo também pode ser agravada por esta manobra e produzir dor semelhante, gerando um falso-positivo — a dor à panturrilha em resposta a este teste é chamada de sinal de Homans, mas não é específica de TVP e não deve ser usada isoladamente para essa decisão diagnóstica.',
    positivo:'Dor na panturrilha produzida pela dorsiflexão passiva do pé (sinal de Homans). Pode sugerir trombose venosa profunda da panturrilha, mas requer confirmação por métodos específicos.',
    negativo:'Dorsiflexão passiva do pé sem dor na panturrilha.',
-   fonte:"Reider, Cap. 7, p.295."}
+   fonte:"Reider, Cap. 7, p.295."},
+
+  {id:'pe-cervical-schober', regiao:'cervical', nome:"Teste de Schober Modificado (Modified Schober's Test)",
+   resumo:'Mede quantitativamente a flexão lombossacra/toracolombar por meio de marcações cutâneas, usado como triagem para rigidez espinhal característica da espondilite anquilosante.',
+   tecnica:'Com a coluna estendida (paciente em pé), o examinador marca pontos 10 cm acima e 5 cm abaixo da junção lombossacra. O paciente é então instruído a flexionar o tronco ao máximo, e o examinador mede a distância entre os mesmos dois pontos com uma fita métrica (A, marcação em extensão; B, medição em flexão).',
+   alerta:'Uma variante mais simples e menos precisa é medir a distância entre a vértebra proeminente (C7) e o sacro em extensão versus flexão — o teste de Schober modificado é preferido por ser mais reprodutível e específico para a flexão lombossacra.',
+   positivo:'Aumento do comprimento entre os pontos marcados muito menor que o esperado (excursão reduzida), particularmente se associado a deformidade cifótica. Sugere rigidez espinhal por espondilite anquilosante.',
+   negativo:'O comprimento entre os pontos marcados aumenta cerca de 6 cm ou mais durante a flexão máxima.',
+   fonte:"Reider, Cap. 8, p.306-307."},
+
+  {id:'pe-cervical-expansao-toracica', regiao:'cervical', nome:'Teste de Expansão Torácica (Chest Expansion Test)',
+   resumo:'Teste de triagem complementar para espondilite anquilosante, medindo a mobilidade da caixa torácica durante a respiração.',
+   tecnica:'O examinador circunda o tórax do paciente com uma fita métrica flexível na linha dos mamilos. Pede-se ao paciente que exale ao máximo e a circunferência torácica é registrada (A). Em seguida, o paciente inala ao máximo e a circunferência é novamente registrada (B).',
+   alerta:'Este teste é mais difícil de realizar em mulheres, nas quais a espondilite anquilosante é felizmente menos comum — a expansão torácica também pode ser reduzida por outras condições pulmonares ou musculoesqueléticas, não sendo exclusiva de espondilite anquilosante.',
+   positivo:'Diferença entre as circunferências de inspiração e expiração máximas menor que 2,5 cm. Sugere expansão torácica reduzida, achado compatível com espondilite anquilosante.',
+   negativo:'Diferença entre as circunferências de inspiração e expiração máximas de aproximadamente 5 cm.',
+   fonte:"Reider, Cap. 8, p.307."},
+
+  {id:'pe-cervical-beevor', regiao:'cervical', nome:'Sinal de Beevor (Beevor’s Sign)',
+   resumo:'Teste grosseiro de triagem para perda assimétrica da função motora das raízes nervosas torácicas inferiores, útil quando a musculatura torácica específica não é normalmente avaliada de forma isolada.',
+   tecnica:'O paciente é solicitado a realizar um meio abdominal (sit-up) com os joelhos fletidos e os braços atrás da cabeça, enquanto o examinador observa a posição da cicatriz umbilical.',
+   alerta:'Fraqueza assimétrica da musculatura inervada pelas raízes torácicas também pode ser vista em casos de disrafismo espinhal ou poliomielite — não é exclusiva de compressão radicular por osteófito ou tumor.',
+   positivo:'A cicatriz umbilical se desvia em direção ao lado mais forte (não acometido) durante a manobra. Sugere compressão ou destruição de uma raiz nervosa torácica no lado contrário ao desvio.',
+   negativo:'Contração abdominal simétrica e coordenada mantém a cicatriz umbilical na linha média durante a manobra.',
+   fonte:"Reider, Cap. 8, p.321-322."},
+
+  {id:'pe-cervical-babinski', regiao:'cervical', nome:'Reflexo Plantar / Sinal de Babinski (Plantar Reflex / Babinski Sign)',
+   resumo:'Reflexo patológico clássico que indica envolvimento do neurônio motor superior, essencial na avaliação neurológica de mielopatia cervical e estenose espinhal.',
+   tecnica:'Com o paciente sentado confortavelmente e os pés pendentes da mesa de exame, o examinador segura o pé do paciente com uma mão e, com a outra, risca suavemente a borda lateral da planta do pé começando na altura do calcanhar e seguindo distalmente (A e B).',
+   alerta:'Em pacientes com estenose espinhal cervical, o sinal de Babinski costuma acompanhar outros achados de neurônio motor superior distais ao nível da lesão (hiperreflexia, clônus), enquanto sinais de neurônio motor inferior aparecem no nível da lesão.',
+   positivo:'Os dedos do pé dorsifletem imediatamente ao estímulo plantar (C). Sugere lesão de neurônio motor superior (por exemplo, estenose espinhal cervical/mielopatia).',
+   negativo:'Resposta inicial de flexão plantar (para baixo) do hálux ao estímulo (A e B), como esperado em um exame normal.',
+   fonte:"Reider, Cap. 8, p.324."},
+
+  {id:'pe-cervical-clonus', regiao:'cervical', nome:'Clônus de Tornozelo (Ankle Clonus)',
+   resumo:'Sinal de hiperreflexia que, junto ao sinal de Babinski, sugere lesão de neurônio motor superior — frequentemente avaliado em conjunto com o exame neurológico da coluna cervical.',
+   tecnica:'Com o paciente sentado na mesa de exame, o examinador estabiliza a perna do paciente com uma mão e, com a outra, segura o antepé e o empurra rápida e firmemente em dorsiflexão.',
+   alerta:'Um ou dois batimentos de clônus podem estar presentes em indivíduos normais — apenas o clônus sustentado além de dois batimentos é considerado patológico.',
+   positivo:'Movimento rítmico e involuntário sustentado (mais de dois batimentos) alternando entre flexão plantar e dorsiflexão. Sugere lesão de neurônio motor superior, como compressão medular proximal.',
+   negativo:'Nenhum batimento ou apenas um a dois batimentos de clônus (achado compatível com a normalidade).',
+   fonte:"Reider, Cap. 8, p.324-325."},
+
+  {id:'pe-cervical-reflexo-abdominal', regiao:'cervical', nome:'Reflexos Cutâneos Abdominais (Abdominal Reflexes)',
+   resumo:'Método de triagem para compressão medular torácica, testando os reflexos superficiais da parede abdominal.',
+   tecnica:'Com o paciente em decúbito dorsal e o abdome exposto, o cabo do martelo de reflexos é suavemente riscado através do abdome de maneira radial, começando na cicatriz umbilical e seguindo em direção às posições de 2, 4, 8 e 10 horas, sucessivamente (A, posição de repouso; B, setas indicam a direção do estímulo).',
+   alerta:'A musculatura abdominal superior é inervada pelas raízes T7-T10 e a inferior pelas raízes T10-L1, o que ajuda a localizar aproximadamente o nível de uma lesão quando o reflexo está ausente em um quadrante específico.',
+   positivo:'Ausência da contração/movimento esperado da cicatriz umbilical em direção ao quadrante estimulado. Sugere compressão medular torácica no lado do reflexo diminuído.',
+   negativo:'Contração involuntária da musculatura abdominal com movimento da cicatriz umbilical em direção ao quadrante estimulado.',
+   fonte:"Reider, Cap. 8, p.325-326."},
+
+  {id:'pe-cervical-ultt1', regiao:'cervical', nome:'Teste de Tensão do Membro Superior 1 (Upper Limb Tension Test 1 - ULTT1)',
+   resumo:'Análogo, no membro superior, dos testes de tensão radicular do membro inferior (Lasègue, slump); coloca tensão sequencial sobre as raízes C5, C6 e C7, com predomínio do nervo mediano.',
+   tecnica:'Com o paciente em decúbito dorsal relaxado, o examinador estabiliza a cintura escapular do paciente e abduz o ombro a cerca de 110° (A, B). Mantendo essa posição, supina o antebraço e estende o punho e os dedos (C), depois roda externamente o ombro a 90° (D) e estende lentamente o cotovelo (E). Por fim, pede-se ao paciente que incline lateralmente o pescoço primeiro em direção ao lado testado (F) e depois para o lado oposto (G); uma elevação de perna estendida (straight-leg raise) pode ser adicionada para aumentar ainda mais a tensão (H).',
+   alerta:'A manobra produz uma sensação de estiramento ou desconforto na fossa antecubital na maioria dos indivíduos normais — isso não é considerado uma resposta anormal; o teste não é específico quanto ao nível radicular exato.',
+   positivo:'Reprodução da dor radicular familiar do paciente, geralmente irradiando distalmente ao cotovelo (deltoide lateral e braço médio para C5; antebraço dorsorradial, indicador e polegar para C6; ou dorso da mão e dedo médio para C7). A dor deve aliviar com a inclinação lateral do pescoço em direção ao lado testado e piorar ao inclinar para o lado oposto.',
+   negativo:'Apenas sensação de estiramento/desconforto na fossa antecubital, sem dor radicular reproduzida.',
+   fonte:"Reider, Cap. 8, p.326-327."},
+
+  {id:'pe-cervical-ultt2-mediano', regiao:'cervical', nome:'Teste de Tensão do Membro Superior 2 - Variante do Nervo Mediano (ULTT2, Median Nerve Dominant)',
+   resumo:'Variante do ULTT2 voltada para irritação das raízes C6-C7 com predomínio do nervo mediano.',
+   tecnica:'Com o paciente em decúbito dorsal e a escápula do lado testado projetada além da borda da mesa, o examinador posiciona sua coxa contra a face superior do ombro do paciente e o deprime de forma controlada (A, B). Mantendo a depressão escapular, estende o cotovelo do paciente (C), depois roda externamente o membro superior no ombro (D), estende as articulações metacarpofalângicas e dorsiflexiona o punho (E) e, por fim, abduz o ombro a 90° enquanto mantém a depressão escapular (F).',
+   alerta:'Como no ULTT1, a resposta só é considerada anormal se dor radicular for provocada — sensações de estiramento leve são esperadas em indivíduos normais.',
+   positivo:'A manobra reproduz dor radicular familiar do paciente. Sugere irritação das raízes C6-C7 com predomínio do nervo mediano.',
+   negativo:'Apenas sensação de estiramento leve, sem dor radicular reproduzida.',
+   fonte:"Reider, Cap. 8, p.327-328."},
+
+  {id:'pe-cervical-ultt2-radial', regiao:'cervical', nome:'Teste de Tensão do Membro Superior 2 - Variante do Nervo Radial (ULTT2, Radial Nerve Dominant)',
+   resumo:'Variante do ULTT2 com predomínio do nervo radial, também voltada para irritação das raízes C6-C7.',
+   tecnica:'Partindo da mesma posição inicial do ULTT2 mediano (depressão escapular com a coxa do examinador, cotovelo estendido) (A), o examinador usa as duas mãos para rodar internamente todo o membro superior no ombro (B). Mantendo a depressão escapular, a extensão do cotovelo e a rotação interna, o examinador flexiona o punho, o polegar e os dedos do paciente (C).',
+   alerta:'A resposta é considerada anormal se a manobra provocar dor radicular, particularmente na distribuição do nervo radial.',
+   positivo:'A manobra reproduz dor radicular familiar do paciente na distribuição do nervo radial. Sugere irritação das raízes C6-C7 com predomínio do nervo radial.',
+   negativo:'Apenas sensação de estiramento leve, sem dor radicular reproduzida.',
+   fonte:"Reider, Cap. 8, p.327-328."},
+
+  {id:'pe-cervical-ultt3', regiao:'cervical', nome:'Teste de Tensão do Membro Superior 3 (Upper Limb Tension Test 3 - ULTT3)',
+   resumo:'Variante do teste de tensão do membro superior desenhada para ser predominantemente ulnar, avaliando possível irritação das raízes C8 e T1.',
+   tecnica:'Com o cotovelo direito fletido do paciente apoiado contra a pelve do examinador, o examinador segura a mão do paciente pelos dedos e pressiona o ombro do paciente contra a mesa para impedir sua elevação (A). O punho do paciente é então dorsifletido e o antebraço supinado (B), enquanto o cotovelo é maximamente fletido (C). O examinador então deprime o ombro do paciente (D) e o roda externamente, abduzindo-o de forma a aproximar a mão do paciente de sua própria orelha (E). Pedir ao paciente para inclinar lateralmente o pescoço para longe do lado testado aumenta ainda mais a tensão (F).',
+   alerta:'Devido à relativa hipomobilidade da junção cervicotorácica, lesões das raízes nervosas inferiores (C8-T1) são mais difíceis de avaliar do que as testadas pelo ULTT1/ULTT2 — em indivíduos normais, a manobra produz apenas uma sensação de tração na axila.',
+   positivo:'Dor irradiando pelo braço distalmente ao cotovelo até o quarto e quinto dedos (C8) ou para a axila (T1). Sugere irritação das raízes C8-T1.',
+   negativo:'Apenas sensação de tração na axila, sem dor radicular reproduzida.',
+   fonte:"Reider, Cap. 8, p.328-329."},
+
+  {id:'pe-cervical-compressao-axial', regiao:'cervical', nome:'Teste de Compressão Axial e Teste de Distração (Axial Compression Test / Distraction Test)',
+   resumo:'Testes complementares que avaliam se a compressão axial provoca ou agrava os sintomas dolorosos do paciente, e se a distração os alivia — não devem ser realizados quando há compressão radicular com déficit motor suspeito ou detectado.',
+   tecnica:'Com o paciente sentado e a coluna cervical em posição neutra, o examinador se posiciona atrás do paciente, coloca ambas as mãos sobre o topo da cabeça e aplica uma carga axial gentil e gradual (A). Em seguida, pode-se realizar o teste de distração, elevando suavemente a cabeça do paciente para aliviar a carga axial (B).',
+   alerta:'A aplicação da força deve ser gentil e gradual, pois pode provocar resposta bastante dolorosa — o teste está contraindicado na suspeita de compressão radicular com déficit motor.',
+   positivo:'A compressão axial reproduz ou agrava a dor característica do paciente (com componente radicular, pseudorradicular ou não radicular, dependendo da distribuição), e a distração alivia os sintomas. Sugere patologia compressiva cervical (por exemplo, hérnia discal ou estenose foraminal).',
+   negativo:'Nenhuma dor ou desconforto reproduzido pela compressão axial.',
+   fonte:"Reider, Cap. 8, p.330."},
+
+  {id:'pe-cervical-spurling', regiao:'cervical', nome:"Teste de Spurling (Spurling's Test)",
+   resumo:'Variante direcionada do teste de compressão axial, desenhada para exacerbar o encurtamento foraminal e reproduzir sintomas radiculares por hérnia discal cervical.',
+   tecnica:'O pescoço é estendido e rodado em direção ao lado envolvido antes da compressão axial ser aplicada pelo examinador sobre o topo da cabeça do paciente.',
+   alerta:'Essa manobra diminui as dimensões do forame pelo qual a raiz nervosa emerge da coluna, podendo exacerbar o encroachment sobre uma raiz nervosa cervical comprometida — dor relacionada a distensões musculares ou entorses ligamentares leves normalmente não é agravada por este teste.',
+   positivo:'Reprodução de dor radicular que se irradia para o membro superior, geralmente abaixo do cotovelo, seguindo a distribuição de um dermátomo específico. Sugere compressão de raiz nervosa cervical (hérnia discal ou estenose foraminal degenerativa).',
+   negativo:'Nenhum desconforto ou apenas sensação de peso, sem dor radicular ou pseudorradicular reproduzida.',
+   fonte:"Reider, Cap. 8, p.330-331."},
+
+  {id:'pe-cervical-lhermitte', regiao:'cervical', nome:"Manobra de Lhermitte (Lhermitte's Maneuver/Sign)",
+   resumo:'Manobra que avalia sinais de compressão medular por redução das dimensões do canal vertebral cervical durante a flexão, indicativa de estenose espinhal.',
+   tecnica:'Com o paciente sentado, pede-se que flexione ao máximo a coluna cervical e torácica.',
+   alerta:'Em pacientes sem estenose espinhal cervical, a flexão máxima produz apenas uma sensação de tração na junção cervicotorácica, sem sintomas irradiados.',
+   positivo:'A manobra produz parestesias distais em múltiplas extremidades ou no tronco (sinal de Lhermitte presente). Sugere estenose espinhal cervical com compressão medular.',
+   negativo:'Apenas sensação de tração na junção cervicotorácica, sem parestesias irradiadas.',
+   fonte:"Reider, Cap. 8, p.331-332."},
+
+  {id:'pe-cervical-waddell-sensibilidade', regiao:'cervical', nome:"Sensibilidade Não Anatômica de Waddell (Waddell's Nonanatomic Tenderness)",
+   resumo:'Primeiro dos cinco sinais não orgânicos descritos por Waddell, sugerindo possível componente comportamental ou funcional associado à dor relatada — não é patognomônico de patologia não orgânica, apenas um componente da avaliação global.',
+   tecnica:'Durante a palpação de rotina, o examinador avalia se o paciente relata dor desproporcional a um toque extremamente leve, ou sensibilidade cuja distribuição não corresponde à configuração de estruturas anatômicas conhecidas.',
+   alerta:'É preciso lembrar que distrofia simpático-reflexa e suas variantes podem causar hipersensibilidade real em uma extremidade — este julgamento é subjetivo e depende da experiência prévia do examinador com outros pacientes.',
+   positivo:'Dor desproporcional relatada em resposta a pressão extremamente leve, ou sensibilidade em distribuição não anatômica. Sugere possível componente não orgânico associado à queixa dolorosa.',
+   negativo:'Resposta de dor proporcional à pressão aplicada, em distribuição anatômica compatível com estruturas conhecidas.',
+   fonte:"Reider, Cap. 8, p.331-332."},
+
+  {id:'pe-cervical-waddell-simulacao', regiao:'cervical', nome:"Sinal de Simulação de Waddell (Waddell's Simulation Sign)",
+   resumo:'Segundo sinal não orgânico de Waddell; a manobra de rotação simulada gira os ombros de forma coplanar com a pelve (como um log-roll), sem impor força torcional real sobre a coluna torácica ou lombar.',
+   tecnica:'Com o paciente em pé, o examinador roda os ombros do paciente em bloco com a pelve (rotação simulada), sem produzir rotação real da coluna.',
+   alerta:'Uma resposta exagerada ao teste de compressão axial também é considerada positiva para este sinal — dor relatada na região lombar ou irradiando por toda a coluna em resposta ao teste de compressão axial do pescoço também caracteriza simulação positiva.',
+   positivo:'O paciente relata dor durante a rotação simulada, apesar de nenhuma força torcional real ter sido aplicada à coluna. Sugere possível componente não orgânico associado à queixa dolorosa.',
+   negativo:'Nenhuma dor relatada durante a manobra de rotação simulada.',
+   fonte:"Reider, Cap. 8, p.332-333."},
+
+  {id:'pe-cervical-waddell-distracao', regiao:'cervical', nome:"Sinal de Distração de Waddell (Waddell's Distraction Sign)",
+   resumo:'Terceiro sinal não orgânico de Waddell, originalmente descrito para a elevação de perna estendida (straight-leg raise), comparando a resposta do paciente na posição sentada versus deitada.',
+   tecnica:'O examinador realiza a elevação de perna estendida com o paciente sentado e distraído (sem saber que essa posição impõe a mesma tensão sobre as raízes do nervo ciático que a manobra clássica em decúbito dorsal), comparando a resposta com a manobra convencional realizada em decúbito dorsal.',
+   alerta:'Pacientes com dor não orgânica frequentemente sabem, por experiência, que a elevação de perna estendida em decúbito dorsal deve ser dolorosa, mas podem não perceber que a extensão passiva do joelho estando sentados produz a mesma tensão sobre as raízes do nervo ciático.',
+   positivo:'Resposta inconsistente: o paciente relata dor durante a manobra em decúbito dorsal, mas não durante a manobra equivalente realizada sentado e distraído. Sugere possível componente não orgânico associado à queixa dolorosa.',
+   negativo:'Resposta consistente de dor (ou ausência dela) em ambas as posições, dorsal e sentada.',
+   fonte:"Reider, Cap. 8, p.333."}
 ];
 
 /* ── EXAME FÍSICO FUNCTIONS ── */
