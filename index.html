@@ -258,6 +258,14 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .doc-comp-block{margin-top:1.3rem;padding-top:.8rem;border-top:1px dashed #E2E8F0}
 .doc-comp-tit{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#5A6B80;margin-bottom:.5rem}
 .doc-via-cut{text-align:center;font-size:.68rem;color:#5A7A9A;letter-spacing:.03em;margin:1.25rem auto;max-width:720px}
+
+/* Laudo Médico — seções estruturadas */
+.ld-textarea{width:100%;min-height:110px;font-family:'Courier New',Courier,monospace;font-size:.87rem;line-height:1.7;border:1.5px solid #1E3550;border-radius:9px;padding:.7rem .9rem;background:#0E1C30;color:#C8DCF0;resize:vertical}
+.ld-textarea:focus{outline:none;border-color:var(--og);box-shadow:0 0 0 3px rgba(16,185,129,.12)}
+.doc-cid-line{font-size:.78rem;color:#1A2230;margin:-.4rem 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #E2E8F0}
+.doc-cid-line b{color:#5A6B80;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.03em;margin-right:.4rem}
+.doc-section{margin-bottom:1.1rem}
+.doc-section:last-of-type{margin-bottom:0}
 @media print{
   .no-print{display:none!important}
   .doc-sheet-wrap{background:none;border:none;padding:0;overflow:visible}
@@ -994,7 +1002,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
         <div class="doc-subnav no-print" id="doc-subnav">
           <button class="doc-sub-btn active" data-docsub="simples" onclick="showDocSub('simples')"><svg width="16" height="16"><use href="#i-rx"/></svg>Receituário Simples</button>
           <button class="doc-sub-btn" data-docsub="controlado" onclick="showDocSub('controlado')"><svg width="16" height="16"><use href="#i-doc-lock"/></svg>Receituário Controlado</button>
-          <button class="doc-sub-btn" data-docsub="laudo" onclick="showDocSub('laudo')"><svg width="16" height="16"><use href="#i-note"/></svg>Laudo Médico <span class="doc-soon-badge">em breve</span></button>
+          <button class="doc-sub-btn" data-docsub="laudo" onclick="showDocSub('laudo')"><svg width="16" height="16"><use href="#i-note"/></svg>Laudo Médico</button>
           <button class="doc-sub-btn" data-docsub="atestado" onclick="showDocSub('atestado')"><svg width="16" height="16"><use href="#i-attest"/></svg>Atestado Médico <span class="doc-soon-badge">em breve</span></button>
         </div>
 
@@ -1200,12 +1208,101 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           </div>
         </div>
 
-        <!-- ── SUB: LAUDO MÉDICO (em breve) ── -->
+        <!-- ── SUB: LAUDO MÉDICO ── -->
         <div class="doc-sub-content" id="doc-sub-laudo">
-          <div class="card doc-soon-card">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#i-note"/></svg>
-            <div class="tit">Laudo Médico — em breve</div>
-            <div class="sub">Modelo estruturado de laudo (história, exame, achados, conclusão) será adicionado em um próximo lote.</div>
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-id"/></svg>Dados do Paciente</div>
+            <div class="rx-patient">
+              <div><label class="lbl" for="ld-nome">Nome</label><input type="text" id="ld-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="ld-idade">Idade</label><input type="text" id="ld-idade" placeholder="Ex: 45 anos" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="ld-data">Data</label><input type="text" id="ld-data" placeholder="dd/mm/aaaa" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div style="display:flex;align-items:flex-end"><button class="btn btn-c" style="white-space:nowrap" onclick="inserirDataHoje('ld-data');atualizarPreviewDoc()">Hoje</button></div>
+            </div>
+            <div style="margin-top:.65rem"><label class="lbl" for="ld-cid">CID-10 (opcional, mediante autorização do paciente)</label><input type="text" id="ld-cid" placeholder="Ex: M17.1 — Gonartrose unilateral" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+          </div>
+
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-note"/></svg>Laudo Médico — Estrutura</div>
+            <div class="tpl-row">
+              <button class="tpl-btn" onclick="['ld-hist','ld-exame','ld-compl','ld-concl'].forEach(id=>document.getElementById(id).value='');atualizarPreviewDoc()">Limpar tudo</button>
+            </div>
+            <label class="lbl" for="ld-hist">História Clínica</label>
+            <textarea class="ld-textarea" id="ld-hist" placeholder="Motivo da avaliação, história da moléstia atual, antecedentes relevantes…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+            <div style="margin-top:.75rem"></div>
+            <label class="lbl" for="ld-exame">Exame Físico / Achados</label>
+            <textarea class="ld-textarea" id="ld-exame" placeholder="Inspeção, palpação, amplitude de movimento, testes especiais, força, sensibilidade…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+            <div style="margin-top:.75rem"></div>
+            <label class="lbl" for="ld-compl">Exames Complementares (opcional)</label>
+            <textarea class="ld-textarea" id="ld-compl" placeholder="Radiografia, ressonância, tomografia, exames laboratoriais…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+            <div style="margin-top:.75rem"></div>
+            <label class="lbl" for="ld-concl">Conclusão / Diagnóstico</label>
+            <div class="tpl-row">
+              <button class="tpl-btn" onclick="aplicarTemplate('apto','ld-concl',TEMPLATES_LAUDO)">Apto p/ Atividade Física</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('cirurgico','ld-concl',TEMPLATES_LAUDO)">Indicação Cirúrgica</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('consolidada','ld-concl',TEMPLATES_LAUDO)">Fratura Consolidada</button>
+              <button class="tpl-btn" onclick="aplicarTemplate('afastamento','ld-concl',TEMPLATES_LAUDO)">Recomenda Afastamento</button>
+            </div>
+            <textarea class="ld-textarea" id="ld-concl" placeholder="Diagnóstico e conclusão do laudo…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+          </div>
+
+          <div class="doc-sheet-wrap">
+            <div class="doc-sheet" id="doc-sheet-laudo">
+              <div class="doc-sheet-hdr">
+                <div class="doc-logo-box" id="doc-sheet-logo-laudo"><div class="doc-logo-placeholder">logo da instituição</div></div>
+                <div class="doc-title-box">
+                  <h2>Laudo Médico</h2>
+                  <div class="inst" id="doc-prev-inst-laudo"></div>
+                </div>
+                <div class="doc-via-badge">VIA<br/>DIGITAL</div>
+              </div>
+              <hr class="doc-hr"/>
+              <div class="doc-patient-line">
+                <div><b>Paciente</b><span id="doc-prev-nome-laudo">—</span></div>
+                <div><b>Idade</b><span id="doc-prev-idade-laudo">—</span></div>
+                <div><b>Data</b><span id="doc-prev-data-laudo">—</span></div>
+              </div>
+              <div class="doc-cid-line"><b>CID-10</b><span id="doc-prev-cid-laudo">—</span></div>
+
+              <div class="doc-section">
+                <div class="doc-body-label">História Clínica</div>
+                <div class="doc-body-text" id="doc-prev-hist-laudo"></div>
+              </div>
+              <div class="doc-section">
+                <div class="doc-body-label">Exame Físico / Achados</div>
+                <div class="doc-body-text" id="doc-prev-exame-laudo"></div>
+              </div>
+              <div class="doc-section">
+                <div class="doc-body-label">Exames Complementares</div>
+                <div class="doc-body-text" id="doc-prev-compl-laudo"></div>
+              </div>
+              <div class="doc-section">
+                <div class="doc-body-label">Conclusão / Diagnóstico</div>
+                <div class="doc-body-text" id="doc-prev-concl-laudo"></div>
+              </div>
+
+              <div class="doc-footer">
+                <div class="doc-sign-line"></div>
+                <div class="doc-sign-block">
+                  <div class="dr-nome" id="doc-prev-dr-laudo">Dr(a). ___________________________</div>
+                  <div class="dr-crm" id="doc-prev-crm-laudo">CRM ______ / UF</div>
+                  <div class="dr-esp" id="doc-prev-esp-laudo"></div>
+                </div>
+                <div class="doc-carimbo-box">carimbo</div>
+              </div>
+              <div class="doc-verify">
+                <div class="doc-verify-qr" id="doc-qr-laudo"></div>
+                <div class="doc-verify-text">
+                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
+                  Código: <b id="doc-code-laudo">—</b><br/>
+                  Gerado em: <span id="doc-code-data-laudo">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-toolbar no-print">
+            <button class="btn btn-c" onclick="gerarCodigoVerificacao('laudo')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
+            <button class="btn btn-c" onclick="exportarLaudo()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
+            <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
         </div>
 
@@ -1871,6 +1968,7 @@ function sairSala(force = false) {
   });
   document.getElementById('rx-text').value = '';
   const rxcText = document.getElementById('rxc-text'); if (rxcText) rxcText.value = '';
+  ['ld-hist','ld-exame','ld-compl','ld-concl'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   document.getElementById('app').style.display = 'none';
   document.getElementById('app-footer').style.display = 'none';
   document.getElementById('room-screen').style.display = 'flex';
@@ -1891,6 +1989,10 @@ function coletarDados() {
     receituarioControlado: {
       texto: v('rxc-text'), nome: v('rxc-nome'), idade: v('rxc-idade'), data: v('rxc-data'), endereco: v('rxc-endereco'),
       compradorNome: v('rxc-comp-nome'), compradorDoc: v('rxc-comp-doc'), compradorEnd: v('rxc-comp-end')
+    },
+    laudo: {
+      nome: v('ld-nome'), idade: v('ld-idade'), data: v('ld-data'), cid: v('ld-cid'),
+      hist: v('ld-hist'), exame: v('ld-exame'), compl: v('ld-compl'), concl: v('ld-concl')
     },
     nota: { tabs: notaTabs.map(t => ({ id: t.id, titulo: t.titulo, texto: t.id === notaActiveId ? (document.getElementById('nota-textarea')?.value ?? t.texto) : t.texto })), activeId: notaActiveId }
   };
@@ -1918,6 +2020,13 @@ function carregarDados(data) {
                   compradorNome:'rxc-comp-nome', compradorDoc:'rxc-comp-doc', compradorEnd:'rxc-comp-end' };
     Object.keys(map).forEach(k => {
       const el = document.getElementById(map[k]); if (el && rc[k] !== undefined) el.value = rc[k];
+    });
+  }
+  if (data.laudo) {
+    const l = data.laudo;
+    const mapL = { nome:'ld-nome', idade:'ld-idade', data:'ld-data', cid:'ld-cid', hist:'ld-hist', exame:'ld-exame', compl:'ld-compl', concl:'ld-concl' };
+    Object.keys(mapL).forEach(k => {
+      const el = document.getElementById(mapL[k]); if (el && l[k] !== undefined) el.value = l[k];
     });
   }
   if (data.nota) {
@@ -2417,6 +2526,17 @@ const TEMPLATES_CONTROLADO = {
    * Notificação de Receita B — Lista B1 (Portaria SVS/MS 344/98)`
 };
 
+/* Templates de conclusão para o Laudo Médico */
+const TEMPLATES_LAUDO = {
+  apto: `Após avaliação clínica e exame físico ortopédico, o(a) paciente encontra-se APTO(A) para a prática de atividade física, sem restrições ortopédicas identificadas no momento do exame.`,
+
+  cirurgico: `Diante do quadro clínico e dos achados de exame físico/complementares, há indicação de tratamento cirúrgico ortopédico. Paciente orientado(a) quanto a riscos, benefícios e alternativas terapêuticas.`,
+
+  consolidada: `Exame de imagem de controle evidencia consolidação óssea satisfatória do foco de fratura, sem sinais de pseudoartrose ou desvio significativo. Liberada progressão de carga/atividade conforme orientação da equipe assistente.`,
+
+  afastamento: `Diante do quadro ortopédico apresentado, recomenda-se afastamento das atividades laborais/habituais por período de ___ dias, a contar desta data, para tratamento e reavaliação clínica.`
+};
+
 function aplicarTemplate(key, targetId, dict) {
   targetId = targetId || 'rx-text';
   dict = dict || TEMPLATES;
@@ -2445,6 +2565,17 @@ function exportarRxControlado() {
     + `${v('rxc-text')}`;
   baixarTxt(txt, `Receituario_Controlado_${dt.replace(/\//g,'-')}.txt`);
   mostrarToast('Receituário salvo!');
+}
+function exportarLaudo() {
+  const nome = v('ld-nome') || 'Paciente', dt = v('ld-data') || new Date().toLocaleDateString('pt-BR');
+  const txt = `LAUDO MÉDICO — OssoHub\n`
+    + `Paciente: ${nome}\nIdade: ${v('ld-idade')}\nData: ${dt}\nCID-10: ${v('ld-cid') || '—'}\n\n`
+    + `HISTÓRIA CLÍNICA:\n${v('ld-hist') || '(não preenchido)'}\n\n`
+    + `EXAME FÍSICO / ACHADOS:\n${v('ld-exame') || '(não preenchido)'}\n\n`
+    + `EXAMES COMPLEMENTARES:\n${v('ld-compl') || '(não preenchido)'}\n\n`
+    + `CONCLUSÃO / DIAGNÓSTICO:\n${v('ld-concl') || '(não preenchido)'}`;
+  baixarTxt(txt, `Laudo_Medico_${dt.replace(/\//g,'-')}.txt`);
+  mostrarToast('Laudo salvo!');
 }
 function imprimirRx() { window.print(); }
 
@@ -2578,6 +2709,30 @@ function atualizarPreviewDoc() {
     set('.dcv-crm', crmTxt2);
     set('.dcv-esp', esp || '');
   });
+
+  /* Laudo Médico — folha única (via digital) */
+  const logoLaudo = document.getElementById('doc-sheet-logo-laudo');
+  if (logoLaudo) logoLaudo.innerHTML = _docLogoDataUrl
+    ? `<img src="${_docLogoDataUrl}" alt="Logo da instituição"/>`
+    : `<div class="doc-logo-placeholder">logo da instituição</div>`;
+  const instLaudo = document.getElementById('doc-prev-inst-laudo'); if (instLaudo) instLaudo.textContent = inst || '';
+  const drLaudo = document.getElementById('doc-prev-dr-laudo'); if (drLaudo) drLaudo.textContent = nome ? ('Dr(a). ' + nome) : 'Dr(a). ___________________________';
+  const crmLaudoEl = document.getElementById('doc-prev-crm-laudo');
+  if (crmLaudoEl) {
+    let txtL = crm ? ('CRM ' + crm + (uf ? ' / ' + uf : '')) : 'CRM ______ / UF';
+    if (rqe) txtL += '   |   RQE ' + rqe;
+    crmLaudoEl.textContent = txtL;
+  }
+  const espLaudo = document.getElementById('doc-prev-esp-laudo'); if (espLaudo) espLaudo.textContent = esp || '';
+
+  const lNome = document.getElementById('doc-prev-nome-laudo'); if (lNome) lNome.textContent = v('ld-nome') || '—';
+  const lIdade = document.getElementById('doc-prev-idade-laudo'); if (lIdade) lIdade.textContent = v('ld-idade') || '—';
+  const lData = document.getElementById('doc-prev-data-laudo'); if (lData) lData.textContent = v('ld-data') || new Date().toLocaleDateString('pt-BR');
+  const lCid = document.getElementById('doc-prev-cid-laudo'); if (lCid) lCid.textContent = v('ld-cid') || '—';
+  const lHist = document.getElementById('doc-prev-hist-laudo'); if (lHist) lHist.textContent = v('ld-hist');
+  const lExame = document.getElementById('doc-prev-exame-laudo'); if (lExame) lExame.textContent = v('ld-exame');
+  const lCompl = document.getElementById('doc-prev-compl-laudo'); if (lCompl) lCompl.textContent = v('ld-compl');
+  const lConcl = document.getElementById('doc-prev-concl-laudo'); if (lConcl) lConcl.textContent = v('ld-concl');
 }
 
 /* Hash simples (não criptográfico) só para compor um código de conferência legível —
@@ -2591,6 +2746,8 @@ function gerarCodigoVerificacao(docTipo) {
   let conteudo;
   if (docTipo === 'controlado') {
     conteudo = [v('rxc-nome'), v('rxc-idade'), v('rxc-data'), v('rxc-endereco'), v('rxc-comp-nome'), v('rxc-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
+  } else if (docTipo === 'laudo') {
+    conteudo = [v('ld-nome'), v('ld-idade'), v('ld-data'), v('ld-cid'), v('ld-hist'), v('ld-exame'), v('ld-compl'), v('ld-concl'), v('doc-med-nome'), v('doc-med-crm')].join('|');
   } else {
     conteudo = [v('rx-nome'), v('rx-idade'), v('rx-data'), v('rx-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
   }
@@ -7413,6 +7570,7 @@ function inicializarApp() {
   atualizarPreviewDoc();
   gerarCodigoVerificacao('simples');
   gerarCodigoVerificacao('controlado');
+  gerarCodigoVerificacao('laudo');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
