@@ -4940,6 +4940,134 @@ const OC_DATA = [
     conduta: 'As diretrizes do ACR são atualizadas periodicamente — sempre confirmar a versão mais recente antes de decisões terapêuticas definitivas, especialmente quanto a considerações de segurança cardiovascular dos inibidores de JAK.',
     fonte: 'American College of Rheumatology (ACR) — Guideline for the Treatment of Ankylosing Spondylitis and Nonradiographic Axial Spondyloarthritis',
   },
+
+  /* ══════ LOTE 3: OSTEOPOROSE + FUNCIONAL ══════ */
+  {
+    id: 'fracture-index', categoria: 'osteoporose', nome: 'FRACTURE Index',
+    resumo: 'Prediz risco de fratura em mulheres na pós-menopausa.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Idade', opcoes: [{ label: '<65 anos', pts: 0 }, { label: '65–69', pts: 1 }, { label: '70–74', pts: 2 }, { label: '75–79', pts: 3 }, { label: '80–84', pts: 4 }, { label: '≥85', pts: 5 }] },
+      { label: 'História de qualquer fratura após os 50 anos', opcoes: [{ label: 'Não/não sabe', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'História materna de fratura de quadril após os 50 anos', opcoes: [{ label: 'Não/não sabe', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Peso', opcoes: [{ label: '>56,7 kg (>125 lb)', pts: 0 }, { label: '≤56,7 kg (≤125 lb)', pts: 1 }] },
+      { label: 'Tabagismo atual', opcoes: [{ label: 'Não', pts: 0 }, { label: 'Sim', pts: 1 }] },
+      { label: 'Precisa usar os braços para se levantar de uma cadeira', opcoes: [{ label: 'Não/não sabe', pts: 0 }, { label: 'Sim', pts: 2 }] },
+      { label: 'T-score de DMO de quadril total', opcional: true, opcoes: [{ label: '≥ -1', pts: 0 }, { label: 'Entre -1 e -2', pts: 1 }, { label: 'Entre -2 e -2,5', pts: 2 }, { label: '< -2,5', pts: 3 }] },
+    ],
+    faixas: [
+      { max: 3, label: 'Score baixo (sem DMO)', cor: 'verde', conduta: 'Sem indicação adicional imediata por este score.' },
+      { min: 4, label: 'Score elevado (sem DMO) — score ≥4', cor: 'vermelho', conduta: 'Justifica avaliação adicional e manejo potencial da osteoporose.' },
+    ],
+    faixasComOpcional: [
+      { max: 5, label: 'Score baixo (com DMO)', cor: 'verde', conduta: 'Sem indicação adicional imediata por este score.' },
+      { min: 6, label: 'Score elevado (com DMO) — score ≥6', cor: 'vermelho', conduta: 'Justifica avaliação adicional e manejo potencial da osteoporose.' },
+    ],
+    fonte: 'Black et al. 2001 · MDCalc',
+  },
+  {
+    id: 'orai', categoria: 'osteoporose', nome: 'Osteoporosis Risk Assessment Instrument (ORAI)',
+    resumo: 'Identifica mulheres com risco de osteoporose e indica densitometria óssea.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Idade', opcoes: [{ label: '45–54 anos', pts: 0 }, { label: '55–64', pts: 5 }, { label: '65–74', pts: 9 }, { label: '≥75', pts: 15 }] },
+      { label: 'Peso', opcoes: [{ label: '>69 kg', pts: 0 }, { label: '60–69 kg', pts: 3 }, { label: '<60 kg', pts: 9 }] },
+      { label: 'Uso atual de estrogênio', opcoes: [{ label: 'Sim', pts: 0 }, { label: 'Não', pts: 2 }] },
+    ],
+    faixas: [
+      { max: 8, label: 'Baixo risco', cor: 'verde', conduta: 'Sem indicação obrigatória de densitometria por este instrumento (julgamento clínico permanece importante).' },
+      { min: 9, label: 'Alto risco de osteoporose', cor: 'vermelho', conduta: 'Score ≥9: encaminhar para densitometria óssea (DXA).' },
+    ],
+    fonte: 'Cadarette et al. · MDCalc · Uso em mulheres ≥45 anos',
+  },
+  {
+    id: 'osiris', categoria: 'osteoporose', nome: 'Osteoporosis Index of Risk (OSIRIS)',
+    resumo: 'Estratifica o risco de osteoporose em mulheres na pós-menopausa.',
+    tipo: 'formula',
+    campos: [
+      { key: 'idade', label: 'Idade (anos)', min: 40, max: 100, step: 1 },
+      { key: 'peso', label: 'Peso (kg)', min: 30, max: 150, step: 0.5 },
+      { key: 'hrt', label: 'Terapia hormonal (TRH/estrogênio) atual', opcoes: [{ label: 'Não', val: '0' }, { label: 'Sim', val: '2' }] },
+      { key: 'fratura', label: 'Fratura prévia de baixo impacto', opcoes: [{ label: 'Não', val: '0' }, { label: 'Sim', val: '-2' }] },
+    ],
+    calc: v => 0.2 * (v.peso - v.idade) + parseFloat(v.hrt) + parseFloat(v.fratura),
+    faixas: [
+      { max: -3, label: 'Alto risco', cor: 'vermelho', conduta: 'Densitometria óssea deve ser considerada para confirmar o risco e orientar tratamento (incluindo terapia farmacológica, se indicada).' },
+      { min: -2.99, max: 1, label: 'Risco intermediário', cor: 'amarelo', conduta: 'Densitometria óssea deve ser considerada para confirmar o risco.' },
+      { min: 1.01, label: 'Baixo risco', cor: 'verde', conduta: 'Densitometria pode ser adiada ou evitada; priorizar modificações de estilo de vida e monitoramento de rotina.' },
+    ],
+    fonte: 'Sedrine et al. · MDCalc',
+  },
+  {
+    id: 'ost', categoria: 'osteoporose', nome: 'Osteoporosis Self Assessment Tool (OST)',
+    resumo: 'Classifica o risco de osteoporose em mulheres e homens.',
+    tipo: 'formula',
+    campos: [
+      { key: 'idade', label: 'Idade (anos)', min: 18, max: 100, step: 1 },
+      { key: 'peso', label: 'Peso (kg)', min: 30, max: 150, step: 0.5 },
+    ],
+    calc: v => 0.2 * (v.peso - v.idade),
+    faixas: [
+      { max: -4, label: 'Alto risco', cor: 'vermelho', conduta: 'Densitometria óssea deve ser considerada para confirmar o risco e orientar o início de tratamento farmacológico, se indicado.' },
+      { min: -3.99, max: -1, label: 'Risco intermediário', cor: 'amarelo', conduta: 'Densitometria óssea deve ser considerada para confirmar o risco.' },
+      { min: -0.99, label: 'Baixo risco', cor: 'verde', conduta: 'Densitometria pode ser adiada ou evitada; priorizar modificações de estilo de vida e monitoramento de rotina.' },
+    ],
+    fonte: 'Koh et al. · MDCalc · Adequado para mulheres pós-menopausa e homens sem diagnóstico prévio de osteoporose',
+  },
+  {
+    id: 'caroc', categoria: 'osteoporose', nome: 'Canadian Association of Radiologists and Osteoporosis Canada (CAROC) System',
+    resumo: 'Avalia o risco absoluto de fratura osteoporótica em 10 anos.',
+    tipo: 'info',
+    descricao: 'Sistema canadense (uso em adultos ≥50 anos, sem fratura osteoporótica prévia) que combina idade, sexo e o menor T-score de DMO (quadril ou coluna lombar) em uma tabela de risco pré-definida, resultando em risco absoluto de fratura maior em 10 anos classificado como: baixo (<10%), moderado (10–20%) ou alto (>20%). A presença de fratura por fragilidade após os 40 anos (especialmente fraturas vertebrais por compressão) OU uso de glicocorticoide sistêmico por mais de 3 meses eleva automaticamente o paciente para a categoria de risco seguinte (ex.: de moderado para alto), independentemente da tabela de base.',
+    conduta: 'Terapia farmacológica é recomendada para risco alto e sugerida para risco moderado, conforme diretrizes canadenses. A tabela completa de risco de base (por idade/sexo/T-score) deve ser consultada na fonte original ou calculadora do MDCalc para o percentual exato — não reproduzida aqui de forma tabular por não haver uma fórmula aditiva simples e confiável disponível publicamente.',
+    fonte: 'Siminoski et al. · MDCalc · Ver diretriz: CMAJ 2023;195:E1333',
+  },
+  {
+    id: 'berg-balance', categoria: 'funcional', nome: 'Berg Balance Scale (BBS)',
+    resumo: 'Avalia equilíbrio e risco de quedas em idosos que vivem na comunidade.',
+    tipo: 'sum',
+    campos: [
+      { label: '1. Sentado para em pé', opcoes: [{ label: '0 - precisa de ajuda máxima', pts: 0 }, { label: '1 - ajuda moderada', pts: 1 }, { label: '2 - várias tentativas/apoio das mãos', pts: 2 }, { label: '3 - independente, usa as mãos', pts: 3 }, { label: '4 - independente, sem usar as mãos', pts: 4 }] },
+      { label: '2. Permanecer em pé sem apoio', opcoes: [{ label: '0 - incapaz de ficar 30s', pts: 0 }, { label: '1 - precisa de várias tentativas', pts: 1 }, { label: '2 - fica ~30s com apoio', pts: 2 }, { label: '3 - fica 2min supervisionado', pts: 3 }, { label: '4 - fica 2min com segurança', pts: 4 }] },
+      { label: '3. Sentado sem apoio nas costas (pés no chão)', opcoes: [{ label: '0 - incapaz de ficar 10s', pts: 0 }, { label: '1 - fica 10s', pts: 1 }, { label: '2 - fica 30s', pts: 2 }, { label: '3 - fica 2min supervisionado', pts: 3 }, { label: '4 - fica 2min com segurança', pts: 4 }] },
+      { label: '4. Em pé para sentado', opcoes: [{ label: '0 - precisa de ajuda para sentar', pts: 0 }, { label: '1 - senta sozinho mas descontrolado', pts: 1 }, { label: '2 - usa as pernas para controlar a descida', pts: 2 }, { label: '3 - usa as mãos para controlar', pts: 3 }, { label: '4 - senta com segurança, uso mínimo das mãos', pts: 4 }] },
+      { label: '5. Transferências', opcoes: [{ label: '0 - precisa de 2 pessoas', pts: 0 }, { label: '1 - precisa de 1 pessoa', pts: 1 }, { label: '2 - capaz com supervisão verbal', pts: 2 }, { label: '3 - capaz com uso das mãos', pts: 3 }, { label: '4 - capaz com segurança, uso mínimo das mãos', pts: 4 }] },
+      { label: '6. Em pé sem apoio, olhos fechados', opcoes: [{ label: '0 - precisa de ajuda para não cair', pts: 0 }, { label: '1 - dificuldade, fica ~3s', pts: 1 }, { label: '2 - fica ~3s', pts: 2 }, { label: '3 - fica 10s supervisionado', pts: 3 }, { label: '4 - fica 10s com segurança', pts: 4 }] },
+      { label: '7. Em pé sem apoio, pés juntos', opcoes: [{ label: '0 - precisa de ajuda, fica <15s', pts: 0 }, { label: '1 - precisa de ajuda para atingir a posição, fica 15s', pts: 1 }, { label: '2 - posiciona sozinho, fica 30s', pts: 2 }, { label: '3 - posiciona sozinho, fica 1min supervisionado', pts: 3 }, { label: '4 - posiciona sozinho, fica 1min com segurança', pts: 4 }] },
+      { label: '8. Alcançar à frente com braço estendido', opcoes: [{ label: '0 - perde equilíbrio ao tentar', pts: 0 }, { label: '1 - alcança mas precisa de supervisão', pts: 1 }, { label: '2 - alcança >5cm com segurança', pts: 2 }, { label: '3 - alcança >12,5cm com segurança', pts: 3 }, { label: '4 - alcança >25cm com segurança', pts: 4 }] },
+      { label: '9. Apanhar objeto do chão', opcoes: [{ label: '0 - incapaz/precisa de ajuda', pts: 0 }, { label: '1 - incapaz, mas mantém equilíbrio sozinho', pts: 1 }, { label: '2 - não consegue mas chega a 2-5cm do objeto', pts: 2 }, { label: '3 - apanha mas com supervisão', pts: 3 }, { label: '4 - apanha com facilidade e segurança', pts: 4 }] },
+      { label: '10. Virar e olhar para trás', opcoes: [{ label: '0 - precisa de ajuda', pts: 0 }, { label: '1 - vira mas perde equilíbrio', pts: 1 }, { label: '2 - vira só de um lado', pts: 2 }, { label: '3 - vira só de um lado, menos peso do outro', pts: 3 }, { label: '4 - vira dos dois lados com boa transferência de peso', pts: 4 }] },
+      { label: '11. Girar 360 graus', opcoes: [{ label: '0 - precisa de ajuda', pts: 0 }, { label: '1 - precisa de supervisão próxima/comandos verbais', pts: 1 }, { label: '2 - completa mas lentamente', pts: 2 }, { label: '3 - completa apenas para um lado em <4s', pts: 3 }, { label: '4 - completa para os dois lados em <4s', pts: 4 }] },
+      { label: '12. Alternar colocação do pé em um degrau/banquinho', opcoes: [{ label: '0 - precisa de ajuda para não cair/incapaz', pts: 0 }, { label: '1 - completa 2 com supervisão', pts: 1 }, { label: '2 - completa 4 sem apoio', pts: 2 }, { label: '3 - fica em pé sem apoio e completa 8 em ≤20s', pts: 3 }, { label: '4 - fica em pé sem apoio e completa 8 com segurança em ≤20s', pts: 4 }] },
+      { label: '13. Em pé sem apoio, um pé à frente do outro', opcoes: [{ label: '0 - perde equilíbrio ao ficar/dar o passo', pts: 0 }, { label: '1 - precisa de ajuda para dar o passo, fica 15s', pts: 1 }, { label: '2 - dá um passo pequeno sozinho, fica 30s', pts: 2 }, { label: '3 - coloca um pé à frente do outro sozinho, fica 30s', pts: 3 }, { label: '4 - coloca um pé imediatamente à frente do outro (tandem), fica 30s', pts: 4 }] },
+      { label: '14. Em pé sobre uma perna', opcoes: [{ label: '0 - incapaz/precisa de ajuda', pts: 0 }, { label: '1 - tenta levantar a perna, fica <3s', pts: 1 }, { label: '2 - fica 3-5s', pts: 2 }, { label: '3 - fica >5s', pts: 3 }, { label: '4 - fica >10s com segurança', pts: 4 }] },
+    ],
+    faixas: [
+      { max: 20, label: 'Alto risco de queda (0–20)', cor: 'vermelho', conduta: 'Comprometimento importante do equilíbrio — geralmente necessita de cadeira de rodas ou assistência extensa. Encaminhar para fisioterapia especializada em equilíbrio e prevenção de quedas.' },
+      { min: 21, max: 40, label: 'Risco moderado de queda (21–40)', cor: 'amarelo', conduta: 'Deambulação com assistência recomendada. Programa de fisioterapia/exercícios de equilíbrio.' },
+      { min: 41, label: 'Baixo risco de queda (41–56)', cor: 'verde', conduta: 'Equilíbrio funcional independente. Reforçar exercícios preventivos de equilíbrio conforme rotina geriátrica.' },
+    ],
+    fonte: 'Berg et al. 1989 · Escala de 14 itens, 0–56 pontos',
+  },
+  {
+    id: 'katz-adl', categoria: 'funcional', nome: 'Katz Index of Independence in Activities of Daily Living (ADL)',
+    resumo: 'Avalia o status funcional básico para quantificar incapacidade e necessidade de cuidados.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Banho', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+      { label: 'Vestir-se', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+      { label: 'Uso do banheiro', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+      { label: 'Transferência (cama/cadeira)', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+      { label: 'Continência', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+      { label: 'Alimentação', opcoes: [{ label: 'Independente', pts: 1 }, { label: 'Dependente', pts: 0 }] },
+    ],
+    faixas: [
+      { max: 2, label: 'Dependência funcional severa', cor: 'vermelho', conduta: 'Necessidade extensa de cuidados/suporte. Avaliar rede de apoio e planejamento de cuidados de longo prazo.' },
+      { min: 3, max: 5, label: 'Dependência funcional moderada', cor: 'amarelo', conduta: 'Necessidade parcial de assistência. Planejar suporte domiciliar direcionado às funções dependentes.' },
+      { min: 6, label: 'Independência funcional plena', cor: 'verde', conduta: 'Paciente independente nas 6 atividades básicas de vida diária avaliadas.' },
+    ],
+    fonte: 'Katz et al. 1963',
+  },
 ];
 
 const OC_CAT_ORDEM = ['trauma','coluna','infeccao','vte','perioperatorio','mao-punho','quadril-joelho','reumatologia','osteoporose','funcional'];
@@ -5015,7 +5143,7 @@ function ocFormHtml(o) {
     }
     o.campos.forEach((campo, ci) => {
       html += `<div class="oc-field-row">
-        <span class="oc-field-label">${escHtml(campo.label)}</span>
+        <span class="oc-field-label">${escHtml(campo.label)}${campo.opcional ? ' <em style="color:#5A7A9A;font-style:italic">(opcional)</em>' : ''}</span>
         <div class="oc-opts">
           ${campo.opcoes.map((op, oi) => `<button type="button" class="oc-opt" data-field="${ci}" data-val="${op.pts}" onclick="ocSelectOpt('${o.id}',${ci},this)">${escHtml(op.label)}</button>`).join('')}
         </div>
@@ -5127,16 +5255,23 @@ function computeOC(id) {
       if (!atalhoBtn) { resultDiv.innerHTML = ''; return; }
       if (atalhoBtn.dataset.val === '1') { resultDiv.innerHTML = ocResultHtml(null, o.atalho.positivo); return; }
     }
-    const selected = [...card.querySelectorAll('.oc-opt.sel[data-field]')];
-    if (selected.length < o.campos.length) { resultDiv.innerHTML = ''; return; }
+    const obrigIdx = o.campos.map((c, ci) => ci).filter(ci => !o.campos[ci].opcional);
+    const selecionados = o.campos.map((c, ci) => card.querySelector(`.oc-opt.sel[data-field="${ci}"]`));
+    if (obrigIdx.some(ci => !selecionados[ci])) { resultDiv.innerHTML = ''; return; }
     let total = 0;
-    selected.forEach(b => total += parseFloat(b.dataset.val));
+    let opcionalRespondido = true;
+    o.campos.forEach((campo, ci) => {
+      const b = selecionados[ci];
+      if (b) total += parseFloat(b.dataset.val);
+      else if (campo.opcional) opcionalRespondido = false;
+    });
     if (o.especial === 'mess-ischemia-double') {
       const ischBtn = card.querySelector('.oc-opt.sel[data-field="1"]');
       const durBtn = card.querySelector('.oc-opt.sel[data-field="2"]');
       if (ischBtn && durBtn && durBtn.textContent.includes('Sim')) total += parseFloat(ischBtn.dataset.val);
     }
-    const faixa = o.faixas.find(f => (f.min === undefined || total >= f.min) && (f.max === undefined || total <= f.max));
+    const faixasUsar = (o.faixasComOpcional && opcionalRespondido) ? o.faixasComOpcional : o.faixas;
+    const faixa = faixasUsar.find(f => (f.min === undefined || total >= f.min) && (f.max === undefined || total <= f.max));
     resultDiv.innerHTML = faixa ? ocResultHtml(total, faixa) : '';
   } else if (o.tipo === 'formula') {
     const vals = {};
