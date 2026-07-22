@@ -4,7 +4,11 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="theme-color" content="#0D1B2E"/>
 <title>OssoHub — Plataforma Ortopédica</title>
 <link rel="icon" href="/logo.png" type="image/png"/>
 <link rel="apple-touch-icon" href="/logo.png"/>
@@ -42,10 +46,12 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 button,a,.nav-btn,[onclick]{touch-action:manipulation}
 html,body{height:100%}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:.93rem;overflow:hidden}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:.93rem;overflow:hidden;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+input[type=text],input[type=number],input[type=password],input[type=email],textarea{-webkit-appearance:none;appearance:none}
 
 /* ── ROOM SCREEN ── */
-#room-screen{position:fixed;inset:0;background:#041933;display:flex;align-items:center;justify-content:center;z-index:9999}
+#room-screen{position:fixed;inset:0;background:#041933;display:flex;align-items:center;justify-content:center;z-index:9999;overflow-y:auto;padding:calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left))}
 .room-card{background:#041933;border-radius:20px;padding:2.5rem 2rem;max-width:440px;width:92%;box-shadow:0 24px 64px rgba(0,0,0,.7);border:1px solid #0E2A45}
 .room-logo{display:flex;align-items:center;justify-content:center;margin-bottom:1.75rem}
 .room-logo-ico{display:flex;align-items:center;justify-content:center}
@@ -66,7 +72,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--t
 #app{height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
 
 /* ── HEADER ── */
-.hdr{background:#041933;color:#fff;padding:.75rem 1.25rem;display:flex;align-items:center;gap:.75rem;flex-shrink:0;z-index:30;border-bottom:1px solid #0E2A45;box-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hdr{background:#041933;color:#fff;padding:calc(.75rem + env(safe-area-inset-top)) calc(1.25rem + env(safe-area-inset-right)) .75rem calc(1.25rem + env(safe-area-inset-left));display:flex;align-items:center;gap:.75rem;flex-shrink:0;z-index:30;border-bottom:1px solid #0E2A45;box-shadow:0 2px 12px rgba(0,0,0,.5);flex-wrap:wrap}
 .hdr-logo{display:flex;align-items:center;gap:.55rem;font-size:1.15rem;letter-spacing:-.02em;color:#fff}
 .hdr-logo-osso{font-weight:900}
 .hdr-logo-hub{font-weight:300;color:#34D399}
@@ -375,10 +381,10 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .pe-negativo{font-size:.8rem;color:#A8E6B0;line-height:1.5;background:rgba(16,185,129,.08);padding:.5rem .65rem;border-radius:6px;border-left:3px solid #22C55E}
 .pe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:.85rem}
 /* ── LIGHTBOX ── */
-.fig-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9995;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
+.fig-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9995;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));overflow-y:auto}
 .fig-box{position:relative;max-width:min(860px,95vw);max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:.65rem}
 .fig-titulo{font-size:.82rem;font-weight:700;color:var(--og);text-align:center;max-width:600px;line-height:1.4}
-.fig-img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.7)}
+.fig-img{max-width:100%;max-height:70vh;max-height:70dvh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.7)}
 .fig-sub{font-size:.68rem;color:#5A7A9A;text-align:center}
 .fig-close{position:absolute;top:-2.5rem;right:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.1rem;transition:background .15s}
 .fig-close:hover{background:rgba(255,255,255,.18)}
@@ -413,8 +419,8 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .card{position:relative}
 
 /* ── MODAL SUGESTÃO ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9990;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
-.modal-box{background:#192D45;border:1px solid #1E3A5A;border-radius:16px;padding:1.75rem;max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9990;display:flex;align-items:center;justify-content:center;padding:calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));backdrop-filter:blur(4px);overflow-y:auto}
+.modal-box{background:#192D45;border:1px solid #1E3A5A;border-radius:16px;padding:1.75rem;max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.7);max-height:calc(100vh - 2rem);max-height:calc(100dvh - 2rem);overflow-y:auto;-webkit-overflow-scrolling:touch;margin:auto}
 .modal-title{font-size:1rem;font-weight:800;color:var(--og);margin-bottom:.35rem;display:flex;align-items:center;gap:.5rem}
 .modal-sub{font-size:.78rem;color:#5A7A9A;margin-bottom:1.25rem;line-height:1.5}
 .modal-section-badge{display:inline-block;background:#0A2A20;border:1px solid #1E3A5A;color:var(--og-2);font-size:.72rem;font-weight:700;padding:.2rem .65rem;border-radius:20px;margin-bottom:1rem}
@@ -593,40 +599,46 @@ input:focus,textarea:focus,select.fsel:focus{box-shadow:0 0 0 3px rgba(16,185,12
 .admin-count{font-size:.75rem;color:#3A5575;margin-bottom:.75rem}
 
 /* ── TOAST ── */
-#toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(30px);background:var(--og);color:#fff;padding:.65rem 1.3rem;border-radius:8px;font-size:.84rem;font-weight:800;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(16,185,129,.4)}
+#toast{position:fixed;bottom:calc(1.5rem + env(safe-area-inset-bottom));left:50%;max-width:calc(100vw - 2rem);transform:translateX(-50%) translateY(30px);background:var(--og);color:#fff;padding:.65rem 1.3rem;border-radius:8px;font-size:.84rem;font-weight:800;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9998;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 4px 16px rgba(16,185,129,.4)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* Botão flutuante de retorno ao menu — usado nas ferramentas embutidas em iframe
    (Algoritmos/PDF/Rede Social), que ocupam a tela inteira e podem capturar o
    scroll/toque, impedindo o usuário de alcançar a barra lateral para voltar. */
-.floating-back-btn{position:fixed;top:.85rem;left:.85rem;z-index:500;display:none;align-items:center;gap:.4rem;background:#0B1830;color:var(--tx);border:1.5px solid #24405E;border-radius:24px;padding:.5rem .95rem;font-size:.8rem;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.55);transition:all .18s}
+.floating-back-btn{position:fixed;top:calc(.85rem + env(safe-area-inset-top));left:calc(.85rem + env(safe-area-inset-left));z-index:500;display:none;align-items:center;gap:.4rem;background:#0B1830;color:var(--tx);border:1.5px solid #24405E;border-radius:24px;padding:.5rem .95rem;font-size:.8rem;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.55);transition:all .18s}
 .floating-back-btn:hover{border-color:var(--og);color:var(--og);background:#0B2A22}
-footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4560;border-top:1px solid #1A3050;background:#08111E}
+footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));font-size:.7rem;color:#2A4560;border-top:1px solid #1A3050;background:#08111E}
 
 /* ── MOBILE / TABLET ── */
 @media(max-width:900px){
-  body{overflow:auto}
-  #app{height:auto}
-  .app-layout{flex-direction:column}
-  .sidebar{width:100%;flex-direction:row;border-right:none;border-bottom:1px solid var(--bd);overflow-x:auto;overflow-y:hidden;padding:.3rem .5rem;-webkit-overflow-scrolling:touch}
+  body{overflow:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  #app{height:auto;min-height:100vh;min-height:100dvh}
+  .app-layout{flex-direction:column;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+  .sidebar{width:100%;flex-direction:row;border-right:none;border-bottom:1px solid var(--bd);overflow-x:auto;overflow-y:hidden;padding:.3rem calc(.5rem + env(safe-area-inset-right)) .3rem calc(.5rem + env(safe-area-inset-left));-webkit-overflow-scrolling:touch}
   .sidebar-section{display:contents}
   .sidebar-label{display:none}
-  .nav-btn{flex:0 0 auto;flex-direction:column;gap:.2rem;padding:.5rem .7rem;font-size:.68rem;border-left:none;border-bottom:3px solid transparent;min-width:60px;justify-content:center;text-align:center;white-space:nowrap;overflow:visible}
+  .nav-btn{flex:0 0 auto;flex-direction:column;gap:.2rem;padding:.5rem .7rem;font-size:.68rem;border-left:none;border-bottom:3px solid transparent;min-width:60px;min-height:44px;justify-content:center;text-align:center;white-space:nowrap;overflow:visible}
   .nav-btn.active{border-bottom-color:var(--og);border-left:none}
   .nav-ico{width:24px;height:24px;flex-shrink:0}
   .app-main{overflow:visible}
   .med-layout{grid-template-columns:1fr}
   .rx-patient{grid-template-columns:1fr 1fr}
+  .cl-table td:first-child{white-space:normal;min-width:0;width:40%}
+  .doc-sheet{padding:1.4rem 1.1rem 1.1rem}
   /* Ferramentas em iframe (Algoritmos/PDF/Rede Social): no mobile a altura "auto" da
      página quebra a cadeia de height:100% (que só funciona com #app em 100vh fixo,
      como no desktop). Força tela cheia real via viewport para o conteúdo do iframe
-     sempre aparecer e ser utilizável, com rolagem própria dentro do próprio iframe. */
-  .tab-pdf-full.active{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;z-index:400;background:var(--bg);margin:0}
+     sempre aparecer e ser utilizável, com rolagem própria dentro do próprio iframe.
+     O padding com env() evita que o conteúdo fique escondido atrás do notch/cantos
+     arredondados do iPhone (viewport-fit=cover permite desenhar sob essas áreas). */
+  .tab-pdf-full.active{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;z-index:400;background:var(--bg);margin:0;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 }
 /* Prevent iOS Safari auto-zoom on input focus (needs >=16px) */
 @media(max-width:900px),(pointer:coarse){
   input[type=text],input[type=number],input[type=password],input[type=email],textarea,select.fsel,
   .calc-field input,.calc-field select,.modal-textarea,.cl-search-bar input{font-size:16px}
+  /* Alvos de toque maiores (recomendação Apple HIG: mín. 44x44px) */
+  .btn,.tpl-btn,.modal-type-btn,.oc-reset-btn,select.fsel{min-height:44px}
 }
 @media(max-width:680px){
   .nav-btn{min-width:52px;flex:0 0 auto}
