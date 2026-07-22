@@ -1068,7 +1068,8 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <span class="doc-modelo-lbl">Meus modelos</span>
               <select id="modelo-select-simples" class="fsel"><option value="">— nenhum salvo —</option></select>
               <button class="tpl-btn" onclick="aplicarModeloSalvo('simples')">Usar</button>
-              <button class="tpl-btn" onclick="salvarModeloAtual('simples')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="atualizarModeloSelecionado('simples')">Salvar alterações</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('simples')">Salvar como novo</button>
               <button class="tpl-btn" onclick="excluirModeloSalvo('simples')">Excluir</button>
             </div>
             <textarea class="rx-textarea" id="rx-text" placeholder="Digite ou selecione um template acima…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
@@ -1155,7 +1156,8 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <span class="doc-modelo-lbl">Meus modelos</span>
               <select id="modelo-select-controlado" class="fsel"><option value="">— nenhum salvo —</option></select>
               <button class="tpl-btn" onclick="aplicarModeloSalvo('controlado')">Usar</button>
-              <button class="tpl-btn" onclick="salvarModeloAtual('controlado')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="atualizarModeloSelecionado('controlado')">Salvar alterações</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('controlado')">Salvar como novo</button>
               <button class="tpl-btn" onclick="excluirModeloSalvo('controlado')">Excluir</button>
             </div>
             <textarea class="rx-textarea" id="rxc-text" placeholder="Digite ou selecione um template acima…" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
@@ -1247,7 +1249,8 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <span class="doc-modelo-lbl">Meus modelos (aplica às 4 seções)</span>
               <select id="modelo-select-laudo" class="fsel"><option value="">— nenhum salvo —</option></select>
               <button class="tpl-btn" onclick="aplicarModeloSalvo('laudo')">Usar</button>
-              <button class="tpl-btn" onclick="salvarModeloAtual('laudo')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="atualizarModeloSelecionado('laudo')">Salvar alterações</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('laudo')">Salvar como novo</button>
               <button class="tpl-btn" onclick="excluirModeloSalvo('laudo')">Excluir</button>
             </div>
             <label class="lbl" for="ld-hist">História Clínica</label>
@@ -1356,7 +1359,8 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
               <span class="doc-modelo-lbl">Meus modelos</span>
               <select id="modelo-select-atestado" class="fsel"><option value="">— nenhum salvo —</option></select>
               <button class="tpl-btn" onclick="aplicarModeloSalvo('atestado')">Usar</button>
-              <button class="tpl-btn" onclick="salvarModeloAtual('atestado')">Salvar como modelo</button>
+              <button class="tpl-btn" onclick="atualizarModeloSelecionado('atestado')">Salvar alterações</button>
+              <button class="tpl-btn" onclick="salvarModeloAtual('atestado')">Salvar como novo</button>
               <button class="tpl-btn" onclick="excluirModeloSalvo('atestado')">Excluir</button>
             </div>
             <textarea class="rx-textarea" id="at-text" placeholder="Digite ou selecione um modelo acima…" style="min-height:180px" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
@@ -2974,6 +2978,20 @@ function salvarModeloAtual(tipo) {
   const sel = document.getElementById('modelo-select-' + tipo);
   if (sel) sel.value = existente ? existente.id : lista[lista.length - 1].id;
   mostrarToast('Modelo salvo neste dispositivo — disponível para qualquer paciente.');
+}
+function atualizarModeloSelecionado(tipo) {
+  const sel = document.getElementById('modelo-select-' + tipo);
+  const id = sel ? sel.value : '';
+  if (!id) { mostrarToast('Selecione um modelo salvo para atualizar.'); return; }
+  const lista = _docModelos[tipo] || [];
+  const modelo = lista.find(m => m.id === id);
+  if (!modelo) return;
+  const conteudo = _conteudoModeloAtual(tipo);
+  if (_modeloEstaVazio(conteudo)) { mostrarToast('Nada para salvar — preencha o texto primeiro.'); return; }
+  if (!confirm(`Salvar as alterações atuais no modelo "${modelo.nome}"? O conteúdo anterior desse modelo será substituído.`)) return;
+  modelo.conteudo = conteudo;
+  _salvarModelosDoc();
+  mostrarToast('Modelo atualizado com as alterações!');
 }
 function aplicarModeloSalvo(tipo) {
   const sel = document.getElementById('modelo-select-' + tipo);
