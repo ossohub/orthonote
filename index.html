@@ -997,7 +997,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn" onclick="selectPeRegion('joelho')" data-pregion="joelho">Joelho <span class="rbadge">27</span></button>
           <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">10</span></button>
           <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">16</span></button>
-          <button class="region-btn" onclick="selectPeRegion('lombar')" data-pregion="lombar">Coluna Lombar <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('lombar')" data-pregion="lombar">Coluna Lombar <span class="rbadge">7</span></button>
         </div>
         <div id="pe-regions"></div>
       </div>
@@ -4272,7 +4272,7 @@ const PE_REGIOES = [
   {id:'joelho',     nome:'Joelho',                     desc:'Derrame, estabilidade ligamentar (LCA/LCP/colaterais), testes meniscais e patelofemorais', count:27},
   {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Estabilidade ligamentar do tornozelo, tendão de Aquiles, túnel do tarso, neuroma de Morton e disfunção do tibial posterior', count:10},
   {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Tensão radicular do membro superior, Spurling, Lhermitte, sinais de Waddell e reflexos neurológicos', count:16},
-  {id:'lombar',     nome:'Coluna Lombar',              desc:'Em breve', count:0}
+  {id:'lombar',     nome:'Coluna Lombar',              desc:'Testes de tensão do nervo ciático (elevação de perna reta, Lasègue, bowstring, slump), estiramento femoral e Valsalva', count:7}
 ];
 
 const PE_DATA = [
@@ -5305,7 +5305,63 @@ const PE_DATA = [
    alerta:'Pacientes com dor não orgânica frequentemente sabem, por experiência, que a elevação de perna estendida em decúbito dorsal deve ser dolorosa, mas podem não perceber que a extensão passiva do joelho estando sentados produz a mesma tensão sobre as raízes do nervo ciático.',
    positivo:'Resposta inconsistente: o paciente relata dor durante a manobra em decúbito dorsal, mas não durante a manobra equivalente realizada sentado e distraído. Sugere possível componente não orgânico associado à queixa dolorosa.',
    negativo:'Resposta consistente de dor (ou ausência dela) em ambas as posições, dorsal e sentada.',
-   fonte:"Reider, Cap. 8, p.333."}
+   fonte:"Reider, Cap. 8, p.333."},
+
+  {id:'pe-lombar-elevacao-perna-reta', regiao:'lombar', nome:'Teste de Elevação da Perna Reta (Straight-Leg Raising Test)',
+   resumo:'O mais conhecido teste de tensão neural para a coluna lombar, tracionando as raízes de L5 e S1 — extremamente sensível (0,9) porém pouco específico (0,26) para radiculopatia lombar.',
+   tecnica:'Com o paciente em decúbito dorsal confortável, cabeça e pelve apoiadas, mantendo o joelho em extensão completa, o examinador eleva lentamente um dos membros inferiores do paciente até a flexão máxima do quadril ou até o paciente relatar dor. O ângulo formado entre o membro e a mesa no ponto de elevação máxima é registrado, e o procedimento é repetido no lado oposto.',
+   alerta:'Se o paciente relatar apenas tensão na parte posterior da coxa (não dor ciática), a causa provável é encurtamento isquiotibial, não radiculopatia — o teste de Lasègue não exacerba o desconforto do encurtamento isquiotibial como exacerba a ciática. Realizar o teste no lado oposto ao da ciática (teste cruzado de elevação da perna reta) é menos sensível (0,29) porém mais específico (0,88) para hérnia discal L4-L5 ou L5-S1.',
+   positivo:'Elevação reduzida (geralmente <70°) com dor ciática latejante irradiando pela coxa posterior, frequentemente até a perna, na distribuição do nervo ciático. Sugere lesão da raiz L5 ou S1 (hérnia discal lombar).',
+   negativo:'Elevação de 70° a 90° possível, no máximo com sensação de tensão na coxa posterior, sem dor radicular.',
+   fonte:"Reider, Cap. 9, p.355-356."},
+
+  {id:'pe-lombar-lasegue', regiao:'lombar', nome:"Teste de Lasègue (Lasègue's Test)",
+   resumo:'Progressão do teste de elevação da perna reta que aumenta ainda mais a deformação do nervo ciático, com sensibilidade relatada de 0,7 para radiculopatia lombar.',
+   tecnica:'O examinador realiza o teste de elevação da perna reta, pausando quando o paciente relata reprodução de sua dor ciática típica. Mantendo o grau de flexão do quadril em que a dor foi provocada, o examinador dorsiflexiona passivamente o pé do membro elevado.',
+   alerta:'O teste de Lasègue pode reproduzir dor radicular mesmo em casos de hérnia discal lombar em que o teste de elevação da perna reta isolado foi negativo — deve sempre ser interpretado em conjunto com este.',
+   positivo:'A dorsiflexão do pé exacerba a dor radicular do paciente. Reforça o diagnóstico de ciática por hérnia discal lombar.',
+   negativo:'A dorsiflexão do pé não altera ou não reproduz a dor radicular.',
+   fonte:"Reider, Cap. 9, p.356."},
+
+  {id:'pe-lombar-bowstring', regiao:'lombar', nome:'Sinal do Bowstring (Bowstring Sign)',
+   resumo:'Teste confirmatório adicional para tensão do nervo ciático, descrito por MacNab, com sensibilidade semelhante à do teste de Lasègue (0,69) para radiculopatia lombar.',
+   tecnica:'O examinador começa realizando o teste de elevação da perna reta até o ponto de reprodução da dor radicular do paciente (A). O joelho é então fletido a 90°, o que geralmente alivia os sintomas. Pressão digital é então aplicada na fossa poplítea sobre a face posterior do nervo ciático (B).',
+   alerta:'A flexão do joelho a 90° deve aliviar os sintomas antes da aplicação da pressão digital — se não aliviar, a interpretação do teste fica comprometida.',
+   positivo:'A pressão digital na fossa poplítea reproduz novamente a dor radicular do paciente. Reforça a impressão de ciática por compressão radicular lombar.',
+   negativo:'A pressão digital na fossa poplítea não reproduz a dor radicular.',
+   fonte:"Reider, Cap. 9, p.357."},
+
+  {id:'pe-lombar-slump', regiao:'lombar', nome:'Teste de Slump (Slump Test)',
+   resumo:'Variante dos testes de elevação da perna reta e de Lasègue realizada na posição sentada, colocando as raízes do nervo ciático sob tensão progressivamente crescente através de uma série de manobras sequenciais.',
+   tecnica:'O paciente inicia sentado na borda da mesa de exame, com as costas retas, olhando para frente (A). É então encorajado a "desabar" (slump), permitindo que a coluna torácica e lombar colapsem em flexão, mantendo o olhar para frente (B). Em seguida, flexiona-se totalmente a coluna cervical (C). O paciente então estende um joelho, realizando uma elevação de perna reta (D), e dorsiflexiona o pé do mesmo lado, reproduzindo o teste de Lasègue (E). O processo é repetido no lado oposto; a extensão subsequente do pescoço relaxa a medula espinhal e pode aliviar a tensão nervosa (F).',
+   alerta:'Muitos indivíduos normais sentem tensão na região lombar baixa e na coxa durante essa sequência de manobras — apenas a reprodução da dor radicular familiar do paciente é considerada sugestiva de tensão da raiz do nervo ciático.',
+   positivo:'Reprodução da dor radicular familiar do paciente durante a sequência progressiva de flexão. Sugere tensão da raiz do nervo ciático (hérnia discal lombar).',
+   negativo:'Apenas tensão inespecífica na região lombar e na coxa, sem dor radicular reproduzida, e/ou alívio dos sintomas com a extensão do pescoço (F).',
+   fonte:"Reider, Cap. 9, p.357-358."},
+
+  {id:'pe-lombar-estiramento-femoral', regiao:'lombar', nome:'Teste de Estiramento do Nervo Femoral (Femoral Nerve Stretch Test)',
+   resumo:'Desenhado para avaliar compressão das raízes L2, L3 ou L4, que não recebem tensão significativa dos testes de elevação da perna reta e suas variantes — útil especialmente na suspeita de hérnia do disco L3-L4.',
+   tecnica:'Com o paciente posicionado em decúbito ventral e o joelho fletido a pelo menos 90°, o examinador estende passivamente o quadril do paciente, elevando a coxa da mesa de exame.',
+   alerta:'Em um paciente normal, esta manobra induz apenas uma leve sensação de tensão na face anterior da coxa — não deve ser confundida com dor radicular verdadeira.',
+   positivo:'Reprodução de dor radicular do paciente na face anterior da coxa. Sugere compressão de uma das raízes que contribuem para o nervo femoral (L2, L3 ou L4).',
+   negativo:'Apenas leve sensação de tensão na face anterior da coxa, sem dor radicular reproduzida.',
+   fonte:"Reider, Cap. 9, p.357."},
+
+  {id:'pe-lombar-hiperextensao-monopodal', regiao:'lombar', nome:'Teste de Hiperextensão Monopodal (Single Leg Hyperextension Test)',
+   resumo:'Teste mais específico que a hiperextensão lombar simples para detectar espondilólise e sugerir o lado acometido.',
+   tecnica:'O paciente é solicitado a ficar em posição de afastamento (straddle), com um membro inferior estendido atrás do outro. Em seguida, é instruído a inclinar-se para trás o máximo possível, com o examinador auxiliando para alcançar a hiperextensão máxima da coluna sem que o paciente caia. O procedimento é repetido com a posição dos membros invertida.',
+   alerta:'A dor tende a ser mais intensa quando o membro inferior do lado acometido é o que está estendido posteriormente — compare sempre os dois lados.',
+   positivo:'Hiperextensão exacerba a dor do paciente, mais intensamente quando o membro do lado sintomático é posicionado posteriormente. Sugere espondilólise unilateral no lado correspondente.',
+   negativo:'Hiperextensão em ambas as posições sem exacerbação significativa ou assimétrica da dor.',
+   fonte:"Reider, Cap. 9, p.357-358."},
+
+  {id:'pe-lombar-valsalva', regiao:'lombar', nome:"Manobra de Valsalva (Valsalva's Maneuver)",
+   resumo:'Aumenta a pressão intratecal e, assim, exacerba a dor decorrente de pressão sobre a medula espinhal ou suas raízes nervosas.',
+   tecnica:'O paciente é instruído a fazer força para baixo (bear down), como se estivesse tentando evacuar.',
+   alerta:'Dor de outras causas não relacionadas à pressão intratecal não deve ser afetada pela manobra de Valsalva — um resultado positivo não localiza o nível da lesão.',
+   positivo:'A manobra exacerba a dor do paciente. Sugere que a dor é causada por pressão sobre a medula espinhal ou suas raízes nervosas (por exemplo, hérnia discal ou massa intracanal).',
+   negativo:'Nenhuma exacerbação da dor durante a manobra.',
+   fonte:"Reider, Cap. 9, p.359."}
 ];
 
 /* ── EXAME FÍSICO FUNCTIONS ── */
