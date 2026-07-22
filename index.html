@@ -217,6 +217,8 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .cl-hdr-mid{flex:1;min-width:0}
 .cl-nome{font-weight:700;font-size:.85rem;color:var(--tx);display:block}
 .cl-fonte{font-size:.7rem;color:var(--sx);display:block;margin-top:.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fonte-edit-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;margin-left:.35rem;padding:0;border:none;background:none;color:#3A5575;font-size:.68rem;cursor:pointer;vertical-align:middle;border-radius:3px;flex-shrink:0}
+.fonte-edit-btn:hover{color:var(--og);background:#0B2A22}
 .disc-badge{font-size:.65rem;font-weight:800;background:#0A2A20;color:var(--og-2);border:1px solid #1E3A5A;border-radius:5px;padding:.15rem .4rem;white-space:nowrap;flex-shrink:0}
 .cl-chevron{flex-shrink:0;transition:transform .25s;color:#3A5575}
 .cl-card.open .cl-chevron{transform:rotate(180deg);color:var(--og)}
@@ -1116,6 +1118,27 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   </div>
 </div>
 
+<!-- ══ MODAL FONTE DA IMAGEM (admin) ══ -->
+<div class="modal-overlay" id="modal-fonte" style="display:none" onclick="if(event.target===this)fecharModalFonte()">
+  <div class="modal-box" style="max-width:420px">
+    <div class="modal-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--og)" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Editar Fonte
+    </div>
+    <p class="modal-sub">Texto de referência/fonte exibido junto a esta figura para todos os usuários.</p>
+    <input type="hidden" id="modal-fonte-ns"/>
+    <input type="hidden" id="modal-fonte-id"/>
+    <input type="text" id="modal-fonte-val" placeholder="Ex: Campbell's Operative Orthopaedics 15ª ed. 2026" maxlength="140"/>
+    <div class="modal-footer">
+      <button class="btn btn-c" onclick="fecharModalFonte()">Cancelar</button>
+      <button class="btn btn-e" onclick="salvarFonteImagem()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="fig-overlay" id="fig-overlay" style="display:none" onclick="if(event.target===this)fecharFigura()">
   <div class="fig-box">
     <button class="fig-close" onclick="fecharFigura()" title="Fechar">✕</button>
@@ -1532,16 +1555,58 @@ const _uploadTimes = {};
 // de verdade; a checagem isAdminLoggedIn() aqui é só pra
 // esconder os controles de quem não é admin.
 let GLOBAL_IMG = {};
+let GLOBAL_FONTE = {};
 
 async function carregarImagensGlobais() {
   try {
     const snap = await db.collection('global_images').get();
-    const map = {};
-    snap.forEach(d => { map[d.id] = d.data().data; });
-    GLOBAL_IMG = map;
+    const mapImg = {}, mapFonte = {};
+    snap.forEach(d => {
+      const v = d.data();
+      if (v.data) mapImg[d.id] = v.data;
+      if (v.fonte) mapFonte[d.id] = v.fonte;
+    });
+    GLOBAL_IMG = mapImg;
+    GLOBAL_FONTE = mapFonte;
   } catch (e) {
     console.warn('Não foi possível carregar imagens globais:', e.code, e.message);
     if (isAdminLoggedIn()) mostrarToast('Erro ao carregar imagens (' + (e.code || e.message) + ').');
+  }
+}
+
+// ── Edição de fonte (admin) ──
+// Permite ao admin adicionar/editar o texto de fonte/referência exibido
+// junto às classificações e vias de acesso, sem precisar subir uma imagem.
+function abrirModalFonte(ns, id, nomeAtual) {
+  if (!isAdminLoggedIn()) return;
+  document.getElementById('modal-fonte-ns').value = ns;
+  document.getElementById('modal-fonte-id').value = id;
+  const atual = GLOBAL_FONTE[ns + '_' + id] || nomeAtual || '';
+  document.getElementById('modal-fonte-val').value = atual;
+  document.getElementById('modal-fonte').style.display = 'flex';
+  setTimeout(() => document.getElementById('modal-fonte-val').focus(), 50);
+}
+function fecharModalFonte() { document.getElementById('modal-fonte').style.display = 'none'; }
+async function salvarFonteImagem() {
+  if (!isAdminLoggedIn()) { mostrarToast('Sessão de admin expirou — faça login novamente.'); return; }
+  const ns = document.getElementById('modal-fonte-ns').value;
+  const id = document.getElementById('modal-fonte-id').value;
+  const fonte = document.getElementById('modal-fonte-val').value.trim().slice(0, 140);
+  if (!fonte) { mostrarToast('Digite um texto para a fonte.'); return; }
+  const key = ns + '_' + id;
+  try {
+    await db.collection('global_images').doc(key).set({
+      fonte,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedBy: _auth.currentUser.email
+    }, { merge: true });
+    GLOBAL_FONTE[key] = fonte;
+    fecharModalFonte();
+    mostrarToast('Fonte atualizada!');
+    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
+  } catch (e) {
+    console.error('salvarFonteImagem falhou:', e.code, e.message);
+    mostrarToast('Erro ao salvar fonte: ' + (e.code || e.message));
   }
 }
 
@@ -1609,7 +1674,7 @@ async function salvarImagemGlobal(ns, id, dataUrl) {
       data: dataUrl,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedBy: _auth.currentUser.email
-    });
+    }, { merge: true });
     GLOBAL_IMG[key] = dataUrl;
     mostrarToast('Imagem atualizada para todos os usuários!');
     if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
@@ -3354,7 +3419,7 @@ function renderVias() {
         <div class="va-hdr" onclick="toggleVaCard(this)">
           <div style="flex:1;min-width:0">
             <div class="va-nome">${escHtml(v.nome)}</div>
-            <div class="va-fonte">${escHtml(v.fonte)}</div>
+            <div class="va-fonte">${escHtml(GLOBAL_FONTE['va_' + v.id] || v.fonte)}${admin ? `<button class="fonte-edit-btn" onclick="event.stopPropagation();abrirModalFonte('va','${v.id}','${(GLOBAL_FONTE['va_' + v.id] || v.fonte || '').replace(/'/g,"\\'")}')" title="Editar fonte">✎</button>` : ''}</div>
           </div>
           ${figIco}
           <svg class="va-chevron" width="18" height="18"><use href="#i-chev"/></svg>
@@ -3487,7 +3552,7 @@ function renderClassificacoes() {
       <div class="cl-card${c.open ? ' open' : ''}" id="card-${c.id}">
         <div class="cl-hdr" onclick="toggleCard(this)">
           <span class="cl-sigla">${c.sigla}</span>
-          <div class="cl-hdr-mid"><span class="cl-nome">${c.nome}</span><span class="cl-fonte">${c.fonte}</span></div>
+          <div class="cl-hdr-mid"><span class="cl-nome">${c.nome}</span><div style="display:flex;align-items:center;min-width:0;margin-top:.1rem"><span class="cl-fonte" style="margin-top:0">${escHtml(GLOBAL_FONTE['cl_' + c.id] || c.fonte)}</span>${isAdminLoggedIn() ? `<button class="fonte-edit-btn" onclick="event.stopPropagation();abrirModalFonte('cl','${c.id}','${(GLOBAL_FONTE['cl_' + c.id] || c.fonte || '').replace(/'/g,"\\'")}')" title="Editar fonte">✎</button>` : ''}</div></div>
           ${discBadge}
           <svg class="cl-chevron" width="18" height="18"><use href="#i-chev"/></svg>
         </div>
