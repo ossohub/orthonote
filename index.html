@@ -256,6 +256,31 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .va-fig-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.65rem;padding:.38rem .75rem;background:#0A2A20;border:1.5px solid #1E3550;border-radius:20px;color:var(--og);font-size:.74rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s}
 .va-fig-btn:hover{background:#0B3328;border-color:var(--og);box-shadow:0 0 0 2px rgba(16,185,129,.15)}
 .va-fig-ico{flex-shrink:0;opacity:.65;margin-left:.2rem}
+/* ── EXAME FÍSICO ── */
+.pe-card{background:#192D45;border-radius:var(--r);border:1px solid #24405E;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.3);transition:box-shadow .2s,border-color .2s,transform .15s}
+.pe-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.5);border-color:#2A5070;transform:translateY(-1px)}
+.pe-hdr{display:flex;align-items:flex-start;gap:.65rem;padding:.85rem 1rem;cursor:pointer;user-select:none}
+.pe-hdr:hover .pe-chevron{color:var(--og)}
+.pe-nome{font-size:.9rem;font-weight:700;color:var(--tx);line-height:1.3}
+.pe-fonte{font-size:.7rem;color:var(--sx);margin-top:.18rem}
+.pe-chevron{transition:transform .2s;color:var(--sx);flex-shrink:0}
+.pe-card.open .pe-chevron{transform:rotate(180deg);color:var(--og)}
+.pe-card.open .pe-body{display:block}
+.pe-body{display:none;padding:0 1rem 1rem}
+.pe-fig-wrap{margin:.15rem 0 .75rem}
+.pe-fig-thumb{position:relative;border-radius:8px;overflow:hidden;cursor:pointer;border:1px solid #24405E;background:#0E1C30}
+.pe-fig-thumb img{display:block;width:100%;max-height:340px;object-fit:contain;background:#0B1626}
+.pe-fig-overlay2{position:absolute;inset:0;background:rgba(10,20,32,.72);opacity:0;display:flex;align-items:center;justify-content:center;gap:.4rem;color:#fff;font-size:.72rem;font-weight:700;transition:opacity .15s}
+.pe-fig-thumb:hover .pe-fig-overlay2{opacity:1}
+.pe-section{margin-bottom:.65rem}
+.pe-section-label{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--sx);margin-bottom:.3rem;display:flex;align-items:center;gap:.35rem}
+.pe-section-text{font-size:.82rem;color:#C8DCF0;line-height:1.55;white-space:pre-wrap}
+.pe-alerta{font-size:.82rem;color:#FFCC80;line-height:1.55;background:rgba(255,140,0,.08);padding:.5rem .65rem;border-radius:6px;border-left:3px solid #FF9800;margin-bottom:.65rem}
+.pe-resultado-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.65rem}
+@media (max-width:560px){.pe-resultado-grid{grid-template-columns:1fr}}
+.pe-positivo{font-size:.8rem;color:#FFB4B4;line-height:1.5;background:rgba(220,38,38,.08);padding:.5rem .65rem;border-radius:6px;border-left:3px solid #E53935}
+.pe-negativo{font-size:.8rem;color:#A8E6B0;line-height:1.5;background:rgba(16,185,129,.08);padding:.5rem .65rem;border-radius:6px;border-left:3px solid #22C55E}
+.pe-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:.85rem}
 /* ── LIGHTBOX ── */
 .fig-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9995;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 .fig-box{position:relative;max-width:min(860px,95vw);max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:.65rem}
@@ -669,6 +694,10 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-via"/></svg></span>
           Vias de Acesso
         </button>
+        <button class="nav-btn" id="nb-pe" onclick="showTab('pe')">
+          <span class="nav-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-4.79a2 2 0 0 1 2.83-2.82L7 15"/></svg></span>
+          Exame Físico
+        </button>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-label">Calculadoras</div>
@@ -944,6 +973,33 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn" onclick="selectViaRegion('punho')" data-vregion="punho">Punho <span class="rbadge">4</span></button>
         </div>
         <div id="va-regions"></div>
+      </div>
+      </div>
+
+      <!-- ══ TAB: EXAME FÍSICO ══ -->
+      <div id="tab-pe" class="tab-content">
+      <div class="container-inner">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap">
+          <div class="s-tit" style="margin:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--og)"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-4.79a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+            Exame Físico Ortopédico
+          </div>
+          <div style="flex:1;min-width:180px">
+            <input type="text" id="pe-filter" class="srch-input" placeholder="Buscar: nome do teste, região, achado…" oninput="filtrarPe()"/>
+          </div>
+          <button class="sug-btn" style="position:static;flex-shrink:0" onclick="abrirModal('Exame Físico')" title="Sugerir novo teste ou reportar erro">!</button>
+        </div>
+        <div class="region-nav" id="pe-region-nav">
+          <button class="region-btn active" onclick="selectPeRegion('ombro')" data-pregion="ombro">Ombro e Braço <span class="rbadge">26</span></button>
+          <button class="region-btn" onclick="selectPeRegion('cotovelo')" data-pregion="cotovelo">Cotovelo e Antebraço <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('mao-punho')" data-pregion="mao-punho">Mão e Punho <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('quadril')" data-pregion="quadril">Quadril e Coxa <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('joelho')" data-pregion="joelho">Joelho <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('lombar')" data-pregion="lombar">Coluna Lombar <span class="rbadge">0</span></button>
+        </div>
+        <div id="pe-regions"></div>
       </div>
       </div>
 
@@ -4205,6 +4261,301 @@ function filtrarVias() {
 function toggleVaCard(hdr) { hdr.parentElement.classList.toggle('open'); }
 
 /* ══════════════════════════════════════════════════════════
+   EXAME FÍSICO — DADOS (LOTE 1: OMBRO E BRAÇO)
+   Fonte: Reider, B. The Orthopaedic Physical Examination, 2ª ed.
+   ══════════════════════════════════════════════════════════ */
+const PE_REGIOES = [
+  {id:'ombro',      nome:'Ombro e Braço',              desc:'Manguito rotador, instabilidade glenoumeral, SLAP, bíceps, desfiladeiro torácico', count:26},
+  {id:'cotovelo',   nome:'Cotovelo e Antebraço',       desc:'Em breve', count:0},
+  {id:'mao-punho',  nome:'Mão e Punho',                desc:'Em breve', count:0},
+  {id:'quadril',    nome:'Quadril e Coxa',             desc:'Em breve', count:0},
+  {id:'joelho',     nome:'Joelho',                     desc:'Em breve', count:0},
+  {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Em breve', count:0},
+  {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Em breve', count:0},
+  {id:'lombar',     nome:'Coluna Lombar',              desc:'Em breve', count:0}
+];
+
+const PE_DATA = [
+  // ══ OMBRO E BRAÇO — Distúrbios do Manguito Rotador ══
+  {id:'pe-ombro-neer', regiao:'ombro', nome:"Sinal do Impacto de Neer (Neer's Impingement Sign)",
+   resumo:'Teste clássico para impacto subacromial do manguito rotador.',
+   tecnica:'Com o paciente sentado ou em pé, o examinador estabiliza a escápula do paciente com uma das mãos e passivamente eleva o braço em flexão anterior máxima com a outra (A). O impacto pode ser acentuado fletindo o cotovelo e rodando internamente o ombro antes de repetir a manobra — sinal de Neer modificado (B).',
+   alerta:'Estabilize bem a escápula durante toda a manobra: a compensação escapular pode mascarar a verdadeira amplitude do movimento e gerar falso-negativo.',
+   positivo:'Reprodução da dor característica do paciente na flexão anterior máxima. Sugere síndrome do impacto subacromial (impacto do manguito rotador/bursa contra o acrômio anterolateral). Se a dor desaparecer após infiltração subacromial de anestésico, confirma-se o "teste" de Neer (distinto do "sinal").',
+   negativo:'Ausência de dor durante a flexão anterior máxima.',
+   fonte:"Reider, The Orthopaedic Physical Examination, 2ª ed., Cap. 2, p.46."},
+  {id:'pe-ombro-hawkins', regiao:'ombro', nome:"Teste de Reforço do Impacto de Hawkins (Hawkins' Impingement Reinforcement Test)",
+   resumo:'Manobra de impacto que soma rotação interna à flexão anterior de 90°.',
+   tecnica:'Com o ombro do paciente fletido a 90° e o cotovelo também a 90° (antebraço paralelo ao solo), o examinador roda internamente o ombro passivamente, mantendo a posição de flexão anterior.',
+   alerta:'Mantenha o braço na posição de flexão anterior durante toda a rotação interna — perder essa posição reduz a sensibilidade do teste.',
+   positivo:'Dor reproduzida pela manobra. Sugere impacto da tuberosidade maior e do manguito rotador contra o acrômio e o ligamento coracoacromial (dor de impacto coracóideo se referida mais anterior/medial).',
+   negativo:'Ausência de dor durante a rotação interna em flexão. A dor que desaparece após infiltração subacromial de anestésico reforça a origem no impacto/manguito rotador.',
+   fonte:"Reider, Cap. 2, p.47."},
+  {id:'pe-ombro-droparm', regiao:'ombro', nome:'Teste do Braço Caído (Droparm Test)',
+   resumo:'Usado quando a abdução passiva excede muito a capacidade ativa do paciente.',
+   tecnica:'O examinador abduz passivamente o ombro do paciente ao grau máximo possível e, após avisar o paciente, libera o braço, pedindo que o abaixe lentamente de volta ao lado do corpo.',
+   alerta:'Avise sempre o paciente antes de soltar o braço — a queda súbita e descontrolada pode assustar o paciente ou agravar dor/lesão se ele não estiver preparado.',
+   positivo:'O paciente perde o controle do braço, que cai subitamente ao lado do corpo (geralmente a partir de ~100° de abdução). Sugere ruptura extensa do manguito rotador (paralisia do nervo axilar também pode produzir o mesmo achado).',
+   negativo:'O paciente consegue abaixar o braço de forma controlada e suave até o lado do corpo.',
+   fonte:"Reider, Cap. 2, p.47."},
+  {id:'pe-ombro-dropping-sign', regiao:'ombro', nome:'Sinal do Braço Caído / Lag de Rotação Externa (Dropping Sign / External Rotation Lag Sign)',
+   resumo:'Avalia a capacidade de manter a rotação externa máxima — indicador de rupturas maiores do manguito.',
+   tecnica:'Com o cotovelo fletido a 90° e junto ao corpo, o examinador roda externamente o ombro do paciente até a rotação externa máxima (A, B) e pede que ele mantenha essa posição enquanto libera o braço (C).',
+   alerta:'Mantenha o cotovelo estabilizado junto ao tronco durante toda a manobra, para não confundir perda de rotação externa com abdução compensatória do ombro.',
+   positivo:'O paciente não consegue manter a rotação externa máxima e o braço "cai" de volta em direção à rotação neutra. Indica lesão/atrofia gordurosa do infraespinhal — geralmente rupturas maiores e mais crônicas do manguito rotador.',
+   negativo:'O paciente mantém a posição de rotação externa máxima sem o braço derivar de volta.',
+   fonte:"Reider, Cap. 2, p.48."},
+  {id:'pe-ombro-hornblower', regiao:'ombro', nome:"Sinal de Hornblower (Hornblower's Sign)",
+   resumo:'Análogo ao dropping sign, mas avalia especificamente o redondo menor.',
+   tecnica:'O examinador flexiona passivamente o ombro do paciente para a frente e o cotovelo a 90°, mantendo a flexão do ombro enquanto instrui o paciente a manter o cotovelo perpendicular ao chão (A: normal). O braço é então liberado (B: abnormal).',
+   alerta:'Certifique-se de que o ombro permaneça fletido para a frente durante todo o teste — perder essa posição invalida a interpretação do sinal.',
+   positivo:'O antebraço cai em rotação interna (o paciente não consegue manter o cotovelo perpendicular ao solo). Indica fraqueza do redondo menor (teres minor), geralmente em rupturas maiores e crônicas do manguito com atrofia gordurosa.',
+   negativo:'O paciente mantém o cotovelo perpendicular ao solo, sem queda em rotação interna.',
+   fonte:"Reider, Cap. 2, p.48."},
+  {id:'pe-ombro-liftoff', regiao:'ombro', nome:'Teste de Levantar as Costas (Subscapularis Liftoff Test / Gerber)',
+   resumo:'Teste clássico de Gerber para integridade funcional do subescapular.',
+   tecnica:'O paciente roda internamente o braço atrás das costas, com o dorso da mão repousando na região mediolombar (A), e é então solicitado a afastar ativamente a mão das costas (B).',
+   alerta:'Dor durante o posicionamento pode impedir a realização completa da manobra mesmo com o subescapular íntegro — nesse caso, considere o teste inconclusivo, não necessariamente positivo.',
+   positivo:'Incapacidade de afastar a mão das costas. Sugere ruptura do subescapular (a manobra exige integridade funcional do músculo). A força também pode ser graduada pedindo ao paciente que resista à tentativa do examinador de empurrar a mão de volta às costas.',
+   negativo:'O paciente consegue afastar ativamente a mão das costas, vencendo alguma resistência do examinador.',
+   fonte:"Reider, Cap. 2, p.48-49 (Gerber)."},
+  {id:'pe-ombro-subscap-lag', regiao:'ombro', nome:'Sinal do Lag do Subescapular (Subscapularis Lag Sign)',
+   resumo:'Versão passiva e mais sensível/específica do liftoff test.',
+   tecnica:'Semelhante ao liftoff test: o examinador leva passivamente o braço à posição de rotação interna máxima atrás das costas, sem causar dor (A, B), e então libera o braço (C).',
+   alerta:'A manobra deve ser feita passivamente e sem dor antes de soltar o braço — dor durante o posicionamento invalida a interpretação padrão do sinal.',
+   positivo:'O braço "cai" de volta em direção à coluna lombar (não mantém a rotação interna máxima). Sinal mais sensível e específico que o liftoff test para insuficiência do subescapular.',
+   negativo:'O paciente mantém a posição de rotação interna máxima sem o braço derivar de volta.',
+   fonte:"Reider, Cap. 2, p.49."},
+  {id:'pe-ombro-belly-press', regiao:'ombro', nome:'Teste de Compressão Abdominal (Belly Press Test)',
+   resumo:'Alternativa ao liftoff test para pacientes com limitação de rotação interna/dor às costas.',
+   tecnica:'Com a palma da mão apoiada sobre o abdome e o cotovelo no plano coronal fletido a 90° (A), o examinador posiciona sua mão entre a palma do paciente e o abdome, pedindo que ele pressione firmemente contra ela (B).',
+   alerta:'Observe se o paciente desloca o cotovelo para a frente do plano coronal para compensar fraqueza — esse desvio já sugere fraqueza do subescapular, mesmo sem queda evidente de força de preensão.',
+   positivo:'Pressão fraca e/ou deslocamento do cotovelo para a frente (perda do plano coronal) para ganhar alavancagem. Sugere fraqueza do subescapular.',
+   negativo:'O paciente exerce pressão firme mantendo o cotovelo no plano coronal, sem compensação.',
+   fonte:"Reider, Cap. 2, p.49."},
+  {id:'pe-ombro-passive-rotation', regiao:'ombro', nome:'Teste de Rotação Passiva (Crepitação de Partes Moles)',
+   resumo:'Pesquisa crepitação durante rotação passiva ampla do ombro.',
+   tecnica:'Com o ombro abduzido a 90° e o cotovelo fletido, o examinador segura o cotovelo do paciente com uma mão e apoia a outra sobre o ombro, rodando o braço por um amplo arco de rotação interna e externa enquanto palpa em busca de crepitação de partes moles.',
+   alerta:'Correlacione sempre com os demais testes do manguito rotador — crepitação pode estar presente em bursa subacromial hipertrofiada, mesmo indolor, sem indicar necessariamente patologia significativa.',
+   positivo:'Crepitação palpável ("estalido de partes moles") durante a rotação. Pode refletir bursa subacromial hipertrofiada ou manguito rotador irregular/rasgado.',
+   negativo:'Rotação suave, sem crepitação palpável.',
+   fonte:"Reider, Cap. 2, p.49-50."},
+  {id:'pe-ombro-cross-chest-adduction', regiao:'ombro', nome:'Adução Cross-Chest Passiva (Passive Cross-Chest Adduction)',
+   resumo:'Teste de estresse para a articulação acromioclavicular.',
+   tecnica:'De frente para o paciente, o examinador leva passivamente o braço do paciente à adução máxima cruzando o tórax, podendo palpar a articulação acromioclavicular com a mão livre.',
+   alerta:'Palpe a articulação acromioclavicular durante a manobra — a localização exata da dor (topo do ombro vs. profunda) ajuda a diferenciar patologia acromioclavicular de labral.',
+   positivo:'Reprodução de dor na articulação acromioclavicular, por vezes com crepitação localizada à palpação concomitante. Sugere lesão/artrite acromioclavicular.',
+   negativo:'Manobra indolor, sem reprodução de sintomas na articulação acromioclavicular.',
+   fonte:"Reider, Cap. 2, p.51."},
+
+  // ══ OMBRO — Lesões SLAP ══
+  {id:'pe-ombro-obrien', regiao:'ombro', nome:"Teste de O'Brien / Teste de Compressão Ativa (O'Brien's / Active Compression Test)",
+   resumo:'Teste mais utilizado para triagem de lesões SLAP; também sensível para patologia acromioclavicular.',
+   tecnica:'Com o ombro fletido a 90° e aduzido 10-15° medialmente, cotovelo em extensão completa, o paciente roda internamente o ombro ao máximo (polegar para baixo) e resiste a uma força descendente aplicada pelo examinador no punho (A). O paciente então roda externamente o ombro (palma para cima) e a manobra é repetida (B).',
+   alerta:'Pergunte ao paciente sobre localização e presença da dor em cada uma das duas posições — a interpretação depende da comparação entre as duas fases, não de uma posição isolada.',
+   positivo:'Dor durante a fase de rotação interna (polegar para baixo) que melhora ou desaparece na fase de rotação externa (palma para cima). Sugere lesão SLAP ou patologia acromioclavicular; dor no topo do ombro sugere acromioclavicular, dor profunda sugere labral.',
+   negativo:'Ausência de dor em ambas as posições, ou dor que não se modifica entre as duas fases.',
+   fonte:"Reider, Cap. 2, p.52 (Snyder)."},
+  {id:'pe-ombro-biceps-load', regiao:'ombro', nome:'Teste de Carga do Bíceps (Biceps Load Test)',
+   resumo:'Avalia lesão SLAP associada à instabilidade anterior.',
+   tecnica:'Com o paciente em decúbito dorsal, o braço é colocado na posição de apreensão (abdução e rotação externa). Uma vez que o paciente sinta apreensão, o cotovelo é fletido a 90° com o antebraço supinado, e o paciente é solicitado a fletir o cotovelo contra resistência.',
+   alerta:'A posição de apreensão deve ser alcançada antes de testar a flexão resistida do cotovelo — testar sem apreensão prévia invalida o resultado.',
+   positivo:'Aumento da apreensão ou desconforto durante a flexão resistida do cotovelo. Sugere lesão labral superior (SLAP) associada à instabilidade anterior.',
+   negativo:'Ausência de aumento da apreensão/desconforto com a flexão resistida.',
+   fonte:"Reider, Cap. 2, p.52."},
+
+  // ══ OMBRO — Testes de Estabilidade ══
+  {id:'pe-ombro-apprehension', regiao:'ombro', nome:'Teste de Apreensão / Crank Test',
+   resumo:'Teste provocativo clássico para instabilidade anterior.',
+   tecnica:'Com o paciente relaxado, o examinador posiciona o ombro em 90° de abdução com leve extensão e o cotovelo fletido, então roda externamente e, se necessário, estende e abduz ainda mais o braço.',
+   alerta:'Mova o braço lentamente e pare assim que o paciente relatar apreensão — uma luxação franca durante o teste não é desejável, mesmo não sendo patognomônica de instabilidade.',
+   positivo:'O paciente sente apreensão (medo de luxação) ao se aproximar da posição de subluxação/luxação anterior. Sinal clássico de instabilidade anterior. Dor isolada sem apreensão é sugestiva, mas não diagnóstica (considerar impacto interno).',
+   negativo:'Ausência de apreensão ou dor na posição de abdução/rotação externa máxima.',
+   fonte:"Reider, Cap. 2, p.54."},
+  {id:'pe-ombro-relocation-release', regiao:'ombro', nome:'Teste de Relocação / Teste de Liberação (Relocation Test / Release Test)',
+   resumo:'Aumenta a especificidade do teste de apreensão para instabilidade anterior sutil.',
+   tecnica:'Com o braço do paciente na posição de apreensão, o examinador aplica uma força posteriormente direcionada na face anterior do ombro (A — relocação). A seguir, a força é liberada (B — release), o que deve fazer a apreensão/dor retornar.',
+   alerta:'Realize a fase de liberação (release) de forma controlada — retirar a força posterior de forma abrupta pode reproduzir apreensão intensa e desconforto significativo no paciente.',
+   positivo:'Alívio da dor/apreensão com a força posterior (relocação) e retorno dos sintomas ao liberar a força (release). Confirma instabilidade anterior sintomática. Se a apreensão der lugar a dor (sem apreensão) aliviada pela relocação, considerar impacto interno.',
+   negativo:'Ausência de alívio dos sintomas com a força posterior, ou ausência de sintomas em ambas as fases.',
+   fonte:"Reider, Cap. 2, p.54."},
+  {id:'pe-ombro-drawer', regiao:'ombro', nome:'Teste da Gaveta (Drawer Test)',
+   resumo:'Quantifica a frouxidão anterior e posterior do ombro.',
+   tecnica:'Paciente sentado/em pé, braço relaxado ao lado do corpo. O examinador estabiliza a escápula com uma mão (indicador no processo coracoide, polegar na espinha escapular) e, com a outra, segura a cabeça umeral entre polegar e dedos (A), translando-a para anterior (B) e depois para posterior (C), quantificando a frouxidão.',
+   alerta:'Assegure relaxamento completo do paciente e estabilização adequada da escápula — tensão muscular residual compromete a interpretação da amplitude de translação.',
+   positivo:'Translação aumentada comparada ao ombro contralateral assintomático. Sugere frouxidão/instabilidade anterior (translação anterior) ou posterior (translação posterior) patológica.',
+   negativo:'Translação simétrica e dentro da normalidade em comparação ao lado contralateral.',
+   fonte:"Reider, Cap. 2, p.54-55."},
+  {id:'pe-ombro-load-shift', regiao:'ombro', nome:'Teste de Carga e Deslocamento (Load and Shift Test)',
+   resumo:'Alternativa ao drawer test, realizada com o paciente em decúbito dorsal.',
+   tecnica:'Paciente em decúbito dorsal, tronco na borda da mesa. O examinador segura o punho do paciente (posição neutra, sustentando o peso do membro) e, com a outra mão, segura a cabeça umeral (indicador sobre a ponta do coracoide), empurrando-a para anterior (A-B) e depois para posterior (C), avaliando a translação. Técnica alternativa: suspender o membro pela mão, liberando ambas as mãos do examinador para controlar a cabeça umeral e estabilizar a escápula (D-F).',
+   alerta:'Varie a posição do ombro (rotação neutra, 30° de flexão, 30° de abdução) até encontrar a posição de maior frouxidão antes de concluir o teste — testar em uma única posição pode subestimar a instabilidade.',
+   positivo:'Translação aumentada comparada ao lado assintomático (anterior ou posterior). Sugere frouxidão/instabilidade na direção correspondente.',
+   negativo:'Translação simétrica e normal em relação ao lado contralateral.',
+   fonte:"Reider, Cap. 2, p.55-57."},
+  {id:'pe-ombro-sulcus', regiao:'ombro', nome:'Sinal do Sulco (Sulcus Sign)',
+   resumo:'Avalia frouxidão inferior — achado-chave na instabilidade multidirecional.',
+   tecnica:'Paciente em pé ou sentado, relaxado. O examinador segura o braço do paciente logo acima do cotovelo e traciona para baixo, observando a borda lateral do acrômio (A: posição inicial; B: posição final, seta indica o sulco).',
+   alerta:'Compare sempre com o lado contralateral — o grau de frouxidão inferior varia bastante entre indivíduos normais.',
+   positivo:'Aparecimento de um sulco/depressão visível entre a borda lateral do acrômio e a cabeça umeral, indicando frouxidão inferior. Sugestivo de instabilidade multidirecional, especialmente se maior que no lado assintomático.',
+   negativo:'Ausência de sulco visível ou sulco simétrico ao lado contralateral.',
+   fonte:"Reider, Cap. 2, p.58."},
+  {id:'pe-ombro-jerk', regiao:'ombro', nome:'Teste do Jerk (Jerk Test)',
+   resumo:'Teste provocativo para instabilidade posterior.',
+   tecnica:'Paciente relaxado em decúbito dorsal, ombro fletido a 90° com o cotovelo fletido. O examinador aplica uma força posteriormente direcionada no cotovelo, tentando empurrar a cabeça umeral para fora da fossa glenoide posteriormente; rotação interna e adução do ombro podem facilitar a manobra.',
+   alerta:'Em instabilidades posteriores mais sutis, o teste pode produzir apenas dor ou apreensão sem luxação palpável — não descarte instabilidade posterior apenas pela ausência de um "salto" evidente.',
+   positivo:'Um "jerk" ou salto perceptível conforme a cabeça umeral se desloca posteriormente para fora da glenoide. Sugestivo de instabilidade posterior.',
+   negativo:'Ausência de salto/deslocamento perceptível durante a manobra.',
+   fonte:"Reider, Cap. 2, p.58."},
+  {id:'pe-ombro-circumduction', regiao:'ombro', nome:'Teste de Circundução (Circumduction Test)',
+   resumo:'Reproduz subluxação posterior durante um arco completo de movimento.',
+   tecnica:'Paciente em pé. Para o ombro direito, o examinador se posiciona atrás e segura o antebraço direito do paciente, levando o ombro a uma posição estendida e levemente abduzida (A), continuando o movimento em um círculo completo (B) e, após o braço passar por cima, trazendo-o à frente do corpo em posição fletida e aduzida (C).',
+   alerta:'A posição de risco ocorre quando o ombro está fletido e aduzido à frente do corpo — mantenha a mão livre sobre a face posterior do ombro nesse momento para detectar a subluxação.',
+   positivo:'Percepção/visualização de subluxação posterior da cabeça umeral durante a fase de flexão-adução anterior, reproduzindo os sintomas familiares do paciente. Sugere instabilidade posterior.',
+   negativo:'Ausência de subluxação palpável/visível durante todo o arco de circundução.',
+   fonte:"Reider, Cap. 2, p.58-59."},
+
+  // ══ OMBRO — Tendão do Bíceps ══
+  {id:'pe-ombro-speed', regiao:'ombro', nome:'Teste de Speed (Speed Test)',
+   resumo:'Teste mais sensível (porém pouco específico) para tendinite bicipital.',
+   tecnica:'Com o ombro fletido a 90° e o cotovelo em extensão completa, antebraço supinado, o paciente resiste enquanto o examinador tenta empurrar o braço para baixo.',
+   alerta:'Use o teste de Speed apenas como auxiliar na avaliação de lesão bicipital — é sensível, mas pouco específico, não devendo ser interpretado isoladamente como diagnóstico.',
+   positivo:'Dor na face anterior do ombro durante a resistência. Sugere tendinite ou instabilidade do bíceps (pode também refletir outras patologias do manguito rotador).',
+   negativo:'Ausência de dor durante a manobra resistida.',
+   fonte:"Reider, Cap. 2, p.60."},
+  {id:'pe-ombro-yergason', regiao:'ombro', nome:"Teste de Yergason (Yergason's Test)",
+   resumo:'Avalia tendinite e subluxação/luxação do tendão da porção longa do bíceps.',
+   tecnica:'Com o braço do paciente ao lado do corpo e o cotovelo fletido a 90°, o examinador segura a mão do paciente e pede que ele tente, simultaneamente, fletir o cotovelo e supinar o antebraço contra resistência, enquanto palpa o sulco bicipital.',
+   alerta:'Palpe continuamente o sulco bicipital durante toda a manobra — um estalido palpável/audível indica subluxação do tendão, achado diferente da dor isolada de tendinite.',
+   positivo:'Dor na face anterior do ombro sugere tendinite do bíceps; um estalido palpável/audível no sulco bicipital durante a rotação interna do ombro sugere subluxação/luxação do tendão da porção longa do bíceps.',
+   negativo:'Ausência de dor e ausência de estalido palpável durante a manobra.',
+   fonte:"Reider, Cap. 2, p.60-61."},
+  {id:'pe-ombro-biceps-instability', regiao:'ombro', nome:'Teste de Instabilidade do Bíceps (Biceps Instability Test)',
+   resumo:'Descrito por Abbott e Saunders para demonstrar instabilidade do tendão bicipital.',
+   tecnica:'O examinador leva o braço do paciente à abdução e rotação externa enquanto palpa o sulco bicipital (A), então roda internamente o ombro no plano escapular mantendo a palpação (B).',
+   alerta:'Mantenha o dedo continuamente sobre o sulco bicipital durante toda a rotação — um deslocamento breve do tendão pode ser facilmente perdido se a palpação for interrompida.',
+   positivo:'Estalido palpável e por vezes audível no sulco bicipital durante a rotação interna. Sugere subluxação/luxação do tendão da porção longa do bíceps, geralmente associada a ruptura do intervalo rotador/subescapular.',
+   negativo:'Ausência de estalido palpável durante a rotação.',
+   fonte:"Reider, Cap. 2, p.61."},
+
+  // ══ OMBRO — Síndrome do Desfiladeiro Torácico ══
+  {id:'pe-ombro-adson', regiao:'ombro', nome:"Teste de Adson (Adson's Test)",
+   resumo:'O mais conhecido dos testes vasculares para síndrome do desfiladeiro torácico.',
+   tecnica:'Com o paciente sentado ou em pé, o ombro é abduzido 30° e estendido ao máximo. O examinador segura o punho do paciente, posicionando os dedos para palpar o pulso radial, e pede que o paciente vire a cabeça em direção ao ombro testado (A) e inspire profundamente, sustentando a respiração (B). Variações: virar a cabeça para o lado oposto (C) ou abduzir e rodar externamente o ombro a 90° (manobra de Wright).',
+   alerta:'Compare sempre a qualidade do pulso na posição de teste com a posição de repouso (braço ao lado do corpo) no mesmo paciente — variações de pulso basal entre pacientes tornam a comparação absoluta pouco confiável.',
+   positivo:'Diminuição ou desaparecimento do pulso radial na posição de teste, especialmente se os sintomas do paciente forem reproduzidos. Sugere possível síndrome do desfiladeiro torácico.',
+   negativo:'Pulso radial mantido sem alteração perceptível na posição de teste.',
+   fonte:"Reider, Cap. 2, p.61-62."},
+  {id:'pe-ombro-roos', regiao:'ombro', nome:"Teste de Roos (Roos' Test / EAST)",
+   resumo:'Reproduz sintomas neurológicos de esforço da síndrome do desfiladeiro torácico.',
+   tecnica:'O paciente abduz o ombro afetado a 90° com o cotovelo também fletido a 90° (posição "mãos para cima") e é solicitado a abrir e fechar a mão repetidamente (cerca de 15 vezes), descrevendo qualquer sensação sentida durante o processo.',
+   alerta:'Sintomas que aparecem progressivamente durante o teste (e não os já presentes desde o início) são mais sugestivos de síndrome do desfiladeiro torácico verdadeira — atente para essa distinção temporal ao interpretar o relato do paciente.',
+   positivo:'Dormência, cãibra, fraqueza ou incapacidade de completar o número solicitado de repetições. Sugere síndrome do desfiladeiro torácico.',
+   negativo:'O paciente completa as repetições sem dormência, cãibra ou fraqueza significativa.',
+   fonte:"Reider, Cap. 2, p.61-62."},
+  {id:'pe-ombro-halsted', regiao:'ombro', nome:"Teste de Halsted (Halsted's Test)",
+   resumo:'Teste vascular com tração do membro e extensão cervical contralateral.',
+   tecnica:'Paciente em pé. O examinador palpa o pulso radial com o braço do paciente ao lado do corpo (A). O paciente é então solicitado a virar a cabeça para o lado oposto e estender o pescoço, enquanto o examinador aplica tração para baixo no braço e continua palpando o pulso (B).',
+   alerta:'Aplique a tração de forma gradual e controlada — tração excessiva ou brusca no membro pode causar desconforto desnecessário no plexo braquial.',
+   positivo:'Obliteração do pulso com essa manobra. Sugere síndrome do desfiladeiro torácico; a presença de um sopro auscultável durante o teste sugere obstrução vascular parcial.',
+   negativo:'Pulso mantido sem alteração perceptível durante a tração.',
+   fonte:"Reider, Cap. 2, p.62-63."},
+  {id:'pe-ombro-hyperabduction', regiao:'ombro', nome:'Teste de Hiperabdução (Hyperabduction / Wright)',
+   resumo:'Avalia obliteração do pulso na hiperabdução bilateral simultânea.',
+   tecnica:'Após verificar os pulsos do paciente com os braços ao lado do corpo, o examinador abduz totalmente ambos os braços simultaneamente, comparando a qualidade dos pulsos radiais bilateralmente.',
+   alerta:'Compare sempre o lado sintomático com o assintomático durante a mesma manobra — diminuição bilateral do pulso pode ocorrer em indivíduos normais e não deve, isoladamente, ser interpretada como positiva.',
+   positivo:'Diminuição ou obliteração do pulso radial no lado sintomático, assimétrica em relação ao lado oposto. Sugere síndrome do desfiladeiro torácico.',
+   negativo:'Pulsos mantidos e simétricos bilateralmente durante a hiperabdução.',
+   fonte:"Reider, Cap. 2, p.63-64."}
+];
+
+/* ── EXAME FÍSICO FUNCTIONS ── */
+let currentPeRegion = 'ombro';
+function peCardHtml(p) {
+  const tit = p.nome.replace(/'/g, "\\'");
+  return `
+      <div class="pe-card" id="pecard-${p.id}">
+        <div class="pe-hdr" onclick="togglePeCard(this)">
+          <div style="flex:1;min-width:0">
+            <div class="pe-nome">${escHtml(p.nome)}</div>
+            <div class="pe-fonte">${escHtml(p.fonte)}</div>
+          </div>
+          <svg class="pe-chevron" width="18" height="18"><use href="#i-chev"/></svg>
+        </div>
+        <div class="pe-body">
+          <div class="pe-fig-wrap">
+            <div class="pe-fig-thumb" onclick="abrirFiguraPe('/img/pe/${p.id}.jpg','${tit}','${(p.fonte||'').replace(/'/g,"\\'")}');event.stopPropagation()">
+              <img src="/img/pe/${p.id}.jpg" alt="${escHtml(p.nome)}" loading="lazy"/>
+              <div class="pe-fig-overlay2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                <span>Ampliar figura</span>
+              </div>
+            </div>
+          </div>
+          <div class="pe-section">
+            <div class="pe-section-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--og)" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>Resumo</div>
+            <div class="pe-section-text">${escHtml(p.resumo)}</div>
+          </div>
+          <div class="pe-section">
+            <div class="pe-section-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6EE7B7" stroke-width="2.5"><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg>Técnica</div>
+            <div class="pe-section-text">${escHtml(p.tecnica)}</div>
+          </div>
+          <div class="pe-alerta">⚠️ ${escHtml(p.alerta)}</div>
+          <div class="pe-resultado-grid">
+            <div class="pe-positivo"><strong>Positivo:</strong> ${escHtml(p.positivo)}</div>
+            <div class="pe-negativo"><strong>Negativo:</strong> ${escHtml(p.negativo)}</div>
+          </div>
+        </div>
+      </div>`;
+}
+function renderPe() {
+  const container = document.getElementById('pe-regions');
+  let html = '';
+  PE_REGIOES.forEach(reg => {
+    const testes = PE_DATA.filter(p => p.regiao === reg.id);
+    const cardsHtml = testes.map(peCardHtml).join('');
+    const emptyHtml = testes.length ? '' : `<div style="padding:2rem;text-align:center;color:var(--sx);font-size:.85rem">Conteúdo desta região ainda não disponível. Em breve.</div>`;
+    html += `
+    <div class="va-section-wrap" id="pe-region-${reg.id}" style="display:none">
+      <div class="region-header">
+        <div class="region-info"><h2 class="region-title">${reg.nome}</h2><p class="region-desc">${reg.desc}</p></div>
+        <span class="region-count">${testes.length} testes</span>
+      </div>
+      <div class="pe-grid">${cardsHtml}</div>
+      ${emptyHtml}
+    </div>`;
+  });
+  container.innerHTML = html;
+  selectPeRegion(currentPeRegion);
+}
+function selectPeRegion(region) {
+  currentPeRegion = region;
+  const f = document.getElementById('pe-filter');
+  if (f) f.value = '';
+  document.querySelectorAll('.region-btn[data-pregion]').forEach(b => b.classList.toggle('active', b.dataset.pregion === region));
+  document.querySelectorAll('#pe-regions .va-section-wrap').forEach(s => { s.style.display = s.id === 'pe-region-' + region ? 'block' : 'none'; });
+}
+function filtrarPe() {
+  const q = document.getElementById('pe-filter').value.toLowerCase().trim();
+  if (!q) { selectPeRegion(currentPeRegion); return; }
+  document.querySelectorAll('.region-btn[data-pregion]').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#pe-regions .va-section-wrap').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('.pe-card').forEach(c => { c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+  document.querySelectorAll('#pe-regions .va-section-wrap').forEach(s => {
+    s.style.display = [...s.querySelectorAll('.pe-card')].some(c => c.style.display !== 'none') ? 'block' : 'none';
+  });
+}
+function togglePeCard(hdr) { hdr.parentElement.classList.toggle('open'); }
+function abrirFiguraPe(src, titulo, fonte) {
+  document.getElementById('fig-titulo').textContent = titulo;
+  document.getElementById('fig-img').src = src;
+  document.getElementById('fig-sub').textContent = fonte || '';
+  document.getElementById('fig-nav').style.display = 'none';
+  document.getElementById('fig-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+/* ══════════════════════════════════════════════════════════
    CALCULADORA ORTOPÉDICA — DADOS (LOTE 1: TRAUMA/ORTOPEDIA)
    ══════════════════════════════════════════════════════════ */
 const OC_DATA = [
@@ -5627,6 +5978,7 @@ function inicializarApp() {
   buildMedList();
   renderClassificacoes();
   renderVias();
+  renderPe();
   updateOCCatBadges();
   selectOCCat('trauma');
   carregarImagensGlobais().then(() => { renderClassificacoes(); renderVias(); });
