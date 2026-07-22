@@ -995,7 +995,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn" onclick="selectPeRegion('mao-punho')" data-pregion="mao-punho">Mão e Punho <span class="rbadge">24</span></button>
           <button class="region-btn" onclick="selectPeRegion('quadril')" data-pregion="quadril">Quadril e Coxa <span class="rbadge">14</span></button>
           <button class="region-btn" onclick="selectPeRegion('joelho')" data-pregion="joelho">Joelho <span class="rbadge">27</span></button>
-          <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">10</span></button>
           <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">0</span></button>
           <button class="region-btn" onclick="selectPeRegion('lombar')" data-pregion="lombar">Coluna Lombar <span class="rbadge">0</span></button>
         </div>
@@ -4270,7 +4270,7 @@ const PE_REGIOES = [
   {id:'mao-punho',  nome:'Mão e Punho',                desc:'Testes de compressão nervosa, estabilidade ligamentar, instabilidade carpal e vascular', count:24},
   {id:'quadril',    nome:'Quadril e Coxa',             desc:'Contraturas musculares, testes de estresse pélvico, fraqueza de abdutores e fraturas de estresse', count:14},
   {id:'joelho',     nome:'Joelho',                     desc:'Derrame, estabilidade ligamentar (LCA/LCP/colaterais), testes meniscais e patelofemorais', count:27},
-  {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Em breve', count:0},
+  {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Estabilidade ligamentar do tornozelo, tendão de Aquiles, túnel do tarso, neuroma de Morton e disfunção do tibial posterior', count:10},
   {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Em breve', count:0},
   {id:'lombar',     nome:'Coluna Lombar',              desc:'Em breve', count:0}
 ];
@@ -5097,7 +5097,87 @@ const PE_DATA = [
    alerta:'Este teste tem sensibilidade baixa e não é frequentemente usado na prática clínica atual — não deve ser usado isoladamente para excluir osteocondrite dissecante caso o resultado seja negativo.',
    positivo:'O paciente sente dor quando o joelho internamente rodado atinge a extensão completa, e a dor deve diminuir quando a força de rotação interna é relaxada. Sugere osteocondrite dissecante do côndilo femoral medial.',
    negativo:'Ausência de dor ao atingir a extensão completa com o pé internamente rodado.',
-   fonte:"Reider, Cap. 6, p.243-244."}
+   fonte:"Reider, Cap. 6, p.243-244."},
+
+  {id:'pe-perna-windlass', regiao:'perna-pe', nome:'Efeito Windlass (Windlass Effect)',
+   resumo:'Manobra que avalia a integridade funcional da fáscia plantar e do arco longitudinal medial durante a marcha e o apoio unipodal em ponta de pé.',
+   tecnica:'Com o paciente visto por trás, pede-se que fique na ponta dos pés (heel raise). A dorsiflexão forçada das articulações metatarsofalângicas produzida por essa manobra tensiona passivamente a fáscia plantar (efeito windlass), o que normalmente produz uma inversão involuntária do calcanhar e uma acentuação do arco longitudinal medial (A, posição de repouso; B, ponta dos pés).',
+   alerta:'A ausência do efeito windlass normal pode ser secundária a rigidez por artrite, uma coalizão társica, ou lesão do tendão tibial posterior ou do ligamento em mola (spring ligament) — não confundir com simples pé plano flexível.',
+   positivo:'Ausência de inversão do calcanhar e de acentuação do arco medial durante a manobra de ponta de pé. Sugere disfunção do tendão tibial posterior, coalizão társica ou rigidez articular (pé plano rígido).',
+   negativo:'Inversão normal do calcanhar com acentuação do arco longitudinal medial durante a ponta de pé (pé flexível e fáscia plantar íntegra).',
+   fonte:"Reider, Cap. 7, p.266-267."},
+
+  {id:'pe-perna-tinel-tarsal', regiao:'perna-pe', nome:"Teste de Tinel para Túnel do Tarso (Tinel's Test)",
+   resumo:'Teste de percussão para avaliar compressão do nervo tibial posterior no túnel do tarso, síndrome análoga à síndrome do túnel do carpo no punho.',
+   tecnica:'Com o nervo tibial posterior localizado imediatamente posterior à artéria tibial posterior (atrás do maléolo medial), o examinador percute o nervo com a ponta de um dedo, da mesma forma usada para o teste de Tinel do nervo mediano no punho.',
+   alerta:'A pressão digital prolongada sobre o nervo também pode aumentar os sintomas ou causar disestesias na região plantar do pé, de maneira análoga ao teste de Phalen na síndrome do túnel do carpo.',
+   positivo:'A percussão reproduz ou exacerba a dor do paciente, ou provoca dor aguda/elétrica que irradia distalmente para o pé ou proximalmente para a panturrilha. Sugere síndrome do túnel do tarso.',
+   negativo:'Percussão do nervo sem reprodução de dor, parestesias ou disestesias irradiadas.',
+   fonte:"Reider, Cap. 7, p.284."},
+
+  {id:'pe-perna-gaveta-anterior-tornozelo', regiao:'perna-pe', nome:'Teste da Gaveta Anterior do Tornozelo (Anterior Drawer Test)',
+   resumo:'Teste manipulativo para avaliar a frouxidão passiva do ligamento talofibular anterior, o ligamento lateral do tornozelo mais comumente lesado.',
+   tecnica:'Com o paciente sentado e o membro relaxado pendendo da mesa, o examinador estabiliza a perna do paciente logo proximal ao tornozelo com uma mão. Com a outra mão, segura o calcanhar do paciente e traciona para frente enquanto empurra a perna posteriormente de forma recíproca (seta). O examinador observa a pele sobre a cúpula anterolateral do tálus em busca de translação anterior.',
+   alerta:'A chave para o diagnóstico é encontrar uma diferença de pelo menos 3 a 5 mm de frouxidão entre os dois tornozelos — a comparação com o lado oposto é essencial, já que a variação individual é grande e muitos pacientes já tiveram entorses bilaterais no passado.',
+   positivo:'Translação anterior do tálus maior que a do lado contralateral (diferença ≥3-5mm), frequentemente com ponto final mais amolecido. Sugere lesão do ligamento talofibular anterior.',
+   negativo:'O tálus se move discretamente para frente e para com um ponto final firme, sem diferença significativa em relação ao lado oposto.',
+   fonte:"Reider, Cap. 7, p.290-291."},
+
+  {id:'pe-perna-inversao-stress', regiao:'perna-pe', nome:'Teste de Estresse em Inversão (Inversion/Varus Stress Test)',
+   resumo:'Avalia a integridade do ligamento calcaneofibular, o segundo ligamento lateral do tornozelo mais comumente lesado.',
+   tecnica:'Com o paciente na mesma posição usada para o teste da gaveta anterior, o examinador segura o antepé do paciente com uma mão e dorsiflexiona maximamente o tornozelo para tensionar o ligamento calcaneofibular e travar a articulação subtalar. Mantendo essa posição, o examinador segura o calcâneo com a mão oposta e tenta invertê-lo (seta).',
+   alerta:'Se o examinador não dorsiflexionar maximamente o tornozelo durante o teste, ocorre movimento substancial na articulação subtalar, dificultando a detecção de inversão anormal específica da articulação do tornozelo.',
+   positivo:'O examinador sente o tálus balançar em inversão, com aumento assimétrico da frouxidão em varo comparado ao lado oposto. Sugere lesão do ligamento calcaneofibular.',
+   negativo:'Pouco movimento é sentido em resposta ao estresse, com resistência firme e simétrica em relação ao lado oposto.',
+   fonte:"Reider, Cap. 7, p.291-292."},
+
+  {id:'pe-perna-instabilidade-peroneal', regiao:'perna-pe', nome:'Teste de Instabilidade dos Tendões Peroneais (Peroneal Tendon Instability Test)',
+   resumo:'Teste ativo que busca reproduzir a subluxação ou luxação dos tendões peroneais anteriormente ao maléolo lateral.',
+   tecnica:'Com o paciente sentado e a perna pendente, pede-se que gire ativamente o tornozelo e o pé pela excursão máxima, primeiro em sentido horário e depois anti-horário, partindo de dorsiflexão máxima, passando por eversão máxima, flexão plantar máxima e inversão máxima, retornando à dorsiflexão. Durante a manobra, o examinador palpa levemente a borda posterior do maléolo lateral com dois dedos (A-D).',
+   alerta:'Se o paciente identificar a sensação de subluxação como reproduzindo seus sintomas característicos, o diagnóstico é reforçado; instabilidade de longa data pode gerar sinais secundários de tendinite peroneal.',
+   positivo:'Os tendões peroneais são sentidos subluxando sobre o maléolo lateral, podendo até luxar completamente. Sugere instabilidade dos tendões peroneais.',
+   negativo:'Os tendões peroneais movem-se discretamente para anterior ao se tensionarem, mas permanecem atrás do maléolo em todos os arcos de movimento.',
+   fonte:"Reider, Cap. 7, p.292-293."},
+
+  {id:'pe-perna-thompson', regiao:'perna-pe', nome:"Teste de Thompson (Thompson's Test)",
+   resumo:'Teste manipulativo clássico para confirmar o diagnóstico de ruptura do tendão do calcâneo (Aquiles), que pode passar despercebida pois o paciente ainda consegue flexionar plantarmente o tornozelo usando os flexores dos dedos.',
+   tecnica:'Com o paciente em decúbito ventral e ambos os pés pendentes da extremidade da mesa, o examinador observa a posição de repouso do pé (A) e então segura a panturrilha do paciente com uma ou ambas as mãos e a comprime suavemente (B).',
+   alerta:'Na presença de ruptura parcial do Aquiles ou de lesões da aponeurose do gastrocnêmio (como na "tennis leg"), a resposta normal de flexão plantar ainda pode ocorrer — o teste não exclui lesões parciais.',
+   positivo:'Ausência praticamente completa de flexão plantar do pé em resposta à compressão da panturrilha; em repouso, o pé tende a ficar em posição mais dorsifletida (perda da tensão de repouso do gastrocsóleo). Sugere ruptura do tendão do calcâneo.',
+   negativo:'O pé flexiona plantarmente de forma passiva quando a panturrilha é comprimida (B), e mantém discreta flexão plantar de repouso em decúbito ventral (A).',
+   fonte:"Reider, Cap. 7, p.293."},
+
+  {id:'pe-perna-primeiro-metatarso', regiao:'perna-pe', nome:'Teste de Elevação do Primeiro Metatarso (First Metatarsal Rise Test)',
+   resumo:'Teste suplementar para disfunção do tendão tibial posterior, útil em conjunto com a inspeção do sinal too-many-toes e do efeito windlass.',
+   tecnica:'Com o paciente em pé e de costas para o examinador, este segura a perna do paciente e a roda externamente, o que faz o calcanhar assumir uma posição em varo (seta indica a direção esperada da elevação do primeiro metatarso). O teste também pode ser feito segurando o calcanhar diretamente e girando-o em varo.',
+   alerta:'Sempre compare com o lado contralateral, já que a mobilidade do primeiro raio varia entre indivíduos.',
+   positivo:'O primeiro metatarso do paciente se eleva do chão em resposta à manipulação. Sugere disfunção do tendão tibial posterior.',
+   negativo:'O primeiro metatarso permanece em contato com o chão durante a rotação externa da perna.',
+   fonte:"Reider, Cap. 7, p.293-294."},
+
+  {id:'pe-perna-morton', regiao:'perna-pe', nome:"Teste de Morton (Morton's Test)",
+   resumo:'Teste adjunto para detecção de neuromas interdigitais (neuroma de Morton), buscando reproduzir os sintomas característicos do paciente.',
+   tecnica:'O examinador segura as cabeças do primeiro e do quinto metatarsos e as comprime uma contra a outra (setas). A irritação do nervo pode ser potencializada movendo reciprocamente o primeiro e o quinto metatarsos para cima e para baixo em direções opostas.',
+   alerta:'Ocasionalmente o examinador pode perceber um estalido palpável durante a compressão, conhecido como sinal de Mulder (Mulder’s click), atribuído a um neuroma grande sendo empurrado plantarmente pelas cabeças metatarsais comprimidas.',
+   positivo:'A compressão das cabeças metatarsais reproduz a dor característica do paciente, com ou sem estalido palpável (sinal de Mulder). Altamente sugestivo de neuroma interdigital (mais comum entre o terceiro e o quarto pododáctilos).',
+   negativo:'A compressão dos metatarsos não reproduz dor característica nem estalido palpável.',
+   fonte:"Reider, Cap. 7, p.294-295."},
+
+  {id:'pe-perna-dorsiflexao-eversao', regiao:'perna-pe', nome:'Teste de Dorsiflexão-Eversão (Dorsiflexion-Eversion Test)',
+   resumo:'Manobra útil para provocar os sintomas da síndrome do túnel do tarso, colocando o nervo tibial sob estiramento máximo através do túnel do tarso.',
+   tecnica:'O examinador coloca o tornozelo do paciente em posição de dorsiflexão e eversão máximas, dorsiflexionando também as articulações metatarsofalângicas.',
+   alerta:'Esta manobra tensiona ao máximo o nervo tibial através do túnel do tarso e é considerada mais sensível que a simples percussão (Tinel) isolada para reproduzir os sintomas.',
+   positivo:'Reprodução confiável das parestesias, dor irradiada ou dormência características do paciente. Sugere síndrome do túnel do tarso.',
+   negativo:'Manutenção da posição sem reprodução de parestesias, dor irradiada ou dormência.',
+   fonte:"Reider, Cap. 7, p.295."},
+
+  {id:'pe-perna-homans', regiao:'perna-pe', nome:"Teste de Homans (Homans' Test)",
+   resumo:'Teste de rastreamento (screening) para trombose venosa profunda (TVP) da panturrilha — não é um teste especificamente ortopédico, e sua sensibilidade é questionada, pois a TVP nem sempre produz um teste de Homans anormal.',
+   tecnica:'Com o paciente em decúbito dorsal ou sentado, o examinador dorsiflexiona passivamente o pé do paciente.',
+   alerta:'Lesão do complexo gastrocsóleo também pode ser agravada por esta manobra e produzir dor semelhante, gerando um falso-positivo — a dor à panturrilha em resposta a este teste é chamada de sinal de Homans, mas não é específica de TVP e não deve ser usada isoladamente para essa decisão diagnóstica.',
+   positivo:'Dor na panturrilha produzida pela dorsiflexão passiva do pé (sinal de Homans). Pode sugerir trombose venosa profunda da panturrilha, mas requer confirmação por métodos específicos.',
+   negativo:'Dorsiflexão passiva do pé sem dor na panturrilha.',
+   fonte:"Reider, Cap. 7, p.295."}
 ];
 
 /* ── EXAME FÍSICO FUNCTIONS ── */
