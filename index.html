@@ -245,11 +245,6 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 .doc-sign-block .dr-crm{color:#333}
 .doc-sign-block .dr-esp{color:#5A6B80;font-size:.78rem}
 .doc-carimbo-box{margin:1rem auto 0;width:190px;height:70px;border:1.3px dashed #C8D2E0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:#9AA6B8;text-align:center}
-.doc-verify{margin-top:1.6rem;padding-top:1rem;border-top:1px dashed #C8D2E0;display:flex;align-items:center;gap:.9rem}
-.doc-verify-qr{width:74px;height:74px;flex-shrink:0;background:#fff}
-.doc-verify-text{font-size:.62rem;line-height:1.55;color:#5A6B80}
-.doc-verify-text b{color:#1A2230;font-family:'Courier New',monospace;font-size:.68rem}
-.doc-verify-warn{color:#B45309;font-weight:700}
 .doc-toolbar{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:flex-end;margin-top:.85rem}
 
 /* Receituário de controle especial — 2 vias (Farmácia / Paciente) */
@@ -695,7 +690,6 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
   <symbol id="i-attest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 14l2 2 4-4"/></symbol>
   <symbol id="i-doc-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><line x1="12" y1="14" x2="12" y2="17"/></symbol>
-  <symbol id="i-qrcode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="14.01"/><line x1="14" y1="18" x2="14" y2="21"/><line x1="18" y1="14" x2="21" y2="14"/><line x1="18" y1="18" x2="21" y2="18"/><line x1="18" y1="21" x2="21" y2="21"/></symbol>
   <symbol id="i-calc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="12" y1="10" x2="14" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="12" y1="14" x2="14" y2="14"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="12" y1="18" x2="14" y2="18"/></symbol>
 </svg>
 
@@ -1080,18 +1074,9 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
                 </div>
                 <div class="doc-carimbo-box">carimbo</div>
               </div>
-              <div class="doc-verify">
-                <div class="doc-verify-qr" id="doc-qr-simples"></div>
-                <div class="doc-verify-text">
-                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
-                  Código: <b id="doc-code-simples">—</b><br/>
-                  Gerado em: <span id="doc-code-data-simples">—</span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="doc-toolbar no-print">
-            <button class="btn btn-c" onclick="gerarCodigoVerificacao('simples')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
             <button class="btn btn-c" onclick="exportarRx()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
             <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
@@ -1174,14 +1159,6 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
                 </div>
                 <div class="doc-carimbo-box">carimbo</div>
               </div>
-              <div class="doc-verify">
-                <div class="doc-verify-qr doc-qr-controlado"></div>
-                <div class="doc-verify-text">
-                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
-                  Código: <b class="doc-code-controlado">—</b><br/>
-                  Gerado em: <span class="doc-code-data-controlado">—</span>
-                </div>
-              </div>
             </div>
 
             <div class="doc-via-cut no-print">✂ — — — — — — — — — recortar / 2ª via inicia em nova página na impressão — — — — — — — — — ✂</div>
@@ -1221,18 +1198,9 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
                 </div>
                 <div class="doc-carimbo-box">carimbo</div>
               </div>
-              <div class="doc-verify">
-                <div class="doc-verify-qr doc-qr-controlado"></div>
-                <div class="doc-verify-text">
-                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
-                  Código: <b class="doc-code-controlado">—</b><br/>
-                  Gerado em: <span class="doc-code-data-controlado">—</span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="doc-toolbar no-print">
-            <button class="btn btn-c" onclick="gerarCodigoVerificacao('controlado')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
             <button class="btn btn-c" onclick="exportarRxControlado()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
             <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
@@ -1326,18 +1294,9 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
                 </div>
                 <div class="doc-carimbo-box">carimbo</div>
               </div>
-              <div class="doc-verify">
-                <div class="doc-verify-qr" id="doc-qr-laudo"></div>
-                <div class="doc-verify-text">
-                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
-                  Código: <b id="doc-code-laudo">—</b><br/>
-                  Gerado em: <span id="doc-code-data-laudo">—</span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="doc-toolbar no-print">
-            <button class="btn btn-c" onclick="gerarCodigoVerificacao('laudo')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
             <button class="btn btn-c" onclick="exportarLaudo()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
             <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
@@ -1416,18 +1375,9 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
                 </div>
                 <div class="doc-carimbo-box">carimbo</div>
               </div>
-              <div class="doc-verify">
-                <div class="doc-verify-qr" id="doc-qr-atestado"></div>
-                <div class="doc-verify-text">
-                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
-                  Código: <b id="doc-code-atestado">—</b><br/>
-                  Gerado em: <span id="doc-code-data-atestado">—</span>
-                </div>
-              </div>
             </div>
           </div>
           <div class="doc-toolbar no-print">
-            <button class="btn btn-c" onclick="gerarCodigoVerificacao('atestado')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
             <button class="btn btn-c" onclick="exportarAtestado()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
             <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
@@ -1868,8 +1818,6 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
   integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 'use strict';
@@ -2932,52 +2880,6 @@ function atualizarPreviewDoc() {
   const aDias = document.getElementById('doc-prev-dias-atestado'); if (aDias) aDias.textContent = v('at-dias') || '—';
   const aInicio = document.getElementById('doc-prev-inicio-atestado'); if (aInicio) aInicio.textContent = v('at-inicio') || '—';
   const aTexto = document.getElementById('doc-prev-texto-atestado'); if (aTexto) aTexto.textContent = v('at-text');
-}
-
-/* Hash simples (não criptográfico) só para compor um código de conferência legível —
-   não substitui nem simula uma assinatura digital ICP-Brasil real. */
-function _hashSimples(str) {
-  let h = 5381;
-  for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
-  return h.toString(36).toUpperCase();
-}
-function gerarCodigoVerificacao(docTipo) {
-  let conteudo;
-  if (docTipo === 'controlado') {
-    conteudo = [v('rxc-nome'), v('rxc-idade'), v('rxc-data'), v('rxc-endereco'), v('rxc-comp-nome'), v('rxc-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
-  } else if (docTipo === 'laudo') {
-    conteudo = [v('ld-nome'), v('ld-idade'), v('ld-data'), v('ld-cid'), v('ld-hist'), v('ld-exame'), v('ld-compl'), v('ld-concl'), v('doc-med-nome'), v('doc-med-crm')].join('|');
-  } else if (docTipo === 'atestado') {
-    conteudo = [v('at-nome'), v('at-idade'), v('at-data'), v('at-cid'), v('at-dias'), v('at-inicio'), v('at-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
-  } else {
-    conteudo = [v('rx-nome'), v('rx-idade'), v('rx-data'), v('rx-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
-  }
-  const agora = new Date();
-  const codigo = 'OH-' + agora.getTime().toString(36).toUpperCase() + '-' + _hashSimples(conteudo);
-  const dataFmt = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-  // documentos com uma única via (ex: Receituário Simples) usam id único
-  const codEl = document.getElementById('doc-code-' + docTipo);
-  const dataEl = document.getElementById('doc-code-data-' + docTipo);
-  if (codEl) codEl.textContent = codigo;
-  if (dataEl) dataEl.textContent = dataFmt;
-  // documentos com múltiplas vias (ex: Receituário Controlado) usam classes — mesmo código em todas as vias
-  document.querySelectorAll('.doc-code-' + docTipo).forEach(el => { el.textContent = codigo; });
-  document.querySelectorAll('.doc-code-data-' + docTipo).forEach(el => { el.textContent = dataFmt; });
-  atualizarQR(docTipo, codigo, dataFmt);
-  return codigo;
-}
-function atualizarQR(docTipo, codigo, dataFmt) {
-  if (typeof QRCode === 'undefined') return;
-  const texto = `OssoHub — Código de conferência interna (NÃO é assinatura ICP-Brasil): ${codigo} — Gerado em ${dataFmt}`;
-  const desenhar = el => {
-    el.innerHTML = '';
-    try {
-      new QRCode(el, { text: texto, width: 74, height: 74, colorDark: '#1A2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-    } catch (e) { console.warn('Falha ao gerar QR code:', e); }
-  };
-  const single = document.getElementById('doc-qr-' + docTipo);
-  if (single) desenhar(single);
-  document.querySelectorAll('.doc-qr-' + docTipo).forEach(desenhar);
 }
 
 /* ── MEUS MODELOS (permanentes, salvos neste dispositivo) ──
@@ -7863,10 +7765,6 @@ function inicializarApp() {
   carregarModelosDoc();
   showDocSub('simples');
   atualizarPreviewDoc();
-  gerarCodigoVerificacao('simples');
-  gerarCodigoVerificacao('controlado');
-  gerarCodigoVerificacao('laudo');
-  gerarCodigoVerificacao('atestado');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
