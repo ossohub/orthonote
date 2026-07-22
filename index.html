@@ -993,7 +993,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn active" onclick="selectPeRegion('ombro')" data-pregion="ombro">Ombro e Braço <span class="rbadge">26</span></button>
           <button class="region-btn" onclick="selectPeRegion('cotovelo')" data-pregion="cotovelo">Cotovelo e Antebraço <span class="rbadge">15</span></button>
           <button class="region-btn" onclick="selectPeRegion('mao-punho')" data-pregion="mao-punho">Mão e Punho <span class="rbadge">24</span></button>
-          <button class="region-btn" onclick="selectPeRegion('quadril')" data-pregion="quadril">Quadril e Coxa <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectPeRegion('quadril')" data-pregion="quadril">Quadril e Coxa <span class="rbadge">14</span></button>
           <button class="region-btn" onclick="selectPeRegion('joelho')" data-pregion="joelho">Joelho <span class="rbadge">0</span></button>
           <button class="region-btn" onclick="selectPeRegion('perna-pe')" data-pregion="perna-pe">Perna/Pé/Tornozelo <span class="rbadge">0</span></button>
           <button class="region-btn" onclick="selectPeRegion('cervical')" data-pregion="cervical">Coluna Cervical e Torácica <span class="rbadge">0</span></button>
@@ -4268,7 +4268,7 @@ const PE_REGIOES = [
   {id:'ombro',      nome:'Ombro e Braço',              desc:'Manguito rotador, instabilidade glenoumeral, SLAP, bíceps, desfiladeiro torácico', count:26},
   {id:'cotovelo',   nome:'Cotovelo e Antebraço',       desc:'Síndromes de compressão nervosa, epicondilites, instabilidade ligamentar', count:15},
   {id:'mao-punho',  nome:'Mão e Punho',                desc:'Testes de compressão nervosa, estabilidade ligamentar, instabilidade carpal e vascular', count:24},
-  {id:'quadril',    nome:'Quadril e Coxa',             desc:'Em breve', count:0},
+  {id:'quadril',    nome:'Quadril e Coxa',             desc:'Contraturas musculares, testes de estresse pélvico, fraqueza de abdutores e fraturas de estresse', count:14},
   {id:'joelho',     nome:'Joelho',                     desc:'Em breve', count:0},
   {id:'perna-pe',   nome:'Perna, Pé e Tornozelo',      desc:'Em breve', count:0},
   {id:'cervical',   nome:'Coluna Cervical e Torácica', desc:'Em breve', count:0},
@@ -4769,7 +4769,119 @@ const PE_DATA = [
    alerta:'Posicione a compressão pela face volar do dedo (não dorsal) — as artérias digitais correm mais próximas à face volar, e a compressão incorreta invalida o teste.',
    positivo:'Retorno lento ou ausente da cor normal ao dedo após a liberação de uma das artérias digitais sugere contribuição reduzida daquela artéria para a perfusão do dedo.',
    negativo:'Retorno rápido (poucos segundos) da cor normal após a liberação de qualquer uma das artérias digitais.',
-   fonte:"Reider, Cap. 4, p.157-158."}
+   fonte:"Reider, Cap. 4, p.157-158."},
+
+  {id:'pe-quadril-thomas', regiao:'quadril', nome:"Teste de Thomas (Thomas' Test)",
+   resumo:'Ferramenta de rastreio para contratura em flexão do quadril (perda de extensão), controlando a báscula pélvica que poderia mascarar o achado.',
+   tecnica:'Com o paciente em decúbito dorsal, ambos os quadris são fletidos até os joelhos tocarem o tórax (A), travando a pelve em flexão máxima. O quadril a ser testado é então liberado e deixado estender em direção à mesa enquanto o quadril contralateral permanece fletido junto ao tórax (B, avaliando extensão; C, demonstrando contratura em flexão; D, avaliando flexão).',
+   alerta:'Mantenha o quadril contralateral firmemente fletido contra o tórax durante toda a manobra — se a pelve rodar ou a lombar hiperestender, o resultado fica mascarado e pode simular extensão normal onde há contratura.',
+   positivo:'A coxa em teste não consegue estender o suficiente para tocar a mesa de exame, permanecendo elevada (C). Sugere contratura em flexão do quadril; o ângulo entre o eixo da coxa e a mesa quantifica o grau de contratura.',
+   negativo:'A coxa em extensão toca a mesa de exame (0° de extensão, posição neutra).',
+   fonte:"Reider, The Orthopaedic Physical Examination, 2ª ed., Cap. 5, p.181-182."},
+
+  {id:'pe-quadril-ober', regiao:'quadril', nome:"Teste de Ober (Ober's Test)",
+   resumo:'Avalia contratura do trato iliotibial, associada a bursite trocantérica, quadril em ressalto (snapping hip) ou síndrome do trato iliotibial no joelho.',
+   tecnica:'Com o paciente em decúbito lateral (lado a testar para cima), o joelho é fletido a 90° e o quadril é abduzido cerca de 40° e estendido ao limite (A). Mantendo a extensão do quadril e a flexão do joelho, com a pelve estabilizada, o membro é gentilmente aduzido em direção à mesa de exame (B).',
+   alerta:'Estabilize firmemente a pelve durante a adução — uma báscula pélvica compensatória pode simular adução normal mesmo na presença de contratura real.',
+   positivo:'O quadril não consegue ser aduzido além da linha média do corpo. Sugere contratura do trato iliotibial.',
+   negativo:'O quadril é aduzido normalmente além da linha média do corpo.',
+   fonte:"Reider, Cap. 5, p.193."},
+
+  {id:'pe-quadril-ely', regiao:'quadril', nome:"Teste de Ely (Ely's Test)",
+   resumo:'Detecta contratura do músculo reto femoral, que cruza tanto o quadril quanto o joelho.',
+   tecnica:'Com o paciente em decúbito ventral e os joelhos estendidos, o examinador flexiona passivamente o joelho do lado a ser testado.',
+   alerta:'Observe cuidadosamente a região glútea/pélvis durante toda a flexão do joelho — a elevação das nádegas da mesa é sutil e pode passar despercebida se o foco estiver apenas no joelho.',
+   positivo:'A flexão passiva completa do joelho produz flexão involuntária do quadril, fazendo as nádegas se elevarem da mesa de exame. Sugere contratura do reto femoral (também pode ser doloroso na tendinite proximal do reto femoral).',
+   negativo:'O joelho flexiona completamente sem qualquer movimento do quadril ou da pelve.',
+   fonte:"Reider, Cap. 5, p.193-194."},
+
+  {id:'pe-quadril-tripod', regiao:'quadril', nome:'Sinal do Tripé (Tripod Sign)',
+   resumo:'Alerta para contratura do grupo muscular isquiotibial (hamstrings); pode ocorrer durante a manobra de elevação da perna reta sentado.',
+   tecnica:'O paciente senta na borda da mesa de exame com os joelhos fletidos a 90°. O examinador segura o tornozelo do lado a testar e estende passivamente o joelho por completo (A, normal; B, anormal).',
+   alerta:'Diferencie de irritação do nervo ciático, que produz resposta semelhante — se o sinal do tripé for positivo, verifique a ausência de sinais de tensão radicular (sinal de Lasègue, bowstring sign) antes de atribuir o achado apenas a isquiotibiais tensos.',
+   positivo:'A extensão passiva do joelho provoca extensão involuntária do quadril ipsilateral, fazendo o tronco cair para trás — muitas vezes o paciente precisa se apoiar com as mãos estendidas para trás (postura de "tripé"). Sugere contratura do grupo isquiotibial (ou irritação do nervo ciático, a ser diferenciada).',
+   negativo:'O paciente permanece sentado ereto com o joelho totalmente estendido, sem necessidade de apoio das mãos.',
+   fonte:"Reider, Cap. 5, p.193-194."},
+
+  {id:'pe-quadril-phelps', regiao:'quadril', nome:"Teste de Phelps (Phelps' Test)",
+   resumo:'Detecta contratura do músculo grácil, que se origina no púbis/ísquio e se insere na pata de ganso na tíbia proximal medial, cruzando quadril e joelho.',
+   tecnica:'Com o paciente em decúbito ventral e os joelhos totalmente estendidos, o examinador abduz passivamente os quadris ao máximo possível (A). Os joelhos do paciente são então fletidos, relaxando a tensão no grácil, e o examinador tenta abduzir os quadris ainda mais (B).',
+   alerta:'Certifique-se de que os joelhos estejam totalmente estendidos na primeira medição — testar com os joelhos já fletidos desde o início invalida a comparação e pode mascarar uma contratura real do grácil.',
+   positivo:'Os quadris conseguem abduzir mais quando os joelhos são fletidos, em comparação com a abdução obtida com os joelhos estendidos. Sugere contratura significativa do grácil.',
+   negativo:'Nenhuma abdução adicional dos quadris é obtida com a flexão dos joelhos — a amplitude é a mesma nas duas posições.',
+   fonte:"Reider, Cap. 5, p.194-195."},
+
+  {id:'pe-quadril-piriforme', regiao:'quadril', nome:'Teste do Piriforme (Piriformis Test)',
+   resumo:'Avalia tendinite ou síndrome do piriforme, músculo que roda externamente o quadril e pelo qual o nervo ciático passa (parcial ou totalmente) em cerca de 15% da população.',
+   tecnica:'Com o paciente em decúbito lateral (lado a examinar para cima), o quadril é fletido a 45° e o joelho a cerca de 90°. O examinador estabiliza a pelve do paciente com uma mão (A) e, com a outra, empurra o joelho fletido em direção ao chão, rodando internamente o quadril (B), o que alonga o piriforme.',
+   alerta:'Se a dor não estiver localizada ao tendão do piriforme mas irradiar em padrão sugestivo de ciática, suspeite de síndrome do piriforme (aprisionamento do nervo ciático) em vez de tendinite isolada — a distinção muda a conduta.',
+   positivo:'Dor localizada próxima ao piriforme ao alongá-lo por rotação interna do quadril. Sugere tendinite do piriforme ou, se a dor irradiar ao longo do trajeto do ciático, síndrome do piriforme.',
+   negativo:'Ausência de dor durante a rotação interna do quadril fletido.',
+   fonte:"Reider, Cap. 5, p.195."},
+
+  {id:'pe-quadril-patrick', regiao:'quadril', nome:"Teste de Patrick / FABER (Patrick's Test)",
+   resumo:'Teste de rastreio mais conhecido para dor originada nas articulações da pelve, especialmente a articulação sacroilíaca; FABER é acrônimo para Flexion-ABduction-External Rotation.',
+   tecnica:'Com o paciente em decúbito dorsal, o membro a ser examinado é posicionado em figura-quatro, com o tornozelo ipsilateral apoiado sobre a coxa contralateral, proximal ao joelho. O examinador pressiona para baixo sobre o joelho ipsilateral com uma mão enquanto contrapressiona a EIAS contralateral com a outra.',
+   alerta:'Diferencie a localização da dor: dor posterior (na região da articulação sacroilíaca) sugere patologia sacroilíaca, enquanto dor anterior/na virilha sugere patologia intra-articular do quadril — a mesma manobra pode ser positiva por dois motivos distintos.',
+   positivo:'Dor posterior no quadril/região sacroilíaca sugere patologia da articulação sacroilíaca. Dor anterior na virilha sugere artropatia do quadril. Dor na região do iliopsoas (sinal do iliopsoas) sugere patologia do próprio músculo (p.ex. abscesso intrapélvico irritando a bainha do iliopsoas).',
+   negativo:'A manobra não é dolorosa no paciente normal.',
+   fonte:"Reider, Cap. 5, p.196."},
+
+  {id:'pe-quadril-gaenslen', regiao:'quadril', nome:"Teste de Gaenslen (Gaenslen's Test)",
+   resumo:'Teste de estresse indireto adicional para a articulação sacroilíaca.',
+   tecnica:'Com o paciente em decúbito dorsal e a nádega do lado a examinar projetando-se para fora da borda da mesa, o paciente traz ambos os joelhos até o tórax, como no primeiro passo do teste de Thomas (A). O examinador estabiliza o paciente enquanto permite que a coxa ipsilateral caia para fora da borda da mesa, estendendo totalmente o quadril (B).',
+   alerta:'Mantenha a estabilização firme do paciente durante toda a queda da coxa — sem controle adequado, o movimento pode ser desconfortável ou produzir falso-positivo por estresse lombar em vez de sacroilíaco.',
+   positivo:'A manobra induz dor na articulação sacroilíaca ipsilateral. Sugere patologia dessa articulação.',
+   negativo:'Ausência de dor sacroilíaca durante a extensão completa do quadril projetado para fora da mesa.',
+   fonte:"Reider, Cap. 5, p.196."},
+
+  {id:'pe-quadril-compressao-lateral', regiao:'quadril', nome:'Teste de Compressão Pélvica Lateral (Lateral Pelvic Compression Test)',
+   resumo:'Exame de rastreio para patologia das principais articulações do anel pélvico.',
+   tecnica:'Com o paciente em decúbito lateral, o examinador pressiona sobre a crista ilíaca, comprimindo a pelve contra a mesa de exame.',
+   alerta:'Peça ao paciente para localizar precisamente onde sente a dor (sacroilíaca ou sínfise púbica) — a localização referida pelo paciente é o dado interpretativo central deste teste.',
+   positivo:'Dor localizada pelo paciente em uma das articulações sacroilíacas ou na sínfise púbica. Sugere patologia no local indicado.',
+   negativo:'Ausência de dor localizada durante a compressão lateral da pelve.',
+   fonte:"Reider, Cap. 5, p.196-197."},
+
+  {id:'pe-quadril-compressao-ap', regiao:'quadril', nome:'Teste de Compressão Pélvica Anteroposterior (Anteroposterior Pelvic Compression Test)',
+   resumo:'Análogo ao teste de compressão pélvica lateral, mas comprime a pelve em um plano diferente.',
+   tecnica:'Com o paciente em decúbito dorsal, o examinador pressiona para baixo sobre a sínfise púbica.',
+   alerta:'Um desconforto leve e difuso é esperado mesmo em pacientes normais — apenas dor localizada e reprodutível a uma articulação específica deve ser considerada achado positivo.',
+   positivo:'Dor localizada a uma das principais articulações da pelve (sacroilíaca ou sínfise púbica). Sugere patologia nessa articulação.',
+   negativo:'Apenas desconforto leve inespecífico, sem dor localizada, como esperado no paciente normal.',
+   fonte:"Reider, Cap. 5, p.197."},
+
+  {id:'pe-quadril-sinfise-stress', regiao:'quadril', nome:'Teste de Estresse da Sínfise Púbica (Pubic Symphysis Stress Test)',
+   resumo:'Detecta instabilidade ou dor associada a lesão ou inflamação da sínfise púbica.',
+   tecnica:'Com o paciente em decúbito dorsal, o examinador coloca uma mão na face superior de um ramo púbico e a outra mão na face inferior do ramo púbico contralateral. As mãos são então empurradas uma em direção à outra, criando um movimento de cisalhamento na sínfise púbica.',
+   alerta:'Em caso de fratura aguda ou disrupção pélvica maior, a palpação suave já pode ser suficiente para o diagnóstico — não é necessário (nem recomendável) aplicar força adicional de cisalhamento nesses casos.',
+   positivo:'Movimento perceptível ou dor produzida pelo cisalhamento na sínfise púbica. Sugere instabilidade ou lesão/inflamação da sínfise púbica.',
+   negativo:'Ausência de movimento ou dor durante a manobra de cisalhamento.',
+   fonte:"Reider, Cap. 5, p.197."},
+
+  {id:'pe-quadril-stinchfield', regiao:'quadril', nome:"Teste de Stinchfield (Stinchfield's Test)",
+   resumo:'Excelente ferramenta de rastreio para patologia da articulação do quadril, simulando as forças normais da marcha através da articulação (1,8 a 2 vezes o peso corporal).',
+   tecnica:'Com o paciente em decúbito dorsal, solicita-se uma elevação ativa da perna reta (straight-leg raise) com o joelho ipsilateral travado em extensão, enquanto o examinador empurra a perna para baixo, podendo adicionar resistência manual se a resposta for equívoca.',
+   alerta:'Lembre-se de que patologia dos flexores do quadril (por exemplo, fratura por avulsão ou tendinite) também causa dor com esta manobra — um resultado positivo não é específico apenas para patologia intra-articular do quadril.',
+   positivo:'A manobra reproduz a dor do paciente. Sugere patologia significativa do quadril, como artrite, fratura ou infecção.',
+   negativo:'A elevação ativa da perna reta contra resistência não é dolorosa.',
+   fonte:"Reider, Cap. 5, p.197 (Fig. 5-53B)."},
+
+  {id:'pe-quadril-fulcrum', regiao:'quadril', nome:'Teste do Fulcro (Fulcrum Test)',
+   resumo:'Auxilia na detecção de fraturas de estresse da diáfise femoral, útil especialmente porque o fêmur está envolto em musculatura e não pode ser facilmente palpado diretamente.',
+   tecnica:'Com o paciente sentado na borda da mesa de exame, o examinador coloca um antebraço sob o meio da coxa do paciente para servir de fulcro e então pressiona para baixo sobre o joelho ipsilateral, aplicando uma força de flexão ao longo da diáfise femoral.',
+   alerta:'Este teste é particularmente útil no fêmur (envolto em musculatura), mas pode ser adaptado para rastrear fraturas de estresse em outros ossos longos — considere o contexto clínico (atleta de alta demanda ou doença óssea metabólica) ao interpretar.',
+   positivo:'A manobra produz dor ao longo da diáfise femoral. Sugere fratura de estresse do fêmur.',
+   negativo:'Ausência de dor durante a aplicação da força de flexão sobre a diáfise.',
+   fonte:"Reider, Cap. 5, p.197-198."},
+
+  {id:'pe-quadril-trendelenburg', regiao:'quadril', nome:"Teste de Trendelenburg (Trendelenburg's Test)",
+   resumo:'Exame de rastreio para fraqueza dos músculos abdutores do quadril (glúteo médio e glúteo mínimo).',
+   tecnica:'Com o examinador de pé ou sentado atrás do paciente em posição ortostática (A, apoio bipodal), o paciente é solicitado a levantar cada pé do chão, alternadamente. Ao levantar o pé esquerdo, testam-se os abdutores direitos; ao levantar o pé direito, testam-se os abdutores esquerdos (B, apoio unipodal normal; C, apoio unipodal anormal com pelve caída; D, apoio unipodal anormal com compensação por inclinação do tronco).',
+   alerta:'Observe se o paciente compensa inclinando o tronco sobre o membro de apoio (D) — isso indica fraqueza mais grave do que a simples queda da pelve (C) e não deve ser confundido com um resultado normal.',
+   positivo:'A pelve do lado não apoiado cai (droop) quando o pé é levantado do chão (C); em casos mais graves, o paciente não consegue levantar o pé oposto sem inclinar o tronco sobre o membro de apoio (D). Sugere fraqueza dos músculos abdutores do quadril no lado de apoio.',
+   negativo:'A pelve permanece nivelada (ou o lado não apoiado até se eleva levemente) quando o pé oposto é levantado do chão (B).',
+   fonte:"Reider, Cap. 5, p.198."}
 ];
 
 /* ── EXAME FÍSICO FUNCTIONS ── */
