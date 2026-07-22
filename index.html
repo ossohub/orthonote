@@ -1003,7 +1003,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="doc-sub-btn active" data-docsub="simples" onclick="showDocSub('simples')"><svg width="16" height="16"><use href="#i-rx"/></svg>Receituário Simples</button>
           <button class="doc-sub-btn" data-docsub="controlado" onclick="showDocSub('controlado')"><svg width="16" height="16"><use href="#i-doc-lock"/></svg>Receituário Controlado</button>
           <button class="doc-sub-btn" data-docsub="laudo" onclick="showDocSub('laudo')"><svg width="16" height="16"><use href="#i-note"/></svg>Laudo Médico</button>
-          <button class="doc-sub-btn" data-docsub="atestado" onclick="showDocSub('atestado')"><svg width="16" height="16"><use href="#i-attest"/></svg>Atestado Médico <span class="doc-soon-badge">em breve</span></button>
+          <button class="doc-sub-btn" data-docsub="atestado" onclick="showDocSub('atestado')"><svg width="16" height="16"><use href="#i-attest"/></svg>Atestado Médico</button>
         </div>
 
         <!-- ── SUB: RECEITUÁRIO SIMPLES ── -->
@@ -1306,12 +1306,86 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           </div>
         </div>
 
-        <!-- ── SUB: ATESTADO MÉDICO (em breve) ── -->
+        <!-- ── SUB: ATESTADO MÉDICO ── -->
         <div class="doc-sub-content" id="doc-sub-atestado">
-          <div class="card doc-soon-card">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#i-attest"/></svg>
-            <div class="tit">Atestado Médico — em breve</div>
-            <div class="sub">Modelo de atestado com CID (opcional, conforme autorização do paciente) e dias de afastamento será adicionado em um próximo lote.</div>
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-id"/></svg>Dados do Paciente</div>
+            <div class="rx-patient">
+              <div><label class="lbl" for="at-nome">Nome</label><input type="text" id="at-nome" placeholder="Nome completo" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="at-idade">Idade</label><input type="text" id="at-idade" placeholder="Ex: 45 anos" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="at-data">Data de emissão</label><input type="text" id="at-data" placeholder="dd/mm/aaaa" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div style="display:flex;align-items:flex-end"><button class="btn btn-c" style="white-space:nowrap" onclick="inserirDataHoje('at-data');atualizarPreviewDoc()">Hoje</button></div>
+            </div>
+            <div style="margin-top:.65rem"><label class="lbl" for="at-cid">CID-10 (opcional, mediante autorização do paciente)</label><input type="text" id="at-cid" placeholder="Ex: M54.5 — Dor lombar baixa" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+          </div>
+
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-attest"/></svg>Afastamento</div>
+            <div class="doc-profile-grid2">
+              <div><label class="lbl" for="at-dias">Dias de afastamento</label><input type="text" id="at-dias" placeholder="Ex: 5" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+              <div><label class="lbl" for="at-inicio">Início do afastamento</label><input type="text" id="at-inicio" placeholder="dd/mm/aaaa" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+            </div>
+            <div style="margin-top:.65rem"><label class="lbl" for="at-finalidade">Finalidade (opcional)</label><input type="text" id="at-finalidade" placeholder="Ex: atividades laborais / escolares" oninput="scheduleSave();atualizarPreviewDoc()"/></div>
+          </div>
+
+          <div class="card no-print">
+            <div class="s-tit"><svg width="18" height="18" style="color:var(--az)"><use href="#i-attest"/></svg>Texto do Atestado</div>
+            <div class="tpl-row">
+              <button class="tpl-btn" onclick="gerarAtestadoTexto('afastamento')">Afastamento</button>
+              <button class="tpl-btn" onclick="gerarAtestadoTexto('comparecimento')">Comparecimento/Consulta</button>
+              <button class="tpl-btn" onclick="gerarAtestadoTexto('repouso')">Repouso Domiciliar</button>
+              <button class="tpl-btn" onclick="gerarAtestadoTexto('restricao')">Restrição de Atividades</button>
+              <button class="tpl-btn" onclick="document.getElementById('at-text').value='';atualizarPreviewDoc()">Limpar</button>
+            </div>
+            <textarea class="rx-textarea" id="at-text" placeholder="Digite ou selecione um modelo acima…" style="min-height:180px" oninput="scheduleSave();atualizarPreviewDoc()"></textarea>
+          </div>
+
+          <div class="doc-sheet-wrap">
+            <div class="doc-sheet" id="doc-sheet-atestado">
+              <div class="doc-sheet-hdr">
+                <div class="doc-logo-box" id="doc-sheet-logo-atestado"><div class="doc-logo-placeholder">logo da instituição</div></div>
+                <div class="doc-title-box">
+                  <h2>Atestado Médico</h2>
+                  <div class="inst" id="doc-prev-inst-atestado"></div>
+                </div>
+                <div class="doc-via-badge">VIA<br/>DIGITAL</div>
+              </div>
+              <hr class="doc-hr"/>
+              <div class="doc-patient-line">
+                <div><b>Paciente</b><span id="doc-prev-nome-atestado">—</span></div>
+                <div><b>Idade</b><span id="doc-prev-idade-atestado">—</span></div>
+                <div><b>Data</b><span id="doc-prev-data-atestado">—</span></div>
+              </div>
+              <div class="doc-cid-line"><b>CID-10</b><span id="doc-prev-cid-atestado">—</span></div>
+              <div class="doc-patient-line" style="grid-template-columns:1fr 1fr">
+                <div><b>Dias de afastamento</b><span id="doc-prev-dias-atestado">—</span></div>
+                <div><b>Início do afastamento</b><span id="doc-prev-inicio-atestado">—</span></div>
+              </div>
+              <div class="doc-body-label">Atestado</div>
+              <div class="doc-body-text" id="doc-prev-texto-atestado"></div>
+              <div class="doc-footer">
+                <div class="doc-sign-line"></div>
+                <div class="doc-sign-block">
+                  <div class="dr-nome" id="doc-prev-dr-atestado">Dr(a). ___________________________</div>
+                  <div class="dr-crm" id="doc-prev-crm-atestado">CRM ______ / UF</div>
+                  <div class="dr-esp" id="doc-prev-esp-atestado"></div>
+                </div>
+                <div class="doc-carimbo-box">carimbo</div>
+              </div>
+              <div class="doc-verify">
+                <div class="doc-verify-qr" id="doc-qr-atestado"></div>
+                <div class="doc-verify-text">
+                  <span class="doc-verify-warn">⚠ Código de conferência interna OssoHub — NÃO é assinatura digital ICP-Brasil e não possui validade jurídica de assinatura eletrônica qualificada.</span><br/>
+                  Código: <b id="doc-code-atestado">—</b><br/>
+                  Gerado em: <span id="doc-code-data-atestado">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="doc-toolbar no-print">
+            <button class="btn btn-c" onclick="gerarCodigoVerificacao('atestado')"><svg width="16" height="16"><use href="#i-qrcode"/></svg>Gerar novo código de conferência</button>
+            <button class="btn btn-c" onclick="exportarAtestado()"><svg width="16" height="16"><use href="#i-dl"/></svg>Salvar .txt</button>
+            <button class="btn btn-e" onclick="imprimirRx()"><svg width="16" height="16"><use href="#i-print"/></svg>Imprimir / Gerar PDF</button>
           </div>
         </div>
 
@@ -1969,6 +2043,7 @@ function sairSala(force = false) {
   document.getElementById('rx-text').value = '';
   const rxcText = document.getElementById('rxc-text'); if (rxcText) rxcText.value = '';
   ['ld-hist','ld-exame','ld-compl','ld-concl'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const atText = document.getElementById('at-text'); if (atText) atText.value = '';
   document.getElementById('app').style.display = 'none';
   document.getElementById('app-footer').style.display = 'none';
   document.getElementById('room-screen').style.display = 'flex';
@@ -1993,6 +2068,10 @@ function coletarDados() {
     laudo: {
       nome: v('ld-nome'), idade: v('ld-idade'), data: v('ld-data'), cid: v('ld-cid'),
       hist: v('ld-hist'), exame: v('ld-exame'), compl: v('ld-compl'), concl: v('ld-concl')
+    },
+    atestado: {
+      nome: v('at-nome'), idade: v('at-idade'), data: v('at-data'), cid: v('at-cid'),
+      dias: v('at-dias'), inicio: v('at-inicio'), finalidade: v('at-finalidade'), texto: v('at-text')
     },
     nota: { tabs: notaTabs.map(t => ({ id: t.id, titulo: t.titulo, texto: t.id === notaActiveId ? (document.getElementById('nota-textarea')?.value ?? t.texto) : t.texto })), activeId: notaActiveId }
   };
@@ -2027,6 +2106,13 @@ function carregarDados(data) {
     const mapL = { nome:'ld-nome', idade:'ld-idade', data:'ld-data', cid:'ld-cid', hist:'ld-hist', exame:'ld-exame', compl:'ld-compl', concl:'ld-concl' };
     Object.keys(mapL).forEach(k => {
       const el = document.getElementById(mapL[k]); if (el && l[k] !== undefined) el.value = l[k];
+    });
+  }
+  if (data.atestado) {
+    const at = data.atestado;
+    const mapAt = { nome:'at-nome', idade:'at-idade', data:'at-data', cid:'at-cid', dias:'at-dias', inicio:'at-inicio', finalidade:'at-finalidade', texto:'at-text' };
+    Object.keys(mapAt).forEach(k => {
+      const el = document.getElementById(mapAt[k]); if (el && at[k] !== undefined) el.value = at[k];
     });
   }
   if (data.nota) {
@@ -2537,6 +2623,29 @@ const TEMPLATES_LAUDO = {
   afastamento: `Diante do quadro ortopédico apresentado, recomenda-se afastamento das atividades laborais/habituais por período de ___ dias, a contar desta data, para tratamento e reavaliação clínica.`
 };
 
+/* Gera o texto do Atestado Médico a partir dos campos estruturados (nome, dias, início, finalidade) */
+function gerarAtestadoTexto(tipo) {
+  const nome = v('at-nome') || '___________________________';
+  const dias = v('at-dias') || '___';
+  const inicio = v('at-inicio') || (v('at-data') || new Date().toLocaleDateString('pt-BR'));
+  const dataEmissao = v('at-data') || new Date().toLocaleDateString('pt-BR');
+  const finalidade = v('at-finalidade');
+  const finalidadeTxt = finalidade ? ` (${finalidade})` : '';
+  let texto = '';
+  if (tipo === 'comparecimento') {
+    texto = `Atesto, para os devidos fins, que o(a) Sr(a). ${nome} compareceu a esta consulta/atendimento médico no dia ${dataEmissao}, no período das ___ às ___ horas.`;
+  } else if (tipo === 'repouso') {
+    texto = `Atesto, para os devidos fins, que o(a) Sr(a). ${nome} necessita de repouso domiciliar por ${dias} dia(s), a contar de ${inicio}, por motivo de saúde.`;
+  } else if (tipo === 'restricao') {
+    texto = `Atesto, para os devidos fins, que o(a) Sr(a). ${nome} deverá permanecer afastado(a) de atividades que exijam esforço físico/carga por ${dias} dia(s), a contar de ${inicio}, mantendo-se apto(a) para atividades leves conforme orientação médica.`;
+  } else {
+    texto = `Atesto, para os devidos fins, que o(a) Sr(a). ${nome} esteve sob meus cuidados médicos nesta data, necessitando de afastamento de suas atividades${finalidadeTxt} por ${dias} dia(s), a contar de ${inicio}.`;
+  }
+  const ta = document.getElementById('at-text');
+  if (ta) { ta.value = texto; scheduleSave(); }
+  atualizarPreviewDoc();
+}
+
 function aplicarTemplate(key, targetId, dict) {
   targetId = targetId || 'rx-text';
   dict = dict || TEMPLATES;
@@ -2576,6 +2685,15 @@ function exportarLaudo() {
     + `CONCLUSÃO / DIAGNÓSTICO:\n${v('ld-concl') || '(não preenchido)'}`;
   baixarTxt(txt, `Laudo_Medico_${dt.replace(/\//g,'-')}.txt`);
   mostrarToast('Laudo salvo!');
+}
+function exportarAtestado() {
+  const nome = v('at-nome') || 'Paciente', dt = v('at-data') || new Date().toLocaleDateString('pt-BR');
+  const txt = `ATESTADO MÉDICO — OssoHub\n`
+    + `Paciente: ${nome}\nIdade: ${v('at-idade')}\nData de emissão: ${dt}\nCID-10: ${v('at-cid') || '—'}\n`
+    + `Dias de afastamento: ${v('at-dias') || '—'}\nInício do afastamento: ${v('at-inicio') || '—'}\n\n`
+    + `${v('at-text') || '(não preenchido)'}`;
+  baixarTxt(txt, `Atestado_Medico_${dt.replace(/\//g,'-')}.txt`);
+  mostrarToast('Atestado salvo!');
 }
 function imprimirRx() { window.print(); }
 
@@ -2733,6 +2851,29 @@ function atualizarPreviewDoc() {
   const lExame = document.getElementById('doc-prev-exame-laudo'); if (lExame) lExame.textContent = v('ld-exame');
   const lCompl = document.getElementById('doc-prev-compl-laudo'); if (lCompl) lCompl.textContent = v('ld-compl');
   const lConcl = document.getElementById('doc-prev-concl-laudo'); if (lConcl) lConcl.textContent = v('ld-concl');
+
+  /* Atestado Médico — folha única (via digital) */
+  const logoAtestado = document.getElementById('doc-sheet-logo-atestado');
+  if (logoAtestado) logoAtestado.innerHTML = _docLogoDataUrl
+    ? `<img src="${_docLogoDataUrl}" alt="Logo da instituição"/>`
+    : `<div class="doc-logo-placeholder">logo da instituição</div>`;
+  const instAtestado = document.getElementById('doc-prev-inst-atestado'); if (instAtestado) instAtestado.textContent = inst || '';
+  const drAtestado = document.getElementById('doc-prev-dr-atestado'); if (drAtestado) drAtestado.textContent = nome ? ('Dr(a). ' + nome) : 'Dr(a). ___________________________';
+  const crmAtestadoEl = document.getElementById('doc-prev-crm-atestado');
+  if (crmAtestadoEl) {
+    let txtA = crm ? ('CRM ' + crm + (uf ? ' / ' + uf : '')) : 'CRM ______ / UF';
+    if (rqe) txtA += '   |   RQE ' + rqe;
+    crmAtestadoEl.textContent = txtA;
+  }
+  const espAtestado = document.getElementById('doc-prev-esp-atestado'); if (espAtestado) espAtestado.textContent = esp || '';
+
+  const aNome = document.getElementById('doc-prev-nome-atestado'); if (aNome) aNome.textContent = v('at-nome') || '—';
+  const aIdade = document.getElementById('doc-prev-idade-atestado'); if (aIdade) aIdade.textContent = v('at-idade') || '—';
+  const aData = document.getElementById('doc-prev-data-atestado'); if (aData) aData.textContent = v('at-data') || new Date().toLocaleDateString('pt-BR');
+  const aCid = document.getElementById('doc-prev-cid-atestado'); if (aCid) aCid.textContent = v('at-cid') || '—';
+  const aDias = document.getElementById('doc-prev-dias-atestado'); if (aDias) aDias.textContent = v('at-dias') || '—';
+  const aInicio = document.getElementById('doc-prev-inicio-atestado'); if (aInicio) aInicio.textContent = v('at-inicio') || '—';
+  const aTexto = document.getElementById('doc-prev-texto-atestado'); if (aTexto) aTexto.textContent = v('at-text');
 }
 
 /* Hash simples (não criptográfico) só para compor um código de conferência legível —
@@ -2748,6 +2889,8 @@ function gerarCodigoVerificacao(docTipo) {
     conteudo = [v('rxc-nome'), v('rxc-idade'), v('rxc-data'), v('rxc-endereco'), v('rxc-comp-nome'), v('rxc-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
   } else if (docTipo === 'laudo') {
     conteudo = [v('ld-nome'), v('ld-idade'), v('ld-data'), v('ld-cid'), v('ld-hist'), v('ld-exame'), v('ld-compl'), v('ld-concl'), v('doc-med-nome'), v('doc-med-crm')].join('|');
+  } else if (docTipo === 'atestado') {
+    conteudo = [v('at-nome'), v('at-idade'), v('at-data'), v('at-cid'), v('at-dias'), v('at-inicio'), v('at-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
   } else {
     conteudo = [v('rx-nome'), v('rx-idade'), v('rx-data'), v('rx-text'), v('doc-med-nome'), v('doc-med-crm')].join('|');
   }
@@ -7571,6 +7714,7 @@ function inicializarApp() {
   gerarCodigoVerificacao('simples');
   gerarCodigoVerificacao('controlado');
   gerarCodigoVerificacao('laudo');
+  gerarCodigoVerificacao('atestado');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
