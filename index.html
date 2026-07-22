@@ -606,6 +606,11 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   .app-main{overflow:visible}
   .med-layout{grid-template-columns:1fr}
   .rx-patient{grid-template-columns:1fr 1fr}
+  /* Ferramentas em iframe (Algoritmos/PDF/Rede Social): no mobile a altura "auto" da
+     página quebra a cadeia de height:100% (que só funciona com #app em 100vh fixo,
+     como no desktop). Força tela cheia real via viewport para o conteúdo do iframe
+     sempre aparecer e ser utilizável, com rolagem própria dentro do próprio iframe. */
+  .tab-pdf-full.active{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;z-index:400;background:var(--bg);margin:0}
 }
 /* Prevent iOS Safari auto-zoom on input focus (needs >=16px) */
 @media(max-width:900px),(pointer:coarse){
@@ -2231,8 +2236,12 @@ function showTab(tab) {
   if (main) main.style.overflow = (tab === 'pdf' || tab === 'algoritmos') ? 'hidden' : '';
   // Ferramentas em iframe (Algoritmos/PDF/Rede Social) ocupam a tela toda e podem capturar
   // o scroll/toque — mostra um botão flutuante fixo para sempre ser possível voltar ao menu.
+  const ferramentaFull = (tab === 'algoritmos' || tab === 'pdf' || tab === 'social');
   const backBtn = document.getElementById('floating-back-btn');
-  if (backBtn) backBtn.style.display = (tab === 'algoritmos' || tab === 'pdf' || tab === 'social') ? 'flex' : 'none';
+  if (backBtn) backBtn.style.display = ferramentaFull ? 'flex' : 'none';
+  // Trava o scroll do body enquanto a ferramenta em tela cheia estiver ativa (evita
+  // "bounce"/rolagem do fundo por trás do overlay no mobile, especialmente em iOS Safari).
+  document.body.style.overflow = ferramentaFull ? 'hidden' : '';
 }
 
 /* ── CHIPS ANAMNESE ── */
