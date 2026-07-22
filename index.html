@@ -508,6 +508,39 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   #tab-rx.active{padding:0}
   .rx-actions,.tpl-row{display:none!important}
 }
+/* ── CALCULADORA ORTOPÉDICA ── */
+.oc-card{background:#192D45;border-radius:var(--r);border:1px solid #24405E;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.3);transition:box-shadow .2s,border-color .2s;margin-bottom:.7rem}
+.oc-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.5);border-color:#2A5070}
+.oc-hdr{display:flex;align-items:center;gap:.65rem;padding:.8rem 1rem;cursor:pointer;user-select:none;transition:background .15s}
+.oc-hdr:hover{background:#0B2A22}
+.oc-hdr-mid{flex:1;min-width:0}
+.oc-nome{font-weight:800;font-size:.88rem;color:var(--tx);display:block}
+.oc-resumo{font-size:.74rem;color:#5A7A9A;margin-top:.15rem;display:block}
+.oc-badge-cat{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--og);background:#0A2A20;border:1px solid #1E3A5A;padding:.15rem .55rem;border-radius:10px;flex-shrink:0;white-space:nowrap}
+.oc-chevron{transition:transform .2s;color:#5A7A9A;flex-shrink:0}
+.oc-card.open .oc-chevron{transform:rotate(180deg);color:var(--og)}
+.oc-body{display:none;padding:.2rem 1rem 1rem}
+.oc-card.open .oc-body{display:block}
+.oc-field-row{margin-bottom:.65rem}
+.oc-field-label{display:block;font-size:.76rem;font-weight:700;color:#B8C8DC;margin-bottom:.4rem}
+.oc-field-sub{display:block;font-size:.68rem;color:#5A7A9A;font-weight:400;margin-top:.1rem}
+.oc-opts{display:flex;flex-wrap:wrap;gap:.4rem}
+.oc-opt{border:1.5px solid #1E3550;background:#0E1C30;color:var(--tx);border-radius:8px;padding:.45rem .75rem;font-size:.78rem;font-family:inherit;cursor:pointer;transition:all .15s;text-align:left;line-height:1.3}
+.oc-opt:hover{border-color:#2A5070}
+.oc-opt.sel{background:var(--og);border-color:var(--og);color:#fff;font-weight:700}
+.oc-result{background:linear-gradient(135deg,#0A1830,#0D2040);border:1.5px solid #1E3A5A;border-radius:10px;padding:1rem 1.1rem;margin-top:.85rem}
+.oc-result-score{font-size:1.6rem;font-weight:900;color:var(--og);line-height:1}
+.oc-result-label{font-size:.85rem;font-weight:800;margin-top:.35rem}
+.oc-result-badge{display:inline-block;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:.2rem .6rem;border-radius:10px;margin-top:.4rem}
+.oc-badge-verde{background:rgba(16,185,129,.15);color:#34D399;border:1px solid #1E5A45}
+.oc-badge-amarelo{background:rgba(234,179,8,.15);color:#EAB308;border:1px solid #5A4A1E}
+.oc-badge-vermelho{background:rgba(248,113,113,.15);color:#F87171;border:1px solid #5A1E1E}
+.oc-conduta{font-size:.8rem;color:#CBD5E1;margin-top:.65rem;line-height:1.55;white-space:pre-line}
+.oc-conduta strong{color:var(--og)}
+.oc-fonte-line{font-size:.68rem;color:#5A7A9A;margin-top:.6rem;padding-top:.55rem;border-top:1px solid #1E3550}
+.oc-reset-btn{font-size:.7rem;color:#5A7A9A;background:none;border:1px solid #1E3550;border-radius:7px;padding:.3rem .65rem;cursor:pointer;margin-top:.7rem;font-family:inherit}
+.oc-reset-btn:hover{color:var(--og);border-color:var(--og)}
+.oc-empty-note{font-size:.68rem;color:#5A7A9A;font-style:italic;margin-top:.3rem}
 </style>
 </head>
 <body>
@@ -633,6 +666,13 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
         <button class="nav-btn" id="nb-via" onclick="showTab('via')">
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-via"/></svg></span>
           Vias de Acesso
+        </button>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Calculadoras</div>
+        <button class="nav-btn" id="nb-calc" onclick="showTab('calc')">
+          <span class="nav-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg></span>
+          Calculadora Ortopédica
         </button>
       </div>
       <div class="sidebar-section">
@@ -902,6 +942,36 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
           <button class="region-btn" onclick="selectViaRegion('punho')" data-vregion="punho">Punho <span class="rbadge">4</span></button>
         </div>
         <div id="va-regions"></div>
+      </div>
+      </div>
+
+      <!-- ══ TAB: CALCULADORA ORTOPÉDICA ══ -->
+      <div id="tab-calc" class="tab-content">
+      <div class="container-inner">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap">
+          <div class="s-tit" style="margin:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--og)"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/></svg>
+            Calculadora Ortopédica
+          </div>
+          <div style="flex:1;min-width:180px">
+            <input type="text" id="oc-filter" class="srch-input" placeholder="Buscar: nome do escore, indicação…" oninput="filtrarOC()"/>
+          </div>
+          <button class="sug-btn" style="position:static;flex-shrink:0" onclick="abrirModal('Calculadora Ortopédica')" title="Sugerir nova calculadora ou reportar erro">!</button>
+        </div>
+        <div style="font-size:.72rem;color:#5A7A9A;margin-bottom:.75rem;line-height:1.5">⚠️ Ferramentas de apoio à decisão clínica. Não substituem o julgamento médico — use em conjunto com a avaliação clínica completa.</div>
+        <div class="region-nav" id="oc-cat-nav">
+          <button class="region-btn active" onclick="selectOCCat('trauma')" data-occat="trauma">Trauma/Fraturas <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('coluna')" data-occat="coluna">Coluna <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('infeccao')" data-occat="infeccao">Infecção <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('vte')" data-occat="vte">TVP/TEP</button>
+          <button class="region-btn" onclick="selectOCCat('perioperatorio')" data-occat="perioperatorio">Perioperatório <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('mao-punho')" data-occat="mao-punho">Mão/Punho <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('quadril-joelho')" data-occat="quadril-joelho">Quadril/Joelho <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('reumatologia')" data-occat="reumatologia">Reumatologia <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('osteoporose')" data-occat="osteoporose">Osteoporose <span class="rbadge">0</span></button>
+          <button class="region-btn" onclick="selectOCCat('funcional')" data-occat="funcional">Funcional/Geriatria <span class="rbadge">0</span></button>
+        </div>
+        <div id="oc-regions"></div>
       </div>
       </div>
 
@@ -4131,6 +4201,634 @@ function filtrarVias() {
   });
 }
 function toggleVaCard(hdr) { hdr.parentElement.classList.toggle('open'); }
+
+/* ══════════════════════════════════════════════════════════
+   CALCULADORA ORTOPÉDICA — DADOS (LOTE 1: TRAUMA/ORTOPEDIA)
+   ══════════════════════════════════════════════════════════ */
+const OC_DATA = [
+  {
+    id: 'ottawa-ankle', categoria: 'trauma', nome: 'Ottawa Ankle Rule',
+    resumo: 'Define necessidade de radiografia de tornozelo e/ou médio-pé após trauma.',
+    tipo: 'zone-any',
+    grupos: [
+      { nome: 'Zona maleolar (tornozelo)', criterios: [
+        { label: 'Dor à palpação nos 6 cm distais da borda posterior ou ponta do maléolo LATERAL' },
+        { label: 'Dor à palpação nos 6 cm distais da borda posterior ou ponta do maléolo MEDIAL' },
+        { label: 'Incapacidade de sustentar peso (4 passos) imediatamente após o trauma e no PS' },
+      ]},
+      { nome: 'Zona do médio-pé', criterios: [
+        { label: 'Dor à palpação na base do 5º metatarso' },
+        { label: 'Dor à palpação no osso navicular' },
+        { label: 'Incapacidade de sustentar peso (4 passos) imediatamente após o trauma e no PS' },
+      ]},
+    ],
+    conduta: 'Sensibilidade próxima de 100% para excluir fratura clinicamente significativa. Sempre correlacionar com o exame clínico completo; mancar/coxear é permitido (não invalida "incapacidade de sustentar peso" apenas se o paciente não conseguir dar os 4 passos).',
+    fonte: 'Stiell et al. 1992/1993 · MDCalc',
+  },
+  {
+    id: 'ottawa-knee', categoria: 'trauma', nome: 'Ottawa Knee Rule',
+    resumo: 'Define necessidade de radiografia de joelho após trauma agudo.',
+    tipo: 'any',
+    criterios: [
+      { label: 'Idade ≥ 55 anos' },
+      { label: 'Sensibilidade isolada da patela (sem outra dor óssea no joelho)' },
+      { label: 'Sensibilidade na cabeça da fíbula' },
+      { label: 'Incapacidade de flexionar o joelho a 90°' },
+      { label: 'Incapacidade de sustentar peso, tanto imediatamente quanto no PS (4 passos; mancar é permitido)' },
+    ],
+    positivo: { label: 'Radiografia de joelho indicada', cor: 'vermelho', conduta: 'Presença de qualquer critério → solicitar radiografia de joelho (3 incidências).' },
+    negativo: { label: 'Radiografia de joelho não necessária', cor: 'verde', conduta: 'Sensibilidade ~100% para fratura clinicamente significativa em adultos. Reavaliar se sintomas persistirem ou piorarem.' },
+    fonte: 'Stiell et al. 1995/1996 · MDCalc',
+  },
+  {
+    id: 'pittsburgh-knee', categoria: 'trauma', nome: 'Pittsburgh Knee Rules',
+    resumo: 'Define quando radiografias de joelho são desnecessárias após trauma.',
+    tipo: 'any',
+    prereq: { label: 'Mecanismo: trauma contuso ou queda (regra se aplica apenas a esse mecanismo)' },
+    naoAplicavel: { label: 'Regra não se aplica a este mecanismo — usar julgamento clínico', cor: 'amarelo', conduta: 'A Pittsburgh Knee Rule só foi validada para trauma contuso direto ou queda. Para outros mecanismos, avaliar clinicamente ou considerar Ottawa Knee Rule.' },
+    criterios: [
+      { label: 'Idade < 12 ou > 50 anos' },
+      { label: 'Incapacidade de sustentar peso no PS (4 passos; mancar é permitido)' },
+    ],
+    positivo: { label: 'Radiografia de joelho indicada', cor: 'vermelho', conduta: 'Presença de qualquer critério → solicitar radiografia de joelho.' },
+    negativo: { label: 'Radiografia de joelho não necessária', cor: 'verde', conduta: 'Alta sensibilidade (~99%) e maior especificidade que a Ottawa Knee Rule nesta população.' },
+    fonte: 'Seaberg & Jackson 1994 · MDCalc',
+  },
+  {
+    id: 'wells-dvt', categoria: 'vte', nome: "Wells' Criteria for DVT",
+    resumo: 'Estima a probabilidade pré-teste de trombose venosa profunda (TVP).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Câncer ativo (tratamento em curso, últimos 6 meses, ou paliativo)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Paralisia, paresia ou imobilização gessada recente de MI', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Acamado ≥3 dias ou grande cirurgia nas últimas 12 semanas', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Dor localizada ao longo do sistema venoso profundo', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Perna inteira edemaciada', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Edema de panturrilha >3 cm vs. lado assintomático (10 cm abaixo da tuberosidade tibial)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Edema depressível (cacifo), confinado à perna sintomática', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Veias colaterais superficiais não varicosas', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'TVP previamente documentada', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Diagnóstico alternativo pelo menos tão provável quanto TVP', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:-2}] },
+    ],
+    faixas: [
+      { max: 0, label: 'Baixo risco (TVP improvável)', cor: 'verde', conduta: 'Prevalência ~5%. Solicitar D-dímero de alta sensibilidade; se negativo, TVP praticamente excluída. Se positivo, USG de MMII com Doppler.' },
+      { min: 1, max: 2, label: 'Risco moderado', cor: 'amarelo', conduta: 'Prevalência ~17%. Solicitar D-dímero de ALTA sensibilidade (ensaios de sensibilidade moderada não são adequados aqui). Negativo exclui TVP; positivo → USG.' },
+      { min: 3, label: 'Alto risco (TVP provável)', cor: 'vermelho', conduta: 'Prevalência 17–53%. Solicitar USG de MMII diretamente, independente do D-dímero.' },
+    ],
+    fonte: 'Wells et al. 1997/2003 · MDCalc',
+  },
+  {
+    id: 'geneva-revisado', categoria: 'vte', nome: 'Geneva Score (Revised) for Pulmonary Embolism',
+    resumo: 'Objetiva a probabilidade clínica de embolia pulmonar (TEP).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Idade > 65 anos', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'TVP ou TEP prévios', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:3}] },
+      { label: 'Cirurgia (com anestesia geral) ou fratura de MI no último mês', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'Neoplasia maligna ativa ou curada há <1 ano', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'Dor unilateral em membro inferior', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:3}] },
+      { label: 'Hemoptise', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'Frequência cardíaca', opcoes: [{label:'<75 bpm',pts:0},{label:'75–94 bpm',pts:3},{label:'≥95 bpm',pts:5}] },
+      { label: 'Dor à palpação profunda do MI + edema unilateral', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4}] },
+    ],
+    faixas: [
+      { max: 3, label: 'Baixa probabilidade', cor: 'verde', conduta: 'Incidência de TEP ~8–10%. D-dímero como próximo passo; se negativo, TEP excluída.' },
+      { min: 4, max: 10, label: 'Probabilidade intermediária', cor: 'amarelo', conduta: 'Incidência de TEP ~20–30%. D-dímero; se positivo, prosseguir com angio-TC de tórax.' },
+      { min: 11, label: 'Alta probabilidade', cor: 'vermelho', conduta: 'Incidência de TEP >60%. Considerar angio-TC de tórax diretamente.' },
+    ],
+    fonte: 'Le Gal et al. 2006 · MDCalc',
+  },
+  {
+    id: 'lrinec', categoria: 'infeccao', nome: 'LRINEC Score for Necrotizing Soft Tissue Infection',
+    resumo: 'Rastreia infecção necrotizante de partes moles (fasciíte necrotizante).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Proteína C reativa (PCR)', opcoes: [{label:'<15 mg/dL',pts:0},{label:'≥15 mg/dL',pts:4}] },
+      { label: 'Leucócitos totais', opcoes: [{label:'<15.000/µL',pts:0},{label:'15.000–25.000/µL',pts:1},{label:'>25.000/µL',pts:2}] },
+      { label: 'Hemoglobina', opcoes: [{label:'>13,5 g/dL',pts:0},{label:'11–13,5 g/dL',pts:1},{label:'<11 g/dL',pts:2}] },
+      { label: 'Sódio sérico', opcoes: [{label:'≥135 mmol/L',pts:0},{label:'<135 mmol/L',pts:2}] },
+      { label: 'Creatinina sérica', opcoes: [{label:'≤1,6 mg/dL',pts:0},{label:'>1,6 mg/dL',pts:2}] },
+      { label: 'Glicemia', opcoes: [{label:'≤180 mg/dL',pts:0},{label:'>180 mg/dL',pts:1}] },
+    ],
+    faixas: [
+      { max: 5, label: 'Baixo risco', cor: 'amarelo', conduta: 'Score <6 não exclui fasciíte necrotizante. Se a suspeita clínica for alta, NÃO usar o score para descartar — proceder à exploração cirúrgica/consulta cirúrgica de urgência.' },
+      { min: 6, max: 7, label: 'Risco intermediário', cor: 'vermelho', conduta: '>50% de probabilidade de fasciíte necrotizante. Investigação e consulta cirúrgica urgentes.' },
+      { min: 8, label: 'Risco alto', cor: 'vermelho', conduta: 'Fortemente preditivo (VPP 93,4%). Exploração cirúrgica de emergência não deve ser adiada.' },
+    ],
+    fonte: 'Wong et al. 2004 · MDCalc (validações externas mostram desempenho variável — usar com cautela e nunca substituir o julgamento clínico)',
+  },
+  {
+    id: 'kocher', categoria: 'infeccao', nome: 'Kocher Criteria for Septic Arthritis',
+    resumo: 'Distingue artrite séptica de sinovite transitória em quadril inflamado pediátrico.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Não sustenta peso no lado afetado', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Temperatura > 38,5 °C', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'VHS > 40 mm/h', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Leucócitos séricos > 12.000/mm³', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+    ],
+    faixas: [
+      { min:0, max:0, label: '0 critério — ~2% de probabilidade', cor: 'verde', conduta: 'Muito baixa probabilidade de artrite séptica. Considerar sinovite transitória.' },
+      { min:1, max:1, label: '1 critério — ~9,5% de probabilidade', cor: 'verde', conduta: 'Baixa probabilidade. Observação clínica próxima.' },
+      { min:2, max:2, label: '2 critérios — ~35% de probabilidade', cor: 'amarelo', conduta: 'Probabilidade intermediária. Considerar artrocentese diagnóstica.' },
+      { min:3, max:3, label: '3 critérios — ~73% de probabilidade', cor: 'vermelho', conduta: 'Alta probabilidade. Artrocentese e consulta ortopédica urgentes.' },
+      { min:4, label: '4 critérios — ~93% de probabilidade', cor: 'vermelho', conduta: 'Muito alta probabilidade. Tratar como artrite séptica até prova em contrário (drenagem cirúrgica de urgência).' },
+    ],
+    fonte: 'Kocher et al. 1999 · MDCalc',
+  },
+  {
+    id: 'mirels', categoria: 'trauma', nome: "Mirels' Criteria for Prophylactic Fixation",
+    resumo: 'Prediz risco de fratura patológica em metástase de osso longo.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Localização', opcoes: [{label:'Membro superior',pts:1},{label:'Membro inferior',pts:2},{label:'Região peritrocantérica',pts:3}] },
+      { label: 'Tamanho da lesão (relação ao diâmetro do osso)', opcoes: [{label:'<1/3',pts:1},{label:'1/3 – 2/3',pts:2},{label:'>2/3',pts:3}] },
+      { label: 'Natureza da lesão', opcoes: [{label:'Blástica',pts:1},{label:'Mista',pts:2},{label:'Lítica',pts:3}] },
+      { label: 'Dor', opcoes: [{label:'Leve',pts:1},{label:'Moderada',pts:2},{label:'Funcional (piora com carga)',pts:3}] },
+    ],
+    faixas: [
+      { max: 7, label: 'Baixo risco', cor: 'verde', conduta: 'Risco de fratura <4%. Tratamento conservador (radioterapia) geralmente seguro; reavaliar periodicamente.' },
+      { min: 8, max: 8, label: 'Risco indeterminado', cor: 'amarelo', conduta: 'Julgamento clínico do ortopedista — considerar fixação profilática conforme fatores individuais (localização, atividade do paciente, expectativa de vida).' },
+      { min: 9, label: 'Alto risco', cor: 'vermelho', conduta: 'Risco de fratura ~33–100%. Fixação cirúrgica profilática recomendada antes da radioterapia.' },
+    ],
+    fonte: 'Mirels 1989 · MDCalc',
+  },
+  {
+    id: 'mess', categoria: 'trauma', nome: 'Mangled Extremity Severity Score (MESS)',
+    resumo: 'Estima viabilidade de extremidade traumatizada (salvamento vs. amputação).',
+    tipo: 'sum',
+    especial: 'mess-ischemia-double',
+    campos: [
+      { label: 'Lesão esquelética/de partes moles', opcoes: [
+        {label:'Baixa energia (fratura simples, ferimento por arma branca)',pts:1},
+        {label:'Média energia (fraturas expostas ou múltiplas, luxação)',pts:2},
+        {label:'Alta energia (arma de fogo em alta velocidade, trauma por esmagamento)',pts:3},
+        {label:'Muito alta energia (alta velocidade + contaminação grosseira)',pts:4},
+      ]},
+      { label: 'Isquemia do membro (dobrar a pontuação se duração > 6 horas)', opcoes: [
+        {label:'Pulso reduzido/ausente mas perfusão normal',pts:1},
+        {label:'Sem pulso; parestesia, enchimento capilar lentificado',pts:2},
+        {label:'Membro frio, paralisado, insensível/dormente',pts:3},
+      ], dobraSeIsquemiaLonga: true },
+      { label: 'Isquemia com duração > 6 horas?', opcoes: [{label:'Não',pts:0},{label:'Sim (dobrar pontos da isquemia)',pts:0}] },
+      { label: 'Choque', opcoes: [
+        {label:'PA sistólica sempre >90 mmHg',pts:0},
+        {label:'Hipotensão transitória',pts:1},
+        {label:'Hipotensão persistente',pts:2},
+      ]},
+      { label: 'Idade', opcoes: [{label:'<30 anos',pts:0},{label:'30–50 anos',pts:1},{label:'≥50 anos',pts:2}] },
+    ],
+    faixas: [
+      { max: 6, label: 'Score <7 — salvamento provável', cor: 'verde', conduta: 'Alta probabilidade de salvamento do membro. Prosseguir com tentativa de reconstrução/revascularização.' },
+      { min: 7, label: 'Score ≥7 — alto risco de amputação', cor: 'vermelho', conduta: 'Historicamente associado a taxas muito altas de amputação. Considerar amputação primária, avaliando sempre o quadro clínico global e a experiência da equipe.' },
+    ],
+    fonte: 'Johansen et al. 1990 · MDCalc',
+  },
+  {
+    id: 'trip-cast', categoria: 'vte', nome: 'TRiP(cast) Score',
+    resumo: 'Prediz risco de TEV em pacientes com trauma de MMII imobilizados (gesso/órtese).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Risco do trauma', opcoes: [{label:'Baixo (entorse leve, etc.)',pts:0},{label:'Intermediário',pts:1},{label:'Alto (fratura, ruptura tendínea/ligamentar)',pts:2}] },
+      { label: 'Tipo de imobilização', opcoes: [
+        {label:'Outro dispositivo com apoio plantar',pts:0},
+        {label:'Bota c/ tornozelo livre OU imobilização rígida/semirrígida sem apoio plantar',pts:1},
+        {label:'Gesso de perna',pts:2},
+        {label:'Gesso de coxa',pts:3},
+      ]},
+      { label: 'Idade', opcoes: [{label:'<35 anos',pts:0},{label:'35–54 anos',pts:1},{label:'55–74 anos',pts:2},{label:'≥75 anos',pts:3}] },
+      { label: 'Sexo', opcoes: [{label:'Feminino',pts:0},{label:'Masculino',pts:1}] },
+      { label: 'IMC', opcoes: [{label:'<25',pts:0},{label:'25–34,9',pts:1},{label:'≥35',pts:2}] },
+      { label: 'História familiar de TEV', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'TEV pessoal prévio ou trombofilia maior conhecida', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4}] },
+      { label: 'Uso de anticoncepcional oral ou terapia hormonal', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4}] },
+      { label: 'Câncer ativo ou tratado nos últimos 5 anos', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:3}] },
+      { label: 'Gravidez ou puerpério', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:3}] },
+      { label: 'Outra imobilização nos últimos 3 meses', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'Cirurgia nos últimos 3 meses', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:2}] },
+      { label: 'Comorbidade (IC, artrite reumatoide, DRC, DPOC, DII)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Insuficiência venosa crônica', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+    ],
+    faixas: [
+      { max: 6, label: 'Baixo risco', cor: 'verde', conduta: 'Risco de TEV em 3 meses ~0,7% sem tromboprofilaxia farmacológica. Profilaxia mecânica/orientação geral costuma ser suficiente.' },
+      { min: 7, label: 'Alto risco', cor: 'vermelho', conduta: 'Considerar tromboprofilaxia farmacológica durante todo o período de imobilização.' },
+    ],
+    fonte: 'Nemeth et al. 2019 · MDCalc',
+  },
+  {
+    id: 'nhfs', categoria: 'funcional', nome: 'Nottingham Hip Fracture Score (NHFS)',
+    resumo: 'Prediz mortalidade em 30 dias após cirurgia de fratura de quadril.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Idade', opcoes: [{label:'≤65 anos',pts:0},{label:'66–85 anos',pts:3},{label:'≥86 anos',pts:4}] },
+      { label: 'Sexo', opcoes: [{label:'Feminino',pts:0},{label:'Masculino',pts:1}] },
+      { label: 'Hemoglobina na admissão', opcoes: [{label:'>10 g/dL',pts:0},{label:'≤10 g/dL',pts:1}] },
+      { label: 'Estado mental (mini teste mental / AMTS)', opcoes: [{label:'>6/10 (normal)',pts:0},{label:'≤6/10 (alterado)',pts:1}] },
+      { label: 'Reside em instituição de longa permanência', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Número de comorbidades', opcoes: [{label:'<2',pts:0},{label:'≥2',pts:1}] },
+      { label: 'Malignidade ativa', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+    ],
+    faixas: [
+      { max: 4, label: 'Baixo risco de mortalidade', cor: 'verde', conduta: 'Prognóstico relativamente favorável em 30 dias/1 ano. Manter otimização perioperatória padrão.' },
+      { min: 5, label: 'Alto risco de mortalidade', cor: 'vermelho', conduta: 'Risco elevado de mortalidade em 30 dias e 1 ano. Envolver equipe geriátrica/ortogeriatria e discutir objetivos de cuidado com a família.' },
+    ],
+    fonte: 'Maxwell et al. 2008 · MDCalc',
+  },
+  {
+    id: 'tlics', categoria: 'coluna', nome: 'Thoracolumbar Injury Classification and Severity Scale (TLICS)',
+    resumo: 'Classifica lesão toracolombar e orienta tratamento (conservador vs. cirúrgico).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Morfologia da lesão', opcoes: [{label:'Nenhuma anormalidade',pts:0},{label:'Compressão',pts:1},{label:'Explosão (burst)',pts:2},{label:'Translacional/rotacional',pts:3},{label:'Distração',pts:4}] },
+      { label: 'Integridade do complexo ligamentar posterior (CLP)', opcoes: [{label:'Intacto',pts:0},{label:'Suspeito/indeterminado',pts:2},{label:'Lesado',pts:3}] },
+      { label: 'Status neurológico', opcoes: [{label:'Intacto',pts:0},{label:'Lesão de raiz nervosa',pts:2},{label:'Lesão medular ou de cone completa',pts:2},{label:'Lesão medular ou de cone incompleta',pts:3},{label:'Síndrome de cauda equina',pts:3}] },
+    ],
+    faixas: [
+      { max: 3, label: 'Tratamento não-operatório (colete/órtese)', cor: 'verde', conduta: 'Score ≤3: tratamento conservador geralmente indicado.' },
+      { min: 4, max: 4, label: 'Indeterminado', cor: 'amarelo', conduta: 'Score = 4: decisão a critério do cirurgião de coluna, considerando fatores individuais do paciente.' },
+      { min: 5, label: 'Tratamento cirúrgico indicado', cor: 'vermelho', conduta: 'Score ≥5: tratamento operatório geralmente recomendado.' },
+    ],
+    fonte: 'Vaccaro et al. 2005 · MDCalc',
+  },
+  {
+    id: 'slic', categoria: 'coluna', nome: 'Subaxial Injury Classification and Severity Scale (SLIC)',
+    resumo: 'Classifica lesão subaxial da coluna cervical e orienta tratamento.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Morfologia da lesão', opcoes: [{label:'Sem anormalidade',pts:0},{label:'Compressão',pts:1},{label:'Explosão (burst — soma-se +1 à compressão)',pts:2},{label:'Distração (ex.: facetas perchadas, hiperextensão)',pts:3},{label:'Rotação/translação (ex.: fratura-luxação facetária, luxação atlanto-occipital instável)',pts:4}] },
+      { label: 'Integridade do complexo discoligamentar (CDL)', opcoes: [{label:'Íntegro',pts:0},{label:'Indeterminado (alargamento isolado em RM, etc.)',pts:1},{label:'Lesado (alargamento do espaço discal, cifose facetária, luxação facetária)',pts:2}] },
+      { label: 'Status neurológico', opcoes: [{label:'Intacto',pts:0},{label:'Lesão radicular',pts:1},{label:'Lesão medular completa',pts:2},{label:'Lesão medular incompleta',pts:3},{label:'Compressão medular persistente com déficit neurológico (soma-se +1)',pts:0}] },
+    ],
+    faixas: [
+      { max: 3, label: 'Tratamento não-operatório', cor: 'verde', conduta: 'Score ≤3: tratamento conservador (órtese cervical) geralmente indicado.' },
+      { min: 4, max: 4, label: 'Indeterminado', cor: 'amarelo', conduta: 'Score = 4: decisão a critério do cirurgião de coluna.' },
+      { min: 5, label: 'Tratamento cirúrgico indicado', cor: 'vermelho', conduta: 'Score ≥5: tratamento operatório geralmente recomendado.' },
+    ],
+    fonte: 'Vaccaro et al. 2007 · MDCalc',
+  },
+  {
+    id: 'sins', categoria: 'coluna', nome: 'Spinal Instability Neoplastic Scale (SINS) Score',
+    resumo: 'Avalia o grau de instabilidade espinhal em pacientes com tumores vertebrais.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Localização', opcoes: [{label:'Rígida (sacro S2–S5)',pts:0},{label:'Semirrígida (T3–T10)',pts:1},{label:'Móvel (C3–C6, L2–L4)',pts:2},{label:'Junção (occipito-C2, C7–T2, T11–L1, L5–S1)',pts:3}] },
+      { label: 'Dor', opcoes: [{label:'Ausente',pts:0},{label:'Dor ocasional, não mecânica',pts:1},{label:'Dor mecânica (com movimento/carga)',pts:3}] },
+      { label: 'Qualidade da lesão óssea', opcoes: [{label:'Blástica',pts:0},{label:'Mista (blástica/lítica)',pts:1},{label:'Lítica',pts:2}] },
+      { label: 'Alinhamento radiográfico da coluna', opcoes: [{label:'Normal',pts:0},{label:'Deformidade de novo (cifose/escoliose)',pts:2},{label:'Subluxação/translação',pts:4}] },
+      { label: 'Colapso do corpo vertebral', opcoes: [{label:'Nenhum, com >50% do corpo envolvido',pts:0},{label:'Sem colapso',pts:0},{label:'<50% de colapso',pts:1},{label:'>50% de colapso',pts:3}] },
+      { label: 'Envolvimento posterolateral dos elementos vertebrais', opcoes: [{label:'Nenhum',pts:0},{label:'Unilateral (faceta, pedículo, costovertebral)',pts:1},{label:'Bilateral',pts:3}] },
+    ],
+    faixas: [
+      { max: 6, label: 'Estável', cor: 'verde', conduta: 'Score 0–6: coluna estável. Manejo conservador do ponto de vista da estabilidade mecânica.' },
+      { min: 7, max: 12, label: 'Instabilidade potencial', cor: 'amarelo', conduta: 'Score 7–12: encaminhar para avaliação com cirurgião de coluna.' },
+      { min: 13, label: 'Instável', cor: 'vermelho', conduta: 'Score 13–18: instabilidade mecânica; avaliação cirúrgica indicada.' },
+    ],
+    fonte: 'Fisher et al. 2010 · MDCalc',
+  },
+  {
+    id: 'pecarn-cspine', categoria: 'coluna', nome: 'PECARN Cervical Spine Injury Prediction Rule',
+    resumo: 'Avalia necessidade e tipo de imagem em trauma cervical contuso pediátrico.',
+    tipo: 'tiered-any',
+    niveis: [
+      { nome: 'Fatores de ALTO risco', criterios: [
+        { label: 'Escala de Coma de Glasgow 3–8, ou não responde a estímulo verbal (AVPU)' },
+        { label: 'Anormalidade de via aérea, respiração ou circulação que requeira intervenção imediata' },
+        { label: 'Déficit neurológico focal' },
+      ], resultLabel: 'Alto risco (~12,7%)', cor: 'vermelho', conduta: 'TC de coluna cervical indicada.' },
+      { nome: 'Fatores de risco INTERMEDIÁRIO', criterios: [
+        { label: 'Alteração do nível de consciência (GCS 9–14, ou responde apenas à dor)' },
+        { label: 'Dor cervical relatada pelo paciente' },
+        { label: 'Lesão substancial de tronco' },
+        { label: 'Lesão substancial de crânio ou face' },
+        { label: 'Dor à palpação da linha média posterior cervical' },
+      ], resultLabel: 'Risco intermediário (~2,8–3,6%)', cor: 'amarelo', conduta: 'Radiografia simples de coluna cervical.' },
+    ],
+    nenhum: { label: 'Risco muito baixo (~0,2%)', cor: 'verde', conduta: 'Liberar clinicamente a coluna cervical; imagem não é necessária na ausência destes fatores.' },
+    fonte: 'Leonard et al. 2019 (PECARN) · MDCalc',
+  },
+  {
+    id: 'modified-denver-bcvi', categoria: 'trauma', nome: 'Modified Denver Criteria for Blunt Cerebrovascular Injury (BCVI)',
+    resumo: 'Determina quais pacientes de trauma contuso devem ser rastreados para BCVI.',
+    tipo: 'any',
+    criterios: [
+      { label: 'Hemorragia arterial cervical inexplicada, ou hematoma cervical em expansão' },
+      { label: 'Sopro cervical em paciente < 50 anos' },
+      { label: 'Déficit neurológico focal não explicado pela TC de crânio' },
+      { label: 'AVC isquêmico visto em TC/RM secundária' },
+      { label: 'Neurologia incongruente com o grau de lesão visto na TC de crânio' },
+      { label: 'GCS ≤ 8 sem explicação proporcional pelo grau de lesão' },
+      { label: 'Fratura de coluna cervical (subluxação, fraturas de C1–C3, ou fratura envolvendo o forame transverso)' },
+      { label: 'Fratura de base de crânio envolvendo o canal carotídeo' },
+      { label: 'Fratura de face tipo LeFort II ou III' },
+      { label: 'Lesão axonal difusa com GCS < 6' },
+      { label: 'Quase-enforcamento com lesão cerebral anóxica' },
+      { label: 'Lesão de partes moles cervicais (ex.: lesão por cinto de segurança) com edema/dor/limitação significativa' },
+    ],
+    positivo: { label: 'Critério(s) presente(s) — rastrear BCVI', cor: 'vermelho', conduta: 'Solicitar angio-TC (CTA) de vasos cervicais para rastreio de lesão cerebrovascular contusa.' },
+    negativo: { label: 'Nenhum critério presente', cor: 'amarelo', conduta: 'Sensibilidade do rastreio clínico não é absoluta — manter baixo limiar para solicitar CTA se o mecanismo for muito preocupante, mesmo sem critérios formais presentes.' },
+    fonte: 'Geddes et al. 2015 (Denver modificado) · MDCalc',
+  },
+  {
+    id: 'rcri', categoria: 'perioperatorio', nome: 'Revised Cardiac Risk Index for Pre-Operative Risk',
+    resumo: 'Estima risco de complicações cardíacas após cirurgia não-cardíaca.',
+    tipo: 'sum',
+    campos: [
+      { label: 'Cirurgia de alto risco (intraperitoneal, intratorácica, ou vascular suprainguinal)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Doença cardíaca isquêmica (IAM prévio, teste ergométrico positivo, angina, uso de nitrato, ou onda Q patológica)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'História de insuficiência cardíaca congestiva', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'História de doença cerebrovascular (AVC ou AIT prévio)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Diabetes em uso de insulina no pré-operatório', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Creatinina pré-operatória > 2,0 mg/dL', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+    ],
+    faixas: [
+      { max:0, label: 'Classe I — ~3,9% de risco', cor: 'verde', conduta: 'Baixo risco de evento cardíaco maior perioperatório.' },
+      { min:1, max:1, label: 'Classe II — ~6,0% de risco', cor: 'amarelo', conduta: 'Risco moderado. Considerar otimização clínica pré-operatória.' },
+      { min:2, max:2, label: 'Classe III — ~10,1% de risco', cor: 'amarelo', conduta: 'Risco elevado. Avaliação cardiológica pré-operatória recomendada.' },
+      { min:3, label: 'Classe IV — ~15,0% de risco', cor: 'vermelho', conduta: 'Alto risco de evento cardíaco maior. Avaliação cardiológica formal antes da cirurgia eletiva.' },
+    ],
+    fonte: 'Lee et al. 1999 · MDCalc',
+  },
+  {
+    id: 'pons', categoria: 'perioperatorio', nome: 'Perioperative Nutrition Screen (PONS)',
+    resumo: 'Avalia risco nutricional perioperatório.',
+    tipo: 'sum',
+    campos: [
+      { label: 'IMC baixo (<18,5; ou <20 se idade >65 anos)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Perda de peso não intencional >10% nos últimos 6 meses', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Ingesta alimentar <50% do habitual na última semana', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+      { label: 'Albumina sérica < 3,0 g/dL', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:1}] },
+    ],
+    faixas: [
+      { max: 0, label: 'Baixo risco nutricional', cor: 'verde', conduta: 'Sem necessidade de intervenção nutricional pré-operatória adicional.' },
+      { min: 1, label: 'Alto risco nutricional', cor: 'vermelho', conduta: 'Encaminhar para avaliação com nutricionista antes da cirurgia eletiva; considerar otimização nutricional.' },
+    ],
+    fonte: 'Wischmeyer et al. 2017 · MDCalc',
+  },
+  {
+    id: 'wisconsin', categoria: 'trauma', nome: 'Wisconsin Criteria',
+    resumo: 'Prediz necessidade de TC após trauma maxilofacial.',
+    tipo: 'any',
+    criterios: [
+      { label: 'Degrau ósseo palpável ou instabilidade do esqueleto facial' },
+      { label: 'Edema/equimose periorbital significativo' },
+      { label: 'Escala de Coma de Glasgow < 14' },
+      { label: 'Má-oclusão dentária' },
+      { label: 'Ausência dentária (avulsão) relacionada ao trauma' },
+    ],
+    positivo: { label: 'TC de face indicada', cor: 'vermelho', conduta: 'Presença de qualquer critério → solicitar TC de face.' },
+    negativo: { label: 'TC de face provavelmente desnecessária', cor: 'verde', conduta: 'Usar sempre como adjunto ao julgamento clínico; reavaliar se novos sinais surgirem.' },
+    fonte: 'Duong et al. 2017 · MDCalc',
+  },
+  {
+    id: 'cts6', categoria: 'mao-punho', nome: 'Carpal Tunnel Syndrome-6 (CTS-6)',
+    resumo: 'Estima a probabilidade de síndrome do túnel do carpo (STC).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Dormência predominante ou exclusiva no território do nervo mediano', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:3.5}] },
+      { label: 'Dormência noturna que acorda o paciente', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4}] },
+      { label: 'Fraqueza e/ou atrofia da musculatura tenar', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:5}] },
+      { label: 'Teste de Phalen positivo (≤60 s)', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:5}] },
+      { label: 'Perda da discriminação de 2 pontos (>5 mm) no território do mediano', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4.5}] },
+      { label: 'Sinal de Tinel positivo sobre o nervo mediano no punho', opcoes: [{label:'Não',pts:0},{label:'Sim',pts:4}] },
+    ],
+    faixas: [
+      { max: 11.9, label: 'Diagnóstico de STC menos provável', cor: 'verde', conduta: 'Considerar diagnósticos alternativos ou investigação adicional (eletroneuromiografia) se a suspeita clínica persistir.' },
+      { min: 12, label: 'Diagnóstico de STC mais provável', cor: 'vermelho', conduta: 'Score ≥12 ≈ 80% de probabilidade de STC; score ≥18 tem especificidade de ~99%. Considerar tratamento clínico (órtese noturna, infiltração) e/ou encaminhamento cirúrgico conforme gravidade.' },
+    ],
+    fonte: 'Graham et al. 2006 · MDCalc',
+  },
+  {
+    id: 'rapid-score', categoria: 'quadril-joelho', nome: 'RAPID Score for Acetabular Chondrolabral Disruption',
+    resumo: 'Prediz probabilidade de lesão condrolabral de alto grau no quadril (achado intraoperatório).',
+    tipo: 'sum',
+    campos: [
+      { label: 'Sexo', opcoes: [{label:'Feminino',pts:0},{label:'Masculino',pts:1}] },
+      { label: 'Classificação de Tönnis (artrose)', opcoes: [{label:'Grau 0',pts:0},{label:'Grau 1',pts:2},{label:'Grau 2 (relativa contraindicação à artroscopia isolada)',pts:3}] },
+      { label: 'Morfologia em came (ângulo alfa > 55°)', opcoes: [{label:'Ausente',pts:0},{label:'Presente',pts:1}] },
+    ],
+    faixas: [
+      { max: 3, label: 'Baixa probabilidade de lesão de alto grau', cor: 'verde', conduta: 'Discutir prognóstico com o paciente considerando baixa chance de dano condrolabral avançado.' },
+      { min: 4, label: 'Alta probabilidade de lesão de alto grau', cor: 'vermelho', conduta: 'Aconselhar o paciente sobre maior chance de achado condrolabral avançado; ter disponíveis técnicas/insumos para manejo de lesões condrais grau 3–4 na artroscopia.' },
+    ],
+    fonte: 'Nawabi et al. 2016 · MDCalc',
+  },
+  {
+    id: 'rip-score', categoria: 'quadril-joelho', nome: 'Recurrent Instability of the Patella (RIP) Score',
+    resumo: 'Prediz risco de instabilidade recorrente após luxação primária de patela.',
+    tipo: 'info',
+    descricao: 'Fatores de risco avaliados: (1) idade < 25 anos; (2) imaturidade esquelética (fises abertas); (3) grau de displasia troclear de Dejour (A a D); (4) razão TT-TG/comprimento patelar (PL) ≥ 0,5. A combinação destes fatores estratifica o paciente em risco baixo (~0% de recorrência em 10 anos), intermediário (~30,6%) ou alto (~79,2%).',
+    conduta: 'O modelo original não publica uma tabela de pontos simples e aditiva (ponderação obtida por regressão) — use a calculadora original do MDCalc para o percentual exato. Clinicamente, pacientes de alto risco (jovens, esqueleto imaturo, displasia troclear grave, TT-TG/PL elevado) devem ser considerados para estabilização cirúrgica precoce (ex.: reconstrução do LPFM) mesmo após primeiro episódio.',
+    fonte: 'Jaquith & Parikh 2017 · MDCalc',
+  },
+  {
+    id: 'rhmp-30', categoria: 'funcional', nome: 'Rotterdam Hip Fracture Mortality Prediction-30 Days (RHMP-30)',
+    resumo: 'Prediz risco de mortalidade em 30 dias após fratura de quadril.',
+    tipo: 'info',
+    descricao: 'Modelo estatístico (regressão logística LASSO) construído a partir de 7 variáveis: idade, sexo, classificação ASA = 4, demência, albumina sérica, índice de Katz (atividades de vida diária) e residência em instituição de longa permanência.',
+    conduta: 'Não é um somatório simples de pontos — os coeficientes exatos do modelo de regressão não são amplamente divulgados fora da calculadora original (MDCalc). Use esta lista de fatores para orientar a discussão sobre risco cirúrgico e tomada de decisão compartilhada (cirurgia vs. manejo paliativo/conservador) em pacientes idosos frágeis, mas calcule o percentual exato na ferramenta original quando necessário para documentação formal.',
+    fonte: 'Groenewegen et al. 2020 · MDCalc',
+  },
+  {
+    id: 'perioperative-anticoag', categoria: 'perioperatorio', nome: 'Perioperative Anticoagulation Management Algorithm',
+    resumo: 'Orienta manejo perioperatório de anticoagulação, avaliando risco de sangramento.',
+    tipo: 'info',
+    descricao: 'Algoritmo de decisão (não numérico) para manejo perioperatório de pacientes em uso de varfarina ou DOACs (apixabana, dabigatrana, edoxabana, rivaroxabana):\n\n1) Classificar o risco de sangramento do procedimento: mínimo (~0%), baixo-moderado (0–2% em 30 dias) ou alto (≥2% em 30 dias).\n\n2) Ponte com heparina (bridging) só é recomendada em pacientes de ALTO risco tromboembólico em uso de varfarina: prótese valvar mecânica antiga (especialmente mitral, ou aórtica com fatores de risco adicionais), fibrilação atrial com CHA2DS2-VASc ≥7 (ou AVC/AIT recente <3 meses, ou doença valvar reumática), ou TEV recente (<3 meses), trombofilia grave, ou neoplasia ativa de alto risco (pâncreas, gástrica, esôfago, cérebro, ou neoplasia mieloproliferativa).\n\n3) Ponte NÃO é recomendada rotineiramente para pacientes em uso de DOACs durante a interrupção perioperatória (meia-vida curta permite suspensão e reintrodução guiadas por função renal e risco de sangramento do procedimento).\n\n4) Dose de ponte sugerida quando indicada: enoxaparina 1 mg/kg 12/12h (ou 1,5 mg/kg 1x/dia), ou dalteparina 100 UI/kg 12/12h (ou 200 UI/kg 1x/dia) — última dose pela manhã do dia anterior à cirurgia, em metade da dose diária total.',
+    conduta: 'Sempre individualizar com base no risco tromboembólico do paciente, no risco hemorrágico específico do procedimento ortopédico planejado, e em discussão multidisciplinar (cirurgião, cardiologista/hematologista) quando aplicável.',
+    fonte: 'Doherty et al. 2017 (ACC), Spyropoulos et al. 2022 (CHEST) · MDCalc',
+  },
+];
+
+const OC_CAT_ORDEM = ['trauma','coluna','infeccao','vte','perioperatorio','mao-punho','quadril-joelho','reumatologia','osteoporose','funcional'];
+const OC_CAT_LABELS = {trauma:'Trauma/Fraturas',coluna:'Coluna',infeccao:'Infecção',vte:'TVP/TEP',perioperatorio:'Perioperatório','mao-punho':'Mão/Punho','quadril-joelho':'Quadril/Joelho',reumatologia:'Reumatologia',osteoporose:'Osteoporose',funcional:'Funcional/Geriatria'};
+
+/* ── CALCULADORA ORTOPÉDICA FUNCTIONS ── */
+let currentOCCat = 'trauma';
+function updateOCCatBadges() {
+  OC_CAT_ORDEM.forEach(cat => {
+    const count = OC_DATA.filter(o => o.categoria === cat).length;
+    const btn = document.querySelector(`.region-btn[data-occat="${cat}"] .rbadge`);
+    if (btn) btn.textContent = count;
+  });
+}
+function selectOCCat(cat) {
+  currentOCCat = cat;
+  document.getElementById('oc-filter').value = '';
+  document.querySelectorAll('.region-btn[data-occat]').forEach(b => b.classList.toggle('active', b.dataset.occat === cat));
+  renderOCList(OC_DATA.filter(o => o.categoria === cat));
+}
+function filtrarOC() {
+  const q = document.getElementById('oc-filter').value.toLowerCase().trim();
+  if (!q) { renderOCList(OC_DATA.filter(o => o.categoria === currentOCCat)); return; }
+  document.querySelectorAll('.region-btn[data-occat]').forEach(b => b.classList.remove('active'));
+  renderOCList(OC_DATA.filter(o => (o.nome + ' ' + o.resumo).toLowerCase().includes(q)));
+}
+function renderOCList(list) {
+  const wrap = document.getElementById('oc-regions');
+  if (!wrap) return;
+  if (!list.length) { wrap.innerHTML = '<div class="oc-empty-note">Nenhuma calculadora encontrada nesta categoria/busca.</div>'; return; }
+  wrap.innerHTML = list.map(o => ocCardHtml(o)).join('');
+}
+function ocCardHtml(o) {
+  return `<div class="oc-card" id="oc-card-${o.id}">
+    <div class="oc-hdr" onclick="toggleOCCard('${o.id}')">
+      <div class="oc-hdr-mid">
+        <span class="oc-nome">${escHtml(o.nome)}</span>
+        <span class="oc-resumo">${escHtml(o.resumo)}</span>
+      </div>
+      <span class="oc-badge-cat">${escHtml(OC_CAT_LABELS[o.categoria] || o.categoria)}</span>
+      <svg class="oc-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="oc-body" id="oc-body-${o.id}"></div>
+  </div>`;
+}
+function toggleOCCard(id) {
+  const card = document.getElementById('oc-card-' + id);
+  if (!card) return;
+  const wasOpen = card.classList.contains('open');
+  card.classList.toggle('open');
+  if (!wasOpen && !card.dataset.built) {
+    const o = OC_DATA.find(x => x.id === id);
+    document.getElementById('oc-body-' + id).innerHTML = ocFormHtml(o);
+    card.dataset.built = '1';
+  }
+}
+function ocFormHtml(o) {
+  let html = '';
+  if (o.tipo === 'sum') {
+    o.campos.forEach((campo, ci) => {
+      html += `<div class="oc-field-row">
+        <span class="oc-field-label">${escHtml(campo.label)}</span>
+        <div class="oc-opts">
+          ${campo.opcoes.map((op, oi) => `<button type="button" class="oc-opt" data-field="${ci}" data-val="${op.pts}" onclick="ocSelectOpt('${o.id}',${ci},this)">${escHtml(op.label)}</button>`).join('')}
+        </div>
+      </div>`;
+    });
+  } else if (o.tipo === 'any') {
+    if (o.prereq) {
+      html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(o.prereq.label)}</span>
+        <div class="oc-opts">
+          <button type="button" class="oc-opt" data-prereq="1" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+          <button type="button" class="oc-opt" data-prereq="1" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+        </div></div>`;
+    }
+    o.criterios.forEach((crit, ci) => {
+      html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(crit.label)}</span>
+        <div class="oc-opts">
+          <button type="button" class="oc-opt" data-crit="${ci}" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+          <button type="button" class="oc-opt" data-crit="${ci}" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+        </div></div>`;
+    });
+  } else if (o.tipo === 'zone-any') {
+    o.grupos.forEach((grp, gi) => {
+      html += `<div style="font-size:.78rem;font-weight:800;color:var(--og);margin:.6rem 0 .3rem">${escHtml(grp.nome)}</div>`;
+      grp.criterios.forEach((crit, ci) => {
+        html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(crit.label)}</span>
+          <div class="oc-opts">
+            <button type="button" class="oc-opt" data-grp="${gi}" data-crit="${ci}" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+            <button type="button" class="oc-opt" data-grp="${gi}" data-crit="${ci}" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+          </div></div>`;
+      });
+    });
+  } else if (o.tipo === 'tiered-any') {
+    o.niveis.forEach((nivel, ni) => {
+      html += `<div style="font-size:.78rem;font-weight:800;color:var(--og);margin:.6rem 0 .3rem">${escHtml(nivel.nome)}</div>`;
+      nivel.criterios.forEach((crit, ci) => {
+        html += `<div class="oc-field-row"><span class="oc-field-label">${escHtml(crit.label)}</span>
+          <div class="oc-opts">
+            <button type="button" class="oc-opt" data-nivel="${ni}" data-crit="${ci}" data-val="0" onclick="ocToggleCheck('${o.id}',this)">Não</button>
+            <button type="button" class="oc-opt" data-nivel="${ni}" data-crit="${ci}" data-val="1" onclick="ocToggleCheck('${o.id}',this)">Sim</button>
+          </div></div>`;
+      });
+    });
+  } else if (o.tipo === 'info') {
+    html += `<div class="oc-conduta">${escHtml(o.descricao)}</div>`;
+    if (o.conduta) html += `<div class="oc-result"><div class="oc-result-label">Conduta / uso clínico</div><div class="oc-conduta">${escHtml(o.conduta)}</div></div>`;
+  }
+  if (o.tipo !== 'info') {
+    html += `<div id="oc-result-${o.id}"></div>
+      <button type="button" class="oc-reset-btn" onclick="ocReset('${o.id}')">↺ Limpar seleções</button>`;
+  }
+  html += `<div class="oc-fonte-line">Fonte: ${escHtml(o.fonte)}</div>`;
+  return html;
+}
+function ocSelectOpt(id, campoIdx, btn) {
+  const card = document.getElementById('oc-body-' + id);
+  card.querySelectorAll(`.oc-opt[data-field="${campoIdx}"]`).forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  computeOC(id);
+}
+function ocToggleCheck(id, btn) {
+  const card = document.getElementById('oc-body-' + id);
+  const keys = ['crit', 'grp', 'nivel', 'prereq'];
+  let selector = '.oc-opt';
+  keys.forEach(k => { if (btn.dataset[k] !== undefined) selector += `[data-${k}="${btn.dataset[k]}"]`; });
+  card.querySelectorAll(selector).forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  computeOC(id);
+}
+function ocResultHtml(score, r) {
+  const corLabel = r.cor === 'verde' ? 'Baixo risco' : (r.cor === 'amarelo' ? 'Risco intermediário' : 'Alto risco / ação recomendada');
+  return `<div class="oc-result">
+    ${(score !== null && score !== undefined) ? `<div class="oc-result-score">${score}</div>` : ''}
+    <div class="oc-result-label">${escHtml(r.label)}</div>
+    <span class="oc-result-badge oc-badge-${r.cor}">${corLabel}</span>
+    ${r.conduta ? `<div class="oc-conduta">${escHtml(r.conduta)}</div>` : ''}
+  </div>`;
+}
+function computeOC(id) {
+  const o = OC_DATA.find(x => x.id === id);
+  const card = document.getElementById('oc-body-' + id);
+  const resultDiv = document.getElementById('oc-result-' + id);
+  if (!resultDiv) return;
+  if (o.tipo === 'sum') {
+    const selected = [...card.querySelectorAll('.oc-opt.sel[data-field]')];
+    if (selected.length < o.campos.length) { resultDiv.innerHTML = ''; return; }
+    let total = 0;
+    selected.forEach(b => total += parseFloat(b.dataset.val));
+    if (o.especial === 'mess-ischemia-double') {
+      const ischBtn = card.querySelector('.oc-opt.sel[data-field="1"]');
+      const durBtn = card.querySelector('.oc-opt.sel[data-field="2"]');
+      if (ischBtn && durBtn && durBtn.textContent.includes('Sim')) total += parseFloat(ischBtn.dataset.val);
+    }
+    const faixa = o.faixas.find(f => (f.min === undefined || total >= f.min) && (f.max === undefined || total <= f.max));
+    resultDiv.innerHTML = faixa ? ocResultHtml(total, faixa) : '';
+  } else if (o.tipo === 'any') {
+    const prereqBtn = o.prereq ? card.querySelector('.oc-opt.sel[data-prereq]') : null;
+    if (o.prereq) {
+      if (!prereqBtn) { resultDiv.innerHTML = ''; return; }
+      if (prereqBtn.dataset.val === '0') { resultDiv.innerHTML = ocResultHtml(null, o.naoAplicavel); return; }
+    }
+    const critButtons = o.criterios.map((_, ci) => card.querySelector(`.oc-opt.sel[data-crit="${ci}"]:not([data-grp]):not([data-nivel])`));
+    if (critButtons.some(b => !b)) { resultDiv.innerHTML = ''; return; }
+    const anyPositive = critButtons.some(b => b.dataset.val === '1');
+    resultDiv.innerHTML = ocResultHtml(null, anyPositive ? o.positivo : o.negativo);
+  } else if (o.tipo === 'zone-any') {
+    let allAnswered = true;
+    let html = '';
+    o.grupos.forEach((grp, gi) => {
+      const btns = grp.criterios.map((_, ci) => card.querySelector(`.oc-opt.sel[data-grp="${gi}"][data-crit="${ci}"]`));
+      if (btns.some(b => !b)) { allAnswered = false; return; }
+      const positive = btns.some(b => b.dataset.val === '1');
+      html += `<div class="oc-result" style="margin-top:${gi === 0 ? '0' : '.6rem'}"><div class="oc-result-label">${escHtml(grp.nome)}</div><span class="oc-result-badge oc-badge-${positive ? 'vermelho' : 'verde'}">${positive ? 'Radiografia indicada' : 'Radiografia não necessária'}</span></div>`;
+    });
+    resultDiv.innerHTML = allAnswered ? html : '';
+  } else if (o.tipo === 'tiered-any') {
+    let allAnswered = true;
+    let matched = null;
+    o.niveis.forEach((nivel, ni) => {
+      const btns = nivel.criterios.map((_, ci) => card.querySelector(`.oc-opt.sel[data-nivel="${ni}"][data-crit="${ci}"]`));
+      if (btns.some(b => !b)) allAnswered = false;
+      if (!matched && btns.every(b => b) && btns.some(b => b.dataset.val === '1')) matched = nivel;
+    });
+    if (!allAnswered) { resultDiv.innerHTML = ''; return; }
+    const r = matched ? { label: matched.resultLabel, cor: matched.cor, conduta: matched.conduta } : o.nenhum;
+    resultDiv.innerHTML = ocResultHtml(null, r);
+  }
+}
+function ocReset(id) {
+  const o = OC_DATA.find(x => x.id === id);
+  document.getElementById('oc-body-' + id).innerHTML = ocFormHtml(o);
+}
 let _figCurr = {cb: '', rw: '', active: 'campbell'};
 function abrirFigura(srcCb, titulo, srcRw) {
   const hasCb = srcCb && srcCb !== 'undefined';
@@ -4423,6 +5121,8 @@ function inicializarApp() {
   buildMedList();
   renderClassificacoes();
   renderVias();
+  updateOCCatBadges();
+  selectOCCat('trauma');
   carregarImagensGlobais().then(() => { renderClassificacoes(); renderVias(); });
   carregarClassificacoesCustom().then(() => renderClassificacoes());
   // Renderiza abas (NÃO reseta — dados já foram carregados por carregarDados ou estão no estado padrão)
