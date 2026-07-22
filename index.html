@@ -483,9 +483,9 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   .sidebar{width:100%;flex-direction:row;border-right:none;border-bottom:1px solid var(--bd);overflow-x:auto;overflow-y:hidden;padding:.3rem .5rem;-webkit-overflow-scrolling:touch}
   .sidebar-section{display:contents}
   .sidebar-label{display:none}
-  .nav-btn{flex-direction:column;gap:.2rem;padding:.5rem .65rem;font-size:.68rem;border-left:none;border-bottom:3px solid transparent;min-width:60px;justify-content:center;text-align:center;white-space:nowrap}
+  .nav-btn{flex:0 0 auto;flex-direction:column;gap:.2rem;padding:.5rem .7rem;font-size:.68rem;border-left:none;border-bottom:3px solid transparent;min-width:60px;justify-content:center;text-align:center;white-space:nowrap;overflow:visible}
   .nav-btn.active{border-bottom-color:var(--og);border-left:none}
-  .nav-ico{width:24px;height:24px}
+  .nav-ico{width:24px;height:24px;flex-shrink:0}
   .app-main{overflow:visible}
   .med-layout{grid-template-columns:1fr}
   .rx-patient{grid-template-columns:1fr 1fr}
@@ -496,7 +496,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
   .calc-field input,.calc-field select,.modal-textarea,.cl-search-bar input{font-size:16px}
 }
 @media(max-width:680px){
-  .nav-btn{min-width:52px}
+  .nav-btn{min-width:52px;flex:0 0 auto}
 }
 @media print{
   #room-screen,#app>.hdr,.sidebar,footer{display:none!important}
@@ -1539,7 +1539,10 @@ async function carregarImagensGlobais() {
     const map = {};
     snap.forEach(d => { map[d.id] = d.data().data; });
     GLOBAL_IMG = map;
-  } catch (e) { console.warn('Não foi possível carregar imagens globais:', e.message); }
+  } catch (e) {
+    console.warn('Não foi possível carregar imagens globais:', e.code, e.message);
+    if (isAdminLoggedIn()) mostrarToast('Erro ao carregar imagens (' + (e.code || e.message) + ').');
+  }
 }
 
 function triggerUpload(ns, id) { document.getElementById('file-' + ns + '-' + id).click(); }
@@ -1574,18 +1577,32 @@ function loadImg(ns, id, input) {
 function comprimirImg(dataUrl, maxW, cb) {
   const img = new Image();
   img.onload = () => {
-    const canvas = document.createElement('canvas');
-    let w = img.width, h = img.height;
-    if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
-    canvas.width = w; canvas.height = h;
-    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-    cb(canvas.toDataURL('image/jpeg', 0.85));
+    try {
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      cb(canvas.toDataURL('image/jpeg', 0.85));
+    } catch (e) {
+      console.error('comprimirImg falhou ao gerar canvas:', e);
+      mostrarToast('Não foi possível processar essa imagem. Tente outro arquivo.');
+    }
+  };
+  img.onerror = () => {
+    console.error('comprimirImg: falha ao carregar a imagem (formato não suportado pelo navegador, ex: HEIC).');
+    mostrarToast('Não foi possível ler essa imagem. Se for HEIC (iPhone), converta para JPEG/PNG antes de enviar.');
   };
   img.src = dataUrl;
 }
 
 async function salvarImagemGlobal(ns, id, dataUrl) {
-  if (!isAdminLoggedIn()) return;
+  if (!isAdminLoggedIn()) { mostrarToast('Sessão de admin expirou — faça login novamente e tente subir a imagem de novo.'); return; }
+  if (dataUrl.length > 1000000) {
+    mostrarToast('Imagem grande demais mesmo após compressão. Tente uma imagem menor ou com menos detalhe.');
+    console.error('salvarImagemGlobal: dataUrl acima do limite do Firestore', dataUrl.length);
+    return;
+  }
   const key = ns + '_' + id;
   try {
     await db.collection('global_images').doc(key).set({
@@ -1597,8 +1614,13 @@ async function salvarImagemGlobal(ns, id, dataUrl) {
     mostrarToast('Imagem atualizada para todos os usuários!');
     if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
   } catch (e) {
-    mostrarToast(e.code === 'permission-denied' ? 'Sem permissão de admin para alterar esta imagem.' : 'Erro ao salvar imagem.');
-    console.error(e);
+    console.error('salvarImagemGlobal falhou:', e.code, e.message);
+    const msgs = {
+      'permission-denied': 'Sem permissão de admin para alterar esta imagem (verifique se a regra global_images foi publicada no Firestore e se está logado com robertoflopesjr@gmail.com).',
+      'invalid-argument': 'Imagem grande demais para o Firestore.',
+      'unavailable': 'Sem conexão com o servidor — tente de novo.'
+    };
+    mostrarToast(msgs[e.code] || ('Erro ao salvar imagem: ' + (e.code || e.message)));
   }
 }
 
