@@ -584,6 +584,12 @@ input:focus,textarea:focus,select.fsel:focus{box-shadow:0 0 0 3px rgba(16,185,12
 /* ── TOAST ── */
 #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(30px);background:var(--og);color:#fff;padding:.65rem 1.3rem;border-radius:8px;font-size:.84rem;font-weight:800;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(16,185,129,.4)}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Botão flutuante de retorno ao menu — usado nas ferramentas embutidas em iframe
+   (Algoritmos/PDF/Rede Social), que ocupam a tela inteira e podem capturar o
+   scroll/toque, impedindo o usuário de alcançar a barra lateral para voltar. */
+.floating-back-btn{position:fixed;top:.85rem;left:.85rem;z-index:500;display:none;align-items:center;gap:.4rem;background:#0B1830;color:var(--tx);border:1.5px solid #24405E;border-radius:24px;padding:.5rem .95rem;font-size:.8rem;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.55);transition:all .18s}
+.floating-back-btn:hover{border-color:var(--og);color:var(--og);background:#0B2A22}
 footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4560;border-top:1px solid #1A3050;background:#08111E}
 
 /* ── MOBILE / TABLET ── */
@@ -1672,6 +1678,12 @@ footer.app-footer{text-align:center;padding:1rem 1rem;font-size:.7rem;color:#2A4
 
     </main><!-- /app-main -->
   </div><!-- /app-layout -->
+
+  <!-- Botão flutuante — visível apenas nas ferramentas em iframe (Algoritmos/PDF/Rede Social) -->
+  <button id="floating-back-btn" class="floating-back-btn" onclick="showTab('anam')" title="Voltar ao menu principal">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Menu Principal
+  </button>
 </div><!-- /app -->
 
 <!-- ══ MODAL ALTERAR SENHA ══ -->
@@ -2217,6 +2229,10 @@ function showTab(tab) {
   // PDF tab: overflow hidden na main para iframe preencher tudo
   const main = document.querySelector('.app-main');
   if (main) main.style.overflow = (tab === 'pdf' || tab === 'algoritmos') ? 'hidden' : '';
+  // Ferramentas em iframe (Algoritmos/PDF/Rede Social) ocupam a tela toda e podem capturar
+  // o scroll/toque — mostra um botão flutuante fixo para sempre ser possível voltar ao menu.
+  const backBtn = document.getElementById('floating-back-btn');
+  if (backBtn) backBtn.style.display = (tab === 'algoritmos' || tab === 'pdf' || tab === 'social') ? 'flex' : 'none';
 }
 
 /* ── CHIPS ANAMNESE ── */
