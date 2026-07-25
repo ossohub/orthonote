@@ -3,17 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ExternalLink } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ExternalLink, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
 import { cn, getInitials } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { href: "/feed",          label: "Início",       icon: Home },
-  { href: "/explore",       label: "Explorar",     icon: Compass },
-  { href: "/network",       label: "Minha Rede",   icon: Users },
-  { href: "/notifications", label: "Notificações", icon: Bell },
+  { href: "/feed",          label: "Início",           icon: Home },
+  { href: "/explore",       label: "Explorar",         icon: Compass },
+  { href: "/questions",     label: "Banco de Questões", icon: ClipboardList },
+  { href: "/network",       label: "Minha Rede",       icon: Users },
+  { href: "/notifications", label: "Notificações",     icon: Bell },
 ];
 
 export function Navbar() {

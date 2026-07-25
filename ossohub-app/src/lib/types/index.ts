@@ -167,6 +167,99 @@ export interface Notification {
 }
 
 // ============================================================
+// Banco de Questões
+// ============================================================
+export const QUESTION_AREAS = [
+  'Ombro e Cotovelo',
+  'Joelho',
+  'Coluna',
+  'Quadril',
+  'Mão e Punho',
+  'Pé e Tornozelo',
+  'Tumor Ósseo',
+  'Ortopedia Pediátrica',
+  'Trauma',
+  'Medicina Esportiva',
+  'Geral',
+] as const;
+
+export type QuestionArea = (typeof QUESTION_AREAS)[number];
+export type QuestionOption = 'A' | 'B' | 'C' | 'D' | 'E';
+
+// Campos públicos de uma questão — nunca inclui correct_option/explanation
+// (essas colunas são bloqueadas no banco para select direto; só chegam ao
+// cliente através do retorno da função answer_question_item, depois de
+// respondida).
+export interface Question {
+  id: string;
+  author_id: string;
+  area: string;
+  source?: string | null;
+  statement: string;
+  image_url?: string | null;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  is_active: boolean;
+  times_answered: number;
+  times_correct: number;
+  created_at: string;
+  updated_at: string;
+  // joins
+  author?: Profile;
+}
+
+export interface QuestionTest {
+  id: string;
+  user_id: string;
+  area?: string | null;
+  num_questions: number;
+  correct_count: number;
+  wrong_count: number;
+  status: 'em_andamento' | 'concluido';
+  started_at: string;
+  finished_at?: string | null;
+}
+
+export interface QuestionTestItem {
+  id: string;
+  test_id: string;
+  question_id: string;
+  order_index: number;
+  selected_option?: QuestionOption | null;
+  is_correct?: boolean | null;
+  answered_at?: string | null;
+  // join (sem correct_option/explanation até responder)
+  question?: Question;
+}
+
+export interface QuestionStats {
+  user_id: string;
+  total_correct: number;
+  total_wrong: number;
+  total_answered: number;
+  updated_at: string;
+  // join
+  profile?: Profile;
+}
+
+export interface CreateQuestionForm {
+  area: string;
+  source?: string;
+  statement: string;
+  image?: File;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  correct_option: QuestionOption;
+  explanation?: string;
+}
+
+// ============================================================
 // Form types
 // ============================================================
 export interface CreatePostForm {
@@ -240,6 +333,19 @@ export interface Database {
         Rel<"notifications_user_id_fkey", ["user_id"], "profiles", ["id"]>,
         Rel<"notifications_actor_id_fkey", ["actor_id"], "profiles", ["id"]>
       ] };
+      questions:     { Row: Loose<Question>; Insert: Partial<Loose<Question>>; Update: Partial<Loose<Question>>; Relationships: [
+        Rel<"questions_author_id_fkey", ["author_id"], "profiles", ["id"]>
+      ] };
+      question_tests: { Row: Loose<QuestionTest>; Insert: Partial<Loose<QuestionTest>>; Update: Partial<Loose<QuestionTest>>; Relationships: [
+        Rel<"question_tests_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      question_test_items: { Row: Loose<QuestionTestItem>; Insert: Partial<Loose<QuestionTestItem>>; Update: Partial<Loose<QuestionTestItem>>; Relationships: [
+        Rel<"question_test_items_test_id_fkey", ["test_id"], "question_tests", ["id"]>,
+        Rel<"question_test_items_question_id_fkey", ["question_id"], "questions", ["id"]>
+      ] };
+      question_stats: { Row: Loose<QuestionStats>; Insert: Partial<Loose<QuestionStats>>; Update: Partial<Loose<QuestionStats>>; Relationships: [
+        Rel<"question_stats_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
     };
     Views: Record<string, never>;
     Functions: {
@@ -250,6 +356,18 @@ export interface Database {
       unlock_badge: {
         Args: { p_badge_key: string };
         Returns: boolean;
+      };
+      start_question_test: {
+        Args: { p_area?: string | null; p_num_questions: number };
+        Returns: string;
+      };
+      answer_question_item: {
+        Args: { p_item_id: string; p_selected: QuestionOption };
+        Returns: { is_correct: boolean; correct_option: QuestionOption; explanation: string | null }[];
+      };
+      finish_question_test: {
+        Args: { p_test_id: string };
+        Returns: void;
       };
     };
   };
