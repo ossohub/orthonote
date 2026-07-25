@@ -1934,7 +1934,89 @@ function decryptData(str, password) {
   } catch { return null; }
 }
 
-/* ── ROOM AUTH ── */
+/* ── ROOM AUTH ── *//* ── AUTO-LOGIN (embutido via iframe no app do OssoHub) ──
+   Quando esta página roda dentro do iframe da ferramenta clínica no
+   ossohub-app, o app-pai já sabe quem é o usuário (login único do OssoHub)
+   e manda a "sala" + senha automaticamente por postMessage — o usuário
+   nunca precisa digitar nada aqui. A tela manual de sala/senha continua
+   existindo como esqueleto (e como fallback se o auto-login falhar), mas
+   fica escondida atrás de um overlay de carregamento enquanto isso. */
+(function () {
+  if (window.self === window.top) return; // acesso direto (fora do iframe) — mantém tela manual normal
+  const roomScreen = document.getElementById('room-screen');
+  if (!roomScreen) return;
+  const overlay = document.createElement('div');
+  overlay.id = 'auto-login-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:10000;background:#FFFFFF;' +
+    'display:flex;align-items:center;justify-content:center;color:#64748b;' +
+    'font-size:14px;font-family:inherit;';
+  overlay.textContent = 'Carregando ferramenta…';
+  roomScreen.appendChild(overlay);
+  // Se o app-pai não conseguir logar em 6s (ex.: sessão do OssoHub ainda
+  // carregando), revela a tela manual de sala/senha como último recurso.
+  setTimeout(() => { if (!currentRoom) overlay.remove(); }, 6000);
+})();
+
+async function _autoEntrarSala(roomId, pwd) {
+  try {
+    const docRef = db.collection('rooms').doc(roomId);
+    const snap = await docRef.get();
+    if (!snap.exists) {
+      currentRoom = roomId; currentPassword = pwd; useLocalMode = false;
+      await saveAll(true);
+      abrirApp(roomId, false);
+    } else {
+      const data = decryptData(snap.data().enc, pwd);
+      if (!data) return false;
+      currentRoom = roomId; currentPassword = pwd; useLocalMode = false;
+      carregarDados(data);
+      abrirApp(roomId, false);
+    }
+    return true;
+  } catch (e) {
+    console.warn('Auto-login: Firebase indisponível, tentando modo local:', e.code || e.message);
+  }
+  const lsKey = 'ossohub_' + roomId;
+  const existing = localStorage.getItem(lsKey);
+  if (existing) {
+    const data = decryptData(existing, pwd);
+    if (!data) return false;
+    currentRoom = roomId; currentPassword = pwd; useLocalMode = true;
+    carregarDados(data);
+  } else {
+    currentRoom = roomId; currentPassword = pwd; useLocalMode = true;
+    saveLocalMode();
+  }
+  abrirApp(roomId, true);
+  return true;
+}
+
+window.addEventListener('message', (ev) => {
+  if (ev.origin !== window.location.origin) return;
+  const data = ev.data;
+  if (!data || typeof data !== 'object') return;
+
+  if (data.type === 'ossohub-auto-login' && data.room && data.pwd) {
+    const overlay = document.getElementById('auto-login-overlay');
+    if (currentRoom === String(data.room)) {
+      if (data.tool) showTab(data.tool);
+      if (overlay) overlay.remove();
+      return;
+    }
+    _autoEntrarSala(String(data.room), String(data.pwd)).then((ok) => {
+      if (ok && data.tool) showTab(data.tool);
+      if (overlay) overlay.remove();
+    });
+    return;
+  }
+
+  if (data.type === 'ossohub-show-tool' && data.tool) {
+    if (currentRoom) showTab(data.tool);
+  }
+});
+
+/* ── ROOM AUTH (tela manual — usada apenas fora do iframe, ou como
+   fallback se o auto-login acima falhar) ── */
 async function entrarSala() {
   const roomId = document.getElementById('room-id').value.trim();
   const pwd = document.getElementById('room-pwd').value;
