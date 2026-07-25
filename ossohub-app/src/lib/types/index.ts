@@ -211,6 +211,25 @@ export interface Question {
   author?: Profile;
 }
 
+// Formato usado só para o INSERT de uma nova questão — ao contrário de
+// `Question` (que é o que volta num SELECT e nunca traz essas colunas),
+// aqui incluímos correct_option/explanation porque são obrigatórias na
+// criação (o banco recusa a linha sem elas).
+export interface QuestionInsert {
+  author_id: string;
+  area: string;
+  source?: string | null;
+  statement: string;
+  image_url?: string | null;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  correct_option: QuestionOption;
+  explanation?: string | null;
+}
+
 export interface QuestionTest {
   id: string;
   user_id: string;
@@ -333,7 +352,7 @@ export interface Database {
         Rel<"notifications_user_id_fkey", ["user_id"], "profiles", ["id"]>,
         Rel<"notifications_actor_id_fkey", ["actor_id"], "profiles", ["id"]>
       ] };
-      questions:     { Row: Loose<Question>; Insert: Partial<Loose<Question>>; Update: Partial<Loose<Question>>; Relationships: [
+      questions:     { Row: Loose<Question>; Insert: Partial<Loose<QuestionInsert>>; Update: Partial<Loose<Question>>; Relationships: [
         Rel<"questions_author_id_fkey", ["author_id"], "profiles", ["id"]>
       ] };
       question_tests: { Row: Loose<QuestionTest>; Insert: Partial<Loose<QuestionTest>>; Update: Partial<Loose<QuestionTest>>; Relationships: [
