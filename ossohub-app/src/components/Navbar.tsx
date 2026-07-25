@@ -3,16 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ExternalLink, ClipboardList } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
 import { cn, getInitials } from "@/lib/utils";
+import { TOOL_GROUPS } from "@/lib/clinicalTool";
 
 const NAV_LINKS = [
   { href: "/feed",          label: "Início",           icon: Home },
   { href: "/explore",       label: "Explorar",         icon: Compass },
-  { href: "/questions",     label: "Banco de Questões", icon: ClipboardList },
   { href: "/network",       label: "Minha Rede",       icon: Users },
   { href: "/notifications", label: "Notificações",     icon: Bell },
 ];
@@ -27,15 +27,13 @@ export function Navbar() {
   const isAuthenticated = !!user;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-ossohub-navy">
       <div className="ossohub-container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href={isAuthenticated ? "/feed" : "/"}
             className="flex items-center hover:opacity-80 transition-opacity">
-            <div className="flex items-center rounded-lg bg-ossohub-navy px-2.5 py-1.5">
-              <img src="/logo.png" alt="OssoHub" className="h-6 w-auto" />
-            </div>
+            <img src="/logo.png" alt="OssoHub" className="h-7 w-auto" />
           </Link>
 
           {/* Nav links — autenticado */}
@@ -47,7 +45,7 @@ export function Navbar() {
                     "flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                     pathname.startsWith(href)
                       ? "bg-ossohub-green-light text-ossohub-green-dark"
-                      : "text-ossohub-slate hover:bg-slate-100 hover:text-ossohub-navy"
+                      : "text-white/70 hover:bg-white/10 hover:text-white"
                   )}>
                   <Icon className="h-4 w-4" />
                   {label}
@@ -58,15 +56,11 @@ export function Navbar() {
 
           {/* Direita */}
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
-              <a href="https://ossohub.com" target="_blank" rel="noopener noreferrer">
-                Ferramenta Clínica <ExternalLink className="h-3.5 w-3.5" />
-              </a>
-            </Button>
-
             {!isAuthenticated ? (
               <>
-                <Button variant="ghost" size="sm" asChild><Link href="/login">Entrar</Link></Button>
+                <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-white" asChild>
+                  <Link href="/login">Entrar</Link>
+                </Button>
                 <Button size="sm" asChild><Link href="/signup">Criar conta</Link></Button>
               </>
             ) : (
@@ -78,7 +72,7 @@ export function Navbar() {
                 {/* Avatar dropdown */}
                 <div className="relative">
                   <button onClick={() => setDropdownOpen((v) => !v)}
-                    className="flex items-center gap-2 rounded-full border-2 border-transparent hover:border-ossohub-green/30 transition-colors p-0.5">
+                    className="flex items-center gap-2 rounded-full border-2 border-transparent hover:border-ossohub-green/50 transition-colors p-0.5">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={profile?.photo_url ?? undefined} />
                       <AvatarFallback className="text-xs">{getInitials(profile?.full_name ?? "U")}</AvatarFallback>
@@ -115,7 +109,7 @@ export function Navbar() {
                 </div>
 
                 {/* Mobile menu */}
-                <button className="md:hidden p-2 rounded-lg hover:bg-slate-100"
+                <button className="md:hidden p-2 rounded-lg text-white hover:bg-white/10"
                   onClick={() => setMobileOpen((v) => !v)}>
                   {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
                 </button>
@@ -144,11 +138,45 @@ export function Navbar() {
               <Button size="sm" className="w-full" asChild>
                 <Link href="/post/new" onClick={() => setMobileOpen(false)}>+ Publicar</Link>
               </Button>
-              <Button variant="outline" size="sm" className="w-full" asChild>
-                <a href="https://ossohub.com" target="_blank" rel="noopener noreferrer">
-                  Ferramenta Clínica <ExternalLink className="h-3.5 w-3.5" />
-                </a>
-              </Button>
+            </div>
+
+            {/* Banco de Questões — destaque próprio, igual à sidebar desktop */}
+            <div className="pt-3 border-t border-slate-100 mt-1">
+              <Link href="/questions" onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+                  pathname.startsWith("/questions")
+                    ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
+                    : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
+                )}>
+                <ClipboardList className="h-4 w-4" /> Banco de Questões
+              </Link>
+            </div>
+
+            {/* Ferramentas — a sidebar fixa só aparece em telas maiores, então no
+                mobile as ferramentas clínicas ficam listadas aqui dentro do menu. */}
+            <div className="pt-3 border-t border-slate-100 mt-1">
+              {TOOL_GROUPS.map((group) => (
+                <div key={group.label} className="mb-2">
+                  <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-slate">
+                    {group.label}
+                  </p>
+                  {group.items.map(({ slug, label }) => (
+                    <Link key={slug} href={`/tools/${slug}`} onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                        pathname === `/tools/${slug}`
+                          ? "bg-ossohub-green-light text-ossohub-green-dark"
+                          : "text-ossohub-slate hover:bg-slate-100"
+                      )}>
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 mt-1">
               <button onClick={signOut}
                 className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
                 <LogOut className="h-4 w-4" /> Sair
