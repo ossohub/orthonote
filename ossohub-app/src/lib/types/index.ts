@@ -59,8 +59,7 @@ export interface ClinicalCaseData {
   discussion?: string;         // pontos de discussão / lições aprendidas
 }
 
-export interface Post {
-  export type ModerationStatus = 'approved' | 'pending' | 'rejected';
+export type ModerationStatus = 'approved' | 'pending' | 'rejected';
 
 export interface Post {
   id: string;
@@ -83,7 +82,6 @@ export interface Post {
   // joins
   author?: Profile;
   is_liked_by_me?: boolean;
-}
 }
 
 // ============================================================
