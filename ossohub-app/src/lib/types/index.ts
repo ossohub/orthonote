@@ -60,6 +60,9 @@ export interface ClinicalCaseData {
 }
 
 export interface Post {
+  export type ModerationStatus = 'approved' | 'pending' | 'rejected';
+
+export interface Post {
   id: string;
   user_id: string;
   type: PostType;
@@ -67,16 +70,20 @@ export interface Post {
   content: string;
   structured_data?: ClinicalCaseData | null;
   image_urls: string[];
+  video_url?: string | null;
+  video_duration_seconds?: number | null;
   tags: string[];
   likes_count: number;
   comments_count: number;
   xp_awarded: number;
   is_featured: boolean;
+  moderation_status: ModerationStatus;
   created_at: string;
   updated_at: string;
   // joins
   author?: Profile;
   is_liked_by_me?: boolean;
+}
 }
 
 // ============================================================
@@ -287,6 +294,7 @@ export interface CreatePostForm {
   content: string;
   tags: string[];
   images?: File[];
+  video?: File;
   structured_data?: ClinicalCaseData;
 }
 
