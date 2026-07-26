@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, Plus, X, Upload, AlertTriangle, Stethoscope, BookOpen, MessageCircle, HelpCircle } from "lucide-react";
+import {
+  Loader2, Plus, X, AlertTriangle, Stethoscope, BookOpen,
+  MessageCircle, HelpCircle, Image as ImageIcon, Video as VideoIcon, ShieldAlert,
+} from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -22,8 +25,17 @@ const POST_TYPES: { type: PostType; label: string; icon: React.ElementType; colo
   { type: "clinical_case",      label: "Caso Clínico",  icon: Stethoscope,   color: "border-purple-400 bg-purple-50 text-purple-700", xp: 60 },
   { type: "scientific_article", label: "Artigo",         icon: BookOpen,      color: "border-blue-400 bg-blue-50 text-blue-700",       xp: 80 },
   { type: "experience",         label: "Experiência",   icon: MessageCircle, color: "border-teal-400 bg-teal-50 text-teal-700",        xp: 40 },
-  { type: "question",           label: "Pergunta",      icon: HelpCircle,    color: "border-amber-400 bg-amber-50 text-amber-700",     xp: 40 },
+  { type: "question",           label: "Pergunta",      icon: HelpCircle,   color: "border-amber-400 bg-amber-50 text-amber-700",     xp: 40 },
 ];
+
+// Mídia (fotos/vídeo) só faz sentido pra estes tipos — pergunta é um
+// texto rápido, então não oferecemos upload ali.
+const MEDIA_ENABLED_TYPES: PostType[] = ["clinical_case", "scientific_article", "experience"];
+
+const MAX_IMAGES = 6;
+const MAX_IMAGE_MB = 8;
+const MAX_VIDEO_MB = 100;
+const MAX_VIDEO_SECONDS = 180; // 3 minutos
 
 const schema = z.object({
   title:   z.string().min(10, "Título deve ter pelo menos 10 caracteres").max(200),
@@ -40,19 +52,50 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+function readVideoDuration(file: File): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.onloadedmetadata = () => {
+      URL.revokeObjectURL(video.src);
+      resolve(video.duration);
+    };
+    video.onerror = () => {
+      URL.revokeObjectURL(video.src);
+      reject(new Error("Não foi possível ler o vídeo"));
+    };
+    video.src = URL.createObjectURL(file);
+  });
+}
+
 export default function NewPostPage() {
   const router = useRouter();
   const supabase = createClient();
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+
   const [postType, setPostType] = useState<PostType>("clinical_case");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
   const [anonConfirmed, setAnonConfirmed] = useState(false);
+  const [contentPolicyConfirmed, setContentPolicyConfirmed] = useState(false);
+
+  const [images, setImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [video, setVideo] = useState<File | null>(null);
+  const [videoPreview, setVideoPreview] = useState<string | null>(null);
+  const [videoDuration, setVideoDuration] = useState<number | null>(null);
+  const [checkingVideo, setCheckingVideo] = useState(false);
+  const [uploadingMedia, setUploadingMedia] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const mediaEnabled = MEDIA_ENABLED_TYPES.includes(postType);
+  const hasMedia = images.length > 0 || !!video;
 
   function addTag(tag: string) {
     const clean = tag.replace(/[^a-zA-ZÀ-ÿ0-9\s]/g, "").trim();
@@ -62,14 +105,122 @@ export default function NewPostPage() {
     setTagInput("");
   }
 
+  function handleImageSelect(e: ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    if (files.length === 0) return;
+
+    if (images.length + files.length > MAX_IMAGES) {
+      toast.error(`Máximo de ${MAX_IMAGES} fotos por publicação`);
+      return;
+    }
+
+    const valid: File[] = [];
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) {
+        toast.error(`${file.name} não é uma imagem`);
+        continue;
+      }
+      if (file.size > MAX_IMAGE_MB * 1024 * 1024) {
+        toast.error(`${file.name} passa de ${MAX_IMAGE_MB}MB`);
+        continue;
+      }
+      valid.push(file);
+    }
+
+    setImages((prev) => [...prev, ...valid]);
+    setImagePreviews((prev) => [...prev, ...valid.map((f) => URL.createObjectURL(f))]);
+    if (imageInputRef.current) imageInputRef.current.value = "";
+  }
+
+  function removeImage(i: number) {
+    setImages((prev) => prev.filter((_, idx) => idx !== i));
+    setImagePreviews((prev) => prev.filter((_, idx) => idx !== i));
+  }
+
+  async function handleVideoSelect(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("video/")) {
+      toast.error("Selecione um arquivo de vídeo");
+      return;
+    }
+    if (file.size > MAX_VIDEO_MB * 1024 * 1024) {
+      toast.error(`O vídeo deve ter no máximo ${MAX_VIDEO_MB}MB`);
+      return;
+    }
+
+    setCheckingVideo(true);
+    try {
+      const duration = await readVideoDuration(file);
+      if (duration > MAX_VIDEO_SECONDS) {
+        toast.error(`O vídeo deve ter no máximo 3 minutos (duração atual: ${Math.ceil(duration / 60)} min)`);
+        return;
+      }
+      setVideo(file);
+      setVideoDuration(Math.round(duration));
+      setVideoPreview(URL.createObjectURL(file));
+    } catch {
+      toast.error("Não foi possível verificar a duração do vídeo");
+    } finally {
+      setCheckingVideo(false);
+      if (videoInputRef.current) videoInputRef.current.value = "";
+    }
+  }
+
+  function removeVideo() {
+    setVideo(null);
+    setVideoPreview(null);
+    setVideoDuration(null);
+  }
+
   async function onSubmit(data: FormData) {
     if (postType === "clinical_case" && !anonConfirmed) {
       toast.error("Confirme que o caso está anonimizado antes de publicar");
       return;
     }
 
+    if (hasMedia && !contentPolicyConfirmed) {
+      toast.error("Confirme que o conteúdo enviado segue as diretrizes antes de publicar");
+      return;
+    }
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push("/login"); return; }
+
+    let image_urls: string[] = [];
+    let video_url: string | null = null;
+
+    if (hasMedia) {
+      setUploadingMedia(true);
+      const stamp = Date.now();
+
+      try {
+        for (let i = 0; i < images.length; i++) {
+          const file = images[i];
+          const ext = file.name.split(".").pop() ?? "jpg";
+          const path = `${user.id}/${stamp}-${i}.${ext}`;
+          const { error } = await supabase.storage.from("post-images").upload(path, file, { cacheControl: "3600", upsert: true });
+          if (error) throw error;
+          const { data: pub } = supabase.storage.from("post-images").getPublicUrl(path);
+          image_urls.push(pub.publicUrl);
+        }
+
+        if (video) {
+          const ext = video.name.split(".").pop() ?? "mp4";
+          const path = `${user.id}/${stamp}.${ext}`;
+          const { error } = await supabase.storage.from("post-videos").upload(path, video, { cacheControl: "3600", upsert: true });
+          if (error) throw error;
+          const { data: pub } = supabase.storage.from("post-videos").getPublicUrl(path);
+          video_url = pub.publicUrl;
+        }
+      } catch {
+        toast.error("Erro ao enviar as fotos/vídeo. Tente novamente.");
+        setUploadingMedia(false);
+        return;
+      }
+      setUploadingMedia(false);
+    }
 
     const structured_data: ClinicalCaseData | undefined =
       postType === "clinical_case"
@@ -94,13 +245,15 @@ export default function NewPostPage() {
     const { data: post, error } = await supabase
       .from("posts")
       .insert({
-        user_id:         user.id,
-        type:            postType,
-        title:           data.title,
-        content:         data.content,
-        structured_data: structured_data ?? null,
+        user_id:                 user.id,
+        type:                    postType,
+        title:                   data.title,
+        content:                 data.content,
+        structured_data:         structured_data ?? null,
         tags,
-        image_urls:      [],
+        image_urls,
+        video_url,
+        video_duration_seconds:  videoDuration,
       })
       .select()
       .single();
@@ -115,7 +268,12 @@ export default function NewPostPage() {
     await checkPostBadges(user.id, postType, tags);
 
     const xpAmount = { post_clinical_case: 60, post_article: 80, post_experience: 40, post_question: 40 }[xpActionMap[postType]];
-    toast.success(`Post publicado! +${xpAmount} XP 🎉`);
+
+    if (post.moderation_status === "pending") {
+      toast.success(`Publicado! Como tem foto/vídeo, ficará visível no feed após revisão rápida da moderação. +${xpAmount} XP 🎉`);
+    } else {
+      toast.success(`Post publicado! +${xpAmount} XP 🎉`);
+    }
 
     if (result?.leveledUp) {
       setTimeout(() => toast.success(`⬆️ Subiu para o nível ${result.newLevel}!`), 1000);
@@ -125,6 +283,7 @@ export default function NewPostPage() {
   }
 
   const selectedTypeConfig = POST_TYPES.find((t) => t.type === postType)!;
+  const busy = isSubmitting || uploadingMedia;
 
   return (
     <div className="min-h-screen bg-ossohub-bg-light py-8">
@@ -160,7 +319,7 @@ export default function NewPostPage() {
               <div>
                 <p className="text-sm font-semibold text-amber-800 mb-1">Atenção: Anonimização obrigatória</p>
                 <p className="text-xs text-amber-700 mb-3">
-                  Não inclua nome do paciente, hospital específico, datas exatas ou qualquer dado que identifique o caso. Respeite o sigilo profissional e a LGPD.
+                  Não inclua nome do paciente, hospital específico, datas exatas ou qualquer dado que identifique o caso. Se enviar fotos, cubra ou recorte rostos, tatuagens ou qualquer elemento identificável. Respeite o sigilo profissional e a LGPD.
                 </p>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -247,6 +406,91 @@ export default function NewPostPage() {
             {errors.content && <p className="mt-1 text-xs text-red-500">{errors.content.message}</p>}
           </div>
 
+          {/* Fotos e vídeo */}
+          {mediaEnabled && (
+            <div className="ossohub-card p-5 space-y-4">
+              <div>
+                <p className="text-sm font-semibold text-ossohub-navy mb-1">Fotos e vídeo (opcional)</p>
+                <p className="text-xs text-ossohub-slate">
+                  Ajuda a ilustrar o caso/artigo/experiência. Vídeo com no máximo 3 minutos. Publicações com mídia passam por uma revisão rápida da moderação antes de aparecer no feed público.
+                </p>
+              </div>
+
+              {/* Fotos */}
+              <div>
+                <label className="block text-xs font-medium text-ossohub-slate mb-2">Fotos (até {MAX_IMAGES}, {MAX_IMAGE_MB}MB cada)</label>
+                {imagePreviews.length > 0 && (
+                  <div className="grid grid-cols-3 gap-2 mb-2">
+                    {imagePreviews.map((src, i) => (
+                      <div key={i} className="relative aspect-square rounded-lg overflow-hidden border border-slate-200">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={src} alt="" className="w-full h-full object-cover" />
+                        <button type="button" onClick={() => removeImage(i)}
+                          className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white shadow">
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {images.length < MAX_IMAGES && (
+                  <button type="button" onClick={() => imageInputRef.current?.click()}
+                    className="flex items-center gap-2 rounded-xl border-2 border-dashed border-slate-300 px-4 py-4 text-sm text-ossohub-slate hover:border-ossohub-green hover:text-ossohub-green transition-colors w-full justify-center">
+                    <ImageIcon className="h-4 w-4" /> Adicionar foto(s)
+                  </button>
+                )}
+                <input ref={imageInputRef} type="file" accept="image/*" multiple className="hidden" onChange={handleImageSelect} />
+              </div>
+
+              {/* Vídeo */}
+              <div>
+                <label className="block text-xs font-medium text-ossohub-slate mb-2">Vídeo (máx. 3 min, {MAX_VIDEO_MB}MB)</label>
+                {videoPreview ? (
+                  <div className="relative inline-block w-full">
+                    <video src={videoPreview} controls className="max-h-56 w-full rounded-xl border border-slate-200 bg-black" />
+                    <button type="button" onClick={removeVideo}
+                      className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow hover:bg-red-600 transition-colors">
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                    {videoDuration !== null && (
+                      <p className="mt-1 text-xs text-ossohub-slate">Duração: {Math.floor(videoDuration / 60)}:{String(videoDuration % 60).padStart(2, "0")}</p>
+                    )}
+                  </div>
+                ) : (
+                  <button type="button" disabled={checkingVideo} onClick={() => videoInputRef.current?.click()}
+                    className="flex items-center gap-2 rounded-xl border-2 border-dashed border-slate-300 px-4 py-4 text-sm text-ossohub-slate hover:border-ossohub-green hover:text-ossohub-green transition-colors w-full justify-center disabled:opacity-50">
+                    {checkingVideo ? <Loader2 className="h-4 w-4 animate-spin" /> : <VideoIcon className="h-4 w-4" />}
+                    {checkingVideo ? "Verificando vídeo..." : "Adicionar vídeo"}
+                  </button>
+                )}
+                <input ref={videoInputRef} type="file" accept="video/mp4,video/webm,video/quicktime" className="hidden" onChange={handleVideoSelect} />
+              </div>
+
+              {/* Declaração de conteúdo — só aparece se tiver mídia anexada */}
+              {hasMedia && (
+                <div className="flex gap-3 rounded-xl border border-red-200 bg-red-50 p-4">
+                  <ShieldAlert className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs text-red-700 mb-2">
+                      Só envie fotos/vídeos de natureza clínica/ortopédica (exames, radiografias, procedimentos, materiais educativos). É proibido conteúdo sexual, ofensivo ou sem relação com a prática médica — publicações fora dessas diretrizes serão rejeitadas na moderação.
+                    </p>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={contentPolicyConfirmed}
+                        onChange={(e) => setContentPolicyConfirmed(e.target.checked)}
+                        className="h-4 w-4 rounded accent-ossohub-green"
+                      />
+                      <span className="text-xs font-medium text-red-800">
+                        Confirmo que este conteúdo segue as diretrizes acima
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Tags */}
           <div className="ossohub-card p-5">
             <label className="block text-sm font-medium text-ossohub-navy mb-3">Tags</label>
@@ -295,9 +539,9 @@ export default function NewPostPage() {
             <Button type="button" variant="outline" onClick={() => router.back()}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSubmitting} size="lg">
-              {isSubmitting ? (
-                <><Loader2 className="h-4 w-4 animate-spin" /> Publicando...</>
+            <Button type="submit" disabled={busy} size="lg">
+              {busy ? (
+                <><Loader2 className="h-4 w-4 animate-spin" /> {uploadingMedia ? "Enviando mídia..." : "Publicando..."}</>
               ) : (
                 <>Publicar · +{selectedTypeConfig.xp} XP</>
               )}
