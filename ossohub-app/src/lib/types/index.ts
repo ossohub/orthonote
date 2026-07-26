@@ -394,6 +394,14 @@ export interface Database {
         Args: { p_test_id: string };
         Returns: void;
       };
+      get_pending_posts: {
+        Args: Record<string, never>;
+        Returns: Loose<Post>[];
+      };
+      moderate_post: {
+        Args: { p_post_id: string; p_decision: string };
+        Returns: void;
+      };
     };
   };
 }
