@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>
+/* Quando esta página roda dentro do iframe do ossohub-app, a navegação
+   entre ferramentas já é feita pela sidebar do app principal (via
+   postMessage → showTab). Marcamos o <html> o mais cedo possível pra
+   esconder a sidebar própria desta ferramenta e não ter duas barras
+   laterais duplicadas na tela. */
+if (window.self !== window.top) {
+  document.documentElement.classList.add('ossohub-embedded');
+}
+</script>
 <meta charset="UTF-8"/>
 <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
