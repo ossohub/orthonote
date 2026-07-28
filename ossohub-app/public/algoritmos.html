@@ -100,6 +100,7 @@ html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0e
 .r-joelho{--rc:#10b981;--rc-dim:#10b98122}
 .r-perna{--rc:#6366f1;--rc-dim:#6366f122}
 .r-pediatria{--rc:#06b6d4;--rc-dim:#06b6d422}
+.r-fraturas-pediatricas{--rc:#d946ef;--rc-dim:#d946ef22}
 </style>
 </head>
 <body>
@@ -161,7 +162,8 @@ const REGIONS = {
   quadril:{label:"Quadril e Fêmur",icon:"🦵",cls:"r-quadril"},
   joelho:{label:"Joelho",icon:"🦿",cls:"r-joelho"},
   perna:{label:"Perna, Tornozelo e Pé",icon:"🦶",cls:"r-perna"},
-  pediatria:{label:"Pediatria",icon:"👶",cls:"r-pediatria"}
+  pediatria:{label:"Pediatria",icon:"👶",cls:"r-pediatria"},
+  'fraturas-pediatricas':{label:"Fraturas Pediátricas",icon:"🦴",cls:"r-fraturas-pediatricas"}
 };
 
 const ALGS = {
@@ -1661,6 +1663,1117 @@ r3:{type:'r', cls:'conservative', title:'AARF/Grisel — redução não cirúrgi
 r4:{type:'r', cls:'surgical', title:'AARF fixa/crônica — fusão C1-C2 posterior', txt:'Quando presentes critérios de cronicidade ou falha do tratamento conservador, realizar tração halo por alguns dias para alinhamento (evitar redução manipulativa forçada), seguida de artrodese C1-C2 posterior instrumentada (parafusos de massa lateral de C1 + parafusos pediculares/pars de C2, técnica de Harms-Melcher).', details:[['Indicações','comprometimento neurológico, deslocamento anterior, falha em manter redução, deformidade >3 meses, recidiva pós-tratamento adequado'],['Preparo pré-operatório','tração halo por alguns dias, sem manipulação forçada'],['Técnica preferida','parafusos de massa lateral C1 + parafusos pediculares/pars C2']]},
 r5:{type:'r', cls:'emergency', title:'Instabilidade craniocervical com compressão medular aguda — estabilização e descompressão urgentes', txt:'Situação de emergência com risco de lesão medular catastrófica. Estabilizar imediatamente a coluna cervical (evitar manipulação e tração excessiva se houver suspeita de luxação atlanto-occipital), obter RM/TC urgentes e proceder à descompressão/fusão cirúrgica em caráter de urgência (ex.: laminectomia de C1 associada a fusão occipitocervical ou C1-C2, conforme o nível acometido).', details:[['Sinais de alarme','déficit neurológico agudo/progressivo, sinal medular em T2'],['Tração','contraindicada se suspeita de luxação atlanto-occipital (risco de distração)'],['Conduta','estabilização imediata + descompressão/fusão cirúrgica de urgência']]},
 r6:{type:'r', cls:'surgical-major', title:'Instabilidade craniocervical crônica com critério cirúrgico — fusão occipitocervical/C1-C2 eletiva', txt:'Instabilidade radiograficamente confirmada (síndrome de Down, os odontoideum, outras anomalias craniocervicais) sem compressão medular aguda, mas com critérios formais de instabilidade. Planejar fusão eletiva com TC pré-operatória detalhada da anatomia craniocervical; tração halo pré-operatória pode reduzir a necessidade de descompressão transoral. Fixação rígida com parafusos de massa lateral de C1 e parafusos pediculares/pars de C2, enxerto autólogo (costela ou crista ilíaca conforme idade).', details:[['Taxas de fusão (fixação rígida moderna)','58-95%'],['Taxas de fusão (técnicas antigas/sublaminares)','~40%, alta taxa de complicação'],['Tração halo pré-operatória','pode evitar descompressão transoral'],['Enxerto','autólogo — costela ou crista ilíaca']]}}
+},
+
+  // ══════════════ FRATURAS PEDIÁTRICAS (Lovell & Winters Pediatric Orthopaedics Cap.22-33) ══════════════
+ddh_tratamento_idade_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.22",
+  title:"Conduta na Displasia do Desenvolvimento do Quadril (DDH) por Idade ao Diagnóstico",
+  src:"Stuart L. Weinstein, Cap.22 Developmental Hip Dysplasia and Dislocation, In: Lovell and Winter's Pediatric Orthopaedics — p.3152-3210",
+  icon:"🦴", tags:["p","c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Idade da criança no momento do diagnóstico do quadril instável/luxado (Ortolani ou Barlow positivo) é menor que 6 meses?",
+      ctx:"Nessa faixa etária o arnês de Pavlik é o tratamento de escolha, mantendo o quadril em flexão de 100-110° e abdução dentro da 'zona segura' (entre a redução e a luxação), evitando abdução ampla forçada.",
+      yes:"q2", no:"q4"},
+    q2:{type:"q",text:"O quadril se estabiliza clinicamente (torna-se Ortolani/Barlow negativo) com o arnês de Pavlik usado corretamente e em tempo integral?",
+      ctx:"A estabilização costuma ocorrer em dias a semanas; quando ocorre, o arnês deve ser mantido em tempo integral por mais 6 semanas além do ponto de estabilidade, com checagens a cada 7-10 dias.",
+      yes:"r1", no:"q4"},
+    q4:{type:"q",text:"Idade entre 6 e 18 meses (ou falha do arnês de Pavlik, cuja taxa de sucesso cai para menos de 50% após os 6 meses)?",
+      ctx:"Nessa faixa etária, quadris subluxados ou luxados devem ser tratados por meios fechados ou abertos, pois é difícil manter a criança mais ativa no arnês.",
+      yes:"q5", no:"q6"},
+    q5:{type:"q",text:"É possível obter redução concêntrica anatômica por manipulação suave sob anestesia geral (redução fechada), idealmente confirmada por artrografia dinâmica?",
+      ctx:"Tenotomia do adutor (aberta ou percutânea) é geralmente necessária para ampliar a 'zona segura' e reduzir o risco de necrose avascular; abdução ampla forçada ou com rotação interna deve ser sempre evitada.",
+      yes:"r2", no:"r3"},
+    q6:{type:"q",text:"Idade entre 18 meses e 3 anos, considerada 'zona cinzenta', com luxação ou subluxação persistente?",
+      ctx:"Nessa faixa etária o potencial de desenvolvimento acetabular espontâneo já está reduzido; a redução aberta é geralmente necessária e uma osteotomia pélvica concomitante ou estadiada (Salter/Pemberton) é frequentemente indicada, conforme a estabilidade obtida e a evolução radiográfica subsequente.",
+      yes:"r4", no:"r5"},
+    r1:{type:"r",cls:"conservative",title:"Manter arnês de Pavlik em tempo integral",
+      txt:"Continuar o arnês de Pavlik em tempo integral por 6 semanas além da estabilização clínica, com desmame gradual guiado por exame clínico (e ultrassonografia seriada, se necessário). Sucesso geral de aproximadamente 95% no quadril Ortolani-positivo.",
+      details:[["Faixa etária","< 6 meses"],["Sucesso esperado","~95% (Ortolani-positivo); ~85% quando usado para guiar redução de quadril luxado/subluxado"],["Alerta","Persistir com o arnês diante de falha de redução pode causar a 'doença do arnês de Pavlik' (dano à cabeça femoral e à cartilagem acetabular)"]]},
+    r2:{type:"r",cls:"conservative",title:"Imobilização em gesso pelvipodálico após redução fechada",
+      txt:"Manter a redução concêntrica em gesso pelvipodálico bem moldado dorsalmente aos trocânteres maiores, na 'posição humana' (hiperflexão com abdução limitada), por cerca de 6 semanas com o joelho imobilizado e mais 6 semanas com o joelho livre, seguido de órtese de abdução.",
+      details:[["Faixa etária","6-18 meses"],["Documentação","Radiografia, TC de corte único, RM ou ultrassonografia após o gesso"],["Cuidado","Evitar abdução ampla forçada ou com rotação interna (posição de Lorenz), que aumenta o risco de necrose avascular"]]},
+    r3:{type:"r",cls:"surgical",title:"Redução aberta",
+      txt:"Indicada por falha da redução fechada, subluxação persistente ou interposição de partes moles. Abordagem anteromedial (Weinstein-Ponseti) preferida em menores de 18-24 meses; abordagem anterior (Smith-Petersen/Salter) permite capsulorrafia e osteotomia pélvica associada no mesmo acesso, se necessário.",
+      details:[["Faixa etária","6-18 meses (falha de redução fechada)"],["Pós-operatório","Gesso pelvipodálico ('posição humana')"],["Observação","Procedimento acetabular secundário raramente necessário antes dos 18 meses; potencial de desenvolvimento acetabular após redução persiste por 4-8 anos"]]},
+    r4:{type:"r",cls:"surgical-major",title:"Redução aberta + osteotomia pélvica concomitante ou estadiada",
+      txt:"Redução aberta (via anterolateral de Smith-Petersen modificada) associada a osteotomia inominada de Salter (cobertura anterior, CE angle >10° associado a melhor prognóstico) ou de Pemberton (remodelação anterolateral, requer cartilagem trirradiada aberta), realizada no mesmo tempo cirúrgico ou 6-8 semanas depois, conforme estabilidade e evolução radiográfica.",
+      details:[["Faixa etária","18 meses-3 anos ('zona cinzenta')"],["Decisão da osteotomia","Observar desenvolvimento acetabular por radiografias seriadas; se não houver melhora do índice acetabular/figura em lágrima, indicar osteotomia"],["Alternativa em desuso","Tração pré-redução prolongada — cada vez menos utilizada"]]},
+    r5:{type:"r",cls:"surgical-major",title:"Redução aberta + encurtamento femoral + osteotomia pélvica",
+      txt:"Após os 3 anos de idade, a redução aberta deve ser acompanhada de encurtamento femoral, que reduz de forma importante a incidência de necrose avascular em comparação à tração esquelética isolada (54% de necrose e 32% de reluxação relatadas com tração isolada nessa faixa etária), além de osteotomia pélvica concomitante na maioria dos casos.",
+      details:[["Faixa etária","> 3 anos"],["Objetivo do encurtamento","Evitar pressão excessiva sobre a cabeça femoral vulnerável e permitir correção do anteversão femoral excessiva"],["Hardware","Fixação interna geralmente removida em 12-18 meses"]]}
+  }
+},
+
+ddh_displasia_residual_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.22",
+  title:"Conduta na Displasia Acetabular Residual/Incidental (criança maior, adolescente e adulto jovem)",
+  src:"Stuart L. Weinstein, Cap.22 Developmental Hip Dysplasia and Dislocation, In: Lovell and Winter's Pediatric Orthopaedics — p.3263-3371",
+  icon:"🦴", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Displasia acetabular residual (após redução prévia) ou incidental foi identificada em paciente esqueleticamente imaturo, com cartilagem trirradiada ainda aberta?",
+      ctx:"Após redução concêntrica mantida, o acetábulo tem potencial de desenvolvimento espontâneo por vários anos, mas esse potencial diminui marcadamente após os 4 anos de idade.",
+      yes:"q2", no:"q4"},
+    q2:{type:"q",text:"Há falha de melhora radiográfica da displasia (índice acetabular estacionário/piora, ausência de figura em lágrima, instabilidade documentada) após período razoável de observação?",
+      ctx:"Uma osteotomia do ílio pode estimular neovascularização e ossificação da cartilagem acetabular periférica não ossificada, além de redirecionar a anatomia óssea.",
+      yes:"r1", no:"r2"},
+    q4:{type:"q",text:"Paciente com cartilagem trirradiada já fechada (adolescente/adulto jovem), quadril congruente e sem artrose significativa, que é sintomático (ex.: síndrome do rebordo acetabular) ou apresenta subluxação radiográfica?",
+      ctx:"Pré-requisito absoluto para osteotomia periacetabular: radiografia em abdução máxima demonstrando cabeça femoral reduzida, coberta e congruente, com bom espaço articular preservado.",
+      yes:"r3", no:"q5"},
+    q5:{type:"q",text:"Displasia mínima, assintomática, sem evidência de subluxação radiográfica (achado incidental em paciente maduro)?",
+      ctx:"A história natural da displasia isolada sem diagnóstico prévio de DDH é incerta; já a história natural após DDH conhecida é de evolução para osteoartrose.",
+      yes:"r4", no:"r5"},
+    r1:{type:"r",cls:"surgical-major",title:"Osteotomia pélvica redirecionadora ou remodeladora",
+      txt:"Em paciente com cartilagem trirradiada aberta e falha de desenvolvimento acetabular espontâneo, indicar osteotomia inominada de Salter (redirecionamento completo, cobertura anterior) ou acetabuloplastia de Pemberton/Dega (remodelação incompleta com dobradiça na cartilagem trirradiada), conforme o padrão de deficiência e a idade.",
+      details:[["Pré-requisitos","Redução concêntrica mantida, contraturas musculares liberadas, articulação congruente"],["Limite de idade usual","Preferencialmente antes dos 6 anos para osteotomias redirecionadoras completas"],["Alerta","Osteotomias que dependem da cartilagem trirradiada como fulcro (Pemberton/Dega) exigem cartilagem trirradiada aberta"]]},
+    r2:{type:"r",cls:"conservative",title:"Observação seriada com radiografias",
+      txt:"Acompanhar o desenvolvimento acetabular com radiografias seriadas (índice acetabular, figura em lágrima, linha de Shenton), pois a ossificação da cartilagem acetabular periférica pode continuar espontaneamente por vários anos após a redução.",
+      details:[["Racional","Muitos casos de aparente 'deficiência' acetabular são, na verdade, cartilagem não ossificada que ainda cobre bem a cabeça femoral"],["Reavaliação","Considerar intervenção cirúrgica se não houver melhora radiográfica com o tempo"]]},
+    r3:{type:"r",cls:"surgical-major",title:"Osteotomia periacetabular de Ganz (PAO) ou osteotomia tríplice",
+      txt:"Reorientação do acetábulo maduro displásico por PAO de Ganz (técnica mais versátil e potente para cartilagem trirradiada fechada) ou alternativas como a osteotomia tríplice de Tönnis/Steel ou osteotomias esféricas (Wagner, Naito). Patologia labial associada pode necessitar abordagem concomitante, aberta ou artroscópica.",
+      details:[["Pré-requisito absoluto","Cabeça femoral reduzida, coberta e congruente em abdução máxima, com bom espaço articular"],["Contexto clínico comum","Síndrome do rebordo acetabular: dor inguinal súbita, teste de impacto positivo (flexão + adução + rotação interna)"],["Exames","RM com artrografia por gadolínio para lesão labial; TC 3D para deficiência acetabular"]]},
+    r4:{type:"r",cls:"conservative",title:"Observação clínica, tratar apenas se sintomático",
+      txt:"Orientar a família sobre o potencial de evolução adversa a longo prazo (osteoartrose), mas reservar o tratamento cirúrgico para o início dos sintomas, já que costuma haver longo intervalo entre o início dos sintomas e a doença degenerativa radiográfica.",
+      details:[["Indicação de cirurgia futura","Início de sintomas (dor, instabilidade)"],["Diferencial","Se houver subluxação radiográfica, mesmo assintomática, a correção cirúrgica é recomendada, pois a história natural adversa é praticamente certa"]]},
+    r5:{type:"r",cls:"surgical-major",title:"Artrodese do quadril ou artroplastia total",
+      txt:"Em casos extremos de doença articular degenerativa já instalada em adulto jovem, a artrodese (se quadril contralateral, joelho ipsilateral e coluna normais) ou a artroplastia total do quadril podem ser as únicas alternativas de tratamento.",
+      details:[["Artrodese","Excelente opção no paciente jovem com artrose terminal unilateral e demais articulações normais, embora hoje raramente utilizada"],["Alternativa","Artroplastia total do quadril, conforme idade e demanda funcional"]]}
+  }
+},
+
+perthes_conduta_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.23",
+  title:"Conduta na doença de Legg-Calvé-Perthes (LCPD) conforme idade de início e estágio evolutivo",
+  src:"Sankar WN, Castañeda P, Joseph B, Cap.23 Legg-Calvé-Perthes Disease and Other Conditions, In: Lovell and Winter's Pediatric Orthopaedics — p.3509-3538",
+  icon:"🦴", tags:["p","c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q", text:"O início dos sintomas ocorreu na adolescência (perto da fusão fisária, sem o processo reparativo espontâneo típico da criança)?", ctx:"O prognóstico e a abordagem terapêutica diferem profundamente conforme o início seja na infância (<12 anos, doença autolimitada) ou na adolescência, em que a contenção não funciona.", yes:"q2", no:"q3"},
+    q2:{type:"q", text:"A apresentação é precoce, antes de colapso apreciável da epífise?", ctx:"No adolescente, a intervenção precisa ser urgente pois não há o processo reparativo espontâneo eficiente visto em crianças mais jovens.", yes:"r1", no:"r2"},
+    q3:{type:"q", text:"O quadril está em estágio inicial ou fragmentação precoce (Ia, Ib ou IIa), ou seja, antes do início da deformidade da cabeça femoral?", ctx:"A deformação da cabeça femoral tipicamente começa na fragmentação tardia (IIb) ou logo após; esta é a janela de oportunidade para tratamento preventivo.", yes:"q4", no:"q7"},
+    q4:{type:"q", text:"A idade de início da doença é 8 anos ou mais?", ctx:"Crianças com início tardio (≥8 anos) quase invariavelmente desenvolvem extrusão epifisária mais cedo ou mais tarde.", yes:"r3", no:"q5"},
+    q5:{type:"q", text:"Há extrusão epifisária detectável na radiografia AP de acompanhamento?", ctx:"Em crianças menores de 8 anos, a contenção só está indicada quando a extrusão é efetivamente detectada.", yes:"r4", no:"q6"},
+    q6:{type:"q", text:"Menos de 50% da epífise está envolvida (padrão compatível com Catterall 1-2 / Salter-Thompson tipo A)?", ctx:"Doença leve, sem extrusão, em criança jovem tem prognóstico natural muito bom e não necessita de contenção.", yes:"r5", no:"r4"},
+    q7:{type:"q", text:"Há abdução em dobradiça (hinge abduction) sintomática — dor à abdução do quadril associada a contratura em adução?", ctx:"Ocorre quando a cabeça femoral deformada impacta a margem acetabular superior ao se tentar abduzir o quadril; confirmação por artrografia sob anestesia.", yes:"q8", no:"q9"},
+    q8:{type:"q", text:"A artrografia sob anestesia confirma que a hinge abduction é irredutível (a porção lateral da cabeça não desliza sob a margem acetabular mesmo sob anestesia)?", ctx:"Distinção de Choi entre hinge abduction redutível e irredutível, feita no momento da artrografia sob anestesia geral.", yes:"r6", no:"r7"},
+    q9:{type:"q", text:"Já existe deformidade estabelecida da cabeça femoral (estágio IIIb/IV), com coxa breve e sobrecrescimento trocantérico sintomático (marcha de Trendelenburg)?", ctx:"Nesta fase o tratamento deixa de ser preventivo da deformidade e passa a abordar as sequelas mecânicas já instaladas.", yes:"r8", no:"r9"},
+    r1:{type:"r", cls:"surgical-major", title:"Intervenção urgente para tentar prevenir o colapso no adolescente", txt:"A contenção não funciona na LCPD de início adolescente. Considerar enxerto vascularizado de fíbula (usado com sucesso em necrose avascular do adulto) ou artrodiastase com fixador externo para tentar preservar a epífise antes do colapso.", details:[["Faixa etária","Início adolescente, pré-colapso"],["Motivo da urgência","Ausência do processo reparativo espontâneo eficiente da criança jovem"],["Opções","Enxerto vascularizado de fíbula; artrodiastase com fixador externo"],["Fonte","p.3533-3534"]]},
+    r2:{type:"r", cls:"surgical-major", title:"Cirurgia de salvamento após colapso estabelecido no adolescente", txt:"Uma vez colapsada, a cabeça femoral permanece permanentemente deformada e artrite incapacitante pode sobrevir rapidamente. Considerar artroplastia total do quadril, artrodese do quadril ou ressecção da cabeça femoral com osteotomia de suporte pélvico.", details:[["Prognóstico","Grave — deformidade permanente"],["Opções de salvamento","Artroplastia total; artrodese; ressecção femoral + osteotomia de suporte pélvico"],["Fonte","p.3534"]]},
+    r3:{type:"r", cls:"surgical", title:"Contenção preventiva (preemptive containment) na criança ≥8 anos", txt:"Iniciar contenção assim que o diagnóstico é estabelecido, mesmo sem extrusão demonstrável na radiografia, pois a extrusão ocorrerá mais cedo ou mais tarde nesta faixa etária. Opções: osteotomia femoral em varo-derrotação, osteotomia inominada (Salter) ou acetabuloplastia tipo shelf.", details:[["Indicação","Idade de início ≥8 anos, estágio Ia-IIa"],["Racional","Odds ratio de mau resultado de 16,5 quando a contenção é feita após o estágio IIa"],["Opções cirúrgicas","Osteotomia femoral varo-derrotação; osteotomia inominada; shelf acetabular"],["Fonte","p.3514-3524"]]},
+    r4:{type:"r", cls:"surgical", title:"Contenção assim que a extrusão epifisária for detectada", txt:"Iniciar contenção (cirúrgica ou não operatória com órtese em abdução/rotação interna) assim que a extrusão for detectada na radiografia AP de acompanhamento em criança menor de 8 anos.", details:[["Indicação","Extrusão detectada, idade <8 anos, estágio Ia-IIa"],["Opções não cirúrgicas","Órtese de abdução (Atlanta Scottish Rite, Toronto, gesso de Petrie)"],["Opções cirúrgicas","Osteotomia femoral varo-derrotação"],["Fonte","p.3514-3524"]]},
+    r5:{type:"r", cls:"conservative", title:"Observação clínica e tratamento sintomático", txt:"Criança jovem com menos de 50% da epífise envolvida e sem extrusão tem prognóstico natural muito bom; não há necessidade de contenção. Manter seguimento radiográfico regular e tratamento sintomático (analgesia, restrição de atividades de impacto conforme dor).", details:[["Indicação","Idade <8 anos, <50% de acometimento epifisário, sem extrusão"],["Conduta","Observação + tratamento sintomático"],["Fonte","p.3509-3515"]]},
+    r6:{type:"r", cls:"surgical-major", title:"Osteotomia valga intertrocantérica para hinge abduction irredutível", txt:"Realizar osteotomia valga intertrocantérica na posição de adução onde se observa a máxima congruência articular ao exame sob anestesia, restaurando a posição congruente do quadril em carga neutra e aliviando o impacto doloroso.", details:[["Indicação","Hinge abduction irredutível confirmada por artrografia sob anestesia"],["Efeito adicional","Alonga o membro, abaixa e lateraliza o trocanter maior, pode alongar o colo femoral curto"],["Fonte","p.3527-3533"]]},
+    r7:{type:"r", cls:"surgical", title:"Acetabuloplastia tipo shelf para hinge abduction redutível", txt:"Em hinge abduction redutível, uma acetabuloplastia tipo shelf costuma melhorar a amplitude de movimento e aliviar a dor sem necessidade de osteotomia femoral valga.", details:[["Indicação","Hinge abduction redutível"],["Efeito esperado","Melhora do movimento e alívio da dor"],["Fonte","p.3527-3533"]]},
+    r8:{type:"r", cls:"surgical", title:"Correção cirúrgica das sequelas de deformidade estabelecida", txt:"Avanço distal e lateral do trocanter maior (ou osteotomia de Morscher) em pacientes com cabeça femoral esférica ou ovoide para corrigir coxa breve/sobrecrescimento trocantérico e abolir a marcha de Trendelenburg. Em casos selecionados com coxa magna e impacto femoroacetabular, considerar luxação cirúrgica do quadril para remodelamento da cabeça e correção do impacto/lesões labrais.", details:[["Indicação","Estágio IIIb/IV, coxa breve sintomática com marcha de Trendelenburg"],["Pré-requisito","Melhor resultado isolado quando a cabeça é esférica ou ovoide"],["Opção avançada","Luxação cirúrgica do quadril para remodelamento em casos selecionados"],["Fonte","p.3532-3534"]]},
+    r9:{type:"r", cls:"conservative", title:"Tratamento sintomático e observação", txt:"Na ausência de hinge abduction ou deformidade estabelecida sintomática, manter tratamento sintomático, fisioterapia para preservar amplitude de movimento e observação clínica/radiográfica seriada.", details:[["Conduta","Fisioterapia + observação"],["Objetivo","Preservar amplitude de movimento até a resolução do processo de doença"],["Fonte","p.3526-3527"]]}
+  }
+},
+
+quadril_doloroso_diferencial_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.23",
+  title:"Diferencial do quadril doloroso agudo na criança (sinovite transitória vs. artrite séptica vs. LCPD)",
+  src:"Sankar WN, Castañeda P, Joseph B, Cap.23 Legg-Calvé-Perthes Disease and Other Conditions, In: Lovell and Winter's Pediatric Orthopaedics — p.3617-3627",
+  icon:"🦴", tags:["p","c","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q", text:"A criança apresenta febre E recusa completa de carga de peso sobre o membro afetado?", ctx:"Estes são dois dos quatro critérios preditivos de Kocher para diferenciar artrite séptica de sinovite transitória do quadril.", yes:"q2", no:"q4"},
+    q2:{type:"q", text:"VHS maior que 40 mm/hora OU leucócitos séricos maiores que 12.000 células/mL?", ctx:"Critérios adicionais de Kocher; a combinação de múltiplos critérios positivos aumenta muito a probabilidade de artrite séptica verdadeira.", yes:"r1", no:"q3"},
+    q3:{type:"q", text:"A ultrassonografia confirma efusão articular no quadril?", ctx:"Efusão é necessária mas não suficiente para diagnosticar artrite séptica; cerca de 71% dos quadris dolorosos têm efusão à ultrassonografia, a maioria por sinovite transitória.", yes:"r2", no:"r3"},
+    q4:{type:"q", text:"A dor é insidiosa e prolongada (semanas), com limitação predominante de abdução e rotação interna, e a radiografia mostra núcleo ossificado femoral menor e/ou alargamento do espaço articular medial no lado afetado?", ctx:"Achados sugestivos de doença de Legg-Calvé-Perthes, que pode mimetizar sinovite transitória mas tem curso mais insidioso e prolongado.", yes:"r4", no:"r3"},
+    r1:{type:"r", cls:"emergency", title:"Alta probabilidade de artrite séptica do quadril", txt:"Com febre, recusa de carga e VHS/leucócitos elevados, a probabilidade de artrite séptica é muito alta. Indicar aspiração articular guiada por ultrassonografia ou fluoroscopia com Gram e cultura, e considerar drenagem cirúrgica urgente para evitar destruição da cabeça femoral e deformidade permanente.", details:[["Critérios de Kocher positivos","≥3 de 4 (febre, não-carga, VHS>40, leucócitos>12.000)"],["Conduta","Aspiração articular urgente + considerar drenagem cirúrgica"],["Risco se não tratado","Destruição da cabeça femoral, artrose precoce"],["Fonte","p.3624-3625"]]},
+    r2:{type:"r", cls:"surgical", title:"Probabilidade intermediária — aspiração articular para excluir infecção", txt:"Poucos critérios de Kocher presentes, mas efusão confirmada por ultrassonografia. Realizar aspiração do quadril sob fluoroscopia ou ultrassonografia para excluir artrite séptica antes de assumir sinovite transitória, especialmente se a irritabilidade do quadril for importante.", details:[["Achado","Efusão presente, poucos critérios de Kocher"],["Conduta","Aspiração articular para Gram/cultura antes de tratar como sinovite transitória"],["Fonte","p.3620-3625"]]},
+    r3:{type:"r", cls:"conservative", title:"Provável sinovite transitória do quadril", txt:"Repouso, restrição de carga, anti-inflamatórios não esteroidais por curto período (evitar aspirina pelo risco de síndrome de Reye). Resolução esperada em 5 a 7 dias na maioria dos casos. Reavaliar se sintomas piorarem ou persistirem além de 2-3 semanas, quando outros diagnósticos devem ser reconsiderados.", details:[["Conduta","Repouso, anti-inflamatórios, observação"],["Evolução esperada","Resolução em 5-7 dias (até 2-3 semanas em casos mais lentos)"],["Sinal de alerta","Piora dos sintomas sugere artrite séptica"],["Fonte","p.3617-3627"]]},
+    r4:{type:"r", cls:"conservative", title:"Suspeita de doença de Legg-Calvé-Perthes", txt:"Solicitar radiografias seriadas do quadril em AP e Lauenstein (frog-leg lateral); considerar ressonância magnética (idealmente com perfusão) se houver dúvida diagnóstica precoce. Encaminhar para estadiamento pelo sistema de Waldenström modificado e definição de conduta conforme idade de início e extensão do acometimento epifisário.", details:[["Próximo passo","Radiografias AP e Lauenstein seriadas; RM se dúvida"],["Encaminhamento","Estadiamento de Waldenström + avaliação de idade de início e extensão epifisária"],["Fonte","p.3501-3509, 3625-3627"]]}
+  }
+},
+
+
+scfe_conduta_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.24",
+  title:"Conduta na Epifisiólise Femoral Proximal (EFCF/SCFE) conforme estabilidade de Loder",
+  src:"Kim YJ, Ramachandran M, Cap.24 Slipped Capital Femoral Epiphysis, In: Lovell and Winter's Pediatric Orthopaedics — p.3664-3790",
+  icon:"🦴", tags:["p","s","sm","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"EFCF confirmado radiograficamente (linha de Klein/Trethowan positiva, alargamento e irregularidade fisária, mancha metafisária de Steel)?", ctx:"Obter radiografias AP e em perfil (frog-leg) de ambos os quadris. Em EFCF instável agudo, evitar o frog lateral pré-operatório; usar incidência em perfil cross-table.", yes:"q2", no:"r_investigacao"},
+
+    r_investigacao:{type:"r", cls:"conservative", title:"Suspeita clínica sem confirmação radiográfica — investigar pré-escorregamento", txt:"Manter descarga de peso e repetir avaliação. Em criança obesa/peripuberal com dor persistente em quadril, coxa ou joelho e radiografia normal, solicitar RM para descartar 'preslip' (alargamento fisário e edema ósseo justafisário sem deslocamento verdadeiro).", details:[["Achados de preslip na RM","Alargamento e irregularidade fisária, edema ósseo adjacente"],["Conduta","Repetir exame físico bilateral; RM se suspeita persistir"]]},
+
+    q2:{type:"q",text:"O paciente consegue deambular, com ou sem muletas, apesar da dor? (classificação de estabilidade de Loder)", ctx:"Considerar que 13/24 quadris clinicamente 'instáveis' podem ter fise mecanicamente estável ao intraoperatório e vice-versa (Ziebarth et al.) — todo quadril com fise aberta deve ser tratado como potencialmente instável.", yes:"q3", no:"r_instavel"},
+
+    r_instavel:{type:"r", cls:"emergency", title:"EFCF instável — urgência cirúrgica", txt:"Internação imediata com repouso absoluto no leito, sem carga de peso. Fixação cirúrgica in situ com 2 parafusos canulados grandes, o mais precocemente possível. Considerar aspiração/artrotomia articular. Não realizar manipulação ou redução forçada (associada a maior risco de osteonecrose). Descarga de peso por 3-4 semanas no pós-operatório.", details:[["Classificação","Loder — Instável (5-10% de todos os EFCF)"],["Fixação","2 parafusos canulados grandes"],["Risco de osteonecrose","12,5% a 58% (47% na série de Loder et al.)"],["Pós-operatório","Descarga de peso por 3-4 semanas"]]},
+
+    q3:{type:"q",text:"Há endocrinopatia/doença sistêmica subjacente, idade de início atípica (<10 anos ou >14-16 anos), baixa estatura (<percentil 10), radioterapia pélvica prévia ou acesso limitado a seguimento clínico?", ctx:"Critérios de Loder (teste idade-peso-altura) e de Burrow et al. (estatura <percentil 10) ajudam a identificar EFCF atípico com maior risco de bilateralidade e de causa endócrina.", yes:"r_profilatica", no:"q4"},
+
+    r_profilatica:{type:"r", cls:"surgical", title:"Fixação in situ do lado afetado + fixação profilática contralateral", txt:"Fixar cirurgicamente o quadril afetado (parafuso canulado único se estável) e considerar fixação profilática do quadril contralateral ainda não escorregado, dado o alto risco de bilateralidade nesses grupos (endocrinopatia, RT pélvica, idade <10 anos, difícil seguimento).", details:[["Indicações","Endocrinopatia, RT pélvica prévia, idade <10 anos, seguimento inadequado"],["Contraindicação relativa","Doença renal — preferir manejo clínico da osteodistrofia renal"],["Risco de condrólise profilática","~2%"],["Risco de osteonecrose profilática","~1%"]]},
+
+    q4:{type:"q",text:"EFCF estável, sem fatores de risco atípicos — proceder com fixação in situ eletiva. Após a fixação, há dor e/ou limitação funcional significativa persistindo por 1 ano ou mais (deformidade residual moderada a grave)?", ctx:"A maioria dos sintomas melhora dentro do primeiro ano após a fixação in situ; a persistência sugere deformidade residual clinicamente relevante.", yes:"q5", no:"r_estavel_rotina"},
+
+    r_estavel_rotina:{type:"r", cls:"surgical", title:"EFCF estável — fixação in situ com parafuso único", txt:"Um parafuso canulado grande (6,5-7,3 mm), rosca reversa, perpendicular à fise, posição centro-centro na cabeça femoral. Carga total permitida como tolerado no pós-operatório. Seguimento radiográfico com 1 semana, 1 e 2 meses, depois a cada 3-6 meses até o fechamento fisário bilateral, vigiando quadril contralateral e sinais de condrólise (dor e ADM que não melhoram em 2-3 semanas).", details:[["Fixação","1 parafuso canulado grande"],["Carga","Total, como tolerado"],["Risco de osteonecrose","0-5% (mais comum 2-3%)"],["Seguimento","Até fechamento fisário bilateral"]]},
+
+    q5:{type:"q",text:"Deslocamento residual maior que 45 graus pelo ângulo cabeça-diáfise (critério de Sugioka)?", ctx:"A escolha do tipo de osteotomia corretiva depende da magnitude da deformidade residual (graus de Southwick/Wilson) e da experiência do cirurgião.", yes:"r_sugioka", no:"r_osteotomia_intertrocanterica"},
+
+    r_osteotomia_intertrocanterica:{type:"r", cls:"surgical-major", title:"Osteotomia intertrocantérica corretiva (Southwick/Imhauser)", txt:"Osteotomia intertrocantérica triplanar (valgo, flexão e rotação interna) é a técnica mais comumente empregada para deformidade residual sintomática, com menor risco de osteonecrose comparada a osteotomias mais proximais, embora a correção seja mais distante do foco real da deformidade.", details:[["Técnica","Southwick ou Imhauser (triplanar: valgo-flexão-RI)"],["Risco de osteonecrose","Muito baixo (até 6% relatado)"],["Risco de condrólise","2% a 25%"],["Complicações associadas","LLD, retardo de consolidação, reoperação"]]},
+
+    r_sugioka:{type:"r", cls:"surgical-major", title:"Osteotomia rotacional transtrocantérica (Sugioka)", txt:"Reservada para deformidade residual grave, com deslocamento >45 graus pelo ângulo cabeça-diáfise. Tecnicamente exigente e de uso restrito, mas com potencial de correção anatômica superior às osteotomias intertrocantéricas convencionais.", details:[["Indicação","Deslocamento >45 graus (head-shaft angle)"],["Resultados","~90% excelentes na série original"],["Risco","Osteonecrose relatada; tecnicamente muito exigente"]]}
+  }
+},
+
+// ===== Cap.25 The Adolescent Hip (Zaltz I, Sink EL) — Lovell and Winter's Pediatric Orthopaedics, 8th ed. — livro p.3809-3839 =====
+// 1 algoritmo gerado: fluxo de avaliação e conduta do Impacto Femoroacetabular (FAI) no adolescente,
+// descrito de forma explícita no texto do capítulo (seção "Femoroacetabular Impingement", p.3813-3814).
+// Os demais tópicos do capítulo (SCFE residual, LCP residual, displasia acetabular) são discutidos de
+// forma mais qualitativa/individualizada no texto, sem um fluxo de decisão sequencial fiel o suficiente
+// para justificar um algoritmo próprio sem inventar critérios não descritos — por isso não foram forçados.
+
+fai_adolescente_ped:{
+  region:'fraturas-pediatricas', num:'LW Cap.25',
+  title:'Avaliação e Conduta no Impacto Femoroacetabular (FAI) do Quadril do Adolescente',
+  src:'Zaltz I, Sink EL, Cap.25 The Adolescent Hip, In: Lovell and Winter\'s Pediatric Orthopaedics — p.3813-3814',
+  icon:'🦴', tags:['p','c','s'],
+  start:'q1',
+  nodes:{
+    q1:{type:'q', text:'História (dor anterior no quadril/virilha ou região peritrocantérica, sintomas mecânicos como travamento/estalido, dor à flexão do quadril como sentar), exame físico e radiografias/RM/TC compatíveis com deformidade cam e/ou pincer com dano labral ou condral associado?', ctx:'O diagnóstico de FAI baseia-se em achado histórico, clínico e radiográfico consistentes. A avaliação completa inclui radiografias simples, RM com sequências para labrum/cartilagem hialina e TC 3D para definir a anatomia do fêmur proximal e do acetábulo.', yes:'q2', no:'r1'},
+    q2:{type:'q', text:'Já foi realizado um período de tratamento não cirúrgico adequado (modificação/repouso de atividade, anti-inflamatório oral, fisioterapia e/ou terapia intra-articular), com falha em aliviar a dor ou permitir retorno às atividades?', ctx:'Falha do tratamento não cirúrgico e dor limitante de atividade são consideradas as indicações apropriadas para cirurgia. Não há evidência de que o tratamento cirúrgico do FAI modifique a história natural da artrose.', yes:'q3', no:'r2'},
+    q3:{type:'q', text:'A avaliação por TC 3D/RM demonstra deformidade cam de grande magnitude, retrotorsão femoral significativa, malrotação acetabular maior, ou impacto extra-articular envolvendo estruturas como o trocânter maior?', ctx:'Esses achados foram associados a melhor manejo por técnica aberta na literatura citada pelo capítulo.', yes:'r3', no:'q4'},
+    q4:{type:'q', text:'A lesão responsável pelo impacto é acessível por via artroscópica (fêmur anterior ou rebordo acetabular), na ausência de defeitos ou deformidade cartilaginosa articular maiores (femoral ou acetabular)?', ctx:'Esta é a indicação ideal descrita no capítulo para tratamento artroscópico isolado.', yes:'r4', no:'r5'},
+    r1:{type:'r', cls:'conservative', title:'Critérios de FAI Não Preenchidos — Investigar Diagnóstico Diferencial', txt:'Quando história, exame físico e imagem não são consistentes com FAI, investigar outras causas intra-articulares (lesão pós-traumática, sinovite crônica, osteoma osteoide, condromatose sinovial), extra-articulares (tendinopatia, bursite, compressão nervosa periarticular) ou não ortopédicas (causas neurológicas, retroperitoneais, de parede abdominal ou intraperitoneais) de dor no quadril do adolescente.', details:[['Conduta','Excluir causas não ortopédicas antes de prosseguir com investigação ortopédica'],['Reavaliação','Repetir história/exame físico focados e considerar imagem adicional conforme suspeita clínica']]},
+    r2:{type:'r', cls:'conservative', title:'Tratamento Não Cirúrgico Inicial do FAI', txt:'Iniciar trial de modificação/repouso de atividade, anti-inflamatório oral, fisioterapia e/ou terapia intra-articular. A cirurgia só é considerada após falha documentada dessa abordagem associada a dor limitante de atividade.', details:[['Componentes','Repouso/modificação de atividade, AINE oral, fisioterapia, infiltração intra-articular'],['Reavaliação','Se falha e dor persistente limitando atividades, reconsiderar indicação cirúrgica']]},
+    r3:{type:'r', cls:'surgical-major', title:'Cirurgia Aberta — Luxação Cirúrgica do Quadril', txt:'Deformidades cam de maior magnitude, retrotorsão femoral significativa, ou malrotação acetabular maior/impacto extra-articular (trocânter maior) são mais efetivamente manejados por técnica aberta, permitindo osteoplastia femoral circunferencial, osteotomia periacetabular anteversora (PAO) e/ou osteotomia de desrotação femoral conforme a deformidade específica.', details:[['Indicações','Cam extenso, retrotorsão femoral relevante, malrotação acetabular maior, impacto extra-articular do trocânter maior'],['Procedimentos possíveis','Osteoplastia aberta, PAO anteversora, osteotomia de desrotação femoral, ou combinações'],['Ressalva','Não há indicação universal única — o procedimento deve ser individualizado à deformidade do paciente']]},
+    r4:{type:'r', cls:'surgical', title:'Artroscopia de Quadril', txt:'Indicação ideal para lesão acessível por via artroscópica no fêmur anterior ou rebordo acetabular, na ausência de defeitos ou deformidade cartilaginosa articular maiores (femoral ou acetabular).', details:[['Indicação ideal','Lesão anterior do fêmur ou do rebordo acetabular, acessível artroscopicamente'],['Contraindicação relativa','Defeitos ou deformidade cartilaginosa articular maiores, cam extenso ou malrotação acetabular importante']]},
+    r5:{type:'r', cls:'surgical-major', title:'Procedimento Individualizado / Combinado', txt:'Quando a deformidade não preenche claramente os critérios de grande magnitude para cirurgia aberta nem é totalmente acessível por artroscopia isolada, o tratamento deve ser individualizado, podendo combinar osteoplastia aberta ou artroscópica com osteotomia periacetabular anteversora e/ou osteotomia de desrotação femoral, conforme a deformidade específica responsável pelo impacto.', details:[['Base da decisão','Tipo e magnitude específicos da deformidade femoral e acetabular do paciente'],['Procedimentos possíveis','Femoroplastia aberta ou artroscópica, PAO anteversora, osteotomia de desrotação femoral, ou combinações'],['Observação do capítulo','A indicação precisa para cada procedimento ainda é ponto controverso na literatura']]}
+  }
+},
+
+
+
+genu_varum_valgum_avaliacao_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.26",
+  title: "Avaliação da Deformidade Angular do Joelho (Genu Varum/Valgum) na Criança",
+  src: "Iobst C, Jain V, McCarthy JJ, Cap.26 The Lower Extremity, In: Lovell and Winter's Pediatric Orthopaedics — p.3925-3947, 3996-4004",
+  icon: "🦵", tags: ["p", "c", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "Criança com menos de 2-3 anos, arqueamento (genu varum) bilateral e simétrico, em curva longa e suave, sem thrust à marcha e sem assimetria?",
+      yes: "leaf_physio_varum",
+      no: "q2"
+    },
+    q2: {
+      q: "Criança entre 2 e 8 anos, joelho valgo (genu valgum) bilateral e simétrico, sem dor, assimetria ou thrust?",
+      yes: "leaf_physio_valgum",
+      no: "q3"
+    },
+    q3: {
+      q: "Há assimetria entre os membros, thrust lateral (varo) ou medial à marcha, estatura anormal (suspeita de raquitismo/displasia esquelética) ou a deformidade está fora da faixa etária esperada?",
+      yes: "q4",
+      no: "leaf_observacao_seriada"
+    },
+    q4: {
+      q: "Radiografia panorâmica em pé: predomínio de VARO focal na tíbia proximal, com bico metafisário medial, MDA >11 graus e/ou EMA >20 graus (achados de tibia vara/Blount)?",
+      yes: "leaf_blount_suspeito",
+      no: "q5"
+    },
+    q5: {
+      q: "Teste de malalinhamento mostra desvio do eixo mecânico lateral ao centro do joelho (genu valgum patológico), com JOA anormal no fêmur distal e/ou tíbia proximal?",
+      yes: "q6",
+      no: "leaf_outra_causa"
+    },
+    q6: {
+      q: "Deformidade leve a moderada (eixo mecânico no terço medial/médio do platô tibial lateral), com mais de 2-3 anos de crescimento restante e fise normal e funcionante?",
+      yes: "leaf_guided_growth_valgo",
+      no: "leaf_osteotomia_valgo"
+    },
+
+    leaf_physio_varum: {
+      q: "Genu varum fisiológico. Conduta: tranquilizar a família; documentar com fotografias clínicas seriadas a cada poucos meses; radiografar apenas se piorar ou não resolver por volta dos 2 anos.",
+      cls: "conservative"
+    },
+    leaf_physio_valgum: {
+      q: "Genu valgum fisiológico (pico esperado de 10-15 graus aos 3 anos, resolvendo para ~7 graus de valgo aos 7-8 anos). Conduta: tranquilizar a família; sem tratamento.",
+      cls: "conservative"
+    },
+    leaf_observacao_seriada: {
+      q: "Deformidade angular provavelmente dentro da variação normal para a idade. Conduta: observação clínica seriada; reavaliar em consultas de rotina; radiografar se progressão.",
+      cls: "conservative"
+    },
+    leaf_blount_suspeito: {
+      q: "Achados compatíveis com tibia vara patológica (Blount). Encaminhar para o algoritmo específico de conduta na doença de Blount (classificação de Langenskiöld, idade de início, estágio da fise).",
+      cls: "surgical"
+    },
+    leaf_outra_causa: {
+      q: "Considerar causas alternativas: displasia fibrocartilaginosa focal, lesão fisária pós-traumática/infecciosa, doença metabólica óssea (raquitismo), displasia esquelética. Investigar com exames laboratoriais/imagem direcionados.",
+      cls: "conservative"
+    },
+    leaf_guided_growth_valgo: {
+      q: "Crescimento guiado (hemiepifisiodese temporária com placa de tensão medial) é o tratamento de escolha. Monitorar a cada poucos meses para evitar supercorreção; considerar técnica de placa \"sleeper\" se recidiva esperada.",
+      cls: "surgical"
+    },
+    leaf_osteotomia_valgo: {
+      q: "Paciente próximo da maturidade esquelética ou deformidade grande: osteotomia (femoral e/ou tibial). Correção aguda possível até 10 graus; gradual recomendada para deformidades maiores, especialmente na tíbia (risco de estiramento do nervo fibular — considerar descompressão profilática).",
+      cls: "surgical-major"
+    }
+  }
+},
+
+blount_doenca_conduta_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.26",
+  title: "Conduta na Doença de Blount (Tibia Vara) por Idade de Início e Estado da Fise",
+  src: "Iobst C, Jain V, McCarthy JJ, Cap.26 The Lower Extremity, In: Lovell and Winter's Pediatric Orthopaedics — p.3936-3980",
+  icon: "🦵", tags: ["p", "c", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "Início precoce/infantil (2-7 anos), possivelmente bilateral, com achados radiográficos de MDA/EMA compatíveis com Blount?",
+      yes: "q2",
+      no: "q_tardio"
+    },
+    q2: {
+      q: "Criança magra (peso <percentil 90), doença unilateral leve, idade <3 anos, sem thrust em varo à marcha, Langenskiöld estágio I-II?",
+      yes: "leaf_orte_precoce",
+      no: "q3"
+    },
+    q3: {
+      q: "Fise medial ainda funcionante, sem barra óssea completa (Langenskiöld I-IV / grupo de baixo grau)?",
+      yes: "leaf_guided_growth_blount_precoce",
+      no: "q4"
+    },
+    q4: {
+      q: "Depressão do platô tibial medial >30 graus ao raio X, com instabilidade ligamentar/thrust à marcha confirmados (considerar RM/artrografia antes de decidir)?",
+      yes: "leaf_hemiplateau_elevacao",
+      no: "leaf_osteotomia_precoce"
+    },
+
+    q_tardio: {
+      q: "Início tardio (≥10 anos), tipicamente obeso, unilateral, sem barra óssea medial ou depressão do platô — crescimento guiado prévio falhou OU bone age avançado com pouco crescimento remanescente?",
+      yes: "leaf_osteotomia_tardia",
+      no: "leaf_guided_growth_tardio"
+    },
+
+    leaf_orte_precoce: {
+      q: "Órtese (KAFO com apoio medial, uso em tempo integral) pode ser tentada como primeira linha por 6-12 meses, reconhecendo taxa relevante de resolução espontânea concomitante.",
+      cls: "conservative"
+    },
+    leaf_guided_growth_blount_precoce: {
+      q: "Crescimento guiado (placa de tensão/parafuso/grampo) como primeira linha cirúrgica, o mais precoce possível no curso da doença, antes de alterações fisárias irreversíveis. Bone age deve ser avaliado antes (avanço médio de puberdade em obesos).",
+      cls: "surgical"
+    },
+    leaf_hemiplateau_elevacao: {
+      q: "Elevação do hemiplatô tibial medial, associada a fechamento da fise lateral (epifisiodese) no mesmo tempo cirúrgico para prevenir recidiva; considerar correção associada de varo/procurvato/rotação por osteotomia.",
+      cls: "surgical-major"
+    },
+    leaf_osteotomia_precoce: {
+      q: "Osteotomia tibial proximal (aguda ou gradual, conforme magnitude e plano da deformidade), com fixação por pinos cruzados/placa/fixador externo conforme idade e tamanho do paciente; considerar supercorreção em leve valgo pela perda de correção esperada com crescimento.",
+      cls: "surgical-major"
+    },
+    leaf_guided_growth_tardio: {
+      q: "Crescimento guiado ainda é opção se houver crescimento remanescente suficiente e fise sadia; avaliar bone age antes (frequentemente avançado em obesos com Blount tardio).",
+      cls: "surgical"
+    },
+    leaf_osteotomia_tardia: {
+      q: "Osteotomia (tibial e, se deformidade femoral associada, também femoral) para restaurar o eixo mecânico neutro; considerar fixador externo circular/hexapod para correção gradual em deformidades multiplanares graves ou paciente obeso.",
+      cls: "surgical-major"
+    }
+  }
+},
+
+deformidade_rotacional_avaliacao_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.26",
+  title: "Avaliação da Deformidade Rotacional dos Membros Inferiores e Síndrome do Mau Alinhamento",
+  src: "Iobst C, Jain V, McCarthy JJ, Cap.26 The Lower Extremity, In: Lovell and Winter's Pediatric Orthopaedics — p.3880-3900",
+  icon: "🦵", tags: ["p", "c", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "Perfil rotacional (TFA/torção tibial e teste de Craig-Ryder para anteversão femoral) simétrico e dentro da faixa normal para a idade?",
+      yes: "leaf_normal",
+      no: "q2"
+    },
+    q2: {
+      q: "Há assimetria significativa de rotação do quadril entre os lados, ou rotação externa do quadril em adolescente (possível sinal de epifisiólise proximal do fêmur)?",
+      yes: "leaf_alerta_scfe",
+      no: "q3"
+    },
+    q3: {
+      q: "Combinação de anteversão femoral aumentada + torção tibial externa, com rotação interna excessiva do quadril e TFA excessivamente externo, causando dor anterior no joelho ao caminhar (padrão de mau alinhamento rotacional / miserable malalignment)?",
+      yes: "q4",
+      no: "leaf_variacao_normal"
+    },
+    q4: {
+      q: "Sintomático (dor anterior no joelho limitante) e tratamento conservador (fortalecimento/fisioterapia) já tentado sem melhora, com deformidade confirmada por TC axial ou análise de marcha tridimensional?",
+      yes: "leaf_osteotomia_rotacional",
+      no: "leaf_conservador_rotacional"
+    },
+
+    leaf_normal: {
+      q: "Variação rotacional normal para a idade. Conduta: tranquilizar a família; não há intervenção não cirúrgica comprovadamente eficaz para acelerar a normalização da marcha.",
+      cls: "conservative"
+    },
+    leaf_alerta_scfe: {
+      q: "Assimetria rotacional do quadril em adolescente, especialmente rotação externa, exige avaliação urgente para excluir epifisiólise proximal do fêmur (radiografia de quadril em AP e perfil/rã).",
+      cls: "emergency"
+    },
+    leaf_variacao_normal: {
+      q: "Variação rotacional leve/assintomática, mesmo se assimétrica em algum grau. Conduta: observação; reavaliar se surgir dor ou piora progressiva.",
+      cls: "conservative"
+    },
+    leaf_conservador_rotacional: {
+      q: "Manter fortalecimento muscular e fisioterapia; reavaliar periodicamente. Cirurgia reservada para casos refratários e bem documentados.",
+      cls: "conservative"
+    },
+    leaf_osteotomia_rotacional: {
+      q: "Osteotomia rotacional bilateral: rotação externa do fêmur combinada com rotação interna compensatória da tíbia (osteotomia supramaleolar da tíbia/fíbula e osteotomia femoral com haste intramedular ou placa, conforme maturidade esquelética).",
+      cls: "surgical-major"
+    }
+  }
+},
+
+// ===== Cap.27 Limb-Length Discrepancy (Noonan KJ, Halanski MA) — Lovell and Winter's Pediatric Orthopaedics, 8th ed. — livro p.4113-4262 =====
+// 2 algoritmos gerados, fiéis aos critérios explícitos do texto:
+// 1) Conduta geral por magnitude de discrepância prevista na maturidade esquelética (seção "Treatment Goals", p.4172,
+//    integrada com as seções de epifisiodese p.4176-4192, encurtamento ósseo p.4196-4217, reconstrução/alongamento
+//    p.4226-4253 e amputação/prótese p.4176-4177).
+// 2) Decisão de ressecção de barra/ponte óssea fisária (physeal bar excision), com os critérios numéricos explícitos
+//    da seção "Growth Arrest (Physeal Bar) Excision" (p.4224-4226).
+
+conduta_discrepancia_mmii_ped:{
+  region:'fraturas-pediatricas', num:'LW Cap.27',
+  title:'Conduta na Discrepância de Comprimento dos Membros Inferiores por Magnitude Prevista na Maturidade Esquelética',
+  src:'Noonan KJ, Halanski MA, Cap.27 Limb-Length Discrepancy, In: Lovell and Winter\'s Pediatric Orthopaedics — p.4172-4253',
+  icon:'📏', tags:['p','c','s'],
+  start:'q1',
+  nodes:{
+    q1:{type:'q', text:'A discrepância funcional (clínica) atual é menor que 2 cm, sem previsão de piora relevante até a maturidade esquelética?', ctx:'Discrepâncias menores que 2 cm não têm consequência funcional ou clínica demonstrada no adulto. A decisão de tratamento deve sempre se basear na discrepância PREVISTA na maturidade (por Green-Anderson, Moseley, Menelaus/White, Dimeglio ou Multiplicador de Paley), não apenas na medida atual.', yes:'r1', no:'q2'},
+    q2:{type:'q', text:'A discrepância prevista na maturidade esquelética é maior que 20 cm, especialmente se associada a pé funcionalmente inútil (ex.: hemimelia fibular completa com tornozelo instável, deficiência focal femoral proximal grave)?', ctx:'Quando a morbidade, o tempo e a dificuldade do alongamento seriado superam largamente seus benefícios, a amputação com adaptação protética é preferida à tentativa heroica de salvamento do membro.', yes:'r5', no:'q3'},
+    q3:{type:'q', text:'A discrepância prevista está entre 6 e 20 cm?', ctx:'Esta faixa corresponde à indicação de reconstrução do membro (alongamento ósseo, com ou sem procedimentos adjuvantes), segundo as diretrizes de tratamento por magnitude do capítulo.', yes:'q4', no:'q6'},
+    q4:{type:'q', text:'Há deformidade articular, instabilidade ou contratura associada que precisa ser corrigida antes do alongamento definitivo (ex.: displasia de quadril no fêmur curto congênito, valgo/instabilidade de tornozelo na hemimelia fibular, contraturas de partes moles)?', ctx:'A otimização do membro (limb optimization) deve preceder a distração para evitar luxação/subluxação articular durante o alongamento; é razoável concluir essa otimização antes da idade escolar.', yes:'r3', no:'r4'},
+    q6:{type:'q', text:'Ainda há crescimento remanescente suficiente, com dados seriados confiáveis de comprimento e idade óssea, para prever com confiança o momento ideal de uma epifisiodese (discrepância prevista de 2 a 6 cm)?', ctx:'A epifisiodese é o tratamento de escolha para discrepância prevista de 2-6 cm em paciente ainda em crescimento, por sua baixa morbidade. O objetivo é mirar leve subcorreção (0,5-1,0 cm), realizando o procedimento um pouco mais tarde do que o momento de correção perfeita.', yes:'r2', no:'q7'},
+    q7:{type:'q', text:'O paciente é candidato técnico ao alongamento com prego intramedular motorizado (diâmetro diafisário ≥ 10,5 mm, fises proximais não amplamente abertas, ausência de obesidade importante) e prefere não perder estatura final?', ctx:'Dispositivos intramedulares motorizados (ex.: PRECICE) tornaram o alongamento de 3-6 cm bem tolerado em pacientes de baixa estatura que não aceitariam encurtamento ou epifisiodese, mesmo fora do contexto de crescimento ativo. Nota: cobertura por seguradoras pode ser negada para discrepâncias isoladas menores que 5-6 cm.', yes:'r6', no:'r7'},
+    r1:{type:'r', cls:'conservative', title:'Sem Tratamento Cirúrgico', txt:'Discrepância prevista menor que 2 cm: nenhum tratamento é necessário, segundo as diretrizes de conduta por magnitude do capítulo e a história natural documentada em adultos (sem consequência funcional/clínica demonstrada abaixo desse limiar).', details:[['Conduta','Observação; palmilha/salto pode ser oferecido a critério clínico se o paciente referir desconforto'],['Seguimento','Reavaliação periódica até a maturidade esquelética para confirmar que a previsão se mantém estável']]},
+    r2:{type:'r', cls:'surgical', title:'Epifisiodese', txt:'Discrepância prevista de 2 a 6 cm com crescimento remanescente suficiente para previsão confiável: epifisiodese (percutânea sob fluoroscopia, técnica de Phemister, grampeamento ou parafusos transfisários tipo PETS) da fise contralateral, buscando leve subcorreção de 0,5-1,0 cm.', details:[['Perda de crescimento esperada','27% na tíbia proximal isolada; 38% no fêmur distal isolado; 65% na epifisiodese combinada (pan-genu)'],['Preferência técnica dos autores','Epifisiodese percutânea sob fluoroscopia como padrão atual de tratamento'],['Seguimento','Radiografia de alinhamento em 6 meses e scanogramas seriados até a cessação do crescimento, para confirmar parada completa e detectar eventual crescimento residual inesperado']]},
+    r3:{type:'r', cls:'surgical-major', title:'Otimização do Membro Antes do Alongamento (Limb Optimization)', txt:'Correção de deformidades e instabilidades articulares associadas (osteotomia pélvica para displasia acetabular, correção de varo/retroversão femoral, correção de valgo de tornozelo, liberação de contraturas de partes moles) antes de proceder ao alongamento definitivo, para prevenir luxação, subluxação articular ou piora da deformidade durante a distração.', details:[['Exemplo do capítulo','Displasia de quadril no fêmur curto congênito deve ser corrigida antes do alongamento femoral para evitar luxação do quadril'],['Próximo passo','Após otimização e período de recuperação, reconduzir para reconstrução/alongamento do membro (mesmos princípios do nó "Reconstrução do Membro")']]},
+    r4:{type:'r', cls:'surgical-major', title:'Reconstrução do Membro / Alongamento Ósseo (6-20 cm)', txt:'Alongamento por osteogênese por distração (fixador externo tipo Ilizarov/monolateral ou prego intramedular motorizado, conforme candidatura técnica), tipicamente em tentativas seriadas de 10-20% do comprimento ósseo original (até 8-10 cm por tentativa antes de complicações/dor limitarem o prosseguimento).', details:[['Fases do processo','Latência (3-14 dias) → distração (1 mm/dia, em incrementos de 0,25 mm 4x/dia) → consolidação (até 3 de 4 corticais visíveis)'],['Tempo de fixador','Regra prática de 1 mês de fixador externo por centímetro de comprimento ganho, mais período de reabilitação'],['Aviso à família','Espera-se ao menos uma complicação e um tratamento/cirurgia adicional por procedimento de alongamento; considerar equipe multidisciplinar de apoio'],['Discrepância residual','Pode requerer epifisiodese ou encurtamento esquelético do lado não afetado ao final do processo, para completar a equalização dentro de 2 cm']]},
+    r5:{type:'r', cls:'surgical-major', title:'Amputação e Adaptação Protética', txt:'Amputação (Syme ou Boyd) e adaptação protética, com procedimentos adjuvantes conforme o caso (artrodese iliofemoral, artrodese de joelho, rotacionplastia de Van Ness). É o tratamento preferido quando a discrepância prevista é maior que 15-20 cm ou há pé funcionalmente inútil, evitando múltiplas hospitalizações e cirurgias de reconstrução de resultado incerto.', details:[['Momento ideal','Amputação de Syme ao final do primeiro ano de vida; rotacionplastia de Van Ness por volta dos 3 anos de idade'],['Resultado funcional','Marcha quase normal, participação em atividades recreativas/esportivas; deficiência focal femoral proximal tratada com prótese acima do joelho funciona bem, embora não tão bem quanto amputações abaixo do joelho'],['Suporte à família','Recomenda-se contato com famílias de crianças mais velhas já submetidas ao mesmo procedimento para apoiar a decisão']]},
+    r6:{type:'r', cls:'surgical', title:'Alongamento com Prego Intramedular Motorizado (PRECICE)', txt:'Alongamento ósseo com prego intramedular magneticamente motorizado, indicado nessa faixa (discrepância prevista de 2-6 cm sem crescimento remanescente confiável para epifisiodese, ou paciente/família que não aceita encurtamento nem perda de estatura), desde que o paciente seja candidato técnico ao dispositivo.', details:[['Especificações do dispositivo','Diâmetros de 8,5/10,7/12,5 mm; comprimentos de 155-365 mm; ganho máximo de 3-8 cm conforme o tamanho do prego'],['Contraindicação relativa','Fises proximais amplamente abertas (risco de necrose avascular do fêmur ou lesão de apófise tibial); obesidade importante (enfraquece o campo magnético)'],['Protocolo domiciliar','Ativações programadas via dispositivo remoto (ERC), tipicamente 3x/dia, com radiografia de controle 1 semana após o início da distração']]},
+    r7:{type:'r', cls:'surgical', title:'Encurtamento Ósseo Agudo (Skeletal Shortening)', txt:'Encurtamento agudo do membro longo, indicado quando o paciente está próximo ou além da maturidade esquelética (sem crescimento remanescente suficiente para epifisiodese) ou não é candidato/não deseja o alongamento intramedular, dentro da faixa de discrepância prevista de 2-6 cm.', details:[['Limite de segurança','Regra prática de ~10% do comprimento do osso; até 7,5 cm relatados no fêmur e 5 cm na tíbia sem perda funcional'],['Preferência anatômica','Fêmur preferencialmente (técnica fechada com serra intramedular e haste bloqueada, ou técnica aberta com placa proximal); tíbia raramente encurtada pelo maior risco neurovascular e de pseudartrose'],['Contraindicação relativa a encurtamento >5-6cm em paciente maduro','Aparência bulbosa objetável da coxa']]}
+  }
+},
+
+ressecao_barra_fisaria_ped:{
+  region:'fraturas-pediatricas', num:'LW Cap.27',
+  title:'Decisão de Ressecção de Barra/Ponte Óssea Fisária (Physeal Bar Excision)',
+  src:'Noonan KJ, Halanski MA, Cap.27 Limb-Length Discrepancy, In: Lovell and Winter\'s Pediatric Orthopaedics — p.4224-4226',
+  icon:'🦴', tags:['p','c','s'],
+  start:'q1',
+  nodes:{
+    q1:{type:'q', text:'Há confirmação por imagem avançada (TC e/ou RM) de uma barra/ponte óssea fisária localizada, com deformidade documentada (angulação ou discrepância de comprimento já mensurável, ou linhas de crescimento assimétricas)?', ctx:'A RM é extremamente sensível; nos casos sem deformidade óbvia (angulação ou discrepância) já instalada, é prudente documentar de forma irrefutável a alteração de crescimento antes de indicar tratamento. A TC é muito eficaz para mapear a localização da barra e calcular seu tamanho em relação à área total da fise.', yes:'q2', no:'r1'},
+    q2:{type:'q', text:'A barra/ponte óssea envolve menos de 50% da área de superfície da fise?', ctx:'A extensão da barra em relação à área total da fise é o principal determinante da indicação de ressecção versus completar a parada de crescimento.', yes:'q3', no:'q5'},
+    q3:{type:'q', text:'A discrepância de comprimento prevista na maturidade esquelética é de pelo menos 2 cm?', ctx:'Ressecções de barra são reservadas a casos em que a discrepância prevista justifica o risco de um procedimento de resultado parcialmente imprevisível.', yes:'q4', no:'r2'},
+    q4:{type:'q', text:'Há deformidade angular associada maior que 15-20 graus?', ctx:'A deformidade angular não é, por si só, contraindicação à ressecção da barra, mas deformidades maiores que 15-20 graus geralmente requerem correção cirúrgica concomitante.', yes:'r3', no:'r4'},
+    q5:{type:'q', text:'(Barra ≥ 50% da área fisária) A perda de crescimento prevista decorrente da barra é maior que 5 cm?', ctx:'Barras extensas (≥50%) só são candidatas à ressecção em casos selecionados, quando a alternativa (parada completa de crescimento seguida de grande discrepância) seria pior — preferível ao difícil tratamento de alongamento em pacientes muito jovens.', yes:'r5', no:'r6'},
+    r1:{type:'r', cls:'conservative', title:'Documentar Antes de Tratar', txt:'Sem confirmação irrefutável de dano fisário (deformidade angular, discrepância mensurável ou linhas de crescimento assimétricas em imagem avançada), o capítulo recomenda documentar a alteração de crescimento antes de considerar qualquer tratamento cirúrgico da barra.', details:[['Conduta','Seguimento clínico-radiográfico seriado (alinhamento e comprimento) para confirmar progressão antes de indicar TC/RM de mapeamento e cirurgia']]},
+    r2:{type:'r', cls:'conservative', title:'Completar a Parada de Crescimento (Epifisiodese) em vez de Ressecar', txt:'Quando a barra é menor que 50% da fise mas a discrepância prevista é inferior a 2 cm, completar a parada de crescimento (epifisiodese da fise remanescente) é preferível à ressecção da barra, cujos resultados são imprevisíveis e não se justificam para um ganho potencial pequeno.', details:[['Racional','O potencial ganho de crescimento residual pela ressecção não compensa a imprevisibilidade do procedimento quando a discrepância final projetada já é pequena']]},
+    r3:{type:'r', cls:'surgical-major', title:'Ressecção da Barra + Osteotomia Concomitante', txt:'Ressecção da barra fisária (central: acesso metafisário com remoção circunferencial até visualização de 360 graus da fise, facilitada por artroscópio ou espelho dental; periférica: exposição direta com remoção sob magnificação) associada a osteotomia corretiva concomitante da deformidade angular maior que 15-20 graus, com preenchimento do defeito por material inerte (gordura ou cimento cranioplástico).', details:[['Indicação','Barra < 50% da fise, discrepância prevista ≥ 2 cm, deformidade angular > 15-20 graus'],['Detalhe técnico','Colocação de fios-K na epífise e metáfise facilita o monitoramento pós-operatório da função da fise']]},
+    r4:{type:'r', cls:'surgical', title:'Ressecção Isolada da Barra Fisária', txt:'Ressecção da barra fisária (central ou periférica, conforme localização) sem necessidade de osteotomia associada, com preenchimento do defeito por material inerte (gordura ou cimento cranioplástico) para prevenir a reformação da ponte óssea.', details:[['Indicação','Barra < 50% da fise, discrepância prevista ≥ 2 cm, sem deformidade angular relevante (≤15-20 graus)'],['Seguimento','Fios-K epifisário e metafisário para monitorar função fisária residual']]},
+    r5:{type:'r', cls:'surgical-major', title:'Ressecção de Barra Extensa em Caso Selecionado', txt:'Em casos selecionados de barra ≥50% da área fisária com perda de crescimento prevista maior que 5 cm, a tentativa de ressecção pode ser preferível ao difícil tratamento subsequente de alongamento em paciente jovem, apesar da maior complexidade técnica (remoção circunferencial mais desafiadora, sobretudo em barras centrais).', details:[['Racional','Em pacientes jovens com grande perda de crescimento projetada, a tentativa de preservar a fise reduz a necessidade futura de reconstrução/alongamento de maior magnitude'],['Ressalva do capítulo','Resultado da ressecção nessas barras extensas permanece menos prognosticável que em barras menores']]},
+    r6:{type:'r', cls:'surgical-major', title:'Completar Parada de Crescimento e Planejar Conforme Magnitude', txt:'Para barras ≥50% da fise com perda de crescimento prevista de até 5 cm, a ressecção não é a conduta preferida pelo capítulo; a alternativa é completar a parada de crescimento (epifisiodese) e tratar a discrepância residual resultante de acordo com sua magnitude prevista na maturidade (ver diretrizes gerais de conduta por magnitude: epifisiodese contralateral, encurtamento ósseo ou alongamento, conforme o caso).', details:[['Próximo passo','Reconduzir para as diretrizes gerais de conduta por magnitude de discrepância prevista (0-2 cm: observação; 2-6 cm: epifisiodese/encurtamento/alongamento intramedular; 6-20 cm: reconstrução do membro)']]}
+  }
+},
+
+ponseti_pe_torto_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.28",
+  title:"Protocolo de Ponseti para o Pé Torto Congênito Idiopático (do Diagnóstico à Manutenção)",
+  src:"Mosca VS, Bouchard M, Cap.28 The Foot, In: Lovell and Winter's Pediatric Orthopaedics — p.4317-4348",
+  icon:"🦶", tags:["p","c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q", text:"Trata-se de pé torto congênito idiopático (sem síndrome, artrogripose ou defeito neuromuscular identificado), com início da manipulação/gessagem de Ponseti em lactente?", ctx:"Pés tortos sindrômicos/neurogênicos ou de apresentação tardia respondem pior ao Ponseti isolado, exigem mais gessos e maior taxa de cirurgia, embora o método ainda deva ser tentado (inclusive até 9 anos em casos negligenciados).", yes:"q2", no:"r9"},
+    q2:{type:"q", text:"Após a série de gessos seriados (trocas a cada 5-7 dias, sequência cavo → adução → varo → equino), os componentes de cavo, adução e varo foram corrigidos, restando apenas equino residual?", ctx:"A correção completa de cavo/adução/varo pelo método de Ponseti é alcançada em cerca de 90% dos casos; a sequência de correção deve ser respeitada, com contrapressão na face dorsolateral da cabeça do tálus (nunca no calcâneo/cuboide).", yes:"q3", no:"q6"},
+    q3:{type:"q", text:"É possível atingir pelo menos 10 graus de dorsiflexão do tornozelo apenas com os gessos, sem falsa dorsiflexão através do mediopé (calcâneo permanece palpável na posição normal)?", ctx:"A correção completa do equino apenas com gesso ocorre em menos de 10% dos casos; deve-se confirmar que o movimento é verdadeiro no tornozelo, e não uma falsa dorsiflexão do mediopé.", yes:"q4", no:"r2"},
+    q4:{type:"q", text:"A família está disponível e orientada para manter a órtese de abdução do pé (FAB) em tempo integral por 3 meses e depois em uso noturno por 3 a 5 anos?", ctx:"Sem programa adequado de órtese, o risco de recidiva do pé torto chega a 70%; a orientação familiar deve começar no primeiro encontro, bem antes do início do tratamento.", yes:"r1", no:"r4"},
+    q6:{type:"q", text:"Já se completaram cerca de 3 meses de gessagem seriada semanal sem melhora adicional da deformidade residual?", ctx:"Se boa correção não for alcançada após 3 meses de gesso, é improvável que o tratamento não operatório continuado seja bem-sucedido.", yes:"r5", no:"r8"},
+    r1:{type:"r", cls:"conservative", title:"Manutenção com órtese de abdução do pé (FAB), sem necessidade de tenotomia", txt:"Correção completa alcançada apenas com manipulação e gesso. Iniciar imediatamente a fase de manutenção com a órtese de abdução do pé (FAB): uso em tempo integral (23h/dia) por 3 meses, seguido de uso noturno por 3 a 5 anos. Reforçar exercícios de alongamento em dorsiflexão pelos pais (pelo menos 1 minuto, 3x/dia), pois o equino é o componente que recidiva primeiro.", details:[["Indicação","Correção completa de cavo/adução/varo/equino apenas com gesso"],["Conduta","Iniciar fase de manutenção com FAB imediatamente"],["Fonte","p.4342-4346"]]},
+    r2:{type:"r", cls:"surgical", title:"Tenotomia percutânea do tendão de Aquiles indicada", txt:"Realizar tenotomia percutânea do tendão de Aquiles (em consultório ou centro cirúrgico, conforme rotina institucional) quando não se atinge pelo menos 10 graus de dorsiflexão apenas com os gessos — necessário em mais de 90% dos casos. Aplicar gesso final por 3 semanas com o pé em 15-20 graus de dorsiflexão e 70-75 graus de rotação externa, seguido do início da fase de manutenção com FAB.", details:[["Indicação","Dorsiflexão <10 graus apesar de gessagem seriada adequada"],["Técnica","Tenotomia percutânea completa do tendão de Aquiles"],["Pós-operatório","Gesso final por 3 semanas + início da FAB"],["Fonte","p.4343-4345"]]},
+    r4:{type:"r", cls:"conservative", title:"Reforçar orientação familiar sobre a órtese — alto risco de recidiva", txt:"Sem adesão adequada à órtese de abdução do pé, o risco de recidiva da deformidade chega a 70%. Reforçar de forma intensiva a orientação familiar sobre a importância da FAB antes de assumir falha do tratamento. Se a deformidade recidivar apesar da orientação, reiniciar manipulação e gessagem seguida de nova tentativa de bracing, com consideração de transferência do tibial anterior se houver desequilíbrio muscular dinâmico identificado após a idade de marcha.", details:[["Problema identificado","Dificuldade de adesão à FAB"],["Risco","Recidiva em até 70% sem bracing adequado"],["Conduta se recidiva","Remanipulação/gesso + reforço de bracing ± transferência do tibial anterior"],["Fonte","p.4345-4348"]]},
+    r5:{type:"r", cls:"surgical-major", title:"Falha do tratamento não operatório — considerar liberação cirúrgica", txt:"Após tentativa adequada de gessagem seriada (cerca de 3 meses) sem melhora adicional da deformidade residual, considerar liberação cirúrgica. Preferir abordagem à la carte, liberando seletivamente apenas as estruturas patológicas que não responderam ao tratamento não operatório, com preservação obrigatória do ligamento interósseo talocalcâneo (técnicas de Carroll/McKay) para evitar translação lateral do calcâneo.", details:[["Indicação","Ausência de melhora após ~3 meses de gessagem seriada adequada"],["Abordagem preferencial","À la carte, com preservação do ligamento interósseo talocalcâneo"],["Idade usual de cirurgia","3 a 12 meses na maioria dos centros"],["Fonte","p.4350-4364"]]},
+    r8:{type:"r", cls:"conservative", title:"Continuar gessagem seriada e reavaliar", txt:"Ainda não se completou um período adequado de tratamento não operatório. Continuar a gessagem seriada semanal (trocas a cada 5-7 dias), reavaliando a progressão da correção na sequência cavo → adução → varo → equino, com escore de Pirani ou Dimeglio a cada consulta.", details:[["Conduta","Manter gessagem seriada semanal"],["Reavaliação","Escore de Pirani/Dimeglio a cada troca de gesso"],["Fonte","p.4334-4343"]]},
+    r9:{type:"r", cls:"surgical", title:"Manejo individualizado do pé torto não idiopático ou de apresentação tardia", txt:"Em pé torto sindrômico, neurogênico, artrogripótico ou de apresentação tardia (criança maior previamente não tratada), ainda vale a pena tentar o método de Ponseti (documentado como útil mesmo até 9 anos em casos negligenciados), mas com expectativa de gessagem mais prolongada e maior probabilidade de necessidade de cirurgia. Manter avaliação neuromuscular completa e monitoramento rigoroso da resposta ao gesso.", details:[["Contexto","Pé torto sindrômico/neurogênico/artrogripótico ou apresentação tardia"],["Conduta inicial","Tentar método de Ponseti mesmo assim, com expectativas ajustadas"],["Observação","Maior rigidez, mais sessões de gesso e maior taxa de cirurgia esperadas"],["Fonte","p.4312-4317, 4333-4334"]]}
+  }
+},
+
+coalizao_tarsal_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.28",
+  title:"Conduta na Coalizão Tarsal Sintomática (do Diagnóstico à Cirurgia)",
+  src:"Mosca VS, Bouchard M, Cap.28 The Foot, In: Lovell and Winter's Pediatric Orthopaedics — p.4572-4585",
+  icon:"🦶", tags:["p","c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q", text:"O pé apresenta dor real, compatível com coalizão tarsal sintomática (dor insidiosa em seio do tarso ou face medial do retropé, tipicamente entre 8 e 16 anos, com rigidez subtalar)?", ctx:"Apenas cerca de 25% das coalizões tarsais tornam-se sintomáticas; não há evidência de incapacidade a longo prazo nas coalizões assintomáticas, que não devem ser tratadas.", yes:"q2", no:"r5"},
+    q2:{type:"q", text:"Radiografias em carga (AP, lateral, oblíqua e Harris axial) mostram sinais sugestivos de coalizão (barra calcaneonavicular na oblíqua/anteater nose sign, ou talar beaking/C-sign/faceta estreita sugerindo coalizão talocalcaneana)?", ctx:"O C-sign tem baixa sensibilidade e não é patognomônico; a faceta média estreita ou ausente é o achado mais acurado para coalizão subtalar.", yes:"q3", no:"q4"},
+    q4:{type:"q", text:"Persiste dúvida diagnóstica ou suspeita de coalizão ainda em estágio fibroso (não visível em radiografia simples)?", ctx:"RM pode identificar coalizão em estágio fibroso quando radiografia e TC são inconclusivas; bone scan pode ajudar a identificar a verdadeira causa da dor.", yes:"q5", no:"r6"},
+    q5:{type:"q", text:"RM ou outros exames confirmam a presença de coalizão (fibrosa) ou identificam outra causa para o pé rígido doloroso?", ctx:"Causas alternativas de pé rígido doloroso incluem artrite idiopática juvenil, infecção subtalar, lesões ósseas do tálus/calcâneo/mediopé e sequelas de trauma.", yes:"q3", no:"r6"},
+    q3:{type:"q", text:"Já foi realizada uma tentativa adequada de tratamento não operatório (modificação de atividade, anti-inflamatórios, bota gessada ou gesso abaixo do joelho)?", ctx:"Alívio completo da dor costuma ocorrer em 24-48h após imobilização; cerca de 30% permanecem sem dor após a retirada do gesso/bota 6 semanas depois.", yes:"q6b", no:"r7"},
+    q6b:{type:"q", text:"Houve alívio duradouro da dor após o tratamento não operatório?", ctx:"Um subgrupo de pacientes mantém-se assintomático apenas com imobilização e palmilha de acomodação, sem necessidade de cirurgia.", yes:"r8", no:"q7"},
+    q7:{type:"q", text:"TC de cortes finos (coronal/sagital/transverso com reconstrução 3D) foi realizada, definindo histologia, tamanho relativo à faceta posterior, saúde cartilaginosa e grau de deformidade do retropé?", ctx:"Esses quatro critérios tomográficos orientam diretamente a decisão cirúrgica e o prognóstico da ressecção, incluindo a identificação do subtipo posteromedial (28% dos casos, com melhor prognóstico de ressecção).", yes:"q8", no:"r11"},
+    q8:{type:"q", text:"A coalizão é predominantemente calcaneonavicular, sem acometimento relevante da articulação subtalar?", ctx:"Coalizões calcaneonaviculares e talocalcaneanas respondem por cerca de 90% de todos os casos e têm técnicas de ressecção distintas.", yes:"r9", no:"r10"},
+    r5:{type:"r", cls:"conservative", title:"Coalizão assintomática — nenhum tratamento indicado", txt:"Cerca de 75% das coalizões tarsais permanecem assintomáticas ao longo da vida, sem evidência de incapacidade a longo prazo. Não há indicação de tratamento profilático; orientar a família e manter acompanhamento clínico se necessário.", details:[["Indicação","Coalizão identificada incidentalmente, sem dor"],["Conduta","Observação, sem tratamento"],["Fonte","p.4584"]]},
+    r6:{type:"r", cls:"conservative", title:"Investigar outras causas de pé rígido doloroso", txt:"Sem confirmação de coalizão tarsal, investigar diagnósticos diferenciais de pé rígido doloroso: artrite idiopática juvenil (hemograma, VHS, PCR, FAN, fator reumatoide), infecção subtalar, lesões ósseas do tálus/calcâneo/mediopé e sequelas de trauma.", details:[["Achado","Sem sinais radiográficos/RM de coalizão"],["Diferenciais","AIJ, infecção, tumor ósseo, sequela de trauma"],["Fonte","p.4579-4583"]]},
+    r7:{type:"r", cls:"conservative", title:"Iniciar tratamento não operatório", txt:"Iniciar modificação de atividade, anti-inflamatórios não esteroidais e imobilização em bota gessada ou gesso abaixo do joelho por cerca de 4 a 6 semanas. Alívio completo da dor é esperado em 24-48h após a imobilização.", details:[["Conduta","Bota/gesso 4-6 semanas + AINE + modificação de atividade"],["Resposta esperada","Alívio em 24-48h; ~30% permanecem sem dor após retirada"],["Fonte","p.4584"]]},
+    r8:{type:"r", cls:"conservative", title:"Manter conduta conservadora com palmilha de acomodação", txt:"Bom alívio duradouro com tratamento não operatório. Manter palmilha de acomodação (cushioned insert), evitar palmilha rígida moldada (que pode piorar a dor), e reservar reavaliação para recidiva dos sintomas.", details:[["Indicação","Alívio duradouro após imobilização"],["Conduta","Palmilha de acomodação + seguimento clínico"],["Fonte","p.4584"]]},
+    r9:{type:"r", cls:"surgical", title:"Ressecção da coalizão calcaneonavicular com interposição de tecido mole", txt:"Realizar ressecção da barra calcaneonavicular com interposição de gordura autógena (preferencial, menor reossificação e reoperação) ou extensor curto dos dedos (EDB). A combinação de ressecção com interposição reduz claramente a recidiva e aumenta a taxa de alívio duradouro da dor comparada à ressecção isolada.", details:[["Indicação","Coalizão calcaneonavicular sintomática refratária ao tratamento conservador"],["Técnica preferida","Ressecção + interposição de gordura autógena (ou EDB)"],["Fonte","p.4584-4585"]]},
+    r10:{type:"r", cls:"surgical-major", title:"Ressecção da coalizão talocalcaneana guiada por critérios tomográficos", txt:"Realizar ressecção da coalizão talocalcaneana guiada pelos critérios de TC (tamanho relativo à faceta posterior, saúde da cartilagem remanescente, grau de deformidade do retropé), com atenção ao subtipo posteromedial, que tem melhor prognóstico que a coalizão da faceta média clássica. Reservar osteotomia ou artrodese para casos avançados com degeneração articular estabelecida ou coalizão muito extensa.", details:[["Indicação","Coalizão talocalcaneana sintomática refratária, critérios de TC favoráveis à ressecção"],["Alternativa em casos avançados","Osteotomia corretiva ou artrodese se degeneração articular já estabelecida"],["Fonte","p.4580-4585"]]},
+    r11:{type:"r", cls:"conservative", title:"Solicitar TC antes de definir a conduta cirúrgica", txt:"Antes de indicar qualquer ressecção, obter TC de cortes finos nos três planos com reconstrução 3D para definir histologia da coalizão, tamanho relativo à faceta posterior, saúde da cartilagem remanescente e grau de deformidade do retropé — informações indispensáveis para o planejamento cirúrgico e para excluir coalizão talocalcaneana concomitante em casos de coalizão calcaneonavicular.", details:[["Conduta","Solicitar TC de cortes finos com reconstrução 3D"],["Objetivo","Definir tipo, tamanho, cartilagem e deformidade antes da cirurgia"],["Fonte","p.4580-4582"]]}
+  }
+},
+
+pe_plano_pediatrico_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.28",
+  title:"Triagem do Pé Plano Pediátrico — Flexível vs. Rígido e Conduta Correspondente",
+  src:"Mosca VS, Bouchard M, Cap.28 The Foot, In: Lovell and Winter's Pediatric Orthopaedics — p.4441-4468",
+  icon:"🦶", tags:["p","c"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q", text:"O retropé é flexível — o arco surge e o calcanhar corrige de valgo para varo ao ficar na ponta dos pés e/ou o teste de Jack (dorsiflexão passiva do hálux) é positivo?", ctx:"O critério central de Harris e Beath é a flexibilidade/mobilidade do pé, não o achatamento do arco em si; pé plano rígido geralmente indica coalizão tarsal ou outra causa estrutural.", yes:"q2", no:"q6"},
+    q2:{type:"q", text:"A criança é assintomática, sem dor sob a cabeça do tálus e sem outras queixas?", ctx:"O pé plano flexível é uma variação anatômica normal presente na maioria das crianças; órteses e modificações de calçado não alteram o desenvolvimento espontâneo do arco em estudos controlados randomizados.", yes:"r1", no:"q3"},
+    q3:{type:"q", text:"Há contratura isolada do Aquiles/gastrocnêmio (dorsiflexão do tornozelo menor que 10 graus com a subtalar invertida) associada a dor sob a cabeça do tálus plantar-fletido?", ctx:"O teste diferencial gastrocnêmio vs sóleo (joelho fletido vs estendido) orienta a técnica cirúrgica caso se chegue a essa indicação; a dor sob a cabeça do tálus é típica desse padrão de pé plano com Aquiles curto.", yes:"q4", no:"r2"},
+    q4:{type:"q", text:"Um programa dirigido de alongamento do Aquiles (com a subtalar invertida) e/ou palmilha de acomodação, mantidos por tempo prolongado, aliviaram a dor?", ctx:"A refratariedade ao tratamento conservador prolongado (não apenas a presença de dor) é o critério para considerar reconstrução cirúrgica.", yes:"r2", no:"r3"},
+    q6:{type:"q", text:"Radiografias em carga (AP, lateral, oblíqua e Harris axial) mostram sinais de coalizão tarsal (C-sign, anteater nose sign, talar beaking, faceta média estreita/ausente)?", ctx:"O pé plano rígido (peroneal espasmódico) é classicamente causado por coalizão tarsal, mas outras causas de retropé rígido devem ser sistematicamente excluídas.", yes:"r4", no:"q7"},
+    q7:{type:"q", text:"Há evidência de artrite (VHS/PCR/FAN/fator reumatoide alterados) ou outra causa identificável (infecção, tumor, sequela de trauma) para a rigidez subtalar?", ctx:"O pé plano rígido também pode ser causado por artrite idiopática juvenil, infecção subtalar, lesões ósseas do tálus/calcâneo/mediopé ou sequelas de trauma, diagnósticos que devem ser sistematicamente excluídos antes de assumir causa idiopática.", yes:"r5", no:"r6"},
+    r1:{type:"r", cls:"conservative", title:"Orientação e observação — pé plano flexível assintomático", txt:"Nenhum tratamento é necessário. Orientar a família de que o pé plano flexível é uma variação anatômica normal e não uma deformidade potencialmente incapacitante; o arco tende a se desenvolver espontaneamente ao longo da primeira década de vida, com ampla faixa de normalidade.", details:[["Indicação","Pé plano flexível, assintomático"],["Conduta","Educação da família, sem tratamento"],["Fonte","p.4449-4452"]]},
+    r2:{type:"r", cls:"conservative", title:"Órtese de acomodação e/ou alongamento do Aquiles", txt:"Usar palmilhas de amortecimento (prontas ou moldadas) para alívio sintomático em dor inespecífica, ou programa dirigido de alongamento do tríceps sural com a subtalar mantida invertida quando houver contratura de Aquiles/gastrocnêmio associada a dor sob a cabeça do tálus. Manter por período prolongado antes de considerar cirurgia.", details:[["Indicação","Pé plano flexível sintomático, sem falha de tratamento conservador prolongado"],["Conduta","Palmilha de acomodação ± alongamento dirigido do Aquiles/gastrocnêmio"],["Fonte","p.4452-4453"]]},
+    r3:{type:"r", cls:"surgical", title:"Considerar reconstrução cirúrgica preservadora de movimento", txt:"Diante de falha comprovada do tratamento conservador prolongado (dor persistente sob a cabeça do tálus com Aquiles/gastrocnêmio curto), considerar osteotomia de alongamento do calcâneo (Evans/Mosca) ou osteotomia de deslocamento medial do calcâneo, associadas a alongamento do Aquiles/gastrocnêmio conforme o padrão de contratura identificado. Evitar artrodeses (tríplice ou subtalar) pelo risco comprovado de artrose degenerativa adjacente em longo prazo.", details:[["Indicação","Dor refratária sob a cabeça do tálus, Aquiles/gastrocnêmio curto, falha do tratamento conservador prolongado"],["Opções cirúrgicas","Osteotomia de alongamento do calcâneo (Evans/Mosca) ± alongamento do Aquiles/gastrocnêmio"],["Evitar","Artrodeses do complexo subtalar"],["Fonte","p.4452-4468"]]},
+    r4:{type:"r", cls:"conservative", title:"Pé plano rígido por provável coalizão tarsal — seguir algoritmo específico", txt:"Sinais radiográficos sugerem coalizão tarsal. Conduzir a investigação e o tratamento conforme o algoritmo específico de coalizão tarsal sintomática: confirmação por TC de cortes finos, tentativa inicial de tratamento não operatório (bota/gesso) e, se refratário, ressecção guiada pelos critérios tomográficos (calcaneonavicular vs talocalcaneana).", details:[["Achado","Sinais radiográficos de coalizão tarsal"],["Próximo passo","Algoritmo de coalizão tarsal sintomática (TC + conduta escalonada)"],["Fonte","p.4572-4585"]]},
+    r5:{type:"r", cls:"conservative", title:"Investigar e tratar a causa subjacente identificada", txt:"Encaminhar para investigação e tratamento específico conforme a causa identificada (reumatologia para artrite idiopática juvenil, investigação de infecção subtalar/osteomielite, avaliação oncológica para lesão óssea suspeita, ou manejo de sequela de trauma).", details:[["Achado","Evidência de artrite, infecção, tumor ou sequela de trauma"],["Conduta","Encaminhamento e tratamento específico da causa"],["Fonte","p.4578-4583"]]},
+    r6:{type:"r", cls:"conservative", title:"Pé plano rígido idiopático (peroneal espasmódico) sem coalizão identificada", txt:"Sem coalizão tarsal visível em radiografia e sem outra causa identificada, considerar investigação adicional com RM (para coalizão ainda em estágio fibroso não visível em radiografia/TC) e manter seguimento clínico rigoroso, já que a rigidez subtalar sem causa aparente ainda requer explicação antes de qualquer decisão terapêutica definitiva.", details:[["Achado","Pé rígido sem coalizão visível ao raio-x, sem outra causa evidente"],["Próximo passo","Considerar RM para coalizão fibrosa oculta; seguimento clínico"],["Fonte","p.4583-4584"]]}
+  }
+},
+
+// ===== Cap.29 The Child with a Limb Deficiency (Bowen RE, Otsuka NY, Doty SA) — Lovell and Winter's Pediatric Orthopaedics, 8th ed. — livro p.4625-4901 =====
+// 2 algoritmos gerados, fiéis às recomendações explícitas do texto (deficiência fibular longitudinal
+// segundo Birch et al./Westin et al., p.4684-4685; e deficiência femoral congênita/PFFD segundo as
+// recomendações dos próprios autores do capítulo, p.4770-4771, 4773-4780, 4793-4794).
+
+fibular_hemimelia_ped:{
+  region:'fraturas-pediatricas', num:'LW Cap.29',
+  title:'Conduta na Deficiência Fibular Longitudinal (Fíbula Hemimelia)',
+  src:'Bowen RE, Otsuka NY, Doty SA, Cap.29 The Child with a Limb Deficiency, In: Lovell and Winter\'s Pediatric Orthopaedics — p.4681-4685',
+  icon:'🦴', tags:['p','c','s','sm'],
+  start:'q1',
+  nodes:{
+    q1:{type:'q', text:'O pé é funcional — permite apoio de peso com mobilidade e estabilidade adequadas, sem deformidade significativa — ou pode ser tornado funcional?', ctx:'Esta é a pergunta central da classificação funcional de Birch et al. para a deficiência fibular longitudinal: a funcionalidade do pé (e não apenas a discrepância de comprimento) determina o ramo inicial de decisão.', yes:'q2', no:'q6'},
+    q2:{type:'q', text:'A discrepância de comprimento de membro prevista para a maturidade esquelética é menor que 5%?', ctx:'A discrepância deve ser calculada para a maturidade (regra da proporcionalidade), não apenas medida no momento atual. Um fêmur+tíbia de tamanho médio somam cerca de 80 cm na maturidade em uma menina, o que ajuda a converter percentual em centímetros.', yes:'r1', no:'q3'},
+    q3:{type:'q', text:'A discrepância prevista está entre 6% e 10%?', ctx:'Nessa faixa, epifisiodese contralateral ou um único procedimento de alongamento costuma ser suficiente.', yes:'r2', no:'q4'},
+    q4:{type:'q', text:'A discrepância prevista está entre 10% e 30%?', ctx:'Esta é a "zona cinzenta" descrita no capítulo: tanto a amputação quanto o alongamento estagiado são considerados aceitáveis, e a decisão final depende da discussão detalhada com a família sobre riscos, número de cirurgias e expectativas.', yes:'q5', no:'r4'},
+    q5:{type:'q', text:'Após aconselhamento completo (incluindo contato com outras famílias/pacientes com amputação e com alongamento), a família opta pela tentativa de salvamento do membro por alongamento estagiado?', ctx:'O capítulo enfatiza que os pais, antes de conhecerem outras crianças com deficiência similar, quase sempre preferem inicialmente salvar o membro, sem noção real do que envolve um alongamento estagiado (múltiplas cirurgias, instabilidade de tornozelo/joelho) nem do que é a vida com uma amputação de Syme.', yes:'r3', no:'r4'},
+    q6:{type:'q', text:'Há deficiência de membro superior concomitante que torna esse pé funcionalmente necessário como substituto de "mão"?', ctx:'Esta é a única exceção explícita à recomendação de amputação em pé não funcional citada no capítulo.', yes:'r5', no:'r4'},
+    r1:{type:'r', cls:'conservative', title:'Observação com Calço Compensador', txt:'Quando o pé é funcional e a discrepância prevista na maturidade é inferior a 5%, não há indicação cirúrgica. Recomenda-se calço no calçado contralateral e monitoramento seriado do crescimento para deformidade progressiva de joelho ou tornozelo.', details:[['Conduta','Calço contralateral + acompanhamento clínico/radiográfico seriado'],['Sem cirurgia indicada','Discrepância prevista < 5% com pé funcional']]},
+    r2:{type:'r', cls:'surgical', title:'Epifisiodese Contralateral ou Alongamento Único', txt:'Discrepância prevista de 6% a 10% em pé funcional: epifisiodese do lado contralateral ou um único procedimento de alongamento do lado afetado costuma corrigir adequadamente a discrepância.', details:[['Opções','Epifisiodese contralateral (fise distal do fêmur e/ou proximal da tíbia) ou alongamento único do membro afetado'],['Objetivo','Igualar comprimento de membros com uma única intervenção']]},
+    r3:{type:'r', cls:'surgical-major', title:'Alongamento Ósseo Estagiado (Múltiplos Procedimentos)', txt:'Discrepância prevista de 10% a 30%, pé funcional e família optando por salvamento do membro: alongamento estagiado (Ilizarov ou haste intramedular motorizada, conforme idade/maturidade esquelética), associado a reconstrução de tornozelo/joelho quando houver instabilidade, e frequentemente correção do arqueamento tibial anterior e da deformidade em valgo do tornozelo/retropé antes ou durante o alongamento.', details:[['Requisitos','Estabilização de tornozelo e/ou joelho conforme necessário antes/durante o alongamento (ex.: fixador estendido pela articulação, cirurgia estabilizadora prévia)'],['Expectativa realista','Múltiplos procedimentos ao longo da infância/adolescência; resultado cosmético e funcional variável'],['Alternativa se instabilidade grave','Considerar amputação de Syme se o salvamento se mostrar inviável durante o processo']]},
+    r4:{type:'r', cls:'surgical-major', title:'Amputação de Syme (ou Boyd)', txt:'Indicada quando o pé não é funcional (independente do comprimento do membro, exceto se necessário como "mão" contralateral), quando a discrepância prevista é maior que 30% em pé funcional, ou quando, na faixa de 10-30%, a família opta por não realizar alongamento estagiado.', details:[['Técnica preferida','Amputação de Syme (apoio terminal, tecnicamente mais simples) ou amputação de Boyd (calcâneo fundido à tíbia, cresce com a criança, adiciona comprimento ao coto)'],['Momento ideal','Poucos meses antes de a criança começar a ficar em pé, para permitir protetização no momento certo do desenvolvimento motor'],['Correção associada','Osteotomia do arqueamento anterior da tíbia no mesmo tempo cirúrgico, se significativo']]},
+    r5:{type:'r', cls:'surgical', title:'Tentativa Individualizada de Preservação/Reconstrução do Pé', txt:'Exceção à indicação padrão de amputação em pé não funcional: quando há deficiência de membro superior concomitante que torna esse pé funcionalmente necessário como substituto de "mão", a preservação e reconstrução do pé deve ser tentada de forma individualizada, mesmo em detrimento do resultado protético/de marcha do membro inferior.', details:[['Racional','Prioridade funcional para atividades de vida diária pode superar a prioridade de marcha nesses casos raros'],['Abordagem','Individualizada, conforme função residual do pé e necessidade específica do paciente']]}
+  }
+},
+
+pffd_deficiencia_femoral_congenita_ped:{
+  region:'fraturas-pediatricas', num:'LW Cap.29',
+  title:'Conduta na Deficiência Femoral Congênita (PFFD)',
+  src:'Bowen RE, Otsuka NY, Doty SA, Cap.29 The Child with a Limb Deficiency, In: Lovell and Winter\'s Pediatric Orthopaedics — p.4770-4771, 4773-4780, 4791-4794',
+  icon:'🦵', tags:['p','c','s','sm'],
+  start:'q1',
+  nodes:{
+    q1:{type:'q', text:'A deficiência é bilateral, com relativa simetria entre os dois quadris/fêmures?', ctx:'O tratamento da deficiência femoral congênita bilateral é predominantemente não operatório: essas crianças, em geral, não usam prótese e caminham usando os próprios membros curtos.', yes:'r1', no:'q2'},
+    q2:{type:'q', text:'A discrepância de comprimento prevista na maturidade é menor que 20 cm, com quadril estável (ou passível de estabilização), arco de mobilidade do joelho de pelo menos 60 graus sem contratura em flexão, e pé plantígrado (ou passível de ser tornado plantígrado)?', ctx:'Estes são os critérios citados pelos autores do capítulo para considerar o alongamento estagiado como estratégia de tratamento na deficiência femoral congênita unilateral.', yes:'q3', no:'q4'},
+    q3:{type:'q', text:'Há deformidade proximal de fêmur (varo/retroversão com ângulo cervicodiafisário menor que 110 graus) ou displasia acetabular relevante que comprometeria a contenção da cabeça femoral durante o alongamento?', ctx:'Nos pacientes Aitken classe A ou B com cabeça femoral móvel no acetábulo, a estabilização do quadril e do fêmur proximal (ex.: procedimento SUPERhip, associando correção óssea e liberação das contraturas de partes moles) antes do alongamento melhorou os resultados de alongamento femoral em estudo citado no capítulo.', yes:'r2', no:'r3'},
+    q4:{type:'q', text:'O pé cai ao nível do joelho contralateral, o tornozelo/retropé tem arco de flexão dorsal/plantar de pelo menos 60 graus sem contratura em equino, e a família aceita a alteração cosmética do pé apontando para trás?', ctx:'Estes são os critérios funcionais e de aceitação familiar citados pelos autores para indicar rotacionoplastia de Van Nes em vez de artrodese de joelho com amputação de pé. Até 70% das crianças com PFFD têm deficiência fibular associada no mesmo lado, o que deve ser avaliado cuidadosamente.', yes:'r4', no:'r5'},
+    r1:{type:'r', cls:'conservative', title:'Tratamento Não Operatório (Deficiência Bilateral)', txt:'Na deficiência femoral congênita bilateral, o tratamento é predominantemente não operatório. Essas crianças em geral não usam prótese. Ocasionalmente, se há envolvimento assimétrico dos membros, uma discrepância de comprimento pode existir e o tratamento deve ser individualizado.', details:[['Conduta padrão','Observação e acompanhamento, sem protetização de rotina'],['Exceção','Assimetria significativa entre os lados pode exigir tratamento individualizado da discrepância']]},
+    r2:{type:'r', cls:'surgical-major', title:'Estabilização de Quadril/Fêmur Proximal Seguida de Alongamento Estagiado', txt:'Nos pacientes Aitken classe A ou B com deformidade proximal do fêmur (ângulo cervicodiafisário < 110 graus) ou displasia acetabular relevante, recomenda-se reconstrução do quadril (ex.: procedimento SUPERhip, combinando osteotomia femoral proximal com liberação das contraturas de flexores e abdutores do quadril) antes de iniciar o alongamento estagiado do membro, tipicamente por volta dos 8 anos de idade.', details:[['Componentes','Correção de varo/retroversão femoral, reorientação/aumento acetabular quando indicado, liberação de contraturas de partes moles (reto femoral, iliopsoas, glúteo médio/mínimo)'],['Sequência','Estabilização do quadril primeiro, alongamento estagiado depois'],['Acompanhamento','Epifisiodese contralateral associada conforme necessário']]},
+    r3:{type:'r', cls:'surgical-major', title:'Alongamento Ósseo Estagiado Direto', txt:'Quando o quadril já é estável e não há deformidade proximal relevante do fêmur nem displasia acetabular significativa, o alongamento estagiado do membro pode ser iniciado diretamente, associado a epifisiodese contralateral e, se necessário, calço de sapato.', details:[['Início típico','Por volta dos 8 anos de idade, segundo a preferência dos autores do capítulo'],['Acompanhamento','Monitoramento de instabilidade de quadril e joelho durante o alongamento, com extensão do fixador pelas articulações ou splintagem em extensão se necessário']]},
+    r4:{type:'r', cls:'surgical-major', title:'Rotacionoplastia de Van Nes', txt:'Quando o pé cai ao nível do joelho contralateral e o tornozelo/retropé tem mobilidade e alinhamento adequados, a rotacionoplastia de Van Nes (rotação de 180 graus do segmento distal, predominantemente através da artrodese do joelho) permite que o tornozelo funcione como o novo joelho, com resultado funcional superior ao da artrodese de joelho com amputação de pé.', details:[['Pré-requisito','Fortalecimento pré-operatório de artelhos/tornozelo/retropé; aceitação familiar da alteração cosmética'],['Complicação a monitorar','Desrotação progressiva com o crescimento, tratável com osteotomia rotacional da tíbia'],['Resultado funcional','Superior à artrodese de joelho + amputação de pé; inferior a uma amputação transtibial verdadeira']]},
+    r5:{type:'r', cls:'surgical-major', title:'Artrodese de Joelho com Amputação de Pé (Syme ou Boyd)', txt:'Quando a rotacionoplastia não é aceita pela família ou o tornozelo/pé não têm alinhamento/mobilidade adequados (ex.: valgo/equino grave), a artrodese de joelho associada à amputação de pé (Syme ou Boyd) é a alternativa, criando um único segmento de alavanca mais longo e eficiente para a prótese. A remoção de uma ou ambas as fises ao redor do joelho (fêmur distal e/ou tíbia proximal) é decidida conforme o comprimento previsto dos segmentos, para permitir espaço para o joelho protético.', details:[['Fixação','Haste intramedular rígida cruzando o sítio de artrodese, com fio-K adicional para estabilidade rotacional'],['Planejamento de fises','A maioria dos casos remove ambas as fises (femoral distal e tibial proximal) para evitar coto residual longo demais para acomodar o joelho protético'],['Alinhamento','A tíbia deve ser fundida em linha com o fêmur (não na posição fletida/aduzida/rodada do segmento proximal), pois a deformidade proximal tende a se resolver com o uso protético ao longo dos meses']]}
+  }
+},
+
+
+
+ocd_joelho_estabilidade_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.30",
+  title:"Conduta na osteocondrite dissecante (OCD) do joelho conforme estabilidade da lesão",
+  src:"Kocher MS, Ganley TJ, Cap.30 Sports Medicine in the Growing Child, In: Lovell and Winter's Pediatric Orthopaedics — p.5054-5063",
+  icon:"🏃", tags:["p","c","s"],
+  start:"q1",
+  nodes:{
+    q1:{
+      text:"Paciente esqueleticamente imaturo (fises abertas) com lesão de OCD do joelho ESTÁVEL na RM (sem linha de sinal alto em T2 entre o fragmento e o osso subcondral) e sem corpo livre?",
+      cls:"conservative",
+      yes:"q2", no:"q5"
+    },
+    q2:{
+      text:"Iniciar tratamento não operatório: restrição de atividades de alto impacto e imobilização/gesso (cilíndrico se pouco colaborativo) por 6 a 10 semanas, com afastamento do esporte por até 6 meses. Cicatrização radiográfica confirmada dentro desse período?",
+      cls:"conservative",
+      yes:"q3", no:"q5"
+    },
+    q3:{
+      text:"Consolidação confirmada (lesões estáveis cicatrizam em média em 4 a 5 meses, com taxa de cicatrização em torno de 78% com tratamento não operatório): liberar retorno gradual ao esporte.",
+      cls:"conservative"
+    },
+    q5:{
+      text:"Lesão instável na RM, ou lesão estável que falhou ao tratamento conservador por 6 meses: indicar avaliação e tratamento artroscópicos. Classificação artroscópica de Guhl — lesão íntegra (intacta), sem separação?",
+      cls:"surgical",
+      yes:"q6", no:"q7"
+    },
+    q6:{
+      text:"Lesão íntegra: realizar perfuração (drilling) transarticular ou retrógrada para estimular a cicatrização vascular através dos pequenos canais criados.",
+      cls:"surgical"
+    },
+    q7:{
+      text:"Lesão em separação inicial ou parcialmente destacada, ainda passível de preservação e fixação (leito ainda viável)?",
+      cls:"surgical",
+      yes:"q8", no:"q9"
+    },
+    q8:{
+      text:"Redução e fixação interna do fragmento (pinos bioabsorvíveis, tiras ósseas ou parafusos), com desbridamento do leito até osso sangrante e enxerto ósseo se necessário; sem carga por 6 a 8 semanas, com segunda artroscopia (second-look) antes de liberar carga.",
+      cls:"surgical"
+    },
+    q9:{
+      text:"Cratera insalvável ou corpo(s) livre(s): remoção do fragmento/corpo livre e regularização das bordas articulares; a excisão isolada tem maus resultados a longo prazo, sendo recomendadas técnicas de restauração da superfície articular (perfuração/microfratura, enxerto osteocondral autólogo/alogênico ou implante de condrócitos autólogos).",
+      cls:"surgical-major"
+    }
+  }
+},
+
+acl_reconstrucao_maturidade_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.30",
+  title:"Seleção da técnica de reconstrução do LCA conforme a maturidade esquelética na criança em crescimento",
+  src:"Kocher MS, Ganley TJ, Cap.30 Sports Medicine in the Growing Child, In: Lovell and Winter's Pediatric Orthopaedics — p.4999-5002",
+  icon:"🏃", tags:["p","c","s"],
+  start:"q1",
+  nodes:{
+    q1:{
+      text:"Lesão do LCA em criança/adolescente: há ruptura completa com instabilidade funcional, lesão parcial refratária ao tratamento não operatório, ou lesão associada reparável (menisco/condral)?",
+      cls:"conservative",
+      yes:"q2", no:"q1b"
+    },
+    q1b:{
+      text:"Lesão parcial do LCA sem instabilidade funcional e sem lesão associada reparável: tratamento não operatório — modificação de atividades (evitar esportes de pivô/corte), fortalecimento e reavaliação clínica seriada (risco de lesão meniscal/condral secundária se não aderente).",
+      cls:"conservative"
+    },
+    q2:{
+      text:"Indicação de reconstrução cirúrgica do LCA (cirurgia tipicamente adiada ≥3 semanas até recuperar amplitude de movimento e reduzir o derrame, pelo maior risco de rigidez se reconstrução aguda). Paciente com maturidade esquelética completa (Tanner 5)?",
+      cls:"surgical",
+      yes:"q_adult", no:"q3"
+    },
+    q_adult:{
+      text:"Tratar como adulto: reconstrução transfisária padrão do LCA, com escolha de enxerto habitual.",
+      cls:"surgical"
+    },
+    q3:{
+      text:"Tanner estágio 1 ou 2 (pré-púbere; idade óssea tipicamente < 14 anos em meninos ou < 13 anos em meninas), com grande quantidade de crescimento remanescente?",
+      cls:"surgical",
+      yes:"q_prepub", no:"q4"
+    },
+    q_prepub:{
+      text:"Reconstrução poupadora da fise (physeal-sparing): técnica combinada intra-articular e extra-articular (modificação de MacIntosh com banda iliotibial) ou túneis totalmente epifisários (fêmur e tíbia), evitando a física de ambos os lados.",
+      cls:"surgical"
+    },
+    q4:{
+      text:"Tanner estágio 3 ou 4 (adolescente com crescimento significativo remanescente): reconstrução transfisária convencional com enxerto autólogo de isquiotibiais. Há instabilidade rotatória lateral acentuada, hiperfrouxidão ou aumento do slope tibial posterior associados?",
+      cls:"surgical",
+      yes:"q_alt", no:"q_transphyseal"
+    },
+    q_transphyseal:{
+      text:"Reconstrução transfisária isolada com enxerto autólogo de isquiotibiais.",
+      cls:"surgical"
+    },
+    q_alt:{
+      text:"Associar aumento extra-articular à reconstrução transfisária do LCA (reconstrução do ligamento anterolateral ou tenodese extra-articular lateral), reduzindo as taxas de pivot-shift residual e de reinjúria nesse subgrupo.",
+      cls:"surgical"
+    }
+  }
+},
+
+
+
+salter_harris_conduta_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.31",
+  title:"Classificação e Conduta Inicial nas Fraturas Fisárias (Salter-Harris)",
+  src:"Edmonds EW, Herman MJ, Cap.31 The Principles of Pediatric Fracture and Trauma, In: Lovell and Winter's Pediatric Orthopaedics — p.5129-5135",
+  icon:"🦴", tags:["fise","salter-harris","trauma-pediatrico"],
+  start:"q1",
+  nodes:{
+    q1:{
+      q:"Radiografia: a linha de fratura atravessa toda a espessura da fise, sem fragmento metafisário associado (separação transepifisária pura)?",
+      yes:"leaf_sh1", no:"q2"
+    },
+    q2:{
+      q:"Há fragmento metafisário triangular associado a uma porção da fise intacta (fragmento de Thurston-Holland)? É o padrão mais comum (~75% das fraturas fisárias).",
+      yes:"leaf_sh2", no:"q3"
+    },
+    q3:{
+      q:"A linha de fratura é vertical, intra-articular, cruzando parte da fise e saindo pela epífise até a superfície articular — SEM atingir a metáfise?",
+      yes:"leaf_sh3", no:"q4"
+    },
+    q4:{
+      q:"A linha de fratura é vertical, intra-articular, cruzando metáfise + fise + epífise até a superfície articular (todas as zonas)?",
+      yes:"leaf_sh4", no:"q5"
+    },
+    q5:{
+      q:"Suspeita de lesão por esmagamento (crush) axial da fise, sem linha de fratura visível na radiografia inicial, com diagnóstico geralmente firmado de forma retrospectiva (após ≥6 meses, ao notar-se parada de crescimento)?",
+      yes:"leaf_sh5", no:"leaf_sh_outro"
+    },
+    leaf_sh1:{
+      cls:"conservative",
+      title:"Salter-Harris Tipo I",
+      desc:"Redução fechada suave (se deslocada) e imobilização gessada. Fratura germinativa geralmente poupada — parada de crescimento incomum, mas pode ocorrer em fraturas de maior energia ou com periósteo interposto. Comum em lactentes/crianças pequenas e de diagnóstico clínico (dor localizada à palpação da fise), pois a radiografia pode ser normal ou minimamente alterada."
+    },
+    leaf_sh2:{
+      cls:"conservative",
+      title:"Salter-Harris Tipo II",
+      desc:"Redução fechada e imobilização gessada na maioria dos casos — o fragmento de Thurston-Holland confere estabilidade. Parada de crescimento incomum na maior parte das localizações (ex.: rádio distal raramente evolui com fechamento fisário precoce), porém no fêmur distal o risco de distúrbio de crescimento chega a 50% devido à fise mais ondulada, que exige mais energia para fraturar — recomenda-se seguimento clínico-radiográfico prolongado independentemente do tratamento escolhido."
+    },
+    leaf_sh3:{
+      cls:"surgical",
+      title:"Salter-Harris Tipo III",
+      desc:"Fratura intra-articular — redução anatômica é indicada (fechada ou aberta) para restaurar a superfície articular a ≤2 mm de degrau/gap e minimizar o risco de ponte fisária localizada. Redução aberta com fixação interna (evitando implantes que cruzem a fise sempre que possível) quando a redução fechada não for anatômica."
+    },
+    leaf_sh4:{
+      cls:"surgical-major",
+      title:"Salter-Harris Tipo IV",
+      desc:"Risco de distúrbio de crescimento mais elevado entre os tipos de Salter-Harris. Redução anatômica precisa (habitualmente aberta, com fixação interna) é obrigatória — a má redução com contato epífise-metáfise favorece formação de ponte óssea (exemplo prototípico de barra fisária). Fratura intra-articular: restaurar superfície articular a ≤2 mm de degrau/gap."
+    },
+    leaf_sh5:{
+      cls:"conservative",
+      title:"Salter-Harris Tipo V (esmagamento fisário)",
+      desc:"Sem tratamento cirúrgico específico agudo disponível (lesão frequentemente não identificada no momento do trauma); conduta é observação clínico-radiográfica prolongada (mínimo 18 meses) para detecção precoce de parada de crescimento. Existência da entidade é controversa na literatura."
+    },
+    leaf_sh_outro:{
+      cls:"conservative",
+      title:"Padrão atípico / Salter-Harris Tipo VI (Rang)",
+      desc:"Lesão periférica ao nível do anel pericondral (avulsão ligamentar, trauma direto ou queimadura). Conduta inicial conservadora com vigilância; pode evoluir com parada de crescimento assimétrica e deformidade angular, exigindo tratamento de barra fisária periférica se confirmada (ver algoritmo de barra fisária)."
+    }
+  }
+},
+
+triagem_maus_tratos_ped:{
+  region:"fraturas-pediatricas", num:"LW Cap.31",
+  title:"Triagem de Suspeita de Maus-Tratos Infantis (Child Abuse) em Criança com Fratura",
+  src:"Edmonds EW, Herman MJ, Cap.31 The Principles of Pediatric Fracture and Trauma, In: Lovell and Winter's Pediatric Orthopaedics — p.5193-5208",
+  icon:"🚨", tags:["maus-tratos","child-abuse","trauma-pediatrico"],
+  start:"q1",
+  nodes:{
+    q1:{
+      q:"A fratura é do tipo metafisário em \"alça de balde\"/\"canto\" (bucket-handle/corner), OU há fratura(s) de costela (especialmente posteriores), OU fratura complexa de crânio com mecanismo relatado trivial?",
+      yes:"leaf_alta_pat", no:"q2"
+    },
+    q2:{
+      q:"A criança é não ambulante (ainda não anda/não \"cruising\") OU tem menos de 1 ano de idade?",
+      yes:"q3", no:"q4"
+    },
+    q3:{
+      q:"Há fratura de osso longo (ex.: fratura espiral/diafisária de fêmur ou úmero) nesta criança não ambulante/menor de 1 ano?",
+      yes:"leaf_alta_naoambulante", no:"q4"
+    },
+    q4:{
+      q:"A história ou mecanismo relatado não corresponde ao padrão de lesão observado, OU há atraso na procura de atendimento (apresentação dias após o evento descrito)?",
+      yes:"leaf_alta_discordancia", no:"q5"
+    },
+    q5:{
+      q:"Levantamento esquelético (skeletal survey) mostra fraturas em múltiplos estágios de consolidação (achados de datação distintos) ou achados associados (hematomas atípicos, retinopatia hemorrágica)?",
+      yes:"leaf_alta_multiplos_estagios", no:"leaf_baixa_suspeita"
+    },
+    leaf_alta_pat:{
+      cls:"emergency",
+      title:"Achado patognomônico / altamente sugestivo de maus-tratos",
+      desc:"Notificação obrigatória ao conselho tutelar/serviço de proteção à criança. Internação para levantamento esquelético completo (não usar \"baby-gram\"), avaliação multidisciplinar (pediatra especializado em abuso, radiologista pediátrico, oftalmologia para exame de retina, neurocirurgia/cirurgia pediátrica conforme indicado) e garantia de ambiente seguro antes da alta."
+    },
+    leaf_alta_naoambulante:{
+      cls:"emergency",
+      title:"Fratura de osso longo em criança não ambulante/menor de 1 ano — alta suspeita",
+      desc:"Fratura espiral diafisária de fêmur/úmero em criança que ainda não anda é fortemente suspeita de maus-tratos (mesmo sendo padrão de fratura acidental comum em crianças que já andam). Notificar, internar para levantamento esquelético completo e avaliação multidisciplinar."
+    },
+    leaf_alta_discordancia:{
+      cls:"emergency",
+      title:"Discordância história-lesão ou apresentação tardia — alta suspeita",
+      desc:"Investigação completa: levantamento esquelético, avaliação multidisciplinar (pediatria especializada em abuso, radiologia, oftalmologia, neurocirurgia/cirurgia pediátrica se indicado) e notificação ao serviço de proteção à criança conforme obrigação ética e legal do médico."
+    },
+    leaf_alta_multiplos_estagios:{
+      cls:"emergency",
+      title:"Fraturas em múltiplos estágios de consolidação — alta suspeita",
+      desc:"Achados de datação radiográfica distintos (osso subperiosteal novo ~5-7 dias, reabsorção da linha de fratura ~10-14 dias, calo mole em 2-3 semanas, remodelação ≥6 semanas) sugerindo eventos traumáticos em momentos diferentes. Notificar, internar, avaliação multidisciplinar completa; considerar cintilografia óssea ou novo levantamento esquelético em 2 semanas se dúvida persistir."
+    },
+    leaf_baixa_suspeita:{
+      cls:"conservative",
+      title:"Baixa suspeita de maus-tratos neste momento",
+      desc:"Tratar a fratura conforme o padrão indicado (gesso/tala/cirurgia conforme o tipo). Manter vigilância clínica: qualquer nova informação (mecanismo incompatível, atraso na procura, achados cutâneos atípicos) deve reabrir a investigação. Lembrar diagnósticos diferenciais de fragilidade óssea (osteogênese imperfeita, osteopenia por desuso) que podem mimetizar ou coexistir com quadros de abuso."
+    }
+  }
+},
+
+
+
+  supracondilar_vascular_ped: {
+    region: "fraturas-pediatricas", num: "LW Cap.32",
+    title: "Conduta na Fratura Supracondiliana do Úmero (Gartland) com Avaliação Neurovascular",
+    src: "Shah AS, Caird MS, Cap.32 Upper Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5302,5320-5330,5343-5345",
+    icon: "🦴", tags: ["cotovelo", "vascular", "emergencia"],
+    start: "q1",
+    nodes: {
+      q1: {
+        q: "Mão mal perfundida (pálida/fria) e sem pulso radial palpável?",
+        yes: "q_vasc_pos_reducao",
+        no: "q2"
+      },
+      q_vasc_pos_reducao: {
+        q: "Após redução fechada e fixação percutânea (CRPP) IMEDIATA, a perfusão da mão foi restaurada (mão rósea, quente, enchimento capilar normal)?",
+        yes: "leaf_vasc_restaurada",
+        no: "leaf_vasc_exploracao"
+      },
+      leaf_vasc_restaurada: {
+        cls: "emergency",
+        label: "Comprometimento vascular — resolvido após redução emergencial",
+        desc: "Mão mal perfundida e sem pulso: prompt reduction (CRPP emergencial) geralmente restaura o fluxo arterial. Não é necessária exploração de rotina se a mão ficar bem perfundida após a redução. Observação hospitalar rigorosa com imobilização não circunferencial e flexão <60 graus por 48 horas; monitorar sinais de síndrome compartimental (aumento da necessidade de opioides IV é sinal de alerta)."
+      },
+      leaf_vasc_exploracao: {
+        cls: "surgical-major",
+        label: "Isquemia persistente — exploração vascular emergencial",
+        desc: "Mão permanece avascular (pálida, fria) apesar da redução/fixação da fratura: aproximadamente 50% de chance de necessitar cirurgia vascular e quase 25% de chance de síndrome compartimental. Indicada redução aberta por via anterior — o feixe neurovascular costuma ser encontrado angulado (kinked) no foco de fratura; a liberação do tether geralmente restaura o pulso. Reconstrução vascular (reparo ou enxerto) é realizada se a mão permanecer avascular apesar de medidas locais (liberação, lidocaína, aquecimento); a fratura deve ser estabilizada antes do reparo vascular."
+      },
+      q2: {
+        q: "Fratura tipo III ou IV de Gartland (completamente desviada / multidirecionalmente instável)?",
+        yes: "leaf_tipo34",
+        no: "q3"
+      },
+      leaf_tipo34: {
+        cls: "surgical",
+        label: "Gartland III/IV — CRPP com 3 fios",
+        desc: "CRPP é o tratamento preferido. Reduz o risco de deformidade residual e de contratura isquêmica de Volkmann comparado ao gesso isolado. Usar 3 fios (laterais divergentes ou 2 laterais + 1 medial). No tipo IV (instabilidade multidirecional), inserir os fios primeiro no fragmento distal e rotacionar a fluoroscopia (não o braço) para obter as imagens AP e lateral sem perder a redução. Se usar fio medial, inserir antes os fios laterais para reduzir risco de lesão do nervo ulnar (subluxação com flexão ≥120° em >50% das crianças)."
+      },
+      q3: {
+        q: "Fratura tipo II com linha umeral anterior não tangenciando o capítulo, ou ângulo de Baumann >80° (instabilidade)?",
+        yes: "leaf_tipo2_instavel",
+        no: "leaf_tipo1_2_estavel"
+      },
+      leaf_tipo2_instavel: {
+        cls: "surgical",
+        label: "Gartland II instável — CRPP com 2 fios",
+        desc: "Necessidade de flexão ≥90° para manter a redução aumenta a pressão compartimental e reduz o fluxo da artéria braquial — indicação de CRPP com 2 fios laterais divergentes. Mais de 20% dos tratados apenas com gesso podem perder a redução e necessitar cirurgia tardia."
+      },
+      leaf_tipo1_2_estavel: {
+        cls: "conservative",
+        label: "Gartland I ou II estável — gesso acima do cotovelo",
+        desc: "Fratura não desviada (tipo I) ou tipo II estável (córtex posterior íntegro, LUA tangenciando o capítulo, Baumann normal): gesso acima do cotovelo por 3 semanas. Atenção à impactação medial sutil (pode simular fratura não desviada mas evoluir para cúbito varo)."
+      }
+    }
+  },
+
+  monteggia_conduta_ped: {
+    region: "fraturas-pediatricas", num: "LW Cap.32",
+    title: "Conduta na Lesão de Monteggia (Classificação de Bado)",
+    src: "Shah AS, Caird MS, Cap.32 Upper Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5469-5482",
+    icon: "🦴", tags: ["antebraco", "monteggia", "cotovelo"],
+    start: "q1",
+    nodes: {
+      q1: {
+        q: "Apresentação aguda (diagnóstico dentro de 3 semanas da lesão)?",
+        yes: "q2",
+        no: "leaf_cronica"
+      },
+      leaf_cronica: {
+        cls: "surgical-major",
+        label: "Lesão de Monteggia crônica/negligenciada (>4 semanas)",
+        desc: "Diagnóstico tardio é a complicação mais frequente da lesão de Monteggia. Se a ulna puder ser reduzida e estabilizada dentro de 3 semanas, a cabeça do rádio costuma reduzir e permanecer estável. Após 4 semanas, geralmente é necessária redução aberta com osteotomia corretiva (e por vezes alongamento) da ulna, excisão da massa fibrocartilaginosa interposta e reconstrução do ligamento anular (retalho de fáscia/tendão do tríceps). Resultados clínicos e radiográficos bons são esperados se a criança tiver menos de 12 anos ou a cirurgia ocorrer dentro de 3 anos da lesão original."
+      },
+      q2: {
+        q: "Fratura da ulna é incompleta (deformação plástica ou fratura em galho verde)?",
+        yes: "leaf_incompleta",
+        no: "q3"
+      },
+      leaf_incompleta: {
+        cls: "conservative",
+        label: "Fratura ulnar incompleta — redução fechada e gesso",
+        desc: "Redução fechada e gesso acima do cotovelo por via não operatória. Posicionamento pós-redução guiado pelo tipo de Bado: tipo I (cotovelo fletido >90°, antebraço supinado), tipo II (cotovelo em extensão, antebraço supinado), tipo III (redução em varo — mais difícil de manter apenas com gesso). Seguimento radiográfico semanal de alta qualidade por 2-3 semanas para detectar subluxação recorrente da cabeça radial. Se a cabeça do rádio permanecer luxada após a correção do comprimento/alinhamento ulnar, exploração cirúrgica da articulação está indicada (pode haver interposição do ligamento anular ou fragmento osteocondral)."
+      },
+      q3: {
+        q: "Traço de fratura da ulna é transverso ou oblíquo curto?",
+        yes: "leaf_im_nail",
+        no: "leaf_orif_placa"
+      },
+      leaf_im_nail: {
+        cls: "surgical",
+        label: "Fratura ulnar completa transversa/oblíqua curta — haste intramedular",
+        desc: "Redução fechada com fixação intramedular (haste flexível) da ulna. A redução anatômica e estável da ulna geralmente mantém a redução da cabeça do rádio. Verificar reabsorção/subluxação recorrente com radiografias seriadas."
+      },
+      leaf_orif_placa: {
+        cls: "surgical",
+        label: "Fratura ulnar oblíqua longa/cominuída — redução aberta e placa",
+        desc: "A fixação intramedular isolada é insuficiente para manter o comprimento nesses padrões — indicada redução aberta com fixação por placa da ulna. Se, após a fixação, a cabeça do rádio permanecer luxada, realizar exploração da articulação (interposição do ligamento anular ou fragmento osteocondral); evitar fixação transcapitelar da cabeça radial reduzida."
+      }
+    }
+  },
+
+  condilo_lateral_conduta_ped: {
+    region: "fraturas-pediatricas", num: "LW Cap.32",
+    title: "Conduta na Fratura do Côndilo Lateral do Úmero (Classificação de Weiss)",
+    src: "Shah AS, Caird MS, Cap.32 Upper Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5363-5377",
+    icon: "🦴", tags: ["cotovelo", "condilo-lateral"],
+    start: "q1",
+    nodes: {
+      q1: {
+        q: "Desvio da fratura ≥2 mm?",
+        yes: "q2",
+        no: "leaf_tipo1"
+      },
+      leaf_tipo1: {
+        cls: "conservative",
+        label: "Weiss tipo I (<2 mm) — imobilização gessada",
+        desc: "Gesso com seguimento radiográfico semanal por 2 semanas (retirar o gesso para radiografias AP, lateral e oblíqua interna adequadas). Até 30% dessas fraturas podem desviar mais nos primeiros 15 dias — considerar pinagem profilática se houver dúvida quanto à adesão ao seguimento. Consolidação geralmente completa em 4 semanas, podendo levar até 12 semanas em alguns casos."
+      },
+      q2: {
+        q: "Superfície articular é congruente, com dobradiça cartilaginosa intacta (confirmada por artrografia ou RM)?",
+        yes: "leaf_tipo2",
+        no: "leaf_tipo3"
+      },
+      leaf_tipo2: {
+        cls: "surgical",
+        label: "Weiss tipo II (≥2 mm, congruente) — redução fechada e pinagem percutânea",
+        desc: "Após artrografia (preferencialmente por portal posterior/olecraniano, para não obscurecer a anatomia da fratura lateral) confirmando integridade da superfície articular, realizar pinagem percutânea fechada."
+      },
+      leaf_tipo3: {
+        cls: "surgical",
+        label: "Weiss tipo III (≥2 mm, incongruente) — redução aberta e fixação",
+        desc: "Redução aberta com restauração da congruência articular é o objetivo primário. Fixação com fios lisos cruzando o foco de fratura ou parafusos (menor risco de pseudoartrose, retorno mais rápido ao movimento, porém pode requerer remoção posterior). Evitar dissecção posterior do fragmento para reduzir o risco de necrose avascular do capítulo/tróclea."
+      }
+    }
+  },
+
+
+
+fratura_toracolombar_estavel_instavel_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.33",
+  title: "Fratura Toracolombar Pediátrica — Estável vs. Instável (Conduta Inicial)",
+  src: "Frick SL, Miyanji F, Cap.33 Pediatric Thoracolumbar Spine and Lower Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5561-5572",
+  icon: "🦴", tags: ["p", "e", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "Há déficit neurológico (mesmo transitório) ou evidência de lesão medular associada à fratura toracolombar?",
+      yes: "leaf_neuro_emergencia",
+      no: "q2"
+    },
+    q2: {
+      q: "TC/RM confirma fratura-luxação com translação de um segmento vertebral em relação ao outro (lesão de três colunas com instabilidade grave)?",
+      yes: "leaf_fratura_luxacao_cirurgia",
+      no: "q3"
+    },
+    q3: {
+      q: "Fratura em explosão (burst, colunas anterior e média) com lesão do complexo ligamentar posterior (PLC) ou déficit neurológico progressivo?",
+      yes: "leaf_burst_plc_cirurgia",
+      no: "q4"
+    },
+    q4: {
+      q: "Fratura em flexão-distração (tipo Chance) predominantemente ligamentosa, OU alinhamento sagital em ortostase maior que 20 graus de cifose?",
+      yes: "leaf_flexao_distracao_cirurgia",
+      no: "q5"
+    },
+    q5: {
+      q: "Fratura em compressão isolada (coluna anterior) OU fratura em explosão/flexão-distração óssea estável, com PLC íntegro, sem déficit neurológico e angulação segmentar menor que 20 graus (compressão: menor que 10 graus)?",
+      yes: "leaf_conservador_toracolombar",
+      no: "leaf_reavaliar_tlics"
+    },
+
+    leaf_neuro_emergencia: {
+      q: "Suspeita de lesão medular: RM urgente para avaliar edema/hemorragia medular e integridade do PLC. Considerar descompressão precoce (dentro de 24 horas) e estabilização cirúrgica rígida — dados do STASCIS sugerem melhora neurológica com descompressão precoce. Prognóstico de recuperação é favorável na criança, sendo o estado neurológico inicial o principal determinante.",
+      cls: "emergency"
+    },
+    leaf_fratura_luxacao_cirurgia: {
+      q: "Fratura-luxação (translação, três colunas): estabilização cirúrgica rígida com parafusos pediculares para prevenir lesão secundária da medula e realinhar a coluna; descompressão do canal por via posterior ou combinada anterior/posterior conforme necessário.",
+      cls: "surgical-major"
+    },
+    leaf_burst_plc_cirurgia: {
+      q: "Fratura em explosão com PLC lesado ou déficit neurológico progressivo (TLICS tende a ser >4): tratamento cirúrgico indicado. Os antigos gatilhos isolados (50% de comprometimento do canal, 50% de perda de altura, 30 graus de cifose) não devem, isoladamente, guiar a decisão.",
+      cls: "surgical"
+    },
+    leaf_flexao_distracao_cirurgia: {
+      q: "Lesão em flexão-distração predominantemente ligamentosa ou com cifose acima de 20 graus: tratamento cirúrgico indicado (especialmente em crianças mais velhas), pois lesões puramente ligamentosas tendem a não cicatrizar com tratamento conservador. Avaliar e tratar lesão intra-abdominal associada (incidência de 40-70%), que pode inclusive contraindicar o uso de colete/gesso.",
+      cls: "surgical"
+    },
+    leaf_conservador_toracolombar: {
+      q: "Fratura estável (compressão isolada, ou explosão/flexão-distração óssea com PLC íntegro, sem déficit neurológico e dentro dos limiares angulares aceitáveis): tratamento conservador com analgesia, restrição de atividade e colete/gesso em extensão; mobilização progressiva com seguimento radiográfico seriado.",
+      cls: "conservative"
+    },
+    leaf_reavaliar_tlics: {
+      q: "Quadro não se encaixa claramente nos critérios acima: reavaliar com RM (integridade do PLC) e calcular o TLICS (morfologia + PLC + estado neurológico) antes de decidir; escore >4 favorece cirurgia, <4 favorece tratamento conservador.",
+      cls: "conservative"
+    }
+  }
+},
+
+fratura_colo_femoral_delbet_conduta_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.33",
+  title: "Fratura do Colo/Proximal do Fêmur Pediátrico (Delbet) — Conduta por Tipo",
+  src: "Frick SL, Miyanji F, Cap.33 Pediatric Thoracolumbar Spine and Lower Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5604-5617",
+  icon: "🦴", tags: ["p", "e", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "É uma fratura Delbet tipo I (transfisária/transepifisária)?",
+      yes: "q1a",
+      no: "q2"
+    },
+    q1a: {
+      q: "O fragmento epifisário está luxado para fora do acetábulo?",
+      yes: "leaf_delbet1_luxada_emergencia",
+      no: "q1b"
+    },
+    q1b: {
+      q: "Criança com menos de 2 anos de idade e fratura minimamente desviada?",
+      yes: "leaf_delbet1_jovem_conservador",
+      no: "leaf_delbet1_desviada_emergencia"
+    },
+
+    q2: {
+      q: "É uma fratura Delbet tipo II (transcervical) ou tipo III (cervicotrocantérica/basicervical)?",
+      yes: "q2a",
+      no: "q3"
+    },
+    q2a: {
+      q: "Fratura estável e não desviada, em criança com menos de 6 anos de idade?",
+      yes: "leaf_delbet23_estavel_conservador",
+      no: "leaf_delbet23_desviada_emergencia"
+    },
+
+    q3: {
+      q: "É uma fratura Delbet tipo IV (intertrocantérica)?",
+      yes: "q3a",
+      no: "leaf_reclassificar_delbet"
+    },
+    q3a: {
+      q: "Fratura não desviada?",
+      yes: "leaf_delbet4_nao_desviada_conservador",
+      no: "q3b"
+    },
+    q3b: {
+      q: "Lactente/criança pequena com fratura desviada, permitindo redução fechada (flexão e abdução) mantendo ângulo cervicodiafisário maior ou igual a 115 graus?",
+      yes: "leaf_delbet4_reducao_fechada_conservador",
+      no: "leaf_delbet4_cirurgia"
+    },
+
+    leaf_delbet1_luxada_emergencia: {
+      q: "Delbet tipo I com epífise luxada do acetábulo: risco de necrose avascular próximo de 100%. Emergência cirúrgica — redução aberta (abordagem posterior nas luxações posteriores), fixação com fios lisos/parafusos e curetagem da fise para tentar favorecer revascularização da cabeça femoral. Redução, descompressão articular e fixação estável idealmente dentro de 24 horas.",
+      cls: "emergency"
+    },
+    leaf_delbet1_jovem_conservador: {
+      q: "Delbet tipo I, minimamente desviado, em menor de 2 anos: redução fechada e imobilização em gesso pelvipodálico costuma ser suficiente, com bom prognóstico mesmo sem cirurgia.",
+      cls: "conservative"
+    },
+    leaf_delbet1_desviada_emergencia: {
+      q: "Delbet tipo I desviado (sem luxação franca) fora da faixa de lactente: tratar com a maior urgência possível — redução (fechada ou aberta), fixação (pinos lisos em crianças de 2-12 anos com espica complementar; fixação transfisária em crianças maiores) e descompressão articular dentro de 24 horas para reduzir risco de necrose avascular.",
+      cls: "emergency"
+    },
+    leaf_delbet23_estavel_conservador: {
+      q: "Delbet tipo II/III estável e não desviado em menor de 6 anos: gesso pelvipodálico isolado pode ser suficiente. Em crianças mais velhas com fratura não desviada, prefere-se fixação interna para prevenir desvio secundário.",
+      cls: "conservative"
+    },
+    leaf_delbet23_desviada_emergencia: {
+      q: "Delbet tipo II/III desviado (qualquer idade além de menores de 6 anos com fratura estável): emergência cirúrgica — redução anatômica, fixação com parafusos canulados (2-3 parafusos ou parafuso roscado transfisário se ≥12 anos) e capsulotomia/descompressão articular dentro de 24 horas (redução de AVN de 41% para 8% em uma série com descompressão precoce). Espica complementar se fixação com pinos lisos.",
+      cls: "emergency"
+    },
+    leaf_delbet4_nao_desviada_conservador: {
+      q: "Delbet tipo IV não desviado: gesso pelvipodálico e seguimento clínico-radiográfico rigoroso; risco de necrose avascular é o mais baixo entre os quatro tipos (0-10%).",
+      cls: "conservative"
+    },
+    leaf_delbet4_reducao_fechada_conservador: {
+      q: "Delbet tipo IV desviado em lactente/criança pequena: redução fechada (flexão e abdução) e gesso, desde que o ângulo cervicodiafisário não caia abaixo de 115 graus.",
+      cls: "conservative"
+    },
+    leaf_delbet4_cirurgia: {
+      q: "Delbet tipo IV desviado em criança mais velha (geralmente maior de 6 anos): tração esquelética seguida de gesso é opção, mas estabilização cirúrgica é recomendada para reduzir risco de malunião e evitar imobilização prolongada — placa proximal femoral bloqueada ou placa em lâmina; em adolescentes, tratar como adulto com fixação estável transfisária.",
+      cls: "surgical"
+    },
+    leaf_reclassificar_delbet: {
+      q: "Padrão de fratura não corresponde claramente a nenhum dos quatro tipos de Delbet: reclassificar com imagem adicional (TC) antes de definir a conduta terapêutica.",
+      cls: "conservative"
+    }
+  }
+},
+
+fratura_diafisaria_femur_conduta_idade_ped: {
+  region: "fraturas-pediatricas", num: "LW Cap.33",
+  title: "Fratura Diafisária do Fêmur Pediátrico — Conduta por Faixa Etária",
+  src: "Frick SL, Miyanji F, Cap.33 Pediatric Thoracolumbar Spine and Lower Extremity Fractures, In: Lovell and Winter's Pediatric Orthopaedics — p.5619-5658",
+  icon: "🦴", tags: ["p", "s"],
+  start: "q1",
+  nodes: {
+    q1: {
+      q: "Lactente com menos de 6 meses de idade?",
+      yes: "leaf_infante",
+      no: "q2"
+    },
+    q2: {
+      q: "Idade entre 6 meses e 5 anos?",
+      yes: "q2b",
+      no: "q3"
+    },
+    q2b: {
+      q: "Fratura fechada, de baixa a moderada energia, com menos de 2-3 cm de encurtamento ao teste de telescopagem (sem indicação de tração ou cirurgia)?",
+      yes: "leaf_espica_precoce",
+      no: "leaf_tracao_ou_fixacao_jovem"
+    },
+    q3: {
+      q: "Idade entre 5 e 11 anos?",
+      yes: "q3b",
+      no: "q4"
+    },
+    q3b: {
+      q: "Fratura diafisária transversa ou curta-oblíqua, comprimento estável, sem cominuição importante e paciente com peso corporal não excessivo (menor que 50 kg)?",
+      yes: "leaf_haste_flexivel_5_11",
+      no: "leaf_placa_ou_fixador_5_11"
+    },
+    q4: {
+      q: "Idade igual ou maior que 11 anos, com fise proximal do fêmur ainda aberta?",
+      yes: "q4b",
+      no: "leaf_maturidade_esqueletica"
+    },
+    q4b: {
+      q: "Peso corporal maior que 50 kg, cominuição significativa, ou fratura muito proximal/distal pouco adequada para haste flexível?",
+      yes: "leaf_placa_ou_haste_rigida_adolescente",
+      no: "leaf_haste_flexivel_adolescente"
+    },
+
+    leaf_infante: {
+      q: "Menor de 6 meses: arnês de Pavlik, tala ou gesso pelvipodálico convencional; imobilização de 2-3 semanas (menores de 4 meses) a 4 semanas (6-12 meses). Suspeitar de maus-tratos ou osteogênese imperfeita se o mecanismo de trauma não for compatível.",
+      cls: "conservative"
+    },
+    leaf_espica_precoce: {
+      q: "Gesso pelvipodálico (espica) precoce, com flexão de quadril/joelho menor que 90 graus e leve abdução; aceitar até 3 cm de encurtamento e 20-30 graus de angulação em qualquer plano (até 20 graus no terço distal). Evitar tração excessiva (risco de síndrome compartimental e paralisia do fibular).",
+      cls: "conservative"
+    },
+    leaf_tracao_ou_fixacao_jovem: {
+      q: "Encurtamento maior que 2-3 cm ou lesões associadas: considerar tração esquelética temporária, fixador externo, ou haste flexível conforme o padrão da fratura e contexto social/familiar.",
+      cls: "surgical"
+    },
+    leaf_haste_flexivel_5_11: {
+      q: "Haste intramedular flexível (elástica), inserida por via retrógrada, é o método de escolha — retorno mais rápido à deambulação e à escola comparado à tração/gesso. Alinhamento aceito: até 15 graus varo/valgo, 15 graus antero-posterior, 20 mm de encurtamento.",
+      cls: "surgical"
+    },
+    leaf_placa_ou_fixador_5_11: {
+      q: "Fratura instável/cominuída, ou com dano importante de partes moles (aberta, queimadura, politrauma): placa em ponte submuscular ou fixador externo são preferíveis à haste flexível isolada.",
+      cls: "surgical-major"
+    },
+    leaf_haste_flexivel_adolescente: {
+      q: "Haste intramedular flexível ainda pode ser usada em adolescente com fratura estável e peso adequado, embora com taxa de complicação levemente maior que em crianças mais novas.",
+      cls: "surgical"
+    },
+    leaf_placa_ou_haste_rigida_adolescente: {
+      q: "Estabilização cirúrgica com placa submuscular/placa proximal femoral bloqueada, ou haste intramedular rígida por entrada trocantérica lateral (nunca piriforme, pelo risco de necrose avascular iatrogênica enquanto a fise proximal estiver aberta). Alinhamento aceito: até 10 graus varo/valgo, 10 graus antero-posterior, 15 mm de encurtamento.",
+      cls: "surgical-major"
+    },
+    leaf_maturidade_esqueletica: {
+      q: "Paciente com fise proximal do fêmur já fechada (maturidade esquelética): tratar como fratura de fêmur do adulto, com haste intramedular rígida por via trocantérica.",
+      cls: "surgical-major"
+    }
+  }
 },
 
 }; // fim ALGS
