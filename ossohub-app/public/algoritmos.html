@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algoritmos de Tratamento Ortopédico</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'Segoe UI',system-ui,sans-serif;background:#0e1117;color:#e2e8f0;overflow:hidden}
+#app{display:flex;flex-direction:column;height:100vh}
+#header{background:linear-gradient(135deg,#1a1f2e 0%,#12161f 100%);border-bottom:1px solid #2a3347;padding:10px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+#header h1{font-size:15px;font-weight:700;color:#e2a84b;letter-spacing:.3px}
+#header .sub{font-size:10px;color:#4a5568;margin-left:auto}
+#header .badge{background:#e2a84b22;color:#e2a84b;border:1px solid #e2a84b44;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:600}
+#regions-bar{background:#0d1119;border-bottom:1px solid #1a2030;padding:0 12px;display:flex;gap:1px;overflow-x:auto;flex-shrink:0;scrollbar-width:none}
+#regions-bar::-webkit-scrollbar{display:none}
+.rbtn{display:flex;align-items:center;gap:5px;padding:9px 12px;background:transparent;border:none;border-bottom:2px solid transparent;color:#4a5568;font-size:11px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s}
+.rbtn:hover{color:#94a3b8;background:#111827}
+.rbtn.active{color:var(--rc);border-bottom-color:var(--rc)}
+.rbtn .ico{font-size:13px}
+#content{flex:1;overflow-y:auto;padding:18px;background:#0e1117}
+.rh{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #1a2030}
+.rh-icon{font-size:26px}
+.rh h2{font-size:17px;font-weight:700;color:var(--rc)}
+.rh-count{background:#1a2030;color:#4a5568;border-radius:20px;padding:2px 10px;font-size:10px;margin-left:4px}
+.alg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.acard{background:#111827;border:1px solid #1a2030;border-left:3px solid var(--rc);border-radius:8px;padding:13px;cursor:pointer;transition:all .15s}
+.acard:hover{background:#161f30;transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,0,0,.4);border-color:var(--rc)}
+.acard .cn{font-size:9px;color:#374151;font-weight:700;margin-bottom:3px;letter-spacing:.5px}
+.acard .ct{font-size:12px;font-weight:600;color:#e2e8f0;margin-bottom:5px;line-height:1.35}
+.acard .cs{font-size:10px;color:#374151}
+.acard .ctags{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:600}
+.tag-c{background:#14532d33;color:#4ade80}
+.tag-s{background:#1e3a5f33;color:#60a5fa}
+.tag-sm{background:#4c1d9533;color:#a78bfa}
+.tag-e{background:#7f1d1d33;color:#f87171}
+.tag-p{background:#0c4a6e33;color:#38bdf8}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(5px)}
+#ov.hidden{display:none}
+#mod{background:#111827;border:1px solid #2a3347;border-radius:12px;width:100%;max-width:660px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+#mhd{background:linear-gradient(135deg,#161f30 0%,#111827 100%);border-bottom:1px solid #2a3347;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;flex-shrink:0}
+#mhd .mhi{font-size:22px;flex-shrink:0;margin-top:2px}
+#mhd .mhinfo{flex:1}
+#mhd h3{font-size:14px;font-weight:700;color:#e2e8f0;margin-bottom:2px;line-height:1.3}
+#mhd .mhsrc{font-size:10px;color:#374151}
+#mclose{background:#1a2030;border:1px solid #2a3347;color:#4a5568;width:26px;height:26px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;transition:all .15s}
+#mclose:hover{background:#7f1d1d;color:#f87171;border-color:#7f1d1d}
+#mprog{background:#0d1119;border-bottom:1px solid #1a2030;padding:7px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pbar{flex:1;height:3px;background:#1a2030;border-radius:2px;overflow:hidden}
+.pfill{height:100%;background:var(--rc,#e2a84b);border-radius:2px;transition:width .3s}
+.ptxt{font-size:10px;color:#374151;white-space:nowrap}
+#mbody{flex:1;overflow-y:auto;padding:18px}
+.breadcrumbs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
+.bc{font-size:9px;background:#1a2030;color:#374151;padding:2px 7px;border-radius:3px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bc.cur{background:var(--rc-dim,#e2a84b22);color:var(--rc,#e2a84b)}
+.nq{background:#161f30;border:1px solid #2a3347;border-radius:10px;padding:18px;margin-bottom:14px}
+.nq-lbl{font-size:9px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+.nq-txt{font-size:14px;font-weight:600;color:#e2e8f0;line-height:1.5}
+.nq-ctx{font-size:11px;color:#4a5568;margin-top:7px;line-height:1.55}
+.opts{display:grid;gap:7px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{background:#1a2030;border:1px solid #2a3347;border-radius:8px;padding:11px 14px;cursor:pointer;text-align:left;transition:all .15s;display:flex;align-items:flex-start;gap:9px}
+.opt:hover{background:#1e293b;border-color:var(--rc)}
+.opt.yes:hover{background:#14532d22;border-color:#4ade80}
+.opt.no:hover{background:#7c3aed22;border-color:#a78bfa}
+.opt-ico{font-size:15px;flex-shrink:0;margin-top:1px}
+.opt-lbl{font-size:12px;font-weight:600;color:#e2e8f0}
+.opt-dsc{font-size:10px;color:#4a5568;margin-top:2px;line-height:1.4}
+.rn{border-radius:10px;padding:18px;margin-bottom:14px}
+.rn.conservative{background:#14532d22;border:1px solid #4ade8033}
+.rn.surgical{background:#1e3a5f22;border:1px solid #60a5fa33}
+.rn.surgical-major{background:#4c1d9522;border:1px solid #a78bfa33}
+.rn.emergency{background:#7f1d1d33;border:1px solid #f8717133}
+.rn-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 9px;border-radius:4px;margin-bottom:10px}
+.conservative .rn-badge{background:#14532d44;color:#4ade80}
+.surgical .rn-badge{background:#1e3a5f44;color:#60a5fa}
+.surgical-major .rn-badge{background:#4c1d9544;color:#a78bfa}
+.emergency .rn-badge{background:#7f1d1d55;color:#f87171}
+.rn-title{font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:8px}
+.rn-txt{font-size:11px;color:#94a3b8;line-height:1.65}
+.rn-details{margin-top:12px;border-top:1px solid #2a3347;padding-top:10px}
+.rn-di{display:flex;gap:8px;font-size:11px;color:#94a3b8;padding:4px 0;border-bottom:1px solid #1a2030}
+.rn-di:last-child{border-bottom:none}
+.rn-di .dil{color:#374151;min-width:110px;flex-shrink:0;font-weight:600}
+#mft{border-top:1px solid #1a2030;padding:11px 18px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-shrink:0}
+.btn{padding:7px 14px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-sec{background:#1a2030;color:#4a5568}.btn-sec:hover{background:#2a3347;color:#94a3b8}
+.btn-pri{background:var(--rc,#e2a84b);color:#0e1117}.btn-pri:hover{opacity:.9}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:#2a3347;border-radius:3px}
+.r-geral{--rc:#f59e0b;--rc-dim:#f59e0b22}
+.r-ombro{--rc:#3b82f6;--rc-dim:#3b82f622}
+.r-cotovelo{--rc:#8b5cf6;--rc-dim:#8b5cf622}
+.r-punho{--rc:#ec4899;--rc-dim:#ec489922}
+.r-coluna{--rc:#14b8a6;--rc-dim:#14b8a622}
+.r-pelve{--rc:#f97316;--rc-dim:#f9731622}
+.r-quadril{--rc:#ef4444;--rc-dim:#ef444422}
+.r-joelho{--rc:#10b981;--rc-dim:#10b98122}
+.r-perna{--rc:#6366f1;--rc-dim:#6366f122}
+.r-pediatria{--rc:#06b6d4;--rc-dim:#06b6d422}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="header">
+  <span style="font-size:20px">🦴</span>
+  <div>
+    <h1>Algoritmos de Tratamento Ortopédico</h1>
+    <div class="sub">Campbell's 15ª ed. · Rockwood Adults 10ª ed. · Rockwood Children 10ª ed.</div>
+  </div>
+  <span class="badge">Beta</span>
+</div>
+<div id="regions-bar">
+  <button class="rbtn active" data-r="geral" onclick="showRegion('geral',this)"><span class="ico">⚙️</span>Princípios Gerais</button>
+  <button class="rbtn" data-r="ombro" onclick="showRegion('ombro',this)"><span class="ico">🦴</span>Ombro e Clavícula</button>
+  <button class="rbtn" data-r="cotovelo" onclick="showRegion('cotovelo',this)"><span class="ico">💪</span>Cotovelo</button>
+  <button class="rbtn" data-r="punho" onclick="showRegion('punho',this)"><span class="ico">✋</span>Punho e Mão</button>
+  <button class="rbtn" data-r="coluna" onclick="showRegion('coluna',this)"><span class="ico">🧱</span>Coluna Vertebral</button>
+  <button class="rbtn" data-r="pelve" onclick="showRegion('pelve',this)"><span class="ico">🦋</span>Pelve e Acetábulo</button>
+  <button class="rbtn" data-r="quadril" onclick="showRegion('quadril',this)"><span class="ico">🦵</span>Quadril e Fêmur</button>
+  <button class="rbtn" data-r="joelho" onclick="showRegion('joelho',this)"><span class="ico">🦿</span>Joelho</button>
+  <button class="rbtn" data-r="perna" onclick="showRegion('perna',this)"><span class="ico">🦶</span>Perna, Tornozelo e Pé</button>
+  <button class="rbtn" data-r="pediatria" onclick="showRegion('pediatria',this)"><span class="ico">👶</span>Pediatria</button>
+</div>
+<div id="content"></div>
+</div>
+
+<div id="ov" class="hidden" onclick="if(event.target===this)closeModal()">
+<div id="mod">
+  <div id="mhd">
+    <div class="mhi" id="mhd-icon">🔀</div>
+    <div class="mhinfo">
+      <h3 id="mhd-title">Título</h3>
+      <div class="mhsrc" id="mhd-src">Fonte</div>
+    </div>
+    <button id="mclose" onclick="closeModal()">✕</button>
+  </div>
+  <div id="mprog">
+    <div class="pbar"><div class="pfill" id="pfill" style="width:0%"></div></div>
+    <div class="ptxt" id="ptxt">Passo 1</div>
+  </div>
+  <div id="mbody"></div>
+  <div id="mft">
+    <button class="btn btn-sec" id="btn-back" onclick="goBack()" disabled>← Voltar</button>
+    <div id="mft-info" style="font-size:10px;color:#374151"></div>
+    <button class="btn btn-pri" id="btn-restart" onclick="restartAlg()">↺ Reiniciar</button>
+  </div>
+</div>
+</div>
+
+<script>
+const REGIONS = {
+  geral:{label:"Princípios Gerais",icon:"⚙️",cls:"r-geral"},
+  ombro:{label:"Ombro e Clavícula",icon:"🦴",cls:"r-ombro"},
+  cotovelo:{label:"Cotovelo",icon:"💪",cls:"r-cotovelo"},
+  punho:{label:"Punho e Mão",icon:"✋",cls:"r-punho"},
+  coluna:{label:"Coluna Vertebral",icon:"🧱",cls:"r-coluna"},
+  pelve:{label:"Pelve e Acetábulo",icon:"🦋",cls:"r-pelve"},
+  quadril:{label:"Quadril e Fêmur",icon:"🦵",cls:"r-quadril"},
+  joelho:{label:"Joelho",icon:"🦿",cls:"r-joelho"},
+  perna:{label:"Perna, Tornozelo e Pé",icon:"🦶",cls:"r-perna"},
+  pediatria:{label:"Pediatria",icon:"👶",cls:"r-pediatria"}
+};
+
+const ALGS = {
+
+// ═══════════════════════════════════════
+// PRINCÍPIOS GERAIS
+// ═══════════════════════════════════════
+sca:{
+  region:"geral", num:"RWA Alg.17-1",
+  title:"Síndrome Compartimental Aguda",
+  src:"Rockwood Adults 10ª ed. · Cap. 17",
+  icon:"🚨", tags:["e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente de alto risco para SCA?",
+      ctx:"Paciente jovem + fratura diafisária de tíbia, fratura do antebraço, trauma de alta energia ou com distúrbio da coagulação?",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Monitorização contínua da pressão intracompartimental (PIC) indicada?",
+      ctx:"Recomendada em TODOS os pacientes de alto risco. Compartimento anterior da perna é o prioritário.",
+      yes:"q4", no:"q4"},
+    q3:{type:"q",text:"Sinais e sintomas clínicos sugestivos de SCA?",
+      ctx:"Dor desproporcional ao exame, dor à extensão passiva dos dedos, endurecimento do compartimento, parestesias.",
+      yes:"q4", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Conduta Expectante",
+      txt:"Sem sinais ou risco: observação rigorosa. Reavaliar a cada 1-2 horas. Manter perfusão sistêmica adequada.",
+      details:[["Posição","Membro ao nível do coração — NÃO elevar"],["Gesso","Abrir qualquer imobilização circunferencial"],["Reavaliação","Horária nas primeiras 6h"]]},
+    q4:{type:"q",text:"Pressão Diferencial de Perfusão (PDP) < 30 mmHg persistente?",
+      ctx:"PDP = Pressão Diastólica − PIC. PDP < 30 mmHg por mais de 2h indica fasciotomia independentemente dos sintomas.",
+      yes:"r2", no:"q5"},
+    q5:{type:"q",text:"Sintomas clínicos francos + múltiplos sinais presentes?",
+      ctx:"Dor intensa, compartimento tenso, déficit neurológico progressivo, dor à extensão passiva.",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"emergency",title:"Fasciotomia de Urgência — Imediata",
+      txt:"Fasciotomia descompressiva urgente. Não aguardar confirmação laboratorial ou radiológica. Tempo é músculo.",
+      details:[["Perna","4 compartimentos via 2 incisões longitudinais"],["Antebraço","3 compartimentos via incisão volar e/ou dorsal"],["Coxa","3 compartimentos via incisão lateral"],["Cobertura","Curativo de pressão negativa (VAC); fechamento tardio em 5-7 dias"],["Fasciotomia tardia","Se > 6h: ainda indicada, mas prognóstico reservado"]]},
+    r3:{type:"r",cls:"surgical",title:"Monitorização Contínua — Repetir Avaliação",
+      txt:"PDP ainda adequada mas paciente de alto risco. Manter monitorização contínua. Reavaliação frequente.",
+      details:[["Frequência","Leitura a cada 30 minutos"],["Limiar","Fasciotomia se PDP cair < 30 mmHg por > 2h"],["Analgesia","Controle da dor sem mascarar sintomas"]]}}
+},
+
+frat_patol:{
+  region:"geral", num:"RWA Alg.25-1",
+  title:"Fratura Patológica",
+  src:"Rockwood Adults 10ª ed. · Cap. 25",
+  icon:"🦴", tags:["s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente tem diagnóstico de neoplasia maligna primária ou doença óssea primária conhecida?",
+      ctx:"Metástases ósseas são a causa mais comum de fratura patológica no adulto. Mieloma, linfoma e carcinoma (mama, pulmão, próstata, rim, tireoide) lideram.",
+      yes:"q2", no:"q6"},
+    q2:{type:"q",text:"Fratura em osso longo de membro inferior (fêmur ou tíbia)?",
+      ctx:"Fraturas de fêmur proximal têm maior morbimortalidade e menor probabilidade de consolidação espontânea.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Expectativa de vida > 3 meses E paciente clinicamente operável?",
+      yes:"r1", no:"r2"},
+    r1:{type:"r",cls:"surgical-major",title:"Fixação Cirúrgica + Radioterapia Adjuvante",
+      txt:"Hastes intramedulares são o padrão-ouro para fraturas patológicas de ossos longos. Preferir haste longa cobrindo todo o osso. Radioterapia pós-operatória em 2-3 semanas.",
+      details:[["Implante","Haste intramedular bloqueada (cobre osso inteiro)"],["Cimento","Augmentação com PMMA se necessário"],["Radioterapia","Iniciar 2-3 sem pós-op; 30 Gy em 10 frações"],["Carga","Carga total imediata no pós-op"],["Critério de Mirels","Score ≥ 9 → fixação profilática"]]},
+    r2:{type:"r",cls:"conservative",title:"Cuidados Paliativos / Fixação Paliativa Mínima",
+      txt:"Expectativa de vida curta ou alto risco cirúrgico: imobilização paliativa, controle da dor, radioterapia isolada se possível.",
+      details:[["Analgesia","Opioide forte + bisfosfonato IV"],["Radioterapia","Dose única (8 Gy) para controle da dor"],["Imobilização","Órtese ou tração, se tolerável"]]},
+    q4:{type:"q",text:"Fratura de coluna vertebral com déficit neurológico?",
+      yes:"r3", no:"q5"},
+    r3:{type:"r",cls:"emergency",title:"Descompressão Cirúrgica Urgente — Coluna",
+      txt:"Déficit neurológico progressivo em fratura patológica de coluna: cirurgia de descompressão + estabilização em até 24-48h.",
+      details:[["Abordagem","Corpectomia + fusão instrumentada"],["Radioterapia","Pós-op para controle local"],["Corticóide","Dexametasona 10 mg IV bolus + 4 mg 6/6h"]]},
+    q5:{type:"q",text:"Fratura de membro superior com dor incapacitante ou instabilidade funcional significativa?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical",title:"Fixação Percutânea ou Placa + Cimento",
+      txt:"Úmero proximal e distal: haste ou placa com augmentação de cimento. Preservar função de preensão e ADM.",
+      details:[["Úmero proximal","Haste anterógrada + cimento se necessário"],["Úmero distal","Placa + cimento ou artroplastia"],["Rádio/ulna","Placa convencional"]]},
+    r5:{type:"r",cls:"conservative",title:"Tratamento Conservador + Radioterapia",
+      txt:"Fraturas de membros superiores com boa estabilidade relativa: imobilização + radioterapia para controle da dor e do tumor.",
+      details:[["Imobilização","Órtese funcional (Sarmiento)"],["Radioterapia","30 Gy em 10 frações"]]},
+    q6:{type:"q",text:"Fratura em paciente jovem com lesão óssea expansiva / aspecto agressivo no RX?",
+      yes:"r6", no:"r7"},
+    r6:{type:"r",cls:"surgical",title:"Biópsia Antes de Qualquer Fixação",
+      txt:"NUNCA fixar fratura óssea patológica de origem desconhecida em paciente jovem sem biópsia prévia. Risco de contaminar planos cirúrgicos e prejudicar cirurgia oncológica definitiva.",
+      details:[["Biópsia","Tru-cut ou excisional pelo oncologista ortopédico"],["Encaminhamento","Centro de referência em oncologia musculoesquelética"],["Estabilização","Tração esquelética provisória se instável"]]},
+    r7:{type:"r",cls:"conservative",title:"Fratura de Insuficiência / Estresse — Avaliação Metabólica",
+      txt:"Afastar osteoporose, osteomalacia, hiperparatireoidismo. Tratar causa base antes de definir conduta definitiva.",
+      details:[["Exames","DXA, PTH, vitamina D, Ca, fósforo, TSH"],["Tratamento","Bisfosfonatos + vitamina D + cálcio"],["Consolidação","Geralmente conservadora com descarga progressiva"]]}}
+},
+
+tev:{
+  region:"geral", num:"RWA Alg.26-1",
+  title:"Profilaxia de TEV em Trauma",
+  src:"Rockwood Adults 10ª ed. · Cap. 26",
+  icon:"🩸", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente tem contraindicação ABSOLUTA à profilaxia farmacológica?",
+      ctx:"TCE com sangramento ativo, hemorragia medular, trombocitopenia < 50k, coagulopatia não corrigida, lesão vascular ativa.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Profilaxia Mecânica Exclusiva",
+      txt:"Dispositivos de compressão pneumática intermitente (CPI) em ambos os MMII desde a admissão. Reavaliação diária para iniciar farmacológica assim que seguro.",
+      details:[["CPI","Aplicar bilateralmente, inclusive no membro lesado se possível"],["Meias","Meias elásticas de compressão graduada"],["Reavaliação","Diária para transição para profilaxia farmacológica"]]},
+    q2:{type:"q",text:"Paciente de alto risco para TEV?",
+      ctx:"Fratura de pelve, acetábulo, colo femoral, trocantérica, diáfise femoral; cirurgia de grande porte; imobilização > 72h; história de TVP/TEP.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Cirurgia de grande porte programada nas próximas 12h?",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical",title:"Iniciar Profilaxia Farmacológica 6-12h Pós-op",
+      txt:"Heparina de baixo peso molecular (HBPM) deve ser iniciada 6-12h após hemostasia cirúrgica satisfatória. Associar CPI no intraoperatório.",
+      details:[["HBPM","Enoxaparina 40 mg SC 1x/dia (ou 30 mg 12/12h se alto risco)"],["Início","6-12h pós-op em pacientes de baixo risco hemorrágico"],["Duração","Mínimo 14 dias; até 35 dias em cirurgia de quadril"],["CPI","Manter até deambulação total"]]},
+    r3:{type:"r",cls:"surgical",title:"Profilaxia Farmacológica Imediata",
+      txt:"Iniciar HBPM o mais precocemente possível, idealmente nas primeiras 12-24h após o trauma.",
+      details:[["HBPM","Enoxaparina 40 mg SC 1x/dia"],["Alternativa","Rivaroxabana 10 mg VO 1x/dia após cirurgia de quadril/joelho"],["Duração","14-35 dias dependendo do procedimento"],["CPI","Associar sempre"]]},
+    q4:{type:"q",text:"Paciente de risco intermediário (cirurgia de pequeno/médio porte, imobilização parcial)?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"conservative",title:"HBPM em Dose Profilática + CPI",
+      txt:"Profilaxia padrão: enoxaparina 20-40 mg SC/dia + compressão mecânica. Duração mínima de 7-14 dias.",
+      details:[["HBPM","Enoxaparina 20-40 mg SC 1x/dia"],["CPI","Bilateral durante internação"],["Deambulação","Estimular precocemente"]]},
+    r5:{type:"r",cls:"conservative",title:"Profilaxia Mecânica + Deambulação Precoce",
+      txt:"Baixo risco: apenas medidas mecânicas + deambulação ativa precoce.",
+      details:[["CPI","Durante internação"],["Deambulação","Iniciar no 1º dia pós-op se possível"]]}}
+},
+
+naouniao:{
+  region:"geral", num:"RWA Alg.30-1",
+  title:"Tratamento de Não-União",
+  src:"Rockwood Adults 10ª ed. · Cap. 30",
+  icon:"🔧", tags:["s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Evidência de infecção na não-união?",
+      ctx:"CRP, VHS, cintilografia, biópsia óssea ou cultura de partes moles positiva.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Infecção aguda com celulite/fístula ativa?",
+      yes:"r1", no:"r2"},
+    r1:{type:"r",cls:"emergency",title:"Desbridamento + Estabilização com Fixador Externo",
+      txt:"Infecção aguda: remover implante infectado, desbridamento radical, colocação de espaçador de antibiótico + fixação externa. ATB sistêmico 6 semanas. Reconstrução em segundo tempo.",
+      details:[["Fixação","Fixador externo (Ilizarov) — evitar implante definitivo na infecção ativa"],["ATB","Específico pelo antibiograma, IV 4-6 semanas"],["Espaçador","Cimento com vancomicina/gentamicina"],["2º tempo","Reconstrução após negativação de marcadores"]]},
+    r2:{type:"r",cls:"surgical-major",title:"Desbridamento + Fixação Definitiva em Dois Tempos",
+      txt:"Infecção crônica quiescente: desbridamento, cultura intraop, fixação definitiva com antibiótico específico.",
+      details:[["Implante","Haste bloqueada (evitar placa se partes moles comprometidas)"],["ATB","Pós-op 4-6 semanas pelo antibiograma"],["Enxerto","Autoenxerto ilíaco ou osso esponjoso"]]},
+    q3:{type:"q",text:"Não-união hipertrófica (calo volumoso, implante insuficiente)?",
+      ctx:"Causa mecânica: micromoção excessiva. Biologia óssea geralmente preservada.",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"surgical",title:"Estabilização Mecânica Rígida",
+      txt:"Não-união hipertrófica responde apenas à estabilização rígida. Enxerto geralmente não necessário. Trocar por haste de maior diâmetro ou placa de bloqueio.",
+      details:[["Haste","Alargamento + haste de maior diâmetro e/ou troca"],["Placa","Placa de bloqueio angular + compressão"],["Enxerto","Geralmente desnecessário"]]},
+    q4:{type:"q",text:"Não-união atrófica (ausência de calo, osteopenia local)?",
+      ctx:"Causa biológica: vascularização insuficiente ou instabilidade mecânica crônica.",
+      yes:"r4", no:"q5"},
+    r4:{type:"r",cls:"surgical-major",title:"Estabilização + Enxerto Ósseo Autólogo",
+      txt:"Não-união atrófica requer enxerto ósseo autólogo (crista ilíaca) + fixação rígida. Considerar BMP-2 em não-uniões refratárias.",
+      details:[["Fixação","Placa de bloqueio ou haste intramedular"],["Enxerto","Crista ilíaca ipsilateral (padrão-ouro)"],["BMP-2","rhBMP-2 em não-uniões refratárias (off-label)"],["Estimulação","Eletroestimulação óssea como adjuvante"]]},
+    q5:{type:"q",text:"Perda óssea > 4-6 cm (não-união com defeito segmentar)?",
+      yes:"r5", no:"r6"},
+    r5:{type:"r",cls:"surgical-major",title:"Reconstrução com Transporte Ósseo (Ilizarov) ou Enxerto Maciço",
+      txt:"Defeito segmentar grande: transporte ósseo progressivo (1 mm/dia) com fixador de Ilizarov, ou fibula livre vascularizada, ou aloenxerto estrutural.",
+      details:[["Ilizarov","Corticotomia + transporte 1 mm/dia; índice de consolidação 1 mês/cm"],["Fibula livre","Indicada em defeitos ≥ 6 cm em locais com boa cobertura"],["Aloenxerto estrutural","Reconstrução de epífises ou segmentos curtos"]]},
+    r6:{type:"r",cls:"surgical",title:"Revisão da Fixação + Enxerto de Crista Ilíaca",
+      txt:"Não-união oligotrófica: fixação revisada + enxerto autólogo de crista ilíaca. Taxa de consolidação > 85%.",
+      details:[["Enxerto","100-150 mL de osso esponjoso da crista ilíaca"],["Fixação","Placa de bloqueio ou haste bloqueada"],["Seguimento","RX a cada 6 semanas"]]}}
+},
+
+amputacao:{
+  region:"geral", num:"RWA Alg.21-1/21-2",
+  title:"Amputação vs. Reconstrução do Membro",
+  src:"Rockwood Adults 10ª ed. · Cap. 21",
+  icon:"⚖️", tags:["e","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Membro com ameaça vital (lesão vascular irreconstruível, necrose maciça, sepse de foco)?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Amputação de Urgência",
+      txt:"Situação com risco de vida: amputação como medida salvadora. Não há espaço para tentativa de salvamento.",
+      details:[["Nível","O mais distal possível preservando tecido viável"],["Muñón","Proteger para prótese definitiva"],["Tempo","Amputação em < 6h do diagnóstico de lesão vascular irreconstruível"]]},
+    q2:{type:"q",text:"Lesão neurológica: nervo plantar com ausência de sensibilidade plantar (lesão completa do nervo tibial)?",
+      ctx:"Ausência de sensibilidade plantar em adulto = contraindicação relativa ao salvamento. Em criança: regeneração possível.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Paciente adulto sem perspectiva de regeneração neurológica?",
+      yes:"r2", no:"q4"},
+    r2:{type:"r",cls:"surgical-major",title:"Amputação Transtibial — Reconsiderar Salvamento",
+      txt:"Ausência definitiva de sensibilidade plantar em adulto: amputação transtibial com prótese frequentemente resulta em melhor função que membro reconstruído sem sensibilidade.",
+      details:[["Nível ideal","Transtibial (joelho funcional = prótese excelente)"],["Muñón","15 cm abaixo da interlinha tibiofibular"],["Reabilitação","Protocolos de marcha com prótese energética"]]},
+    q4:{type:"q",text:"Lesão óssea com perda segmentar > 6 cm E lesão vascular E lesão nervosa associadas (trifecta)?",
+      ctx:"Score MESS ≥ 7 ou OTA score sugere amputação. Avaliar individualmente.",
+      yes:"q5", no:"q6"},
+    q5:{type:"q",text:"Paciente jovem, motivado, com suporte social e expectativa de função profissional exigente?",
+      yes:"r3", no:"r2"},
+    r3:{type:"r",cls:"surgical-major",title:"Tentativa de Salvamento em Centro Especializado",
+      txt:"Paciente jovem e motivado com lesão grave pode se beneficiar de reconstrução complexa. Requer equipe multidisciplinar (ortopedia, vascular, plástica, reabilitação).",
+      details:[["Vasculatura","Revascularização em < 6h"],["Ósseo","Fixador externo provisório + reconstrução posterior"],["Cobertura","Retalho microvascular (DP fibula livre)"],["Nervo","Reparo primário se possível"]]},
+    q6:{type:"q",text:"Vascularidade preservada, estabilidade esquelética viável, cobertura de partes moles factível?",
+      yes:"r4", no:"r2"},
+    r4:{type:"r",cls:"surgical-major",title:"Salvamento do Membro — Protocolo Sistemático",
+      txt:"Membro salvável: sequência ABCDE — vascular primeiro, depois ósseo, depois partes moles. Desbridamento agressivo. Antibiótico profilático.",
+      details:[["A Vascular","Revascularização prioritária — shunt provisório se necessário"],["B Ósseo","Fixador externo — definitivo em 2º tempo"],["C Cobertura","Retalho cutâneo ou muscular em 5-7 dias"],["D Déficit","Avaliar função nervosa e tendínea"],["E Estabilidade","Conversão para fixação definitiva quando partes moles estáveis"]]}}
+},
+
+frat_estresse:{
+  region:"geral", num:"RWA Alg.24-1",
+  title:"Fratura por Estresse / Insuficiência",
+  src:"Rockwood Adults 10ª ed. · Cap. 24",
+  icon:"🏃", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura em local de alto risco (colo femoral, face anterior da tíbia, 5º metatarso base, navicular, sesamoide)?",
+      ctx:"Locais de alto risco têm baixa capacidade de consolidação espontânea e risco de fratura completa.",
+      yes:"q2", no:"q4"},
+    q2:{type:"q",text:"Já há linha de fratura franca no RX ou RM?",
+      yes:"q3", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Descarga Protegida + Modificação da Atividade",
+      txt:"Sem linha de fratura: repouso relativo, descarga protegida por 6-8 semanas. Eliminar fator causador (treino excessivo, osteoporose, etc.).",
+      details:[["Imobilização","Órtese/bota walker 6-8 semanas"],["Descarga","Muletas, progressão conforme dor"],["Investigação","DXA, vitamina D, hormônios sexuais, nutrição"]]},
+    q3:{type:"q",text:"Linha de fratura em zona de tensão (face superior do colo femoral / cortical anterior da tíbia)?",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical",title:"Fixação Cirúrgica Eletiva — Alto Risco de Fratura Completa",
+      txt:"Zona de tensão: indicação de fixação cirúrgica mesmo antes da fratura completa. Parafusos canulados para colo femoral; placa de bloqueio para tíbia anterior.",
+      details:[["Colo femoral","3 parafusos canulados paralelos — sem carga 6 sem"],["Tíbia anterior","Placa de bloqueio anterolateral ou haste IM"],["5º metatarso","Parafuso intramedular + sem carga 6-8 sem"],["Navicular","RAFI + sem carga 6-8 sem"]]},
+    r3:{type:"r",cls:"conservative",title:"Descarga Zero + Imobilização Rígida",
+      txt:"Zona de compressão (colo femoral inferior): sem carga, imobilização em gesso ou órtese rígida. Cirurgia se não houver consolidação em 6 semanas.",
+      details:[["Descarga","Sem apoio por 6-8 semanas"],["Imobilização","Bota walker ou órtese suropodálica"],["Seguimento","RM em 6 semanas — se sem progressão, cirurgia"]]},
+    q4:{type:"q",text:"Grau III ou IV pela classificação de Kaeding-Miller (linha de fratura visível)?",
+      ctx:"Kaeding: I=dor sem achado de imagem; II=periósteo positivo; III=linha de fratura cortical; IV=fratura completa.",
+      yes:"q5", no:"r4"},
+    r4:{type:"r",cls:"conservative",title:"Repouso + Progressão Gradual da Carga",
+      txt:"Grau I-II: redução de 50% do volume de treino, descarga progressiva. Retorno ao esporte em 6-8 semanas se assintomático.",
+      details:[["Fase 1","Repouso completo + gelo 3-5 dias"],["Fase 2","Atividade cruzada sem impacto (natação, bicicleta)"],["Fase 3","Corrida progressiva após 3-4 semanas sem dor"]]},
+    q5:{type:"q",text:"Fratura completa com desvio?",
+      yes:"r2", no:"r5"},
+    r5:{type:"r",cls:"conservative",title:"Imobilização Rígida + Sem Carga 6-8 Semanas",
+      txt:"Fratura sem desvio em local de baixo risco: gesso ou bota walker sem carga. Reavaliação em 6 semanas.",
+      details:[["Imobilização","Gesso suropodálico ou bota walker"],["Descarga","Sem apoio 6-8 semanas"],["Retorno","Esporte após consolidação radiológica"]]}}
+},
+
+// ═══════════════════════════════════════
+// OMBRO E CLAVÍCULA
+// ═══════════════════════════════════════
+frat_umero_prox:{
+  region:"ombro", num:"RWA Alg.36-1",
+  title:"Fratura do Úmero Proximal",
+  src:"Rockwood Adults 10ª ed. · Cap. 36",
+  icon:"🦴", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente tem contraindicação absoluta à cirurgia (comorbidades graves, demência, sem deambulação)?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Tratamento Conservador",
+      txt:"Imobilização em tipoia por 3-4 semanas, seguida de fisioterapia progressiva. Analgesia adequada.",
+      details:[["Tipoia","3-4 semanas; início de pêndulos em 1-2 semanas"],["Fisioterapia","Mobilização passiva → ativa"],["Controle","RX em 2, 6 e 12 semanas"]]},
+    q2:{type:"q",text:"Segmento articular deslocado para fora da glenóide, impactado ou com clivagem articular?",
+      ctx:"Luxação-fratura, fratura-clivagem da cabeça ou impactação severa (> 50% superfície articular).",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Paciente biologicamente jovem (< 65 anos fisiológicos) E cabeça umeral viável?",
+      ctx:"Critérios de viabilidade da cabeça: presença de medial hinge > 8 mm, ausência de impactação severa.",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical-major",title:"RAFI (Redução Aberta e Fixação Interna)",
+      txt:"Jovem com cabeça viável: placa de ângulo fixo com parafusos de trajetória para preservar vascularização da cabeça. Via deltopeitoral ou deltoid-split.",
+      details:[["Implante","Placa de ângulo fixo proximal do úmero"],["Abordagem","Deltopeitoral (padrão) ou deltoid-split (tubérculo maior)"],["Pontos críticos","Restaurar altura, retroversão e ângulo de inclinação"],["Fisio","Pêndulos imediatos; ativa em 6 semanas"]]},
+    r3:{type:"r",cls:"surgical-major",title:"Artroplastia do Ombro (Hemiartroplastia ou TSAI)",
+      txt:"Idoso ou cabeça inviável: hemiartroplastia anatômica ou artroplastia total de ombro invertida (TSAI) se insuficiência do manguito.",
+      details:[["TSAI","Preferida em > 70 anos com manguito comprometido ou fraturas cominutivas"],["Hemi","Manguito íntegro e reconstrução dos tubérculos viável"],["Tubérculos","Sutura dos tubérculos ao implante é crítica para resultado"]]},
+    q4:{type:"q",text:"Fratura com colo cirúrgico deslocado — perda total de contato entre cabeça e diáfise?",
+      ctx:"Fratura do colo cirúrgico com grosseira instabilidade: risco alto de não-união com tratamento conservador.",
+      yes:"r4", no:"q5"},
+    r4:{type:"r",cls:"surgical",title:"RAFI — Colo Cirúrgico Deslocado",
+      txt:"Fratura do colo cirúrgico com desvio severo: fixação percutânea com fios ou placa de ângulo fixo. Abordagem deltopeitoral.",
+      details:[["Percutâneo","Indicado em fraturas redutíveis por fechado (2 partes simples)"],["Placa","Indicada em fraturas instáveis ou irredutíveis"],["Pós-op","Tipoia 4 semanas; fisio a partir da 2ª semana"]]},
+    q5:{type:"q",text:"Fratura do tubérculo maior com desvio > 5 mm (adulto ativo) ou > 3 mm (atleta)?",
+      yes:"r5", no:"r6"},
+    r5:{type:"r",cls:"surgical",title:"Fixação do Tubérculo Maior",
+      txt:"Parafuso ou ancoragem do tubérculo maior. Desvio residual > 5 mm causa conflito subacromial e fraqueza do manguito.",
+      details:[["Via","Artroscópica (desvio < 1 cm) ou aberta (> 1 cm)"],["Implante","Parafuso esponjoso 6.5 mm ou ancoragem com fio"],["Pós-op","Tipoia 4-6 semanas; ativo-assistida após 6 sem"]]},
+    r6:{type:"r",cls:"conservative",title:"Tratamento Conservador — Fratura Não Deslocada ou Minimamente Deslocada",
+      txt:"Fraturas não deslocadas ou minimamente deslocadas: tipoia 3-4 semanas + fisioterapia progressiva. Taxa de consolidação > 90%.",
+      details:[["Tipoia","3-4 semanas; pêndulos imediatos"],["Critério de desvio","< 1 cm de translação e < 45° de angulação"],["Fisio","Ativa-assistida após 3 sem; resistida após 6 sem"]]}}
+},
+
+instab_ant_prim:{
+  region:"ombro", num:"RWA Alg.35-1",
+  title:"Instabilidade Glenoumeral Anterior — Primeira Luxação",
+  src:"Rockwood Adults 10ª ed. · Cap. 35",
+  icon:"🔄", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente < 14 anos?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Fisioterapia e Fortalecimento",
+      txt:"< 14 anos: reabilitação com foco em musculatura periescapular e do manguito rotador. Risco de recidiva alto, mas cirurgia raramente indicada na primeira luxação nesta faixa.",
+      details:[["Imobilização","Tipoia 2-3 semanas"],["Fisio","Fortalecimento rotadores externos e deltóide"],["Seguimento","RM após 4-6 semanas se persistência dos sintomas"]]},
+    q2:{type:"q",text:"Paciente entre 14-30 anos, atleta de contato ou alta demanda funcional?",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"RM (de preferência artro-RM) revela lesão de Bankart?",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical",title:"Reparo de Bankart Artroscópico",
+      txt:"Bankart confirmado em jovem atleta de contato: reparo artroscópico indicado após a primeira luxação para prevenir lesões recorrentes.",
+      details:[["Técnica","Bankart artroscópico com 3-4 âncoras"],["Retorno","Esporte de contato em 6 meses"],["Contraindicação","Perda óssea glenoidal > 13,5% → Latarjet"]]},
+    r3:{type:"r",cls:"conservative",title:"Reabilitação — Sem Lesão de Bankart",
+      txt:"Sem lesão de Bankart na artro-RM: tentativa de reabilitação conservadora. Cirurgia apenas em caso de recidiva.",
+      details:[["Imobilização","Tipoia 3 semanas (rotação interna ou neutra)"],["Fisio","Fortalecimento manguito + deltóide 12 semanas"],["Seguimento","Reavaliar em 3 meses"]]},
+    q4:{type:"q",text:"Paciente > 30 anos ou baixa demanda funcional?",
+      yes:"r4", no:"r4"},
+    r4:{type:"r",cls:"conservative",title:"Reabilitação Conservadora",
+      txt:"Maior de 30 anos ou baixa demanda: fisioterapia como primeira opção. Cirurgia se recidiva sintomática.",
+      details:[["Imobilização","Tipoia 2-3 semanas"],["Fisio","3 meses de reabilitação supervisionada"],["Cirurgia","Indicada na recidiva com instabilidade funcional"]]}}
+},
+
+instab_ant_rec:{
+  region:"ombro", num:"RWA Alg.35-2",
+  title:"Instabilidade Glenoumeral Anterior — Recorrente",
+  src:"Rockwood Adults 10ª ed. · Cap. 35",
+  icon:"🔄", tags:["s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"TC-3D com perda óssea glenoidal > 17,3%?",
+      ctx:"Limiar crítico de perda óssea. Valores de 13,5–17,3% são zona cinzenta — avaliar contexto clínico.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"surgical-major",title:"Procedimento de Latarjet (Aberto)",
+      txt:"Perda óssea > 17,3%: transferência da apófise coracoide (Latarjet) com duplo efeito — ósseo (restaura borda) + dinâmico (tendão conjunto).",
+      details:[["Técnica","Coracoide + parafusos 2 × 3,5 mm; tendão conjunto anterior à cápsula"],["Perda > 30%","Enxerto de crista ilíaca autólogo ou aloenxerto de tíbia distal"],["Latarjet falho","Aloenxerto estrutural como resgate"],["Retorno","Esporte de contato em 6 meses"]]},
+    q2:{type:"q",text:"Hill-Sachs engajante (off-track) — lesão na zona fora de cobertura glenoidal?",
+      ctx:"Hill-Sachs off-track: a lesão da cabeça umeral engaja na borda glenoidal durante a amplitude funcional.",
+      yes:"q3", no:"r3"},
+    q3:{type:"q",text:"Perda óssea glenoidal 13,5-17,3% (zona cinzenta)?",
+      yes:"r2", no:"r4"},
+    r2:{type:"r",cls:"surgical-major",title:"Latarjet ou Bankart + Remplissage",
+      txt:"Zona cinzenta com Hill-Sachs off-track: decisão compartilhada. Latarjet aberto ou Bankart artroscópico + remplissage (preenchimento do Hill-Sachs com cápsula/infraespinhoso).",
+      details:[["Latarjet","Preferido em atletas de contato"],["Remplissage","Artroscópico; converte off-track em on-track"],["Retorno","5-6 meses"]]},
+    r3:{type:"r",cls:"surgical",title:"Reparo de Bankart Artroscópico",
+      txt:"Sem perda óssea significativa e Hill-Sachs on-track: reparo de Bankart artroscópico com âncoras. Padrão-ouro para instabilidade sem lesão óssea relevante.",
+      details:[["Âncoras","3-4 âncoras bioabsorvíveis ou de titânio"],["Capsuloplastia","Capsuloplastia plicadora inferior associada"],["Retorno","Esporte de contato em 6 meses"]]},
+    r4:{type:"r",cls:"surgical",title:"Bankart + Remplissage Artroscópico",
+      txt:"Hill-Sachs off-track sem perda óssea significativa: Bankart + remplissage converte a lesão em on-track, prevenindo o engajamento.",
+      details:[["Remplissage","Sutura do infraespinhoso e cápsula no Hill-Sachs"],["Bankart","Reparo simultâneo com âncoras"],["Retorno","5-6 meses"]]}}
+},
+
+frat_clavicula:{
+  region:"ombro", num:"RWA Alg.34-1",
+  title:"Fratura da Clavícula — Diáfise",
+  src:"Rockwood Adults 10ª ed. · Cap. 34",
+  icon:"🦴", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura exposta, lesão vascular associada ou déficit neurológico do plexo?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Cirurgia de Urgência",
+      txt:"Indicação cirúrgica de urgência. Fratura exposta: desbridamento + fixação. Lesão vascular: reparo em < 6h.",
+      details:[["Fixação urgente","Placa ou haste intramedular"],["Vascular","Cirurgia vascular em paralelo"],["Neurológico","Avaliação eletroneuromiográfica após estabilização"]]},
+    q2:{type:"q",text:"Fratura deslocada (> 1 diâmetro da diáfise, > 1,5-2 cm de encurtamento ou rotação com alação da escápula)?",
+      yes:"q3", no:"r2"},
+    r2:{type:"r",cls:"conservative",title:"Tipoia + Reabilitação",
+      txt:"Fratura não deslocada ou minimamente deslocada: tipoia confortável por 4-6 semanas. Pendulares precoces.",
+      details:[["Tipoia","4-6 semanas"],["Pêndulos","Iniciar em 1-2 semanas"],["RX controle","2, 6 e 12 semanas"],["Retorno","Esporte leve em 8-12 semanas"]]},
+    q3:{type:"q",text:"Paciente até 60 anos, ativo e sem contraindicação cirúrgica?",
+      ctx:"Estudos de nível I mostram benefício da fixação em fraturas deslocadas com > 2 cm de encurtamento.",
+      yes:"q4", no:"r3"},
+    r3:{type:"r",cls:"conservative",title:"Tratamento Conservador com Acompanhamento Rigoroso",
+      txt:"Paciente idoso, sedentário ou com comorbidades: conservador com tipoia 6 semanas. Risco de não-união aceitável nesta população.",
+      details:[["Tipoia","6 semanas"],["RX","Controle a cada 3 semanas"],["Não-união","Risco de 10-15% em fraturas deslocadas"]]},
+    q4:{type:"q",text:"Paciente e cirurgião de acordo com fixação cirúrgica após decisão compartilhada?",
+      ctx:"Literatura atual apoia fixação em deslocadas com encurtamento > 2 cm ou em atletas. Decisão deve ser compartilhada.",
+      yes:"r4", no:"r3"},
+    r4:{type:"r",cls:"surgical",title:"Fixação Cirúrgica — Placa ou Haste Intramedular",
+      txt:"Fixação cirúrgica reduz risco de não-união e malunião sintomática em fraturas deslocadas. Placa de compressão ou haste intramedular flexível.",
+      details:[["Placa","Placa de compressão côncava 3,5 mm ou placa anatômica clavicular"],["Haste IM","Titanium Elastic Nail (TEN) ou Rockwood Pin — menos invasiva"],["Pós-op","Tipoia 2-3 semanas; fisio imediata"],["Retorno","Esporte sem contato em 8 semanas; contato em 12 semanas"]]}}
+},
+
+lesao_ac:{
+  region:"ombro", num:"RWA Alg.32-1",
+  title:"Lesão da Articulação Acromioclavicular",
+  src:"Rockwood Adults 10ª ed. · Cap. 32",
+  icon:"🔗", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Classificação de Rockwood: qual o grau da lesão?",
+      ctx:"Grau I: entorse; II: subluxação (ligamento AC roto, CC íntegro); III: dislocação (CC > 25%); IV: posterior; V: CC > 100%; VI: inferior.",
+      yes:null, no:null,
+      type:"multi", options:[
+        {label:"Grau I ou II", desc:"Dor leve/moderada, sem desvio ou subluxação", next:"r1"},
+        {label:"Grau III", desc:"Dislocação com CC entre 25-100%", next:"q2"},
+        {label:"Grau IV, V ou VI", desc:"Luxação posterior, severa ou inferior", next:"r3"}
+      ]},
+    r1:{type:"r",cls:"conservative",title:"Grau I e II — Tratamento Conservador",
+      txt:"Tipoia 1-2 semanas, analgesia, fisioterapia para ADM e fortalecimento. Retorno ao esporte em 6-12 semanas.",
+      details:[["Tipoia","1 semana (Grau I), 2-3 semanas (Grau II)"],["Fisio","Fortalecimento deltóide e manguito em 2 semanas"],["Retorno","Esporte sem contato: 6 semanas"],["Prognóstico","Excelente"]]},
+    q2:{type:"q",text:"Grau III — Atleta de alta performance ou trabalho pesado manual?",
+      ctx:"Grau III: controvérsia. A maioria dos pacientes evolui bem com tratamento conservador.",
+      yes:"q3", no:"r2"},
+    r2:{type:"r",cls:"conservative",title:"Grau III — Conservador como 1ª Opção",
+      txt:"Grau III em paciente não atleta de elite: tratamento conservador com tipoia 3-4 semanas. Cirurgia apenas se falha funcional após 3 meses.",
+      details:[["Tipoia","3-4 semanas; início precoce do ADM"],["Fisio","4-6 semanas supervisionada"],["Cirurgia","Se dor persistente > 3 meses com limitação funcional"]]},
+    q3:{type:"q",text:"Atleta de arremesso/overhead ou trabalhador manual pesado com grau III?",
+      yes:"r3", no:"r2"},
+    r3:{type:"r",cls:"surgical-major",title:"Reconstrução Ligamentar Coracoclavicular",
+      txt:"Graus IV, V, VI e III selecionados: reconstrução dos ligamentos CC com enxerto de tendão (gracilis ou aloenxerto) e fixação provisória com botão cortical.",
+      details:[["Técnica","Cerclagem com botão cortical + enxerto de gracilis"],["Abordagem","Artroscópica (Grau III-IV) ou aberta (V-VI)"],["Pós-op","Tipoia 4-6 semanas; esporte em 4-6 meses"],["Grau VI","Redução aberta urgente (nervo e vaso comprometidos)"]]}}
+},
+
+frat_escapula:{
+  region:"ombro", num:"RWA Alg.33-1",
+  title:"Fratura da Escápula",
+  src:"Rockwood Adults 10ª ed. · Cap. 33",
+  icon:"🦴", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura envolve o colo ou a cavidade glenoidal?",
+      yes:"q2", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Fraturas do Corpo da Escápula — Conservador",
+      txt:"Fraturas do corpo e espinha da escápula raramente necessitam de cirurgia. Tipoia confortável + reabilitação precoce.",
+      details:[["Tipoia","2-4 semanas"],["Fisio","Pendulares imediatos; ativo-assistida em 2 semanas"],["RX controle","6 semanas"]]},
+    q2:{type:"q",text:"Fratura do colo da escápula com angulação glenoidal (GPA) > 20° ou translação > 10 mm?",
+      ctx:"GPA normal: 5-10°. Desvio significativo pode resultar em disfunção do ombro a longo prazo.",
+      yes:"q3", no:"r1"},
+    q3:{type:"q",text:"Associação com fratura ipsilateral da clavícula (ombro flutuante)?",
+      ctx:"Ombro flutuante = colo da escápula + clavícula: instabilidade do complexo suspensor superior do ombro.",
+      yes:"r2", no:"q4"},
+    r2:{type:"r",cls:"surgical",title:"Ombro Flutuante — Fixação da Clavícula como Mínimo",
+      txt:"Ombro flutuante: fixar a clavícula restaura a estabilidade do complexo suspensor. Escápula raramente necessita de fixação adicional.",
+      details:[["Clavícula","Placa de compressão clavicular — estabiliza o sistema"],["Escápula","Adicionar fixação se GPA > 20° residual após fixar a clavícula"],["Pós-op","Tipoia 4 semanas; fisio precoce"]]},
+    q4:{type:"q",text:"Fratura articular glenoidal com desvio > 4 mm E estabilidade glenoumeral comprometida?",
+      yes:"r3", no:"r1"},
+    r3:{type:"r",cls:"surgical",title:"RAFI da Cavidade Glenoidal",
+      txt:"Desvio articular glenoidal > 4 mm com instabilidade: redução aberta e fixação com parafusos esponjosos. Via posterior de Judet.",
+      details:[["Via","Posterior de Judet ou superior"],["Implante","Parafusos esponjosos + placa de reconstrução"],["Pós-op","Tipoia 4 semanas; fisio em 1-2 semanas"]]}}
+},
+
+// ═══════════════════════════════════════
+// COTOVELO
+// ═══════════════════════════════════════
+frat_umero_distal:{
+  region:"cotovelo", num:"RWA Alg.39-1",
+  title:"Fratura do Úmero Distal",
+  src:"Rockwood Adults 10ª ed. · Cap. 39",
+  icon:"💪", tags:["s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente com articulação do cotovelo previamente artrótica ou idade > 65 anos com fratura cominutiva?",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Fratura intra-articular irreconstruível (cominuição severa)?",
+      yes:"r1", no:"q3"},
+    r1:{type:"r",cls:"surgical-major",title:"Artroplastia Total do Cotovelo (ATC)",
+      txt:"Fratura irreconstruível em paciente idoso com artrose pré-existente: ATC tipo Coonrad-Morrey. Excelente resultado funcional.",
+      details:[["Indicação","Cominuição irreconstruível + > 65 anos"],["Prótese","Semi-constrangiada (Coonrad-Morrey)"],["Restrição","Levantamento máximo 1 kg (permanente)"],["Retorno","Função cotidiana em 6-8 semanas"]]},
+    q3:{type:"q",text:"Fratura extraarticular ou de coluna única sem cominuição severa?",
+      yes:"r2", no:"q4"},
+    r2:{type:"r",cls:"surgical",title:"RAFI — Placa Única Lateral ou Medial",
+      txt:"Fratura simples de coluna única: fixação com placa de reconstrução 3,5 mm ou placa pré-moldada. Abordagem lateral ou medial dependendo da fratura.",
+      details:[["Placa lateral","Via Kocher ou extensor-splitting"],["Placa medial","Atenção ao nervo ulnar — transposição se necessário"],["Pós-op","Mobilização imediata em 24-48h (dynamic splint)"]]},
+    q4:{type:"q",text:"Fratura bicolular ou transcolunar com desvio?",
+      ctx:"Padrão mais comum em adultos. Requer fixação estável para permitir mobilização precoce.",
+      yes:"r3", no:"r4"},
+    r3:{type:"r",cls:"surgical-major",title:"RAFI — Dupla Placa Perpendicular (Padrão-ouro)",
+      txt:"Duas placas em 90° (medial e posterior lateral): maior rigidez. Acesso por olécrano-osteotomia ou via paratricipital (Bryan-Morrey).",
+      details:[["Placas","2 placas pré-moldadas em 90°; 2 placas paralelas são alternativa"],["Nervo ulnar","Identificar e proteger; transposição se indicado"],["Osteotomia","De olécrano em 'V' invertido + fixação com TBW ou parafuso"],["Pós-op","Mobilização imediata — objetivo: ADM 30-130°"]]},
+    r4:{type:"r",cls:"conservative",title:"Tratamento Conservador (Casos Selecionados)",
+      txt:"Fraturas não deslocadas ou pacientes sem condições cirúrgicas: imobilização com tala posterior a 90°, 2-3 semanas, seguida de mobilização.",
+      details:[["Tala","Posterior a 90°, 2-3 semanas"],["Mobilização","Precoce após 2-3 semanas para evitar rigidez"],["Risco","Rigidez e perda de ADM — informar paciente"]]}}
+},
+
+luxacao_cotovelo:{
+  region:"cotovelo", num:"RWA Alg.40-1",
+  title:"Luxação Simples do Cotovelo",
+  src:"Rockwood Adults 10ª ed. · Cap. 40",
+  icon:"🔩", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Lesão neurovascular associada (pulso radial ausente, déficit de nervo ulnar/mediano)?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Redução Imediata + Avaliação Vascular",
+      txt:"Lesão neurovascular é emergência. Redução imediata sob sedação. Avaliar perfusão após redução. Cirurgia vascular se artéria braquial lesada.",
+      details:[["Redução","Imediata sob sedação / anestesia"],["Vascular","Arteriografia se pulso não retornar após redução"],["Reparo","Cirurgia vascular em < 6h"]]},
+    q2:{type:"q",text:"Redução concêntrica obtida de forma fechada?",
+      yes:"q3", no:"r2"},
+    r2:{type:"r",cls:"surgical",title:"Redução Aberta — Obstrução por Fragmento Interposicionado",
+      txt:"Irredutível por fechado: redução aberta via lateral ou medial para remover fragmento ósseo ou tecido mole interposicionado.",
+      details:[["Causa","Fragmento osteocondral, tendão bíceps ou epicôndilo medial"],["Via","Lateral (capítuloradial) ou medial"],["Fixação","Retirada do fragmento + reparo ligamentar se instável"]]},
+    q3:{type:"q",text:"Após redução, cotovelo estável ao exame (varo/valgo em plena amplitude)?",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"conservative",title:"Mobilização Precoce — Sem Necessidade de Reparo Ligamentar",
+      txt:"Luxação simples estável após redução: imobilização em 90° por 5-7 dias apenas para controle da dor, seguida de mobilização ativa imediata.",
+      details:[["Imobilização","Tala posterior a 90° por 5-7 dias"],["Mobilização","Ativa imediata assim que tolerada"],["Tipoia","Apenas para conforto fora do exercício"],["Retorno","Atividade leve: 3 semanas; esporte: 6-8 semanas"]]},
+    q4:{type:"q",text:"Instabilidade em valgo (LCM insuficiente) em arremessador ou atleta overhead?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical",title:"Reparo do LCM (Ligamento Colateral Medial)",
+      txt:"Atleta de arremesso com instabilidade em valgo persistente: reparo primário ou reconstrução com enxerto de palmar longo (Tommy John).",
+      details:[["Agudo","Reparo primário + ancoragem"],["Crônico","Reconstrução com enxerto (palmar longo)"],["Retorno","Arremesso em 12 meses"]]},
+    r5:{type:"r",cls:"conservative",title:"Imobilização Breve + Programa de Mobilização",
+      txt:"Instabilidade leve-moderada sem indicação de reparo: órtese articulada por 4 semanas com limitação de extensão, seguida de reabilitação.",
+      details:[["Órtese","Articulada, limitando extensão a 30° — 4 semanas"],["Fisio","Fortalecimento em pronossupinação e flexão-extensão"],["Reavaliação","Em 6 semanas"]]}}
+},
+
+frat_cabeca_radio:{
+  region:"cotovelo", num:"RWA Alg.40-2",
+  title:"Fratura da Cabeça do Rádio",
+  src:"Rockwood Adults 10ª ed. · Cap. 40",
+  icon:"🔩", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura Mason Tipo I (não deslocada, < 2 mm)?",
+      ctx:"Mason I: sem desvio ou mínimo desvio. Sem bloqueio mecânico à pronossupinação.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Mason I — Conservador",
+      txt:"Aspiração do hemartrose se dor intensa, tipoia ou bandagem elástica 5-7 dias, mobilização precoce. Excelente prognóstico.",
+      details:[["Aspiração","Hemartrose: aspirar + injetar 1 mL de bupivacaína 0,5%"],["Imobilização","Tipoia 5-7 dias"],["Mobilização","Ativa imediata após aspiração"],["RX","Controle em 2 e 6 semanas"]]},
+    q2:{type:"q",text:"Fratura Mason Tipo II — deslocada mas reconstituível (< 3 fragmentos, desvio 2-5 mm)?",
+      ctx:"Avaliar bloqueio mecânico e estabilidade em varo/valgo.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Bloqueio mecânico à pronossupinação presente?",
+      yes:"r2", no:"r3"},
+    r3:{type:"r",cls:"conservative",title:"Mason II sem Bloqueio — Conservador ou RAFI Seletiva",
+      txt:"Mason II sem bloqueio: considerar conservador em pacientes de baixa demanda. RAFI com parafusos mini-fragmento em atletas.",
+      details:[["Conservador","Tipoia 7-10 dias + mobilização precoce"],["RAFI","2-3 parafusos mini-fragmento (2 mm) via Kocher"],["Controle","RX em 2, 6, 12 semanas"]]},
+    r2:{type:"r",cls:"surgical",title:"RAFI da Cabeça do Rádio — Mason II com Bloqueio",
+      txt:"Bloqueio mecânico ou instabilidade: redução aberta e fixação com mini-parafusos (1,5-2 mm). Abordagem de Kocher.",
+      details:[["Abordagem","Kocher (entre extensor carpi ulnaris e anconeus)"],["Parafusos","1,5-2 mm; enterrar a cabeça para evitar impingement"],["Pós-op","Mobilização em 24-48h"]]},
+    q4:{type:"q",text:"Fratura Mason Tipo III ou IV (cominutiva ou associada a luxação) — cabeça reconstituível?",
+      ctx:"Avaliar se há tecido ósseo suficiente para reconstrução ou se é necessária artroplastia.",
+      yes:"r2", no:"q5"},
+    q5:{type:"q",text:"Lesão associada do ligamento interósseo (Essex-Lopresti) ou instabilidade em valgo?",
+      ctx:"Essex-Lopresti: ruptura do ligamento interósseo + DRUJ. Cabeça do rádio é estabilizador essencial — não excisionar.",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical-major",title:"Artroplastia da Cabeça do Rádio (Essex-Lopresti)",
+      txt:"Cabeça irreconstruível com instabilidade axial (Essex-Lopresti): artroplastia metálica da cabeça do rádio. Nunca excisionar isoladamente.",
+      details:[["Prótese","Metálica modular (Sistema EVOLVE ou similar)"],["DRUJ","Reparar ou estabilizar a DRUJ em mesmo tempo"],["Pós-op","Mobilização precoce; sem pronossupinação forçada 6 semanas"]]},
+    r5:{type:"r",cls:"surgical",title:"Artroplastia da Cabeça do Rádio (Tipo III Isolado)",
+      txt:"Mason III irreconstruível sem Essex-Lopresti: artroplastia metálica ou excisão tardia se baixa demanda.",
+      details:[["Prótese","Artroplastia metálica preferida em ativos"],["Excisão","Somente em pacientes de baixíssima demanda e sem instabilidade"],["Pós-op","Mobilização em 24-48h"]]}}
+},
+
+terrible_triad:{
+  region:"cotovelo", num:"RWA Alg.40-3",
+  title:"Terrible Triad — Luxação + Coronóide + Cabeça do Rádio",
+  src:"Rockwood Adults 10ª ed. · Cap. 40",
+  icon:"⚠️", tags:["sm","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Diagnóstico confirmado: luxação do cotovelo + fratura do processo coronóide + fratura da cabeça do rádio?",
+      yes:"q2", no:"r_wrong"},
+    r_wrong:{type:"r",cls:"conservative",title:"Rever Diagnóstico",
+      txt:"Verificar diagnóstico. Terrible Triad requer os 3 componentes. Se apenas luxação + cabeça do rádio: seguir algoritmo da luxação simples.",
+      details:[["RX","Incidências AP, Lateral e Radiocapitelar"],["TC","Obrigatória para planejamento pré-op"]]},
+    q2:{type:"q",text:"Fratura do coronóide (Regan-Morrey): Tipo I (ponta) ou Tipo II/III (substancial)?",
+      ctx:"Tipo I (< 50%): fixação com sutura transóssea. Tipo II-III (> 50%): fixação com parafuso.",
+      yes:null, no:null,
+      type:"multi", options:[
+        {label:"Tipo I — Ponta", desc:"< 2 mm, apenas ponta do processo", next:"r1"},
+        {label:"Tipo II ou III", desc:"≥ 50% do processo ou fragmento maior", next:"r2"}
+      ]},
+    r1:{type:"r",cls:"surgical-major",title:"Protocolo Terrible Triad — Coronóide Tipo I",
+      txt:"Sequência cirúrgica: 1. Coronóide (sutura transóssea); 2. Cabeça do rádio (RAFI ou artroplastia); 3. LCL (reparo); 4. Testar estabilidade — LCM apenas se persistir instabilidade.",
+      details:[["Coronóide Tipo I","Sutura transóssea com fio de alta resistência"],["Cabeça do Rádio","RAFI se reconstituível; artroplastia se cominutiva"],["LCL","Reparo com âncora no epicôndilo lateral"],["LCM","Apenas se instabilidade persistir após LCL"],["Pós-op","Órtese articulada; mobilização imediata"]]},
+    r2:{type:"r",cls:"surgical-major",title:"Protocolo Terrible Triad — Coronóide Tipo II/III",
+      txt:"Coronóide substancial requer fixação rígida. Sequência: 1. Coronóide (parafuso); 2. Cabeça do rádio; 3. LCL; 4. Verificar estabilidade.",
+      details:[["Coronóide II/III","Parafuso de esponjosa 2,5-3,5 mm; ou placa coronoidal"],["Via de acesso","Lateral (Kocher) ± medial se necessário para coronóide"],["Cabeça do Rádio","RAFI ou artroplastia metálica"],["LCL","Reparo com âncora"],["Estabilidade","Testar sob fluoroscopia: 0-130° sem subluxação"]]}}
+},
+
+frat_olecrano:{
+  region:"cotovelo", num:"RWA Alg.41-2",
+  title:"Fratura do Olécrano",
+  src:"Rockwood Adults 10ª ed. · Cap. 41",
+  icon:"🔩", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura não deslocada (< 2 mm) com mecanismo extensor íntegro?",
+      ctx:"Testar extensão ativa contra gravidade. Se íntegro: conservador.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Conservador — Imobilização em 60-90°",
+      txt:"Fratura não deslocada com mecanismo extensor íntegro: imobilização em 60-90° de flexão por 3 semanas.",
+      details:[["Tala","Posterior a 60-90° por 2-3 semanas"],["Mobilização","Progressiva após 3 semanas"],["RX","Controle semanal nas primeiras 3 semanas — risco de desvio"]]},
+    q2:{type:"q",text:"Fratura transversa simples ou oblíqua simples (2 fragmentos), traço no terço médio?",
+      ctx:"Padrão ideal para tensão-banda (TBW — tension band wiring).",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"surgical",title:"Tensão-Banda (TBW) — Padrão Clássico",
+      txt:"Fratura transversa de 2 fragmentos: fixação com 2 fios de Kirschner + cerclagem em tensão-banda. Converte forças de distração em compressão.",
+      details:[["TBW","2 fios K 1,8 mm + fio de aço calibre 18 em figura-de-8"],["Pós-op","Mobilização imediata em 24-48h"],["Remoção do implante","50-60% dos casos necessitam por irritação local"]]},
+    q3:{type:"q",text:"Fratura cominutiva ou oblíqua longa > 50% do processo?",
+      ctx:"TBW inadequada em cominuição: risco de colapso. Placa é superior.",
+      yes:"r3", no:"r3"},
+    r3:{type:"r",cls:"surgical",title:"Placa de Bloqueio do Olécrano",
+      txt:"Fraturas cominutivas, oblíquas longas ou do terço proximal: placa de bloqueio 3,5 mm contornada sobre a ponta do olécrano.",
+      details:[["Placa","Placa de bloqueio posterior 3,5 mm pré-moldada"],["Parafuso proximal","No eixo do olécrano — compressão interfragmentar"],["Ulnar nerve","Identificar e proteger"],["Pós-op","Mobilização imediata; carga leve em 2 semanas"]]}}
+},
+
+frat_antebraco:{
+  region:"cotovelo", num:"RWA Alg.42-1",
+  title:"Fratura Diafisária do Rádio e Ulna",
+  src:"Rockwood Adults 10ª ed. · Cap. 42",
+  icon:"🦴", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente é criança (esqueleto imaturo)?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"Pediatria — Redução Incruenta e Gesso",
+      txt:"Criança: aceitar mais angulação dependendo da idade e localização. Redução incruenta + gesso antebraquial supinado (rádio) ou pronado (ulna).",
+      details:[["Aceitável < 10 anos","< 15° de angulação e 50% de contato"],["Gesso","Acima do cotovelo 6 semanas"],["TENS","Hastes elásticas em fraturas irredutíveis"]]},
+    q2:{type:"q",text:"Fratura isolada de ulna (nightstick fracture) não deslocada (< 50% diâmetro, < 10° angulação)?",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"conservative",title:"Fratura Isolada de Ulna — Conservador",
+      txt:"Nightstick fracture não deslocada: órtese funcional (tipo Sarmiento) em pronossupinação neutra. Retorno em 6-8 semanas.",
+      details:[["Órtese","Sarmiento de antebraço 6-8 semanas"],["Atividade","Parcial imediata conforme dor"],["Controle","RX em 2, 6, 12 semanas"]]},
+    q3:{type:"q",text:"Fratura das duas ossos ou com desvio significativo no adulto?",
+      ctx:"Adulto com fratura de ambos os ossos: indicação cirúrgica quase universal. Gesso tem alta taxa de malunião sintomática.",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"surgical",title:"RAFI — Dupla Placa DCP 3,5 mm",
+      txt:"Padrão-ouro para fraturas diafisárias do antebraço no adulto: placa de compressão 3,5 mm em cada osso, via separada.",
+      details:[["Rádio","Via de Henry (volar) ou Thompson (dorsal) dependendo do nível"],["Ulna","Via subcutânea direta"],["Implante","Placa DCP ou LC-DCP 3,5 mm, 6-8 furos"],["Pronossupinação","Testar no final para garantir restauração da rotação"],["Pós-op","Sem imobilização após fixação estável; fisio imediata"]]},
+    q4:{type:"q",text:"Lesão de Galeazzi (fratura do rádio distal + disrupção da DRUJ)?",
+      ctx:"'Fractura da necessidade' — sempre cirúrgica no adulto.",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical",title:"Galeazzi — Fixação do Rádio + Avaliação da DRUJ",
+      txt:"Fixar o rádio primeiro. Testar DRUJ após fixação. Se instável: reparar ligamento triangular fibrocartilaginoso (TFCC) e imobilizar em supinação 4-6 semanas.",
+      details:[["Rádio","Placa DCP 3,5 mm via Henry"],["DRUJ","Testar em pronossupinação após fixação do rádio"],["Se instável","DRUJ: parafuso transfixante ou fio K por 4-6 semanas em supinação"],["Gesso","Supinação 4-6 semanas se DRUJ instável"]]},
+    r5:{type:"r",cls:"surgical",title:"Monteggia — Fixação da Ulna + Redução da Cabeça",
+      txt:"Lesão de Monteggia: fixar ulna primeiro — a cabeça do rádio frequentemente reduz de forma espontânea após restauração do comprimento.",
+      details:[["Ulna","Placa DCP 3,5 mm — restaurar comprimento e alinhamento"],["Cabeça do Rádio","Confirmar redução fluoroscópica após ulna"],["Irredutível","Redução aberta da cabeça por via de Kocher"],["Reparar","Ligamento anular se necessário"]]}}
+},
+
+// ═══════════════════════════════════════
+// PUNHO E MÃO
+// ═══════════════════════════════════════
+frat_radio_distal:{
+  region:"punho", num:"RWA Alg.43-1",
+  title:"Fratura do Rádio Distal",
+  src:"Rockwood Adults 10ª ed. · Cap. 43",
+  icon:"✋", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura não deslocada ou em idoso com baixa demanda?",
+      ctx:"Critérios de estabilidade: varização < 5°, inclinação dorsal < 10°, comprimento ulnar ± 2 mm, sem comprometimento articular.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Critérios radiológicos aceitáveis (inclinação radial ≥ 15°, inclinação volar 0-20°, comprimento radial adequado)?",
+      yes:"r1", no:"q3"},
+    r1:{type:"r",cls:"conservative",title:"Gesso Antebraquial — 6 Semanas",
+      txt:"Fratura estável ou aceitável: gesso circular ou tala antebraquial incluindo o polegar em fratura cominutiva. RX controle em 1, 2, 3 e 6 semanas.",
+      details:[["Gesso","Antebraquial (3 semanas supra-cotovelo se instável)"],["Posição","Pronossupinação neutra; pulso em leve flexão palmar e desvio ulnar"],["RX","Semanal nas primeiras 3 semanas — detectar perda de redução"],["Reabilitação","Fisio após remoção do gesso"]]},
+    q3:{type:"q",text:"Fratura instável ou irredutível: inclinação dorsal > 20°, comprimento ulnar perdido > 3 mm, intraarticular deslocada > 2 mm?",
+      yes:"q4", no:"q4"},
+    q4:{type:"q",text:"Fratura articular com extensão para a face volar (fratura de Barton volar ou instabilidade articular)?",
+      ctx:"Fratura volar de cisalhamento: fixação volar prioritária.",
+      yes:"r3", no:"q5"},
+    r3:{type:"r",cls:"surgical",title:"Placa Volar de Ângulo Fixo (Placa de Bloqueio Volar)",
+      txt:"Padrão-ouro para fraturas articulares e instáveis: placa de ângulo fixo pela via de Henry modificada (FCR). Proporciona suporte a toda a cortical articular.",
+      details:[["Via","Henry (FCR) — entre FCR e artéria radial"],["Placa","Volar de ângulo fixo com parafusos de bloqueio subcondrais"],["Posição dos parafusos","1-2 mm abaixo da superfície articular"],["Pós-op","Mobilização ativa do punho em 2-3 semanas"],["Artroscopia","Associar se suspeita de TFCC ou cárpica"]]},
+    q5:{type:"q",text:"Fratura dorsal de cisalhamento com cominuição articular severa?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical",title:"Placa Dorsal de Bloqueio",
+      txt:"Fratura de Barton dorsal ou cominuição articular dorsal: abordagem dorsal com placa de bloqueio; elevação de fragmentos impactados + enxerto.",
+      details:[["Via","Dorsal entre os compartimentos extensores 3 e 4"],["Placa","Dorsal de bloqueio (atenção ao EPL — transpor)"],["Enxerto","Cimento de fosfato de cálcio em fragmentos impactados"],["Pós-op","Mobilização após 2-3 semanas"]]},
+    r5:{type:"r",cls:"surgical",title:"Redução Incruenta + Fios de Kirschner ou Fixador Externo",
+      txt:"Fraturas simples instáveis, osso de boa qualidade: redução incruenta + 2-3 fios K percutâneos (técnica de Kapandji). Fixador externo para fraturas cominutivas sem osso adequado.",
+      details:[["Fios K","2 radiais + 1 ulnar (Kapandji); gesso adicional 4-6 semanas"],["Fixador externo","Ponte entre 2º metacárpico e rádio; 6-8 semanas"],["Desvantagem","Rigidez do punho e dedos mais frequente"]]}}
+},
+
+frat_escafoide:{
+  region:"punho", num:"RWA Alg.44-1",
+  title:"Fratura do Escafoide",
+  src:"Rockwood Adults 10ª ed. · Cap. 44",
+  icon:"✋", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura do escafoide confirmada (RX e/ou RM)?",
+      ctx:"Suspeita clínica + RX normal → RM precoce ou repetir RX em 10-14 dias. 20% das fraturas invisíveis no RX inicial.",
+      yes:"q2", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Suspeita de Fratura — Imobilização Provisória",
+      txt:"RX normal mas dor na tabaqueira anatômica: gesso com polegar + RM em 3-5 dias. Se RM normal: afastar fratura.",
+      details:[["Gesso","Antebraquial com polegar, 2 semanas"],["RM","Solicitar em 3-5 dias — 100% de sensibilidade"],["Cintilografia","Alternativa se RM indisponível"]]},
+    q2:{type:"q",text:"Fratura do polo proximal?",
+      ctx:"Polo proximal: vascularização retrógrada — alto risco de necrose avascular. Cirurgia quase sempre indicada.",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"surgical",title:"Parafuso Compressivo — Polo Proximal",
+      txt:"Polo proximal: fixação interna com parafuso compressivo (Herbert ou canulado 4 mm) — mesmo sem desvio. Via dorsal percutânea ou aberta.",
+      details:[["Parafuso","Herbert ou canulado 4 mm — percutâneo se alinhado"],["Imobilização","Gesso 6 semanas; sem carga completa 3 meses"],["Vascularização","RM pós-op para monitorar necrose avascular"],["Enxerto","Enxerto vascularizado (1,2-ICSRA) se necrose"],["Consolidação","12-24 semanas"]]},
+    q3:{type:"q",text:"Fratura do terço médio (cintura do escafoide) com desvio > 1 mm ou angulação DISI > 15°?",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"surgical",title:"RAFI — Parafuso Compressivo via Percutânea ou Aberta",
+      txt:"Fratura deslocada da cintura: fixação cirúrgica com parafuso compressivo. Percutâneo preferido se boa técnica disponível.",
+      details:[["Percutâneo","Via palmar: parafuso de 3,5-4 mm canulado"],["Aberto","Via palmar (Henry FCR) se desvio severo — restaurar comprimento"],["Pós-op","Gesso 4-6 semanas; carga progressiva"],["Taxa de consolidação","90-95% com fixação"]]},
+    q4:{type:"q",text:"Fratura não deslocada do terço médio ou distal?",
+      yes:"q5", no:"r4"},
+    r4:{type:"r",cls:"conservative",title:"Fratura do Polo Distal — Conservador",
+      txt:"Polo distal: vascularização abundante. Gesso antebraquial incluindo polegar por 6-8 semanas. Taxa de consolidação > 95%.",
+      details:[["Gesso","Antebraquial com polegar 6-8 semanas"],["Controle","RM em 8 semanas se dúvida sobre consolidação"]]},
+    q5:{type:"q",text:"Paciente jovem, ativo, e aceita tratamento cirúrgico para retorno mais precoce?",
+      yes:"r3", no:"r5"},
+    r5:{type:"r",cls:"conservative",title:"Fratura Não Deslocada da Cintura — Gesso",
+      txt:"Fratura não deslocada: gesso antebraquial com polegar por 8-12 semanas. Taxa de consolidação > 90% com imobilização adequada.",
+      details:[["Gesso","Antebraquial com polegar em extensão leve e desvio radial"],["Duração","8-12 semanas dependendo do RX/TC"],["TC","Para confirmar consolidação antes de liberar carga"]]}}
+},
+
+// ═══════════════════════════════════════
+// COLUNA VERTEBRAL
+// ═══════════════════════════════════════
+libera_coluna_cerv:{
+  region:"coluna", num:"RWA Alg.47-1",
+  title:"Liberação da Coluna Cervical no Trauma",
+  src:"Rockwood Adults 10ª ed. · Cap. 47",
+  icon:"🧱", tags:["e","c"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente alerta, cooperativo, sem alteração do sensório (GCS 15)?",
+      ctx:"Paciente sonolento, intoxicado, com TCE ou entubado NÃO pode ser liberado clinicamente.",
+      yes:"q2", no:"q7"},
+    q2:{type:"q",text:"Ausência de dor cervical à palpação e sem déficit neurológico?",
+      ctx:"Critérios NEXUS: dor à palpação da linha média posterior cervical = colarinho e imagem.",
+      yes:"q3", no:"q5"},
+    q3:{type:"q",text:"Ausência de distracting injury (fratura de ossos longos, lesão torácica, abdominal, etc.)?",
+      yes:"r1", no:"q4"},
+    r1:{type:"r",cls:"conservative",title:"Liberação Clínica — Sem Imagem Necessária",
+      txt:"Critérios NEXUS negativos em paciente alerta: coluna cervical liberada clinicamente. Remover colarinho.",
+      details:[["NEXUS","GCS 15, sem dor cervical, sem déficit, sem distração, sem intoxicação"],["Liberação","Clínica — sem RX/TC necessário"],["Regra Canadense","Alternativa válida: mecanismo baixo + faixa etária 16-65 + ausência de parestesias"]]},
+    q4:{type:"q",text:"Mecanismo de baixo risco (não axial, não de alta velocidade) e paciente capaz de girar o pescoço 45° bilateralmente?",
+      yes:"r1", no:"q5"},
+    q5:{type:"q",text:"TC da coluna cervical disponível (padrão atual)?",
+      ctx:"TC multicorte substituiu RX simples no trauma de alta energia. Sensibilidade > 99%.",
+      yes:"q6", no:"r2"},
+    r2:{type:"r",cls:"conservative",title:"RX em 3 Incidências — Manter Colarinho",
+      txt:"TC indisponível: RX AP, Lateral e AP da abertura da boca (odontoide). Manter colarinho rígido até avaliação radiológica.",
+      details:[["RX","AP + Lateral + Odontoide (3 incidências obrigatórias)"],["C7-T1","Obrigatória visualização da junção C7-T1"],["Se inadequado","RM ou manter colarinho 48h"]]},
+    q6:{type:"q",text:"TC cervical sem alterações ósseas?",
+      yes:"q8", no:"r3"},
+    r3:{type:"r",cls:"emergency",title:"TC Anormal — Avaliação Especializada + Manutenção do Colarinho",
+      txt:"Qualquer achado na TC: manter colarinho, neurocirurgia/ortopedia de coluna, RM complementar se suspeita de lesão ligamentar.",
+      details:[["RM","Indicada se déficit neurológico ou suspeita de lesão disco-ligamentar"],["Consulta","Neurocirurgia ou ortopedia de coluna"],["Colarinho","Rígido até definição do especialista"]]},
+    q8:{type:"q",text:"TC normal mas paciente com dor cervical persistente ou mecanismo de alta energia?",
+      yes:"r4", no:"r1"},
+    r4:{type:"r",cls:"conservative",title:"RM Cervical Complementar para Lesão Ligamentar",
+      txt:"TC normal + sintomas persistentes: RM para afastar lesão disco-ligamentar oculta (SCIWORA, injúria ligamentar pura).",
+      details:[["RM","Protocolo STIR + T2 para lesão ligamentar e medular"],["Se RM normal","Liberação com colarinho macio 2-4 semanas (sintomático)"],["Flexão-extensão","Apenas em paciente alerta, após 2 semanas se dúvida"]]},
+    q7:{type:"q",text:"Paciente inconsciente, entubado ou com GCS < 15?",
+      yes:"r5", no:"r5"},
+    r5:{type:"r",cls:"conservative",title:"TC Obrigatória — Colarinho Mantido Até Liberação",
+      txt:"Paciente sem condições de avaliação clínica: TC multicorte obrigatória. Se TC normal: RM para lesão ligamentar. Colarinho removido apenas após protocolo completo.",
+      details:[["TC","Toda a coluna cervical em cortes finos"],["Se TC normal","RM STIR cervical para ligamentos"],["Colarinho","Manter até avaliação completa (TC + RM se indicado)"]]}}
+},
+
+frat_toracolombar:{
+  region:"coluna", num:"RWA Cap.49 · TLICS",
+  title:"Fratura Toracolombar — Score TLICS",
+  src:"Rockwood Adults 10ª ed. · Cap. 49",
+  icon:"🧱", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Calcular o Score TLICS (Thoracolumbar Injury Classification and Severity Score)",
+      ctx:"TLICS avalia 3 domínios: (A) Morfologia da fratura; (B) Integridade do complexo ligamentar posterior (CLP); (C) Status neurológico.",
+      type:"multi", options:[
+        {label:"Score TLICS ≤ 3", desc:"Soma dos 3 domínios: morfologia + CLP + neurologia", next:"r1"},
+        {label:"Score TLICS = 4", desc:"Indeterminado — decisão individualizada", next:"r2"},
+        {label:"Score TLICS ≥ 5", desc:"Indica cirurgia", next:"q2"}
+      ]},
+    r1:{type:"r",cls:"conservative",title:"TLICS ≤ 3 — Tratamento Conservador",
+      txt:"Fratura estável: colete TLSO por 8-12 semanas (ou mobilização precoce sem colete em fraturas por compressão simples). Deambulação precoce.",
+      details:[["Compressão simples < 50%","Sem colete; deambulação com dor como guia"],["Compressão > 50% ou lesão CLP parcial","TLSO 8-12 semanas"],["Controle","RX em posição ortostática 6 semanas"],["Fisio","Programa de estabilização lombar"]]},
+    r2:{type:"r",cls:"conservative",title:"TLICS = 4 — Decisão Individualizada",
+      txt:"Score 4 é zona de indecisão. Avaliar individualmente: paciente jovem ativo com lesão CLP suspeita → tendência cirúrgica. Idoso frágil com lesão neurológica incompleta → conservador.",
+      details:[["Jovem ativo","Tendência à cirurgia se CLP lesado"],["Idoso frágil","Conservador com TLSO"],["RM","Obrigatória para definir CLP e avaliação da medula"],["Decisão","Neurocirurgia/coluna"]]},
+    q2:{type:"q",text:"Déficit neurológico completo abaixo do nível de lesão (ASIA A)?",
+      ctx:"Lesão completa: objetivos são estabilização, posicionamento e prevenção de complicações.",
+      yes:"r3", no:"q3"},
+    r3:{type:"r",cls:"surgical-major",title:"Fixação Cirúrgica — Estabilização e Posicionamento",
+      txt:"Lesão completa ASIA A: cirurgia para estabilização e facilitar cuidados/reabilitação. Descompressão tem benefício questionável mas pode melhorar nível da lesão.",
+      details:[["Objetivos","Estabilização + posicionamento + prevenção de úlceras"],["Descompressão","Discutível; pode melhorar 1-2 níveis neurológicos"],["Corticóide","Não recomendado rotineiramente (NASCIS III)"],["Timing","< 24h nas lesões incompletas progressivas"]]},
+    q3:{type:"q",text:"Lesão neurológica incompleta ou cauda equina?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"emergency",title:"Cirurgia Urgente — Descompressão em < 24h",
+      txt:"Lesão incompleta ou síndrome da cauda equina: descompressão cirúrgica precoce (< 24h) melhora prognóstico neurológico. Evidência nível I-II.",
+      details:[["Timing","< 24h — especialmente na síndrome da cauda equina"],["Acesso","Posterior com pedicular screws + descompressão direta"],["Instrumentação","Fusão curta (2 níveis acima e abaixo)"],["UTI","Manejo da pressão arterial (PAM > 85 mmHg por 7 dias)"]]},
+    r5:{type:"r",cls:"surgical-major",title:"Cirurgia Eletiva — Estabilização Posterior",
+      txt:"TLICS ≥ 5 sem déficit: cirurgia para estabilização da coluna instável. Fusão posterior percutânea ou aberta.",
+      details:[["Fusão","2 níveis acima e abaixo (para explosão); 1 nível em disrupção pura"],["Percutânea","Preferida em lesões sem componente neurológico"],["Timing","48-72h (após estabilização clínica)"]]}}
+},
+
+// ═══════════════════════════════════════
+// PELVE E ACETÁBULO
+// ═══════════════════════════════════════
+frat_pelve_idoso:{
+  region:"pelve", num:"RWA Alg.50-1",
+  title:"Fratura do Anel Pélvico — Idoso / Insuficiência",
+  src:"Rockwood Adults 10ª ed. · Cap. 50",
+  icon:"🦋", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente idoso com dor posterior na pelve após trauma de baixa energia (queda)?",
+      ctx:"Fraturas de insuficiência pélvica são subdiagnosticadas. TC pélvica > RX na detecção.",
+      yes:"q2", no:"q5"},
+    q2:{type:"q",text:"TC pélvica positiva para fratura do anel?",
+      ctx:"RX pode ser normal em até 50% das fraturas de insuficiência. TC é padrão-ouro.",
+      yes:"q3", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Suspeita Clínica Forte — RM Complementar",
+      txt:"TC negativa mas dor posterior persistente: RM pélvica para edema ósseo (fractura oculta de insuficiência do sacro ou íleo).",
+      details:[["RM","STIR coronal + axial para edema ósseo do sacro"],["Cintilografia","Alternativa: scintigrafia com Tc99m"],["Manejo","Imobilizar e analgesia enquanto aguarda imagem"]]},
+    q3:{type:"q",text:"Fratura instável do anel pélvico (tipo B ou C de Tile/OTA) com comprometimento hemodinâmico?",
+      ctx:"Instabilidade: ruptura do complexo sacroilíaco posterior. Hipotensão: hemorragia retroperitoneal.",
+      yes:"r2", no:"q4"},
+    r2:{type:"r",cls:"emergency",title:"Estabilização de Emergência — Cinta Pélvica + Angioembolização",
+      txt:"Instabilidade hemodinâmica: cinta pélvica de emergência (ao nível do trocânter maior) + ressuscitação. Angioembolização se persistir. Fixação definitiva após estabilização.",
+      details:[["Cinta","Ao nível do trocânter maior — NÃO na cintura"],["Cristalóides","Restricão hídrica; preferir hemoderivados 1:1:1"],["Angioembolização","Se TAP persistir após cinta + hemotransfusão"],["Fixação","Fixador externo ou MIPPO após estabilização"]]},
+    q4:{type:"q",text:"Fratura de insuficiência estável com dor incapacitante à deambulação?",
+      yes:"r3", no:"r4"},
+    r3:{type:"r",cls:"conservative",title:"Analgesia + Mobilização Precoce com Assistência",
+      txt:"Fratura estável de insuficiência: analgesia multimodal (evitar opioides fortes), fisioterapia com auxílio e carga progressiva conforme tolerado.",
+      details:[["Analgesia","AINE + paracetamol + tramadol; opioides com cautela"],["Mobilização","Com andador a partir do 1º dia se tolerado"],["Bisfosfonatos","Iniciar após exclusão de osteomalacia"],["Vitamina D","Reposição obrigatória"],["Sacroplastia","Considerar em fraturas do sacro refratárias"]]},
+    r4:{type:"r",cls:"conservative",title:"Alta Hospitalar Precoce com Suporte Ambulatorial",
+      txt:"Fratura estável de baixo impacto funcional: alta com órtese pélvica leve, fisioterapia ambulatorial, follow-up em 2-3 semanas.",
+      details:[["Órtese","Cinta elástica pélvica para conforto 4-6 semanas"],["RX","Controle ortostático em 3-4 semanas"],["DXA","Solicitar após alta para rastreio de osteoporose"]]},
+    q5:{type:"q",text:"Paciente jovem com trauma de alta energia e instabilidade hemodinâmica?",
+      yes:"r2", no:"r5"},
+    r5:{type:"r",cls:"surgical-major",title:"RAFI Eletiva — Pelve Instável Sem Choque",
+      txt:"Pelve instável (Tile B ou C) sem choque: fixação cirúrgica definitiva em 3-5 dias após estabilização clínica.",
+      details:[["Anterior","Fixador externo ou placa de pubis"],["Posterior","Parafusos iliosacral percutâneo ou fixação de SI"],["Timing","3-5 dias pós-trauma (partes moles adequadas)"]]}}
+},
+
+frat_acetabulo:{
+  region:"pelve", num:"RWA Alg.51-1",
+  title:"Fratura do Acetábulo",
+  src:"Rockwood Adults 10ª ed. · Cap. 51",
+  icon:"🦋", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Luxação do quadril associada à fratura?",
+      ctx:"Luxação: emergência ortopédica. Reduzir antes de qualquer outra avaliação detalhada.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Redução da Luxação em < 6h — Urgência",
+      txt:"Redução da luxação em < 6h para minimizar risco de necrose avascular da cabeça femoral. Sedação + manobra de Bigelow ou tração longitudinal.",
+      details:[["Timing","< 6h — risco de NAV aumenta exponencialmente após 6h"],["Manobra","Tração longitudinal em flexão 90° + rotação interna leve"],["Pós-redução","TC obrigatória para avaliar congruência e fragmentos intra-articulares"],["Tração","Cutânea ou esquelética se aguardando cirurgia definitiva"]]},
+    q2:{type:"q",text:"Paciente hemodinamicamente instável?",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"emergency",title:"Estabilização Hemodinâmica Antes de Qualquer Cirurgia Eletiva",
+      txt:"Instabilidade: priorizar ressuscitação. Embolização de artérias pélvicas se hemorragia retroperitoneal. Fixação do acetábulo apenas após estabilização.",
+      details:[["Hemostasia","Embolização radiológica ou packing pré-peritoneal"],["Tração","Esquelética provisória (distal do fêmur)"],["Cirurgia definit.","Após 3-5 dias de estabilização"]]},
+    q3:{type:"q",text:"TC mostra congruência concêntrica da cabeça femoral E fratura com desvio < 2 mm?",
+      ctx:"Cabeça bem centrada na cavidade + desvio mínimo = potencial para conservador.",
+      yes:"q4", no:"q5"},
+    q4:{type:"q",text:"Paciente com baixa demanda funcional (idoso, comorbidades) OU fratura em parede posterior sem instabilidade?",
+      yes:"r3", no:"q5"},
+    r3:{type:"r",cls:"conservative",title:"Tração Esquelética Temporária + Vigilância",
+      txt:"Fratura congruente em idoso ou baixa demanda: tração esquelética por 4-6 semanas + RX seriado. Considerar ATQ precoce em idosos se fratura cominutiva.",
+      details:[["Tração","Pino distal femoral, 6 kg, por 4-6 semanas"],["RX","Semanal para monitorar congruência"],["ATQ precoce","Em idosos > 70 anos com fratura de parede posterior cominutiva"],["Descarga","Parcial após 6-8 semanas"]]},
+    q5:{type:"q",text:"Fratura com desvio > 2 mm E cabeça femoral excêntrica (incongruente)?",
+      yes:"r4", no:"r3"},
+    r4:{type:"r",cls:"surgical-major",title:"RAFI do Acetábulo — Via Conforme Padrão",
+      txt:"Fratura deslocada ou incongruente: fixação cirúrgica para restaurar congruência articular e estabilidade. Via determinada pelo padrão de Letournel.",
+      details:[["Parede/coluna posterior","Via de Kocher-Langenbeck"],["Parede/coluna anterior","Via ilio-inguinal ou Stoppa"],["Fraturas associadas","Via extensile ou combinada"],["Timing","3-7 dias (partes moles e hemostasia adequadas)"],["Meta","< 1 mm de degrau articular"],["ATQ precoce","Em idosos > 70 anos com cominuição irreconstruível"]]}}
+},
+
+// ═══════════════════════════════════════
+// QUADRIL E FÊMUR
+// ═══════════════════════════════════════
+luxacao_quadril:{
+  region:"quadril", num:"RWA Alg.52-1",
+  title:"Luxação do Quadril e Fratura da Cabeça Femoral",
+  src:"Rockwood Adults 10ª ed. · Cap. 52",
+  icon:"🦵", tags:["e","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Redução concêntrica da luxação realizada (< 6h)?",
+      ctx:"Luxação pura: redução de URGÊNCIA em < 6h. Cada hora aumenta risco de NAV.",
+      yes:"q2", no:"r_urg"},
+    r_urg:{type:"r",cls:"emergency",title:"Redução de Urgência Sob Sedação/Anestesia",
+      txt:"Redução fechada imediata. Relaxamento muscular profundo (propofol + fentanil). Manobra de Bigelow (posterior) ou Allis.",
+      details:[["Bigelow","Flexão 90° + tração + rotação interna"],["Allis","Tração axial em decúbito dorsal"],["Se irredutível","Redução aberta urgente"],["Pós-redução","TC imediata para avaliar congruência e fragmentos"]]},
+    q2:{type:"q",text:"TC pós-redução: fragmento ósseo intra-articular ou cabeça excêntrica (incongruente)?",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"surgical",title:"Remoção Cirúrgica do Fragmento Intra-articular",
+      txt:"Fragmento interposicionado impede congruência e acelera artrose. Remoção artroscópica (< 1 cm) ou aberta (fragmento maior).",
+      details:[["Artroscopia","Para fragmentos pequenos < 1 cm, quadril congruente após"],["Via aberta","Abordagem de Ganz (luxação cirúrgica) ou Smith-Petersen"],["Pós-op","Tração cutânea 2-3 dias; descarga parcial 6 semanas"]]},
+    q3:{type:"q",text:"Fratura associada da cabeça femoral (Pipkin)?",
+      ctx:"Pipkin I/II: fragmento cefálico. Pipkin III: + colo femoral. Pipkin IV: + acetábulo.",
+      yes:"q4", no:"r3"},
+    r3:{type:"r",cls:"conservative",title:"Luxação Pura — Pós-redução",
+      txt:"Luxação reduzida, congruente, sem fratura: repouso 2-3 dias, descarga parcial 4-6 semanas, reabilitação progressiva.",
+      details:[["Descarga","Parcial com muletas 4-6 semanas"],["NAV","RX e RM a cada 3 meses no 1º ano"],["Retorno","Trabalho leve em 3 meses; esporte em 6 meses"]]},
+    q4:{type:"q",text:"Pipkin I ou II (fragmento cefálico sem envolvimento do colo)?",
+      yes:"q5", no:"r4"},
+    r4:{type:"r",cls:"surgical-major",title:"Pipkin III/IV — RAFI Complexa ou ATQ",
+      txt:"Pipkin III (+ colo): fixação do colo como prioridade absoluta. Pipkin IV (+ acetábulo): fixar o que for mais instável primeiro.",
+      details:[["Pipkin III","Fixação do colo + fragmento cefálico se viável"],["Pipkin IV","RAFI de acetábulo; se idoso irreconstruível: ATQ"],["ATQ primária","Em idosos com Pipkin III cominutivo"]]},
+    q5:{type:"q",text:"Pipkin I: fragmento abaixo da fóvea (zona não de carga)?",
+      yes:"r5", no:"r6"},
+    r5:{type:"r",cls:"conservative",title:"Pipkin I — Conservador se Congruente",
+      txt:"Fragmento abaixo da fóvea sem comprometimento da congruência: conservador. RX e RM seriados.",
+      details:[["Descarga","Parcial 6 semanas"],["Controle","RM em 3 e 6 meses para NAV"],["Fragmento excisão","Se sintomático após consolidação"]]},
+    r6:{type:"r",cls:"surgical",title:"Pipkin II — RAFI ou Excisão do Fragmento",
+      txt:"Fragmento grande acima da fóvea (zona de carga): RAFI com parafusos mini-fragmento. Excisão se < 1/3 da cabeça e irreconstruível.",
+      details:[["RAFI","Parafusos mini-fragmento enterrados (1,5-2,7 mm)"],["Excisão","Fragmento < 1/3 da cabeça e incongruente"],["Via","Artroscopia ou abordagem de Ganz"]]}}
+},
+
+frat_colo_femoral:{
+  region:"quadril", num:"RWA Alg.53-1",
+  title:"Fratura do Colo Femoral",
+  src:"Rockwood Adults 10ª ed. · Cap. 53",
+  icon:"🦵", tags:["s","sm","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura NÃO deslocada (Garden I ou II)?",
+      ctx:"Garden I: incompleta/impactada em valgo. Garden II: completa sem desvio.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"surgical",title:"Fixação com Parafusos Canulados — Independente da Idade",
+      txt:"Fratura não deslocada: fixação com 3 parafusos canulados paralelos em todo e qualquer paciente. Taxa de consolidação > 95%. Cirurgia em posição supina + mesa ortopédica.",
+      details:[["Parafusos","3 canulados 7,3 mm em configuração triangular invertida"],["Posição","Supina na mesa de tração"],["Carga","Parcial imediata se osso de boa qualidade"],["Controle","RX em 6, 12 e 24 semanas"]]},
+    q2:{type:"q",text:"Fratura deslocada (Garden III ou IV). Paciente biologicamente jovem (< 60-65 anos)?",
+      ctx:"Jovem: objetivo é preservar a cabeça femoral. Redução anatômica + fixação.",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"surgical-major",title:"Redução Aberta/Fechada + Fixação Interna — Jovem",
+      txt:"Prioridade: preservar a cabeça femoral. Redução fechada na mesa + 3 parafusos canulados. Se irredutível: via anterior (Smith-Petersen). Sem urgência após 24h, mas dentro das primeiras 12-24h é ideal.",
+      details:[["Redução","Fechada na mesa ortopédica (posição de Leadbetter)"],["Aceitável","Valgo < 10°; sem varização; sem retroversão excessiva"],["Implante","3 parafusos canulados ou DHS com parafuso desrotacional"],["Aberto","Se irredutível: Smith-Petersen"],["NAV","RX e RM seriados; 20-30% de NAV mesmo com redução"]]},
+    q3:{type:"q",text:"Paciente idoso (> 65 anos) ativo, independente e com boa função cognitiva?",
+      ctx:"Idoso ativo: artroplastia oferece retorno funcional mais rápido e menor taxa de reoperação.",
+      yes:"q4", no:"q5"},
+    q4:{type:"q",text:"Coxartrose pré-existente OU fratura cominutiva da cabeça/colo?",
+      yes:"r4", no:"r3"},
+    r3:{type:"r",cls:"surgical-major",title:"Hemiartroplastia (Austin-Moore ou Thompsons) ou ATQ",
+      txt:"Idoso ativo, sem artrose, manguito abdutor preservado: hemiartroplastia cimentada. ATQ se artrose ipsilateral ou demanda alta.",
+      details:[["Hemiartroplastia","Austin-Moore (não cimentada) ou Thompsons (cimentada — preferida)"],["ATQ","Em ativos > 65 anos sem artrose: excelentes resultados"],["Via","Posterior (MacFarland-Osborne) ou anterior direta"],["Carga","Total imediata no pós-op"]]},
+    r4:{type:"r",cls:"surgical-major",title:"ATQ (Artroplastia Total do Quadril)",
+      txt:"Artrose pré-existente ou alta demanda funcional: ATQ primária é superior à hemiartroplastia em termos de função e satisfação.",
+      details:[["ATQ","Cimentada (idoso osteoporótico) ou híbrida"],["Via","Posterior ou anterolateral"],["Carga","Total imediata"],["Seguimento","RX em 6 semanas, 3, 6, 12 meses"]]},
+    q5:{type:"q",text:"Paciente com demência severa, não deambulante ou alto risco anestésico?",
+      yes:"r5", no:"r3"},
+    r5:{type:"r",cls:"conservative",title:"Conservador Paliativo — Casos Selecionados",
+      txt:"Paciente não cirúrgico: analgesia + mobilização em leito + cuidados de enfermagem. Tração de conforto pode ajudar. Discutir com família.",
+      details:[["Analgesia","Paracetamol + opioides em doses mínimas eficazes"],["Tração","Cutânea de conforto (não terapêutica)"],["Úlceras","Cuidados intensivos de pele"],["Prognóstico","Mortalidade elevada — expectativas realistas"]]}}
+},
+
+frat_trocanterica:{
+  region:"quadril", num:"RWA Alg.54-1",
+  title:"Fratura Trocantérica do Quadril",
+  src:"Rockwood Adults 10ª ed. · Cap. 54",
+  icon:"🦵", tags:["s","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente com condições cirúrgicas mínimas (risco anestésico aceitável)?",
+      ctx:"Quase todas as fraturas trocantéricas têm indicação cirúrgica. Tratamento conservador está associado a mortalidade muito elevada.",
+      yes:"q2", no:"r1"},
+    r1:{type:"r",cls:"conservative",title:"Conservador Paliativo (Exceção Rara)",
+      txt:"Paciente terminal, com expectativa de vida < 4-6 semanas ou recusa cirúrgica: tração de conforto, analgesia, cuidados paliativos.",
+      details:[["Tração","Cutânea ou bota de tração para conforto"],["Analgesia","Cateter femoral (bloqueio do nervo femoral) para controle da dor"],["Decisão","Compartilhada com paciente/família e equipe de cuidados paliativos"]]},
+    q2:{type:"q",text:"Classificação OTA/AO: fratura A1 (estável, 2 fragmentos) ou A2/A3 (instável)?",
+      ctx:"A1: padrão estável, 2 fragmentos, parede lateral do trocânter íntegra. A2: cominutiva, com terceiro fragmento. A3: inversa ou transversa.",
+      yes:null, no:null,
+      type:"multi", options:[
+        {label:"A1 — Estável", desc:"Fratura em 2 partes, parede lateral íntegra", next:"r2"},
+        {label:"A2 — Instável", desc:"3 ou mais fragmentos, cominuição medial", next:"r3"},
+        {label:"A3 — Inversa/Transversa", desc:"Traço oblíquo inverso ou transverso subtroc.", next:"r3"}
+      ]},
+    r2:{type:"r",cls:"surgical",title:"A1 Estável — DHS (Parafuso Deslizante de Quadril)",
+      txt:"Fratura estável A1: DHS com placa de 2-4 furos é suficiente e de menor custo. Haste cefalomedular também aceitável.",
+      details:[["DHS","Parafuso de compressão 135° + placa 2-4 furos"],["Haste","Cefalomedular curta é alternativa — mais cara, mesma eficácia em A1"],["Tip-apex","Distância TAD < 25 mm — evitar cut-out"],["Carga","Total imediata no pós-op"],["Hemoglobina","Transfundir se < 8 g/dL sintomático"]]},
+    r3:{type:"r",cls:"surgical",title:"A2/A3 Instável — Haste Cefalomedular (HCM)",
+      txt:"Fraturas instáveis e inversas: haste cefalomedular longa (cobre todo o fêmur). Menor taxa de falha mecânica comparada ao DHS em A2/A3.",
+      details:[["HCM longa","Indicada em A3 e em A2 com parece lateral fina"],["HCM curta","Aceitável em A2 com parede lateral íntegra"],["TAD","< 25 mm para evitar cut-out do parafuso"],["Carga","Total imediata"],["Osteoporose","Augmentação com cimento se osso severamente osteoporótico"]]}}
+},
+
+frat_diafise_femoral:{
+  region:"quadril", num:"RWA Alg.57-1",
+  title:"Fratura Diafisária do Fêmur",
+  src:"Rockwood Adults 10ª ed. · Cap. 57",
+  icon:"🦵", tags:["e","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente hemodinamicamente instável (politraumatizado)?",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Controle de Dano — Estabilização Provisória",
+      txt:"Politraumatizado instável: fixador externo provisório na sala de emergência ou UTI. Conversão para HIM quando paciente estabilizado (DMC > 6 mmol/L, temperatura > 34°C, INR < 1,5).",
+      details:[["Fixador externo","Estabilização rápida em < 30 min"],["Tração","Esquelética proximal à patela se fixador indisponível"],["Conversão","HIM definitiva assim que condições fisiológicas permitirem"],["FEL","Early appropriate care — não Early Total Care em politraumatizado grave"]]},
+    q2:{type:"q",text:"Fratura exposta (aberta)?",
+      ctx:"Gustilo I-II: desbridamento + HIM. Gustilo IIIA: igual. Gustilo IIIB/C: desbridamento + cobertura complexa.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Gustilo grau IIIB ou IIIC (perda cutânea > 10 cm ou lesão vascular)?",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical-major",title:"Gustilo IIIB/C — Fixador Externo + Desbridamento Seriado",
+      txt:"Grau IIIB/C: desbridamento + irrigação, fixador externo provisório, desbridamento repetido em 24-48h até cobertura definitiva por cirurgia plástica.",
+      details:[["Desbridamento","< 8h; irrigação abundante com soro fisiológico"],["Fixador externo","Estabilização provisória"],["Cobertura","Retalho muscular local ou microvascular em 5-7 dias"],["Conversão","HIM após cobertura definitiva sem sinais de infecção"]]},
+    r3:{type:"r",cls:"surgical",title:"Gustilo I/II/IIIA — HIM com Alargamento (Reaming)",
+      txt:"Fraturas expostas grau I-IIIA: desbridamento + HIM alargada bloqueada. Alargamento não aumenta risco de infecção em graus I-IIIA.",
+      details:[["Desbridamento","< 8h do trauma"],["HIM alargada","Alargamento progressivo 1 mm acima do diâmetro da haste"],["ATB profilático","Cefalosporina 1ª geração ± aminoglicosídeo (grau III)"],["Curativo","VAC (pressão negativa) nas lesões maiores"]]},
+    q4:{type:"q",text:"Fratura associada do colo femoral (fratura flutuante)?",
+      ctx:"Fêmur flutuante: fratura do colo + diáfise. Colo é a prioridade.",
+      yes:"r4", no:"q5"},
+    r4:{type:"r",cls:"surgical-major",title:"Fêmur Flutuante — Fixar Colo Primeiro",
+      txt:"Prioridade absoluta ao colo femoral (risco de NAV). DHS no colo + HIM retrógrada na diáfise.",
+      details:[["Sequência","1. DHS no colo → 2. HIM retrógrada na diáfise"],["Alternativa","Haste IM anterógrada longa com parafuso de colo"],["NAV","RX e RM seriados — 20% de NAV mesmo com redução"]]},
+    q5:{type:"q",text:"Canal medular acessível (sem implante prévio, sem deformidade, canal ≥ 9 mm)?",
+      yes:"r5", no:"r6"},
+    r5:{type:"r",cls:"surgical",title:"Haste Intramedular Bloqueada — Padrão-Ouro",
+      txt:"HIM anterógrada bloqueada com alargamento progressivo. Bloqueio proximal e distal. Carga total imediata.",
+      details:[["Entrada","Trocantérica ou piriforme"],["Alargamento","Até 1 mm acima do diâmetro da haste"],["Bloqueio","Proximal estático + 2 distais"],["Dinamização","Em 6-8 semanas se não houver sinal de consolidação"],["Carga","Total imediata no pós-op"]]},
+    r6:{type:"r",cls:"surgical",title:"Placa DCP 4,5 mm (Casos Especiais)",
+      txt:"Canal obstruído, prótese de joelho/quadril, deformidade prévia ou canal estreito: placa de compressão 4,5 mm.",
+      details:[["DCP 4,5 mm","Placa de compressão em ponte (bridge plate) com mínima exposição"],["Alternativa","Placa bloqueada de fêmur"],["Pós-op","Carga parcial 6-8 semanas"],["Indicação","Implante prévio, canal estreito < 9 mm, deformidade"]]}}
+},
+
+frat_femur_distal:{
+  region:"quadril", num:"RWA Alg.58-1",
+  title:"Fratura do Fêmur Distal",
+  src:"Rockwood Adults 10ª ed. · Cap. 58",
+  icon:"🦵", tags:["s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Paciente idoso (> 70 anos) com artrose ou fratura irreconstruível?",
+      ctx:"ATQ distal em idosos com artrose: resultados equivalentes à RAFI com menor morbidade.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Fratura intraarticular com cominuição irreconstruível?",
+      yes:"r1", no:"q3"},
+    r1:{type:"r",cls:"surgical-major",title:"Artroplastia Total do Joelho (ATJ) de Revisão",
+      txt:"Fratura distal do fêmur irreconstruível em paciente idoso com artrose: ATJ com componente distal de revisão (long-stem).",
+      details:[["Componente","ATJ com stem femoral longa e hastes cimentadas"],["Resultado","Carga imediata, retorno funcional rápido"],["Indicação","Fêmur distal cominutivo em idoso com coxartrose prévia"]]},
+    q3:{type:"q",text:"Fratura do fêmur distal com desvio (> 2 mm articular ou > 5° de angulação)?",
+      yes:"q4", no:"r2"},
+    r2:{type:"r",cls:"conservative",title:"Conservador — Fratura Sem Desvio",
+      txt:"Fratura sem desvio ou com desvio mínimo em paciente sedentário: gesso cilíndrico ou órtese de joelho por 6-8 semanas com descarga progressiva.",
+      details:[["Imobilização","Gesso ou órtese articulada com trava em extensão"],["Descarga","Parcial com muletas 6-8 semanas"],["RX","Semanal nas primeiras 3 semanas"]]},
+    q4:{type:"q",text:"Fratura supracondilar extra-articular ou com extensão articular limitada?",
+      ctx:"Tipo A (extrarticular) e B (parcialmente articular): placa lateral. Tipo C (bicondilar): placa lateral + componente articular.",
+      yes:"r3", no:"r4"},
+    r3:{type:"r",cls:"surgical",title:"Placa Lateral de Bloqueio (LISS/LCP) — Tipos A e B",
+      txt:"Placa de bloqueio lateral distal do fêmur (LISS). Técnica minimamente invasiva de estabilização em ponte (MIPO) preserva envelope biológico.",
+      details:[["LISS/LCP","Placa pré-moldada lateral distal; parafusos de bloqueio"],["MIPO","Inserção percutânea preserva periósteo e vascularização"],["Alinhamento","Evitar varo e rotação — verificar por fluoroscopia"],["Carga","Parcial 6 semanas; total após sinal radiológico de consolidação"]]},
+    r4:{type:"r",cls:"surgical-major",title:"RAFI Tipo C — Reconstrução Articular + Placa Lateral",
+      txt:"Fratura bicondilar (tipo C): reconstrução articular via parafusos interferagmentares + placa lateral de bloqueio.",
+      details:[["Articulação","Reconstrução via artrotomia medial ou lateral com parafusos 6,5 mm"],["Placa lateral","LISS após reconstrução dos côndilos"],["TC","Obrigatória para planejamento de todos os fragmentos"],["Mobilização","CPM em 24-48h para evitar rigidez"]]}}
+},
+
+// ═══════════════════════════════════════
+// JOELHO
+// ═══════════════════════════════════════
+luxacao_joelho:{
+  region:"joelho", num:"RWA Alg.61-1",
+  title:"Luxação do Joelho / Lesão Multiligamentar",
+  src:"Rockwood Adults 10ª ed. · Cap. 61",
+  icon:"🦿", tags:["e","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Déficit neurovascular: pulso poplíteo ausente ou assimétrico?",
+      ctx:"5% das luxações do joelho têm lesão da artéria poplítea. Risco de amputação se não tratada em < 6h.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Arteriografia/US-Doppler + Revascularização Urgente",
+      txt:"Suspeita de lesão poplítea: arteriografia ou angio-TC urgente. Reparo vascular em < 6h (shunt provisório se necessário). IBI (índice braquiotibial) < 0,9 = indicação de imagem.",
+      details:[["IBI","< 0,9 = arteriografia/angio-TC urgente"],["Shunt","Shunt vascular provisório se cirurgia ortopédica simultânea necessária"],["Fasciotomia","Profilática após revascularização"],["Tempo","< 6h para revascularização — além disso, risco de amputação > 85%"]]},
+    q2:{type:"q",text:"Redução fechada bem-sucedida e joelho estável em extensão?",
+      ctx:"A maioria reduz facilmente. Joelho irredutível: interposição de cápsula ou tendão — redução aberta urgente.",
+      yes:"q3", no:"r2"},
+    r2:{type:"r",cls:"emergency",title:"Redução Aberta Urgente",
+      txt:"Irredutível por fechado: interposição tecidual. Redução aberta de urgência.",
+      details:[["Causa","Interposição de cápsula, tendão poplíteo ou fratura fragmento"],["Via","Anteromedial ou anterolateral dependendo da lesão"],["Estabilização","Fixador externo provisório após redução"]]},
+    q3:{type:"q",text:"Fratura óssea associada requerendo fixação (platô tibial, côndilos femorais)?",
+      ctx:"Fraturas estruturais grandes: priorizar fixação óssea antes da reconstrução ligamentar.",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"surgical-major",title:"RAFI da Fratura em 1º Tempo + Reconstrução Ligamentar Diferida",
+      txt:"RAFI da fratura assim que partes moles permitirem (1-2 semanas). Reconstrução ligamentar em 2-4 semanas após a fixação óssea.",
+      details:[["1º tempo","RAFI do platô ou côndilos em 1-2 semanas"],["2º tempo","Reconstrução LCA/LCP/canto com aloenxerto 2-4 semanas após"],["Imobilização","Órtese articulada; mobilização após estabilização"]]},
+    q4:{type:"q",text:"Classificação KD III ou KD IV (lesão de 3 ou 4 ligamentos)?",
+      ctx:"KD III: LCA+LCP+colateral. KD IV: todos os 4 ligamentos. Alta energia — protocolo em estágios.",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical-major",title:"KD III/IV — Protocolo em 2 Estágios",
+      txt:"Alta energia: 1º estágio (2-4 semanas) — reconstrução de meniscos e cartilagem + todos os ligamentos exceto LCA; 2º estágio (6 semanas depois) — reconstrução do LCA.",
+      details:[["1º estágio","2-4 sem pós-trauma: PCL + cantos + meniscos + cartilagem"],["2º estágio","6 sem após: LCA (quadríceps autólogo ou aloenxerto)"],["Aloenxerto","Preferido em adultos ≥ 40 anos"],["Órtese","Compass Knee Hinge nos KD IV mais instáveis"],["ADM","Meta: 0-130° ao final da reabilitação"]]},
+    r5:{type:"r",cls:"surgical",title:"KD I/II — Reconstrução Precoce em 2-4 Semanas",
+      txt:"Baixa energia: reconstrução de todos os ligamentos em 1 estágio, após diminuição do edema (2-4 semanas).",
+      details:[["Aloenxerto","Para todos os ligamentos exceto LCA (autólogo preferido)"],["Timing","2-4 semanas pós-trauma"],["Pós-op","Carga com joelho em extensão em 1-2 semanas"]]}}
+},
+
+frat_platao_tibial:{
+  region:"joelho", num:"RWA Alg.62-1",
+  title:"Fratura do Platô Tibial",
+  src:"Rockwood Adults 10ª ed. · Cap. 62",
+  icon:"🦿", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Partes moles comprometidas (flictenas, edema severo, compartimento elevado)?",
+      ctx:"Edema severo ou flictenas: aguardar 7-14 dias. Cirurgia precoce = infecção de ferida operatória.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"surgical",title:"Fixador Externo Provisório (Ligamentotaxia)",
+      txt:"Partes moles comprometidas: fixador externo de ponte fêmur-tíbia por 7-14 dias até melhor condição de cobertura.",
+      details:[["Fixador","Fios acima do joelho no fêmur + abaixo na tíbia"],["TC","Obrigatória neste intervalo para planejamento"],["Timing","Definitivo quando dobra digital da pele retornar (wrinkle sign)"]]},
+    q2:{type:"q",text:"Fratura de platô tibial com desvio < 2 mm articular e sem instabilidade ligamentar?",
+      ctx:"Fratura estável e mínima: conservador com excelentes resultados.",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"conservative",title:"Conservador — Sem Carga por 8-12 Semanas",
+      txt:"Fratura não deslocada: descarga com muletas por 8-12 semanas, mobilização ativa precoce (CPM).",
+      details:[["Descarga","Muletas, sem apoio 8-12 semanas"],["CPM","Imediato para evitar rigidez"],["RX","Controle semanal nas primeiras 3 semanas; depois mensal"],["Artroscopia","Considerar para lesões meniscais associadas"]]},
+    q3:{type:"q",text:"Fratura unicondilar (Schatzker I-III) — lateral apenas?",
+      ctx:"I: fissura; II: cisalhamento + depressão; III: depressão central pura.",
+      yes:"q4", no:"q5"},
+    q4:{type:"q",text:"Schatzker I (cisalhamento puro sem depressão)?",
+      yes:"r3", no:"r4"},
+    r3:{type:"r",cls:"surgical",title:"Schatzker I — Parafusos Percutâneos",
+      txt:"Fissura lateral pura: redução incruenta + 2-3 parafusos esponjosos percutâneos. Técnica mínima invasiva.",
+      details:[["Parafusos","Esponjosos 6,5-7,3 mm perpendiculares à fissura"],["Percutâneo","Fluoroscopia intraop"],["Carga","Sem apoio 6-8 semanas"]]},
+    r4:{type:"r",cls:"surgical",title:"Schatzker II/III — Elevação + Placa de Suporte Lateral",
+      txt:"Depressão lateral: elevação da superfície articular via janela óssea subcondral + suporte com cimento de fosfato de cálcio + placa lateral.",
+      details:[["Submeniscal","Artrotomia submeniscal para visualização articular"],["Elevação","Fenestração subcondral + elevação com punch"],["Cimento","Fosfato de cálcio (melhor propriedade mecânica)"],["Placa","Suporte lateral 3,5 mm pré-moldada"],["Menisco","Reparar se associado"]]},
+    q5:{type:"q",text:"Schatzker IV-VI (bicondilar ou com dissociação metadiafisária)?",
+      yes:"r5", no:"r4"},
+    r5:{type:"r",cls:"surgical-major",title:"Schatzker IV-VI — Dupla Placa (Medial + Lateral)",
+      txt:"Fraturas bicondiciais ou complexas: dupla placa em 90° (lateral bloqueada + medial de suporte). TC obrigatória para mapeamento 3D dos fragmentos.",
+      details:[["TC","Obrigatória — mapeamento de todos os fragmentos"],["Lateral","Placa bloqueada lateral 3,5 mm (LISS)"],["Medial","Placa de suporte medial ≥ 4 furos"],["Schatzker VI","Placa em ponte preservando periósteo (MIPO)"],["CPM","Imediato pós-op"],["Carga","Parcial em 8-12 semanas"]]}}
+},
+
+frat_patela:{
+  region:"joelho", num:"RWA Alg.60-1",
+  title:"Fratura da Patela",
+  src:"Rockwood Adults 10ª ed. · Cap. 60",
+  icon:"🦿", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Extensão ativa do joelho preservada contra a gravidade?",
+      ctx:"Testar em decúbito dorsal. Se mantiver extensão ativa: mecanismo extensor íntegro.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Desvio articular < 2-3 mm e desvio dos fragmentos < 3 mm?",
+      ctx:"Fratura não deslocada com mecanismo extensor íntegro: excelente resultado conservador.",
+      yes:"r1", no:"q3"},
+    r1:{type:"r",cls:"conservative",title:"Joelheira ou Gesso em Extensão — 4-6 Semanas",
+      txt:"Fratura não deslocada com mecanismo íntegro: imobilização em extensão com joelheira articulada travada (0°) por 4-6 semanas.",
+      details:[["Joelheira","Articulada travada em 0° por 4-6 semanas"],["Carga","Total com imobilização"],["Mobilização","Progressiva após 4-6 semanas"],["Controle","RX em 2, 4, 6 semanas"]]},
+    q3:{type:"q",text:"Fratura transversa de 2 fragmentos (padrão ideal para TBW)?",
+      ctx:"TBW (tension band wiring): converte forças de distração em compressão.",
+      yes:"r2", no:"q4"},
+    r2:{type:"r",cls:"surgical",title:"Tensão-Banda (TBW) — Fratura Transversa",
+      txt:"Padrão clássico: 2 fios K longitudinais + cerclagem em tensão-banda. Boa estabilidade; mobilização imediata.",
+      details:[["Fios K","2 × 1,8-2 mm longitudinais"],["Cerclagem","Fio de aço 18 ou cabo de Luque em figura-de-8"],["Mobilização","Ativa imediata no pós-op"],["Remoção","50% necessitam retirar implante por irritação"]]},
+    q4:{type:"q",text:"Fratura cominutiva da patela com superfície articular irreconstruível?",
+      ctx:"Pólo distal cominutivo em idosos: patelectomia parcial com reinserção do tendão patelar.",
+      yes:"r3", no:"r4"},
+    r3:{type:"r",cls:"surgical-major",title:"Patelectomia Parcial do Polo Inferior + Reinserção do Tendão",
+      txt:"Polo distal irreconstruível: ressecção do polo cominutivo + avanço e reinserção do tendão patelar com fios transósseos.",
+      details:[["Patelectomia parcial","Polo inferior irreconstruível"],["Reinserção","Fios transósseos na patela proximal remanescente"],["Imobilização","Gesso cilíndrico 4-6 semanas"],["Fisio","Quadríceps isométrico imediato"]]},
+    r4:{type:"r",cls:"surgical",title:"Placa ou Parafusos — Fraturas Cominutivas Reconstituíveis",
+      txt:"Cominuição mas reconstituível: mini-placa de patela (LCP 2,4-2,7 mm) ou parafusos interferagmentares + cerclagem.",
+      details:[["Mini-placa","LCP 2,4-2,7 mm; estabilidade superior ao TBW em cominutivas"],["Parafusos + cerclagem","Alternativa para fragmentos maiores"],["Mobilização","CPM imediato se fixação estável"]]}}
+},
+
+// ═══════════════════════════════════════
+// PERNA, TORNOZELO E PÉ
+// ═══════════════════════════════════════
+frat_tibia_diafise:{
+  region:"perna", num:"RWA Alg.63-1",
+  title:"Fratura Diafisária da Tíbia",
+  src:"Rockwood Adults 10ª ed. · Cap. 63",
+  icon:"🦶", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura exposta (aberta)?",
+      ctx:"Tíbia: osso subcutâneo, mais suscetível a exposição e infecção.",
+      yes:"q2", no:"q4"},
+    q2:{type:"q",text:"Gustilo IIIB ou IIIC?",
+      yes:"r1", no:"r2"},
+    r1:{type:"r",cls:"surgical-major",title:"IIIB/C — Desbridamento + Fixador Externo (Ilizarov) + Cobertura",
+      txt:"Grau IIIB/C: desbridamento serial + fixador externo de Ilizarov para definitivo (ou ponte para HIM após cobertura). Retalho microvascular precoce.",
+      details:[["Desbridamento","< 8h; irrigação 9L soro fisiológico"],["Ilizarov","Definitivo em IIIB refratário a HIM"],["Retalho","Microvascular (gastrocnêmio, sóleo, fibula livre) em 5-7 dias"],["IIIC","Reparo vascular em < 6h; HIM após cobertura"]]},
+    r2:{type:"r",cls:"surgical",title:"Gustilo I/II/IIIA — Desbridamento + HIM",
+      txt:"Desbridamento rigoroso + haste intramedular bloqueada. ATB profilático. Alargamento da HIM não aumenta infecção em graus I-IIIA.",
+      details:[["ATB","Cefazolina 2g IV; aminoglicosídeo em grau III"],["HIM","Não alargada em IIIB (controverso); alargada em I-IIIA"],["Curativo","VAC (pressão negativa) em feridas > 2 cm"],["Antissepsia","Soro fisiológico; não usar iodopovidona na ferida"]]},
+    q4:{type:"q",text:"Fratura fechada não deslocada (< 5° angulação, < 1 cm de encurtamento)?",
+      yes:"r3", no:"q5"},
+    r3:{type:"r",cls:"conservative",title:"Gesso Suropodálico Funcional (Sarmiento)",
+      txt:"Fratura estável não deslocada: gesso longo inicial 3 semanas → conversão para órtese funcional de Sarmiento. Carga progressiva.",
+      details:[["Inicial","Gesso acima do joelho por 3 semanas"],["Sarmiento","Órtese funcional com carga imediata após 3 semanas"],["Critérios","< 5° varo/valgo, < 10° recurvatum, < 1 cm encurtamento"],["Consolidação","12-16 semanas"]]},
+    q5:{type:"q",text:"Fratura deslocada ou instável (> 5° angulação, > 50% deslocamento)?",
+      yes:"r4", no:"r3"},
+    r4:{type:"r",cls:"surgical",title:"Haste Intramedular Bloqueada (HIM) — Padrão-Ouro",
+      txt:"HIM anterógrada bloqueada: abordagem infrapatelar ou suprapatelar (preferida em fraturas proximais para evitar malalinhamento).",
+      details:[["Suprapatelar","Evita malalinhamento proximal; menor dor no joelho"],["Infrapatelar","Clássica; maior risco de varo proximal"],["Alargamento","Até 1 mm acima do diâmetro da haste"],["Bloqueio","Proximal + 2 distais em fraturas instáveis"],["Carga","Imediata com muletas; total quando tolerado"]]}}
+},
+
+frat_tornozelo:{
+  region:"perna", num:"RWA Alg.65-1/65-2",
+  title:"Fratura do Tornozelo",
+  src:"Rockwood Adults 10ª ed. · Cap. 65",
+  icon:"🦶", tags:["c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura isolada do maléolo lateral com mortíça congruente no RX?",
+      ctx:"Maléolo lateral isolado + mortíça congruente: provável que o ligamento deltoide esteja íntegro.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Maléolo lateral: desvio < 2 mm E sem alargamento da mortíça?",
+      yes:"r1", no:"q3"},
+    r1:{type:"r",cls:"conservative",title:"Bota Walker com Carga Total",
+      txt:"Fratura estável do maléolo lateral: bota walker com carga total imediata. RX controle em 1 e 6 semanas.",
+      details:[["Bota walker","Carga total imediata"],["RX","1 semana (verificar mortíça) e 6 semanas"],["Fisio","Após remoção da bota (6 semanas)"],["Sem stress view","Rotina não recomendada"]]},
+    q3:{type:"q",text:"Fratura bimaleolar ou maléolo lateral com mortíça alargada (mortíça incongruente)?",
+      ctx:"Bimaleolar: instável por definição. Mortíça alargada > 4 mm: equivale à fratura bimaleolar funcionalmente.",
+      yes:"q4", no:"q5"},
+    q4:{type:"q",text:"Paciente sem condições cirúrgicas (comorbidades severas, isquemia do pé, úlceras)?",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"conservative",title:"Gesso Curto com Vigilância Rigorosa",
+      txt:"Fratura bimaleolar em paciente de alto risco cirúrgico: gesso bota bem moldado, sem carga, RX semanal.",
+      details:[["Gesso","Curto (suropodálico), sem carga, bem moldado"],["RX","Semanal × 4 semanas — detectar desvio"],["Complicações","Infecção, úlcera de decúbito, mau alinhamento"]]},
+    r3:{type:"r",cls:"surgical",title:"RAFI — Fixação do Maléolo Lateral + Medial",
+      txt:"Fratura bimaleolar: fixação lateral primeiro (placa tubular ou de 1/3 cânula) + fixação medial (parafuso ou TBW).",
+      details:[["Lateral","Placa tubular posterior ou lateral; 6+ furos"],["Medial","Parafuso esponjoso 4 mm ou TBW"],["Sindesmose","Testar intraop com hook test — se instável: parafuso sindesmótico"],["Maléolo posterior","Bartonicek tipo 3-4: fixação com parafuso A/P ou placa posterior"],["Carga","Sem carga 6 semanas; com carga após RX consolidação"]]},
+    q5:{type:"q",text:"Fratura isolada do maléolo medial com desvio > 2 mm?",
+      yes:"r4", no:"r1"},
+    r4:{type:"r",cls:"surgical",title:"Fixação do Maléolo Medial",
+      txt:"Maléolo medial deslocado: 2 parafusos esponjosos paralelos ou tensão-banda com fios K. Evitar aprisionamento do nervo safeno.",
+      details:[["Parafusos","2 × 4 mm esponjosos paralelos perpendiculares ao traço"],["TBW","Alternativa em fraturas avulsão pura"],["Nervo safeno","Identificar e proteger — medial ao maléolo"],["Carga","Sem apoio 6 semanas"]]}}
+},
+
+frat_calcaneo:{
+  region:"perna", num:"RWA Alg.67-1",
+  title:"Fratura do Calcâneo",
+  src:"Rockwood Adults 10ª ed. · Cap. 67",
+  icon:"🦶", tags:["c","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Fratura extrarticular (não envolve a faceta posterior da subtalar)?",
+      ctx:"Fratura do tubérculo, do sustentáculo, ou avulsão do tendão de Aquiles: geralmente tratamento diferente das intraarticulares.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Avulsão do tendão de Aquiles ('bico de pato') ou fratura do tubérculo com desvio > 1 cm?",
+      yes:"r1", no:"r2"},
+    r1:{type:"r",cls:"surgical",title:"Fixação da Avulsão do Tubérculo Posterior",
+      txt:"Avulsão do tubérculo posterior com desvio: RAFI com parafuso ou TBW. Risco de necrose cutânea na incisão posterior.",
+      details:[["Parafuso","Esponjoso 6,5 mm ou HLS no tubérculo"],["TBW","Alternativa com fios K + cerclagem"],["Cuidado","Partes moles posteriores frágeis — incisão cuidadosa"],["Gesso","Equinismo 4 semanas + neutro 4 semanas"]]},
+    r2:{type:"r",cls:"conservative",title:"Extrarticular Não Deslocada — Imobilização",
+      txt:"Fratura extrarticular sem desvio significativo: imobilização em gesso ou bota walker, sem carga por 4-6 semanas.",
+      details:[["Bota walker","4-6 semanas sem carga"],["Mobilização","Subtalar assim que tolerado (sem calça)"],["Carga","Progressiva após 6 semanas"]]},
+    q3:{type:"q",text:"Partes moles comprometidas (flictenas hemorrágicas, edema severo 'sinal do pé de elefante')?",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"conservative",title:"Aguardar Condição de Partes Moles — 10-21 Dias",
+      txt:"Edema severo ou flictenas: elevar o membro, não operar. Aguardar wrinkle sign (retorno das dobras da pele). Cirurgia com partes moles comprometidas → infecção de 20-40%.",
+      details:[["Elevação","Membro acima do coração"],["Flictena","Flictenas hemorrágicas: desepitelizar + curativo"],["Timing","Operar apenas com wrinkle sign presente"],["Tabagismo","Risco 10× maior de infecção — considerar conservador"]]},
+    q4:{type:"q",text:"Fratura intra-articular com depressão da faceta > 2 mm E paciente jovem ativo (< 65 anos)?",
+      ctx:"Indicação cirúrgica para restaurar congruência da articulação subtalar e prevenir artrose.",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical-major",title:"RAFI via Abordagem Extensível Lateral (ELA) ou Sinus Tarsi",
+      txt:"Fratura intra-articular deslocada: RAFI com placas de calcâneo via ELA (padrão) ou abordagem minimamente invasiva via sinus tarsi (MIPO). TC obrigatória.",
+      details:[["ELA","Abordagem extensível lateral (padrão histórico) — risco de infecção 10-25%"],["Sinus tarsi","Minimamente invasiva — menor infecção, menor exposição"],["Indicação sinus tarsi","Fraturas Sanders II e III com boa redução percutânea"],["Placas","Placa de calcâneo bloqueada em 'H'"],["Sem carga","10-12 semanas"]]},
+    r5:{type:"r",cls:"conservative",title:"Fratura Intraarticular — Conservador em Casos Selecionados",
+      txt:"Idoso, diabético, imunossuprimido, tabagista pesado ou fratura não deslocada: conservador com bota walker, elevação, mobilização precoce da subtalar.",
+      details:[["Bota walker","Sem carga 8-10 semanas"],["Subtalar","Mobilização precoce para evitar rigidez"],["Artrodese","Opção de resgate secundário se artrose sintomática"],["Tabagismo","Suspender fumo antes de qualquer cirurgia"]]}}
+},
+
+// ═══════════════════════════════════════
+// PEDIATRIA
+// ═══════════════════════════════════════
+supracondilar_ped:{
+  region:"pediatria", num:"CB Vol.II",
+  title:"Fratura Supracondilar do Úmero (Criança)",
+  src:"Campbell's 15ª ed. · Vol. II + Rockwood Children 10ª ed.",
+  icon:"👶", tags:["p","e","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Pulso radial ausente ou mão pálida/fria — suspeita de lesão vascular?",
+      ctx:"Artéria braquial pode ser lesada ou em espasmo. Mão perfundida com déficit de pulso: urgência. Mão isquêmica: emergência.",
+      yes:"q2", no:"q3"},
+    q2:{type:"q",text:"Mão isquêmica (branca, fria) apesar de membro posicionado?",
+      yes:"r1", no:"r2"},
+    r1:{type:"r",cls:"emergency",title:"Cirurgia de Urgência — Exploração Vascular",
+      txt:"Mão isquêmica: redução aberta + estabilização com fios K + exploração da artéria braquial em 1-2h. Não aguardar melhora espontânea.",
+      details:[["Urgência","1-2h do diagnóstico"],["Via","Antecubital (S-plasty)"],["Artéria","Reparo primário ou enxerto venoso (safena)"],["Fasciotomia","Profilática do antebraço"]]},
+    r2:{type:"r",cls:"surgical",title:"Fratura Tipo III + Déficit de Pulso — Redução + Fios K Urgentes",
+      txt:"Pulso ausente mas mão perfundida (mão rosada sem pulso): redução fechada + fios K. Pulso retorna em 60-70% após redução. Se não retornar após estabilização: exploração.",
+      details:[["Redução","Fechada urgente com fluoroscopia"],["Fios K","2-3 fios divergentes laterais (configuração lateral)"],["Após redução","Verificar pulso e perfusão"],["Se sem pulso","Explorar artéria braquial após fios"]]},
+    q3:{type:"q",text:"Classificação de Gartland: Tipo I (não deslocada)?",
+      ctx:"Tipo I: linha anterior do úmero passa pelo capítulo. Sem desvio posterior.",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"conservative",title:"Gartland I — Imobilização em Flexão",
+      txt:"Fratura não deslocada: tala posterior com cotovelo em 90°+ e sling por 3-4 semanas. RX controle em 5-7 dias.",
+      details:[["Tala","Posterior com cotovelo em 90-100° (verificar pulso)"],["Sling","3-4 semanas"],["RX","5-7 dias — detectar desvio secundário"],["Fisio","Mobilização ativa após remoção da tala"]]},
+    q4:{type:"q",text:"Gartland II (desvio posterior com córtex posterior íntegro)?",
+      ctx:"Tipo II: inclinação posterior mas córtex posterior em contato.",
+      yes:"q5", no:"r4"},
+    q5:{type:"q",text:"Desvio em rotação ou inclinação em varo/valgo associada?",
+      yes:"r4", no:"r5"},
+    r5:{type:"r",cls:"conservative",title:"Gartland II Sem Rotação — Redução Incruenta + Tala",
+      txt:"Tipo II sem rotação: redução incruenta suave + tala em hiperflexão (120°) se pulso tolerado.",
+      details:[["Redução","Tração + extensão + hiperflexão + pronação"],["Tala","Posterior em hiperflexão se pulso tolerado"],["RX","Lateral: restaurar ângulo de Baumann"],["Admissão","Observar 4-6h antes de alta"]]},
+    r4:{type:"r",cls:"surgical",title:"Gartland II com Rotação / Tipo III — Fios de Kirschner Percutâneos",
+      txt:"Tipo II com rotação ou Tipo III: redução incruenta sob fluoroscopia + 2-3 fios K percutâneos laterais cruzados.",
+      details:[["Fios K","2-3 fios laterais divergentes (70° entre si)"],["Configuração","Lateral preferida — menor risco de nervo ulnar"],["Cruzados","Aceitável se lateral insuficiente — cuidado com ulnar"],["Remoção","Fios em 3-4 semanas no ambulatório"],["RX","Ângulo de Baumann deve ser similar ao lado contralateral"]]}}
+},
+
+frat_femur_ped:{
+  region:"pediatria", num:"CB Vol.II",
+  title:"Fratura Diafisária do Fêmur (Criança)",
+  src:"Campbell's 15ª ed. · Vol. II · Algoritmo de tratamento pediátrico",
+  icon:"👶", tags:["p","c","s"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Criança < 6 meses de idade?",
+      ctx:"Bebê: suspeitar de maus-tratos (fratura em espiral em bebê que não deambula). Notificação obrigatória se suspeita.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"< 6 meses — Imobilização de Pavlik / Gesso Espica",
+      txt:"Bebê: gesso espica (hip spica) 4-6 semanas. Investigar maus-tratos — equipe de proteção infantil.",
+      details:[["Gesso","Espica 1,5 ou dupla; troca em 3 semanas"],["Maus-tratos","Esqueleto survey + relatório para proteção infantil"],["Consolidação","Rápida — 4-6 semanas"]]},
+    q2:{type:"q",text:"Criança de 6 meses a 5 anos?",
+      ctx:"Imobilização em espica é padrão. Hastes elásticas em casos selecionados.",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"conservative",title:"Gesso Espica — Imobilização Definitiva",
+      txt:"Gesso espica por 4-8 semanas dependendo da idade. Aceitar encurtamento até 2 cm (hiperatividade de crescimento).",
+      details:[["Encurtamento","Aceitável < 2 cm (hipertrofia compensatória)"],["Angulação","< 15° sagital; < 10° coronal"],["Espica","1,5 ou dupla; posição 90/90"],["Alta","No mesmo dia (sem internação)"]]},
+    q3:{type:"q",text:"Criança de 5-12 anos?",
+      ctx:"Hastes elásticas (TENS) são o padrão nesta faixa etária.",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"surgical",title:"Hastes Elásticas Intramedular (TENS) — Padrão 5-12 Anos",
+      txt:"TENS (Titanium Elastic Nail System): 2 hastes elásticas em configuração divergente. Alta no dia seguinte; menos dor; melhor cosmese.",
+      details:[["TENS","2 hastes 2-4 mm dependendo do diâmetro do canal"],["Entrada","Retrógrada: 2-3 cm acima do fisco distal"],["Carga","Parcial com muletas; total quando tolerado"],["Remoção","12 meses após consolidação completa"],["Critérios","Peso < 50 kg; sem fratura cominutiva > 50%; sem instabilidade rotacional"]]},
+    q4:{type:"q",text:"Adolescente próximo à maturidade esquelética (> 11-12 anos, peso > 50 kg)?",
+      ctx:"Esqueleto quase maduro: haste intramedular pode ser usada com cuidado para fises.",
+      yes:"r4", no:"r3"},
+    r4:{type:"r",cls:"surgical",title:"Haste Trocanteriana / TENS em Maiores ou Placa em Ponte",
+      txt:"Adolescente com > 50 kg ou fratura instável: haste intramedular por entrada subtrocanteriana (poupando fise capital) ou placa em ponte.",
+      details:[["HIM subtroc.","Entrada lateral subtroc — poupa fise capital; risco de fratura subtrocantérica"],["Placa","Placa de bloqueio em ponte (MIPO) — em adolescentes próximos da maturidade"],["Carga","Parcial imediata; total após consolidação"],["Remoção","Facultativa após consolidação completa"]]}}
+},
+
+frat_coluna_ped:{
+  region:"pediatria", num:"RWC Sec.3",
+  title:"Trauma Raquimedular Pediátrico",
+  src:"Rockwood Children 10ª ed. · Seção 3 — Coluna",
+  icon:"👶", tags:["p","e","s","sm"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"SCIWORA (déficit neurológico sem lesão visível à TC/RX)?",
+      ctx:"SCIWORA mais comum em crianças < 8 anos pela maior elasticidade ligamentar. RM obrigatória.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"conservative",title:"SCIWORA — RM Urgente + Imobilização",
+      txt:"SCIWORA: RM urgente para identificar lesão medular. Colarinho ou colete de Minerva dependendo do nível. Corticóide controverso em pediátrico.",
+      details:[["RM","Urgente: T1, T2, STIR — lesão medular, disco, hematoma"],["Imobilização","Colarinho rígido (cervical) ou colete (toracolombar)"],["Corticóide","NÃO recomendado rotineiramente em < 14 anos"],["Prognóstico","Variável; lesão completa tem prognóstico sombrio"]]},
+    q2:{type:"q",text:"Criança < 8 anos com fratura cervical (maior risco de lesão C1-C4)?",
+      ctx:"< 8 anos: cabeça proporcionalmente maior, centro de rotação em C2-C3 (adulto: C5-C6). Lesões altas são mais comuns.",
+      yes:"q3", no:"q4"},
+    q3:{type:"q",text:"Fratura do arco de C1 (Jefferson) com instabilidade (TAL roto)?",
+      ctx:"TAL roto: C1-C2 instável. Regra de Spence: soma do desvio lateral > 7 mm = TAL roto.",
+      yes:"r2", no:"r3"},
+    r2:{type:"r",cls:"surgical",title:"Fusão C1-C2 ou Halo-Colete",
+      txt:"Jefferson instável (TAL roto): halo-colete por 12 semanas em crianças. Fusão C1-C2 se falha da imobilização.",
+      details:[["Halo","Mais pinos de menor torque em crianças (skull fino)"],["Fusão","C1-C2 se lesão instável refratária"],["TAL roto","Fusão C1-C2 primária se desvio severo"]]},
+    r3:{type:"r",cls:"conservative",title:"Colarinho Rígido ou Halo — 8-12 Semanas",
+      txt:"Fratura estável: colarinho rígido 8-12 semanas. RM para avaliar ligamentos e medula.",
+      details:[["Colarinho","Tipo Philadelphia em < 8 anos"],["RX","Controle a cada 3 semanas"],["RM","Para avaliar TAL e ligamentos"]]},
+    q4:{type:"q",text:"Fratura toracolombar com déficit neurológico (ASIA B-D)?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"surgical-major",title:"Descompressão + Fusão Instrumentada em < 24h",
+      txt:"Lesão incompleta: descompressão precoce < 24h. Menor foco de fusão possível para preservar crescimento.",
+      details:[["Descompressão","< 24h das lesões incompletas"],["Fusão","Mais curta possível — risco de cifose de crescimento"],["Instrumentação","Pediátrica com parafusos de pedículo menor calibre"],["Corticóide","Não recomendado (NASCIS III não validado em pediátrico)"]]},
+    r5:{type:"r",cls:"conservative",title:"TLSO ou Gesso de Milwaukee + Seguimento",
+      txt:"Fratura estável sem déficit: TLSO ou gesso de Milwaukee dependendo do nível. Risco de cifoescoliose em longo prazo.",
+      details:[["TLSO","Para fraturas toraco-lombares estáveis sem déficit"],["Duração","3-4 meses"],["Seguimento","Até maturidade esquelética — risco de deformidade progressiva"],["RX","A cada 3-6 meses até maturidade"]]}}
+},
+
+politrauma_ped:{
+  region:"pediatria", num:"RWC Alg.5-1",
+  title:"Politrauma Pediátrico",
+  src:"Rockwood Children 10ª ed. · Cap. 5",
+  icon:"👶", tags:["p","e"],
+  start:"q1",
+  nodes:{
+    q1:{type:"q",text:"Airway/Breathing comprometidos (estridor, saturação < 92%, FR > 40 ipm)?",
+      ctx:"Criança: vias aéreas menores, tireóide alta, língua proporcionalmente maior. IOT mais difícil.",
+      yes:"r1", no:"q2"},
+    r1:{type:"r",cls:"emergency",title:"Intubação Orotraqueal (IOT) Imediata",
+      txt:"Via aérea pediátrica: lâmina reta (Miller) em < 8 anos. Tubo sem cuff em < 8 anos (ou com cuff de baixa pressão). Atropina 0,01 mg/kg IV antes em < 1 ano.",
+      details:[["Tubo","Diâmetro: idade/4 + 4 (em mm)"],["Profundidade","Kg/2 + 12 cm (em cm)"],["Atropina","0,01 mg/kg IV antes da laringoscopia em < 1 ano"],["Alternativa","Máscara laríngea em IOT difícil"]]},
+    q2:{type:"q",text:"Circulação comprometida (TEC > 2s, pulso fraco, PA sistólica < 70 + 2×idade em anos)?",
+      yes:"r2", no:"q3"},
+    r2:{type:"r",cls:"emergency",title:"Ressuscitação Volêmica — Cristalóide + Hemoderivados",
+      txt:"Criança: volume sanguíneo 80 mL/kg. Bolus inicial 20 mL/kg de cristalóide. Se sem resposta: hemotransfusão 10 mL/kg.",
+      details:[["Cristalóide","20 mL/kg Ringer lactato — repetir 1×"],["Hemotransfusão","10 mL/kg O negativo se sem resposta"],["Acesso","IO (intraósseo) se acesso IV difícil em < 6 anos"],["Resposta","PA + FC + perfusão capilar"]]},
+    q3:{type:"q",text:"TCE com GCS < 13 ou anisocoria?",
+      ctx:"TCE grave em criança: hipertensão intracraniana + Cushing (bradicardia + hipertensão + Cheyne-Stokes).",
+      yes:"r3", no:"q4"},
+    r3:{type:"r",cls:"emergency",title:"Medidas Anti-hipertensão Intracraniana",
+      txt:"HIC pediátrica: cabeceira 30°, normoventilar (pCO2 35-40 mmHg), manitol 0,25-1 g/kg. Neurocirurgia urgente se hematoma expansivo.",
+      details:[["Cabeceira","30°, linha média"],["Manitol","0,25-1 g/kg IV; hiperventilação apenas se herniação iminente"],["pCO2","Manter 35-40 mmHg; hiperventilação temporária se herniação"],["Neurocirurgia","Hematoma epidural: craniectomia de urgência"]]},
+    q4:{type:"q",text:"Abdome instável (FAST positivo com hipotensão)?",
+      yes:"r4", no:"r5"},
+    r4:{type:"r",cls:"emergency",title:"Laparotomia Exploradora de Urgência",
+      txt:"FAST positivo + instabilidade: laparotomia de urgência. Em crianças estáveis: TC abdominal antes da cirurgia.",
+      details:[["Estável","TC abdominal + manejo conservador de órgãos sólidos (baço, fígado)"],["Instável","Laparotomia imediata"],["Baço","Salvar se possível — criança: risco de sepse pós-esplenectomia"]]},
+    r5:{type:"r",cls:"surgical",title:"Fraturas do Esqueleto — Estabilização em Ordem de Prioridade",
+      txt:"Após estabilização das lesões vitais: tratar fraturas por ordem de prioridade (coluna > pelve > fêmur > outros).",
+      details:[["Coluna","Imobilizar e confirmar via TC e RM"],["Pelve","Cinta pélvica se instável; fixação diferida"],["Fêmur","TENS ou gesso espica dependendo da idade"],["Membro superior","Fios K ou gesso; pode diferir 24-48h se estável"]]}}
+}
+
+}; // fim ALGS
+
+// ─── STATE ───
+let currentRegion = 'geral';
+let currentAlg = null;
+let history = [];
+let currentNode = null;
+
+// ─── RENDER REGIONS ───
+function showRegion(r, btn) {
+  currentRegion = r;
+  document.querySelectorAll('.rbtn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const region = REGIONS[r];
+  const algs = Object.entries(ALGS).filter(([,a]) => a.region === r);
+  const content = document.getElementById('content');
+  content.className = region.cls;
+  content.innerHTML = `
+    <div class="rh" style="">
+      <span class="rh-icon">${region.icon}</span>
+      <h2>${region.label}</h2>
+      <span class="rh-count">${algs.length} algoritmo${algs.length!==1?'s':''}</span>
+    </div>
+    <div class="alg-grid">
+      ${algs.map(([id,a]) => `
+        <div class="acard ${region.cls}" onclick="openAlg('${id}')">
+          <div class="cn">${a.num}</div>
+          <div class="ct">${a.icon} ${a.title}</div>
+          <div class="cs">${a.src}</div>
+          <div class="ctags">${(a.tags||[]).map(t => tagBadge(t)).join('')}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function tagBadge(t) {
+  const map = {c:['tag-c','Conservador'], s:['tag-s','Cirúrgico'], sm:['tag-sm','Grande Porte'], e:['tag-e','Emergência'], p:['tag-p','Pediatria']};
+  const [cls,lbl] = map[t] || ['tag-c',t];
+  return `<span class="tag ${cls}">${lbl}</span>`;
+}
+
+// ─── OPEN ALGORITHM ───
+function openAlg(id) {
+  const a = ALGS[id];
+  if (!a) return;
+  currentAlg = id;
+  history = [];
+  const region = REGIONS[a.region];
+  document.getElementById('mod').className = region.cls;
+  document.getElementById('mhd-icon').textContent = a.icon;
+  document.getElementById('mhd-title').textContent = a.title;
+  document.getElementById('mhd-src').textContent = a.src + ' · ' + a.num;
+  document.getElementById('ov').classList.remove('hidden');
+  goToNode(a.start);
+}
+
+function closeModal() {
+  document.getElementById('ov').classList.add('hidden');
+  currentAlg = null;
+  history = [];
+}
+
+function restartAlg() {
+  if (!currentAlg) return;
+  history = [];
+  goToNode(ALGS[currentAlg].start);
+}
+
+function goBack() {
+  if (history.length < 2) return;
+  history.pop();
+  const prev = history.pop();
+  goToNode(prev);
+}
+
+function goToNode(nodeId) {
+  const a = ALGS[currentAlg];
+  if (!a || !a.nodes[nodeId]) return;
+  history.push(nodeId);
+  currentNode = nodeId;
+  const node = a.nodes[nodeId];
+  updateProgress();
+  renderNode(node, nodeId);
+  document.getElementById('btn-back').disabled = history.length < 2;
+}
+
+function updateProgress() {
+  const a = ALGS[currentAlg];
+  const total = Object.keys(a.nodes).length;
+  const visited = history.length;
+  const pct = Math.min(100, Math.round((visited / total) * 100));
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('ptxt').textContent = `Passo ${visited}`;
+  document.getElementById('mft-info').textContent = `${visited}/${total} nós`;
+}
+
+function renderNode(node, nodeId) {
+  const body = document.getElementById('mbody');
+  // breadcrumbs
+  const a = ALGS[currentAlg];
+  const bcHTML = history.slice(0, -1).map((id, i) => {
+    const n = a.nodes[id];
+    const lbl = n.text ? n.text.substring(0, 40) + (n.text.length > 40 ? '…' : '') : id;
+    return `<span class="bc" title="${n.text||''}">${lbl}</span>`;
+  }).join('<span style="color:#374151;font-size:9px">›</span>');
+  const curLbl = node.text ? node.text.substring(0, 40) + (node.text.length > 40 ? '…' : '') : nodeId;
+  const breadcrumbs = (bcHTML ? bcHTML + '<span style="color:#374151;font-size:9px">›</span>' : '') +
+    `<span class="bc cur">${curLbl}</span>`;
+
+  if (node.type === 'r') {
+    body.innerHTML = `
+      <div class="breadcrumbs">${breadcrumbs}</div>
+      <div class="rn ${node.cls}">
+        <div class="rn-badge">${clsBadge(node.cls)}</div>
+        <div class="rn-title">${node.title}</div>
+        <div class="rn-txt">${node.txt}</div>
+        ${node.details ? `<div class="rn-details">${node.details.map(([l,v]) =>
+          `<div class="rn-di"><span class="dil">${l}</span><span>${v}</span></div>`).join('')}</div>` : ''}
+      </div>
+      <div style="text-align:center;margin-top:8px">
+        <button class="btn btn-sec" onclick="restartAlg()">↺ Recomeçar do início</button>
+      </div>`;
+    return;
+  }
+
+  if (node.type === 'multi') {
+    body.innerHTML = `
+      <div class="breadcrumbs">${breadcrumbs}</div>
+      <div class="nq">
+        <div class="nq-lbl">Selecione uma opção</div>
+        <div class="nq-txt">${node.text}</div>
+        ${node.ctx ? `<div class="nq-ctx">${node.ctx}</div>` : ''}
+      </div>
+      <div class="opts">
+        ${node.options.map((opt, i) => `
+          <button class="opt" onclick="goToNode('${opt.next}')">
+            <span class="opt-ico">${['①','②','③','④'][i]||'•'}</span>
+            <div>
+              <div class="opt-lbl">${opt.label}</div>
+              ${opt.desc ? `<div class="opt-dsc">${opt.desc}</div>` : ''}
+            </div>
+          </button>`).join('')}
+      </div>`;
+    return;
+  }
+
+  // type === 'q' (yes/no decision)
+  body.innerHTML = `
+    <div class="breadcrumbs">${breadcrumbs}</div>
+    <div class="nq">
+      <div class="nq-lbl">Decisão Clínica</div>
+      <div class="nq-txt">${node.text}</div>
+      ${node.ctx ? `<div class="nq-ctx">${node.ctx}</div>` : ''}
+    </div>
+    <div class="opts two">
+      <button class="opt yes" onclick="goToNode('${node.yes}')">
+        <span class="opt-ico">✓</span>
+        <div>
+          <div class="opt-lbl">Sim</div>
+          <div class="opt-dsc">Critério presente</div>
+        </div>
+      </button>
+      <button class="opt no" onclick="goToNode('${node.no}')">
+        <span class="opt-ico">✗</span>
+        <div>
+          <div class="opt-lbl">Não</div>
+          <div class="opt-dsc">Critério ausente</div>
+        </div>
+      </button>
+    </div>`;
+}
+
+function clsBadge(cls) {
+  const map = {
+    conservative: '🌿 Conservador',
+    surgical: '🔧 Cirúrgico',
+    'surgical-major': '⚕️ Grande Porte',
+    emergency: '🚨 Emergência'
+  };
+  return map[cls] || cls;
+}
+
+// ─── INIT ───
+showRegion('geral', document.querySelector('.rbtn[data-r="geral"]'));
+</script>
+</body>
+</html>

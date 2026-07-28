@@ -4,10 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
-  HandMetal, Calculator, GitBranch, FileType, ClipboardList,
+  HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/hooks/useUser";
+
+// Só aparece pro admin — os demais usuários nem sabem que este link existe.
+// A segurança de verdade é a RPC moderate_post no banco (checa auth.uid()),
+// isto aqui é só conveniência de navegação.
+const ADMIN_ID = "9010125e-bee3-4101-8e0d-e5bd4d691659";
 
 const ICONS: Record<ToolSlug, React.ElementType> = {
   anamnese: Pencil,
@@ -24,6 +30,7 @@ const ICONS: Record<ToolSlug, React.ElementType> = {
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { user } = useUser();
 
   return (
     <aside className="hidden md:block w-56 shrink-0 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
@@ -74,6 +81,22 @@ export function Sidebar() {
             <span className="truncate">Banco de Questões</span>
           </Link>
         </div>
+
+        {/* Moderação — só visível pro admin */}
+        {user?.id === ADMIN_ID && (
+          <Link
+            href="/moderacao"
+            className={cn(
+              "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+              pathname.startsWith("/moderacao")
+                ? "border-red-400 bg-red-50 text-red-600"
+                : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
+            )}
+          >
+            <ShieldCheck className="h-4 w-4 shrink-0" />
+            <span className="truncate">Moderação</span>
+          </Link>
+        )}
       </nav>
     </aside>
   );

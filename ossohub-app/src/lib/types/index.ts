@@ -59,6 +59,8 @@ export interface ClinicalCaseData {
   discussion?: string;         // pontos de discussão / lições aprendidas
 }
 
+export type ModerationStatus = 'approved' | 'pending' | 'rejected';
+
 export interface Post {
   id: string;
   user_id: string;
@@ -67,11 +69,14 @@ export interface Post {
   content: string;
   structured_data?: ClinicalCaseData | null;
   image_urls: string[];
+  video_url?: string | null;
+  video_duration_seconds?: number | null;
   tags: string[];
   likes_count: number;
   comments_count: number;
   xp_awarded: number;
   is_featured: boolean;
+  moderation_status: ModerationStatus;
   created_at: string;
   updated_at: string;
   // joins
@@ -211,6 +216,25 @@ export interface Question {
   author?: Profile;
 }
 
+// Formato usado só para o INSERT de uma nova questão — ao contrário de
+// `Question` (que é o que volta num SELECT e nunca traz essas colunas),
+// aqui incluímos correct_option/explanation porque são obrigatórias na
+// criação (o banco recusa a linha sem elas).
+export interface QuestionInsert {
+  author_id: string;
+  area: string;
+  source?: string | null;
+  statement: string;
+  image_url?: string | null;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d: string;
+  option_e: string;
+  correct_option: QuestionOption;
+  explanation?: string | null;
+}
+
 export interface QuestionTest {
   id: string;
   user_id: string;
@@ -268,6 +292,7 @@ export interface CreatePostForm {
   content: string;
   tags: string[];
   images?: File[];
+  video?: File;
   structured_data?: ClinicalCaseData;
 }
 
@@ -333,7 +358,7 @@ export interface Database {
         Rel<"notifications_user_id_fkey", ["user_id"], "profiles", ["id"]>,
         Rel<"notifications_actor_id_fkey", ["actor_id"], "profiles", ["id"]>
       ] };
-      questions:     { Row: Loose<Question>; Insert: Partial<Loose<Question>>; Update: Partial<Loose<Question>>; Relationships: [
+      questions:     { Row: Loose<Question>; Insert: Partial<Loose<QuestionInsert>>; Update: Partial<Loose<Question>>; Relationships: [
         Rel<"questions_author_id_fkey", ["author_id"], "profiles", ["id"]>
       ] };
       question_tests: { Row: Loose<QuestionTest>; Insert: Partial<Loose<QuestionTest>>; Update: Partial<Loose<QuestionTest>>; Relationships: [
@@ -367,6 +392,14 @@ export interface Database {
       };
       finish_question_test: {
         Args: { p_test_id: string };
+        Returns: void;
+      };
+      get_pending_posts: {
+        Args: Record<string, never>;
+        Returns: Loose<Post>[];
+      };
+      moderate_post: {
+        Args: { p_post_id: string; p_decision: string };
         Returns: void;
       };
     };

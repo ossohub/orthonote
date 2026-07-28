@@ -104,6 +104,13 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         </p>
       </Link>
 
+      {/* Vídeo (preview) */}
+      {post.video_url && (
+        <Link href={`/post/${post.id}`} className="mt-3 block">
+          <video src={post.video_url} className="w-full max-h-72 rounded-xl bg-black" muted preload="metadata" />
+        </Link>
+      )}
+
       {/* Imagens (preview) */}
       {post.image_urls.length > 0 && (
         <Link href={`/post/${post.id}`} className="mt-3 block">
@@ -121,6 +128,13 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
             ))}
           </div>
         </Link>
+      )}
+
+      {/* Em análise — só o próprio autor vê essa post no feed/perfil */}
+      {post.moderation_status === "pending" && post.user_id === currentUserId && (
+        <p className="mt-3 rounded-lg bg-amber-50 border border-amber-200 px-3 py-1.5 text-xs font-medium text-amber-700">
+          ⏳ Em análise da moderação — só você vê esta publicação por enquanto
+        </p>
       )}
 
       {/* Tags */}

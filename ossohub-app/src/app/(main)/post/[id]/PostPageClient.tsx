@@ -169,6 +169,18 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
           {/* Conteúdo */}
           <p className="text-ossohub-slate leading-relaxed whitespace-pre-line mb-4">{post.content}</p>
 
+          {/* Em análise — só o próprio autor vê */}
+          {post.moderation_status === "pending" && post.user_id === currentUserId && (
+            <p className="mb-4 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2 text-xs font-medium text-amber-700">
+              ⏳ Esta publicação está em análise da moderação (por conter foto/vídeo) e só é visível para você até ser aprovada.
+            </p>
+          )}
+
+          {/* Vídeo */}
+          {post.video_url && (
+            <video src={post.video_url} controls className="w-full max-h-[480px] rounded-xl bg-black mb-4" />
+          )}
+
           {/* Imagens */}
           {post.image_urls.length > 0 && (
             <div className={`grid gap-2 rounded-xl overflow-hidden mb-4 ${post.image_urls.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
