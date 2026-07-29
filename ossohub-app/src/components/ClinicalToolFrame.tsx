@@ -20,6 +20,7 @@ const SLUG_TO_TOOL_CODE: Record<ToolSlug, string> = {
   documentos: "doc",
   "texto-salvo": "nota",
   classificacoes: "class",
+  pediatria: "pediatria",
   "vias-acesso": "via",
   "exame-fisico": "pe",
   calculadora: "calc",

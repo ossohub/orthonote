@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
-  HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck,
+  HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -21,6 +21,7 @@ const ICONS: Record<ToolSlug, React.ElementType> = {
   documentos: FileText,
   "texto-salvo": StickyNote,
   classificacoes: LayoutGrid,
+  pediatria: Baby,
   "vias-acesso": Route,
   "exame-fisico": HandMetal,
   calculadora: Calculator,

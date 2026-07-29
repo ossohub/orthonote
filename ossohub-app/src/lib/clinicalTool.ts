@@ -14,6 +14,7 @@ export type ToolSlug =
   | "documentos"
   | "texto-salvo"
   | "classificacoes"
+  | "pediatria"
   | "vias-acesso"
   | "exame-fisico"
   | "calculadora"
@@ -31,6 +32,7 @@ export function getToolIframeUrl(slug: ToolSlug): string {
     case "documentos":     return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=doc`;
     case "texto-salvo":    return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=nota`;
     case "classificacoes": return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=class`;
+    case "pediatria":      return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=pediatria`;
     case "vias-acesso":    return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=via`;
     case "exame-fisico":   return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=pe`;
     case "calculadora":    return `${CLINICAL_TOOL_BASE_URL}/index.html?tool=calc`;
@@ -66,6 +68,7 @@ export const TOOL_GROUPS: ToolGroup[] = [
     label: "Referência",
     items: [
       { slug: "classificacoes", label: "Classificações" },
+      { slug: "pediatria",      label: "Pediatria" },
       { slug: "vias-acesso",    label: "Vias de Acesso" },
       { slug: "exame-fisico",   label: "Exame Físico" },
     ],

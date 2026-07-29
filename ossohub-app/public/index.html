@@ -698,6 +698,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
   <symbol id="i-bone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/><circle cx="6.5" cy="17.5" r="1.5" fill="currentColor" stroke="none"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-class" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
   <symbol id="i-via" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="4" r="2"/></symbol>
+  <symbol id="i-baby" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><path d="M9.5 13.5c.7.9 1.7 1.4 2.5 1.4s1.8-.5 2.5-1.4"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/><path d="M12 5V3"/><circle cx="12" cy="2.3" r=".6" fill="currentColor" stroke="none"/></symbol>
   <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></symbol>
   <symbol id="i-rx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></symbol>
   <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M5 18c0-2 1.8-3.5 4-3.5s4 1.5 4 3.5"/><line x1="15" y1="9" x2="19" y2="9"/><line x1="15" y1="13" x2="17" y2="13"/></symbol>
@@ -813,6 +814,10 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
         <button class="nav-btn" id="nb-class" onclick="showTab('class')">
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-class"/></svg></span>
           Classificações
+        </button>
+        <button class="nav-btn" id="nb-pediatria" onclick="showTab('pediatria')">
+          <span class="nav-ico"><svg width="15" height="15"><use href="#i-baby"/></svg></span>
+          Pediatria
         </button>
         <button class="nav-btn" id="nb-via" onclick="showTab('via')">
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-via"/></svg></span>
@@ -1447,11 +1452,31 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
           <button class="region-btn" onclick="selectRegion('femur')" data-region="femur">Fêmur <span class="rbadge">3</span></button>
           <button class="region-btn" onclick="selectRegion('joelho')" data-region="joelho">Joelho <span class="rbadge">6</span></button>
           <button class="region-btn" onclick="selectRegion('tornozelo')" data-region="tornozelo">Tornozelo/Pé <span class="rbadge">3</span></button>
-          <button class="region-btn" onclick="selectRegion('pediatria')" data-region="pediatria">Pediatria <span class="rbadge">146</span></button>
-          <button class="region-btn" onclick="selectRegion('fraturas-pediatricas')" data-region="fraturas-pediatricas">Fraturas Pediátricas <span class="rbadge">321</span></button>
         </div>
 
         <div id="cl-regions">
+        </div>
+      </div>
+      </div>
+
+      <!-- ══ TAB: PEDIATRIA (Pediatria Geral + Fratura Pediátrica) ══ -->
+      <div id="tab-pediatria" class="tab-content">
+      <div class="container-inner">
+
+        <div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.85rem">
+          <div class="cl-search-bar" style="flex:1;margin-bottom:0">
+            <svg width="16" height="16" style="color:var(--sx);flex-shrink:0"><use href="#i-srch"/></svg>
+            <input type="text" id="ped-filter" placeholder="Buscar em pediatria: classificação, sigla, segmento…" oninput="filtrarPed()"/>
+          </div>
+          <button class="sug-btn" style="position:static;flex-shrink:0" onclick="abrirModal('Pediatria')" title="Sugerir nova classificação ou reportar erro">!</button>
+        </div>
+
+        <div class="region-nav" id="ped-region-nav">
+          <button class="region-btn active" onclick="selectPedRegion('pediatria')" data-pedregion="pediatria">Pediatria Geral <span class="rbadge">146</span></button>
+          <button class="region-btn" onclick="selectPedRegion('fraturas-pediatricas')" data-pedregion="fraturas-pediatricas">Fratura Pediátrica <span class="rbadge">321</span></button>
+        </div>
+
+        <div id="ped-regions">
         </div>
       </div>
       </div>
@@ -2341,17 +2366,37 @@ let currentRegion = 'geral';
 function selectRegion(region) {
   currentRegion = region;
   document.getElementById('cl-filter').value = '';
-  document.querySelectorAll('.region-btn').forEach(b => b.classList.toggle('active', b.dataset.region === region));
-  document.querySelectorAll('.region-section').forEach(s => { s.style.display = s.id === 'region-' + region ? 'block' : 'none'; });
+  document.querySelectorAll('#region-nav .region-btn').forEach(b => b.classList.toggle('active', b.dataset.region === region));
+  document.querySelectorAll('#cl-regions .region-section').forEach(s => { s.style.display = s.id === 'region-' + region ? 'block' : 'none'; });
   document.querySelectorAll('#region-' + region + ' .cl-card').forEach(c => c.style.display = '');
 }
 function filtrarClassif() {
   const q = document.getElementById('cl-filter').value.toLowerCase().trim();
   if (!q) { selectRegion(currentRegion); return; }
-  document.querySelectorAll('.region-section').forEach(s => s.style.display = 'block');
-  document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.cl-card').forEach(c => { c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none'; });
-  document.querySelectorAll('.region-section').forEach(s => {
+  document.querySelectorAll('#cl-regions .region-section').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('#region-nav .region-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#cl-regions .cl-card').forEach(c => { c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+  document.querySelectorAll('#cl-regions .region-section').forEach(s => {
+    s.style.display = [...s.querySelectorAll('.cl-card')].some(c => c.style.display !== 'none') ? 'block' : 'none';
+  });
+}
+
+/* ── PEDIATRIA (Pediatria Geral + Fratura Pediátrica) ── */
+let currentPedRegion = 'pediatria';
+function selectPedRegion(region) {
+  currentPedRegion = region;
+  document.getElementById('ped-filter').value = '';
+  document.querySelectorAll('#ped-region-nav .region-btn').forEach(b => b.classList.toggle('active', b.dataset.pedregion === region));
+  document.querySelectorAll('#ped-regions .ped-section-wrap').forEach(s => { s.style.display = s.id === 'ped-region-' + region ? 'block' : 'none'; });
+  document.querySelectorAll('#ped-region-' + region + ' .cl-card').forEach(c => c.style.display = '');
+}
+function filtrarPed() {
+  const q = document.getElementById('ped-filter').value.toLowerCase().trim();
+  if (!q) { selectPedRegion(currentPedRegion); return; }
+  document.querySelectorAll('#ped-regions .ped-section-wrap').forEach(s => s.style.display = 'block');
+  document.querySelectorAll('#ped-region-nav .region-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#ped-regions .cl-card').forEach(c => { c.style.display = c.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+  document.querySelectorAll('#ped-regions .ped-section-wrap').forEach(s => {
     s.style.display = [...s.querySelectorAll('.cl-card')].some(c => c.style.display !== 'none') ? 'block' : 'none';
   });
 }
@@ -2413,7 +2458,7 @@ async function salvarFonteImagem() {
     GLOBAL_FONTE[key] = fonte;
     fecharModalFonte();
     mostrarToast('Fonte atualizada!');
-    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
+    if (ns === 'cl') { renderClassificacoes(); renderPediatria(); } else if (ns === 'va') renderVias();
   } catch (e) {
     console.error('salvarFonteImagem falhou:', e.code, e.message);
     mostrarToast('Erro ao salvar fonte: ' + (e.code || e.message));
@@ -2446,6 +2491,11 @@ function _popularSelectRegiaoNcl() {
   REGIOES.forEach(r => {
     const opt = document.createElement('option');
     opt.value = r.id; opt.textContent = r.nome;
+    sel.appendChild(opt);
+  });
+  PED_REGIOES.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.id; opt.textContent = 'Pediatria: ' + r.nome;
     sel.appendChild(opt);
   });
 }
@@ -2544,6 +2594,7 @@ async function salvarClassificacaoCustom() {
     fecharModalNovaCl();
     await carregarClassificacoesCustom();
     renderClassificacoes();
+    renderPediatria();
   } catch (e) {
     console.error('salvarClassificacaoCustom falhou:', e.code, e.message);
     errEl.textContent = 'Erro ao salvar: ' + (e.code || e.message);
@@ -2559,6 +2610,7 @@ async function excluirClassificacaoCustom(id) {
     mostrarToast('Classificação removida.');
     await carregarClassificacoesCustom();
     renderClassificacoes();
+    renderPediatria();
   } catch (e) {
     console.error('excluirClassificacaoCustom falhou:', e.code, e.message);
     mostrarToast('Erro ao excluir: ' + (e.code || e.message));
@@ -2632,7 +2684,7 @@ async function salvarImagemGlobal(ns, id, dataUrl) {
     }, { merge: true });
     GLOBAL_IMG[key] = dataUrl;
     mostrarToast('Imagem atualizada para todos os usuários!');
-    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
+    if (ns === 'cl') { renderClassificacoes(); renderPediatria(); } else if (ns === 'va') renderVias();
   } catch (e) {
     console.error('salvarImagemGlobal falhou:', e.code, e.message);
     const msgs = {
@@ -2652,7 +2704,7 @@ async function removerImagemGlobal(ns, id) {
     await db.collection('global_images').doc(key).delete();
     delete GLOBAL_IMG[key];
     mostrarToast('Imagem removida.');
-    if (ns === 'cl') renderClassificacoes(); else if (ns === 'va') renderVias();
+    if (ns === 'cl') { renderClassificacoes(); renderPediatria(); } else if (ns === 'va') renderVias();
   } catch (e) {
     mostrarToast('Erro ao remover imagem.');
     console.error(e);
@@ -3453,6 +3505,7 @@ _auth.onAuthStateChanged((user) => {
   // Mostra/esconde os controles de editar imagem (só admin) na hora,
   // sem precisar recarregar a página.
   if (typeof renderClassificacoes === 'function' && document.getElementById('cl-regions')) renderClassificacoes();
+  if (typeof renderPediatria === 'function' && document.getElementById('ped-regions')) renderPediatria();
   if (typeof renderVias === 'function' && document.getElementById('va-regions')) renderVias();
 });
 
@@ -3897,9 +3950,17 @@ const REGIOES = [
   {id:'quadril', nome:'Quadril',     desc:'Acetábulo, colo femoral, Garden, Pauwels, Perthes, anel pélvico Tile, Young-Burgess', count:7},
   {id:'femur',   nome:'Fêmur',       desc:'Transtrocantérica, diafisária, condilar', count:3},
   {id:'joelho',  nome:'Joelho',      desc:'Platô tibial, ligamentos, meniscos, artrose', count:4},
-  {id:'tornozelo',nome:'Tornozelo/Pé',desc:'Weber, Lauge-Hansen, Sanders, Hawkins (tálus), Rüedi-Allgöwer, Essex-Lopresti', count:6},
-  {id:'pediatria',nome:'Pediatria',desc:'Displasias esqueléticas, síndromes, PC, escoliose, coluna cervical pediátrica e mais', count:146},
-  {id:'fraturas-pediatricas',nome:'Fraturas Pediátricas',desc:'DDH, Perthes, EFCF, Salter-Harris, supracondiliana, Monteggia, pé torto, discrepância de MMII e mais (Lovell Cap.22-33)', count:321}
+  {id:'tornozelo',nome:'Tornozelo/Pé',desc:'Weber, Lauge-Hansen, Sanders, Hawkins (tálus), Rüedi-Allgöwer, Essex-Lopresti', count:6}
+];
+
+// Pediatria Geral e Fraturas Pediátricas saíram da navegação de Classificações
+// (adultos) e passaram a ter aba própria no menu lateral — ver PED_REGIOES e
+// a aba #tab-pediatria mais abaixo. Os dados continuam nas mesmas entradas de
+// CL_DATA (regiao:'pediatria' / regiao:'fraturas-pediatricas'), só não entram
+// mais no loop de REGIOES acima.
+const PED_REGIOES = [
+  {id:'pediatria',nome:'Pediatria Geral',desc:'Displasias esqueléticas, síndromes, PC, escoliose, coluna cervical pediátrica e mais (Lovell & Winters Cap.2-20)', count:146},
+  {id:'fraturas-pediatricas',nome:'Fratura Pediátrica',desc:'DDH, Perthes, EFCF, Salter-Harris, supracondiliana, Monteggia, pé torto, discrepância de MMII e mais (Lovell Cap.22-33)', count:321}
 ];
 
 const CL_DATA = [
@@ -12547,7 +12608,59 @@ function renderClassificacoes() {
   });
   container.innerHTML = html;
   REGIOES.forEach(reg => {
-    const badge = document.querySelector(`.region-btn[data-region="${reg.id}"] .rbadge`);
+    const badge = document.querySelector(`#region-nav .region-btn[data-region="${reg.id}"] .rbadge`);
+    if (badge) badge.textContent = contagens[reg.id];
+  });
+}
+
+function renderPediatria() {
+  const container = document.getElementById('ped-regions');
+  if (!container) return;
+  let html = '';
+  const contagens = {};
+  PED_REGIOES.forEach(reg => {
+    const cards = CL_DATA.filter(c => c.regiao === reg.id);
+    const customCards = CUSTOM_CL.filter(cc => cc.regiao === reg.id);
+    contagens[reg.id] = cards.length + customCards.length;
+    let cardsHtml = '';
+    cards.forEach(c => {
+      const rows = c.rows.map(r => `<tr class="${r.r}"><td>${r.l}</td><td>${r.d}</td></tr>`).join('');
+      const discHtml = c.disc ? `<div class="disc-box"><svg width="14" height="14"><use href="#i-warn"/></svg><span><strong>Discrepância entre fontes:</strong> ${c.discMsg}</span></div>` : '';
+      const notaHtml = c.nota ? `<p class="cl-nota">${c.nota}</p>` : '';
+      const discBadge = c.disc ? `<span class="disc-badge">⚠️ Discrepância</span>` : '';
+      cardsHtml += `
+      <div class="cl-card${c.open ? ' open' : ''}" id="card-${c.id}">
+        <div class="cl-hdr" onclick="toggleCard(this)">
+          <span class="cl-sigla">${c.sigla}</span>
+          <div class="cl-hdr-mid"><span class="cl-nome">${c.nome}</span><span class="cl-fonte">${escHtml(GLOBAL_FONTE['cl_' + c.id] || c.fonte)}</span>${isAdminLoggedIn() ? `<button class="fonte-edit-btn-below" onclick="event.stopPropagation();abrirModalFonte('cl','${c.id}','${(GLOBAL_FONTE['cl_' + c.id] || c.fonte || '').replace(/'/g,"\\'")}')" title="Editar fonte">✎ editar fonte</button>` : ''}</div>
+          ${discBadge}
+          <svg class="cl-chevron" width="18" height="18"><use href="#i-chev"/></svg>
+        </div>
+        <div class="cl-body">
+          ${discHtml}
+          <table class="cl-table"><tbody>${rows}</tbody></table>
+          ${notaHtml}
+          ${imgSlot(c.id, c.nome)}
+          ${!GLOBAL_IMG['cl_' + c.id] && !CL_IMG_MAP.has(c.id) && !CL_WEB_MAP.has(c.id) && CL_RW_MAP.has(c.id) ? `<button class="va-fig-btn" style="margin-top:8px" onclick="abrirFigura(undefined,'${(c.nome||c.id).replace(/'/g,"\\'")}','/img/cl/${c.id}_rw.jpg')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Ver Figura (Rockwood)
+          </button>` : ''}
+        </div>
+      </div>`;
+    });
+    customCards.forEach(cc => { cardsHtml += renderCustomClCard(cc); });
+    html += `
+    <div class="ped-section-wrap" id="ped-region-${reg.id}" style="display:none">
+      <div class="region-header">
+        <div class="region-info"><h2 class="region-title">${reg.nome}</h2><p class="region-desc">${reg.desc}</p></div>
+        <span class="region-count">${contagens[reg.id]} classificações</span>
+      </div>
+      <div class="cl-grid">${cardsHtml}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+  PED_REGIOES.forEach(reg => {
+    const badge = document.querySelector(`#ped-region-nav .region-btn[data-pedregion="${reg.id}"] .rbadge`);
     if (badge) badge.textContent = contagens[reg.id];
   });
 }
@@ -12562,20 +12675,22 @@ function inicializarApp() {
   popularChips('cp-interr', CS.interr, 'interr');
   popularChips('cp-obs', CS.obs, 'obs');
   selectRegion('geral');
+  selectPedRegion('pediatria');
   // Deep-link: permite abrir uma ferramenta específica direto via ?tool=xxx
   // (usado quando esta página é embutida em iframe pelo app da Rede Social).
   const tabParams = new URLSearchParams(window.location.search);
   const deepLinkTool = tabParams.get('tool');
-  const validTools = ['anam','med','doc','nota','class','via','pe','calc','algoritmos','pdf'];
+  const validTools = ['anam','med','doc','nota','class','pediatria','via','pe','calc','algoritmos','pdf'];
   showTab(validTools.includes(deepLinkTool) ? deepLinkTool : 'anam');
   buildMedList();
   renderClassificacoes();
+  renderPediatria();
   renderVias();
   renderPe();
   updateOCCatBadges();
   selectOCCat('trauma');
-  carregarImagensGlobais().then(() => { renderClassificacoes(); renderVias(); });
-  carregarClassificacoesCustom().then(() => renderClassificacoes());
+  carregarImagensGlobais().then(() => { renderClassificacoes(); renderPediatria(); renderVias(); });
+  carregarClassificacoesCustom().then(() => { renderClassificacoes(); renderPediatria(); });
   // Renderiza abas (NÃO reseta — dados já foram carregados por carregarDados ou estão no estado padrão)
   notaDirty = false;
   renderNotaTabs();
