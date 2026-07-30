@@ -20,7 +20,25 @@ export type NotificationType =
   | 'badge_unlocked'
   | 'post_featured'
   | 'team_invite'
-  | 'team_invite_response';
+  | 'team_invite_response'
+  | 'join_request'
+  | 'join_request_response';
+
+// Estados do Brasil (para filtrar programas de residência e equipes por UF)
+export const BRAZIL_STATES = [
+  { uf: 'AC', name: 'Acre' }, { uf: 'AL', name: 'Alagoas' }, { uf: 'AP', name: 'Amapá' },
+  { uf: 'AM', name: 'Amazonas' }, { uf: 'BA', name: 'Bahia' }, { uf: 'CE', name: 'Ceará' },
+  { uf: 'DF', name: 'Distrito Federal' }, { uf: 'ES', name: 'Espírito Santo' }, { uf: 'GO', name: 'Goiás' },
+  { uf: 'MA', name: 'Maranhão' }, { uf: 'MT', name: 'Mato Grosso' }, { uf: 'MS', name: 'Mato Grosso do Sul' },
+  { uf: 'MG', name: 'Minas Gerais' }, { uf: 'PA', name: 'Pará' }, { uf: 'PB', name: 'Paraíba' },
+  { uf: 'PR', name: 'Paraná' }, { uf: 'PE', name: 'Pernambuco' }, { uf: 'PI', name: 'Piauí' },
+  { uf: 'RJ', name: 'Rio de Janeiro' }, { uf: 'RN', name: 'Rio Grande do Norte' }, { uf: 'RS', name: 'Rio Grande do Sul' },
+  { uf: 'RO', name: 'Rondônia' }, { uf: 'RR', name: 'Roraima' }, { uf: 'SC', name: 'Santa Catarina' },
+  { uf: 'SP', name: 'São Paulo' }, { uf: 'SE', name: 'Sergipe' }, { uf: 'TO', name: 'Tocantins' },
+] as const;
+
+export type ResidencyYear = 'R1' | 'R2' | 'R3' | 'R4' | 'R5';
+export const RESIDENCY_YEARS: ResidencyYear[] = ['R1', 'R2', 'R3', 'R4', 'R5'];
 
 // ============================================================
 // Profile
@@ -37,6 +55,7 @@ export interface Profile {
   current_level: 1 | 2 | 3 | 4 | 5;
   total_xp: number;
   verified: boolean;
+  residency_year?: ResidencyYear | null;
   created_at: string;
   updated_at: string;
 }
@@ -305,25 +324,39 @@ export interface QuestionStats {
 // ============================================================
 // Desempenho — Equipes (preceptor ↔ residente), Cronograma
 // ============================================================
+export interface ResidencyProgram {
+  id: string;
+  name: string;
+  institution?: string | null;
+  city: string;
+  uf: string;
+  created_at: string;
+}
+
 export interface Team {
   id: string;
   preceptor_id: string;
   name: string;
   institution?: string | null;
+  residency_program_id?: string | null;
+  uf?: string | null;
   created_at: string;
   updated_at: string;
   // joins
   preceptor?: Profile;
   members?: TeamMember[];
+  residency_program?: ResidencyProgram;
 }
 
 export type TeamMemberStatus = 'pending' | 'active' | 'declined';
+export type TeamMemberInitiator = 'preceptor' | 'resident';
 
 export interface TeamMember {
   id: string;
   team_id: string;
   resident_id: string;
   status: TeamMemberStatus;
+  initiated_by: TeamMemberInitiator;
   invited_at: string;
   responded_at?: string | null;
   // joins
@@ -343,6 +376,75 @@ export interface ScheduleEntry {
   updated_at: string;
   // join
   resident?: Profile;
+}
+
+// ============================================================
+// Salas de discussão e provas cronometradas
+// ============================================================
+export type RoomKind = 'geral' | 'aula' | 'prova';
+
+export interface DiscussionRoom {
+  id: string;
+  team_id: string;
+  created_by: string;
+  name: string;
+  kind: RoomKind;
+  created_at: string;
+  // joins
+  creator?: Profile;
+}
+
+export type RoomMessageType = 'text' | 'image' | 'system';
+
+export interface RoomMessage {
+  id: string;
+  room_id: string;
+  sender_id: string;
+  body?: string | null;
+  image_url?: string | null;
+  message_type: RoomMessageType;
+  created_at: string;
+  // join
+  sender?: Profile;
+}
+
+export interface ScheduledExam {
+  id: string;
+  team_id: string;
+  room_id?: string | null;
+  created_by: string;
+  title: string;
+  area?: string | null;
+  num_questions: number;
+  duration_minutes: number;
+  opens_at: string;
+  closes_at: string;
+  summary_posted: boolean;
+  created_at: string;
+}
+
+export interface ExamAttempt {
+  id: string;
+  exam_id: string;
+  resident_id: string;
+  test_id: string;
+  started_at: string;
+  // joins
+  resident?: Profile;
+  test?: QuestionTest;
+}
+
+export interface ResidentEvaluation {
+  id: string;
+  team_id: string;
+  resident_id: string;
+  preceptor_id: string;
+  score: number;
+  comment?: string | null;
+  created_at: string;
+  // joins
+  preceptor?: Profile;
+  team?: Team;
 }
 
 export interface CreateQuestionForm {
@@ -457,6 +559,30 @@ export interface Database {
       schedule_entries: { Row: Loose<ScheduleEntry>; Insert: Partial<Loose<ScheduleEntry>>; Update: Partial<Loose<ScheduleEntry>>; Relationships: [
         Rel<"schedule_entries_resident_id_fkey", ["resident_id"], "profiles", ["id"]>
       ] };
+      residency_programs: { Row: Loose<ResidencyProgram>; Insert: Partial<Loose<ResidencyProgram>>; Update: Partial<Loose<ResidencyProgram>>; Relationships: [] };
+      discussion_rooms: { Row: Loose<DiscussionRoom>; Insert: Partial<Loose<DiscussionRoom>>; Update: Partial<Loose<DiscussionRoom>>; Relationships: [
+        Rel<"discussion_rooms_team_id_fkey", ["team_id"], "teams", ["id"]>,
+        Rel<"discussion_rooms_created_by_fkey", ["created_by"], "profiles", ["id"]>
+      ] };
+      room_messages: { Row: Loose<RoomMessage>; Insert: Partial<Loose<RoomMessage>>; Update: Partial<Loose<RoomMessage>>; Relationships: [
+        Rel<"room_messages_room_id_fkey", ["room_id"], "discussion_rooms", ["id"]>,
+        Rel<"room_messages_sender_id_fkey", ["sender_id"], "profiles", ["id"]>
+      ] };
+      scheduled_exams: { Row: Loose<ScheduledExam>; Insert: Partial<Loose<ScheduledExam>>; Update: Partial<Loose<ScheduledExam>>; Relationships: [
+        Rel<"scheduled_exams_team_id_fkey", ["team_id"], "teams", ["id"]>,
+        Rel<"scheduled_exams_room_id_fkey", ["room_id"], "discussion_rooms", ["id"]>,
+        Rel<"scheduled_exams_created_by_fkey", ["created_by"], "profiles", ["id"]>
+      ] };
+      exam_attempts: { Row: Loose<ExamAttempt>; Insert: Partial<Loose<ExamAttempt>>; Update: Partial<Loose<ExamAttempt>>; Relationships: [
+        Rel<"exam_attempts_exam_id_fkey", ["exam_id"], "scheduled_exams", ["id"]>,
+        Rel<"exam_attempts_resident_id_fkey", ["resident_id"], "profiles", ["id"]>,
+        Rel<"exam_attempts_test_id_fkey", ["test_id"], "question_tests", ["id"]>
+      ] };
+      resident_evaluations: { Row: Loose<ResidentEvaluation>; Insert: Partial<Loose<ResidentEvaluation>>; Update: Partial<Loose<ResidentEvaluation>>; Relationships: [
+        Rel<"resident_evaluations_team_id_fkey", ["team_id"], "teams", ["id"]>,
+        Rel<"resident_evaluations_resident_id_fkey", ["resident_id"], "profiles", ["id"]>,
+        Rel<"resident_evaluations_preceptor_id_fkey", ["preceptor_id"], "profiles", ["id"]>
+      ] };
     };
     Views: Record<string, never>;
     Functions: {
@@ -494,6 +620,22 @@ export interface Database {
       };
       respond_team_invite: {
         Args: { p_membership_id: string; p_accept: boolean };
+        Returns: void;
+      };
+      request_to_join_team: {
+        Args: { p_team_id: string };
+        Returns: string;
+      };
+      approve_join_request: {
+        Args: { p_membership_id: string; p_accept: boolean };
+        Returns: void;
+      };
+      start_scheduled_exam: {
+        Args: { p_exam_id: string };
+        Returns: string;
+      };
+      close_scheduled_exam_and_post_summary: {
+        Args: { p_exam_id: string };
         Returns: void;
       };
     };

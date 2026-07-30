@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
-  CalendarClock, PieChart, Users2,
+  CalendarClock, PieChart, Users2, MessagesSquare,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,7 @@ const DESEMPENHO_LINKS = [
   { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
   { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
   { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
+  { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
   { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { UserPlus, UserMinus, Pencil, MapPin, Award, BarChart2, FileText } from "lucide-react";
+import { UserPlus, UserMinus, Pencil, MapPin, Award, BarChart2, FileText, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -12,12 +12,13 @@ import { XPProgressBar } from "@/components/XPProgressBar";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { PostCard } from "@/components/PostCard";
 import { QuestionAreaPieWidget } from "@/components/QuestionAreaPieWidget";
+import { ResidentCurriculumTab } from "@/components/ResidentCurriculumTab";
 import { createClient } from "@/lib/supabase/client";
 import { getInitials } from "@/lib/utils";
 import { BADGES } from "@/lib/xp";
 import type { Profile, Post, Achievement, BadgeKey } from "@/lib/types";
 
-type Tab = "posts" | "achievements" | "stats";
+type Tab = "posts" | "achievements" | "stats" | "curriculo";
 
 interface Props {
   profile: Profile;
@@ -146,6 +147,7 @@ export function ProfilePageClient({
             { id: "posts"        as Tab, label: "Publicações", icon: FileText },
             { id: "achievements" as Tab, label: "Conquistas",  icon: Award },
             { id: "stats"        as Tab, label: "Estatísticas",icon: BarChart2 },
+            { id: "curriculo"    as Tab, label: "Currículo",   icon: GraduationCap },
           ]).map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -223,6 +225,9 @@ export function ProfilePageClient({
             {isOwnProfile && <QuestionAreaPieWidget userId={profile.id} />}
           </div>
         )}
+
+        {/* Aba: Currículo (estilo Lattes) */}
+        {activeTab === "curriculo" && <ResidentCurriculumTab profile={profile} />}
       </div>
     </div>
   );

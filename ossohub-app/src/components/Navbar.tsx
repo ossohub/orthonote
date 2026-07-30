@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2 } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2, MessagesSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
@@ -22,6 +22,7 @@ const DESEMPENHO_LINKS = [
   { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
   { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
   { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
+  { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
   { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
 

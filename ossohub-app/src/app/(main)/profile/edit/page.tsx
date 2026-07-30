@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/lib/supabase/client";
 import { getInitials } from "@/lib/utils";
+import { RESIDENCY_YEARS, type ResidencyYear } from "@/lib/types";
 import Link from "next/link";
 
 const SPECIALTIES = [
@@ -32,6 +33,7 @@ export default function EditProfilePage() {
   const router = useRouter();
   const supabase = createClient();
   const [specialties, setSpecialties] = useState<string[]>([]);
+  const [residencyYear, setResidencyYear] = useState<ResidencyYear | "">("");
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string>("");
   const [fullName, setFullName] = useState("");
@@ -65,6 +67,7 @@ export default function EditProfilePage() {
           rqe:        profile.rqe ?? "",
         });
         setSpecialties(profile.specialties ?? []);
+        setResidencyYear((profile.residency_year as ResidencyYear) ?? "");
         setFullName(profile.full_name);
         setPhotoUrl(profile.photo_url ?? null);
       }
@@ -128,6 +131,7 @@ export default function EditProfilePage() {
         rqe:         data.rqe || null,
         photo_url:   newPhotoUrl,
         specialties,
+        residency_year: residencyYear || null,
       })
       .eq("id", userId);
 
@@ -212,6 +216,19 @@ export default function EditProfilePage() {
               <input {...register("city_state")} placeholder="São Paulo, SP"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
             </div>
+          </div>
+
+          {/* Ano de residência — usado no ranking segmentado e no currículo do perfil */}
+          <div className="ossohub-card p-5">
+            <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Ano de residência</label>
+            <select
+              value={residencyYear}
+              onChange={(e) => setResidencyYear(e.target.value as ResidencyYear | "")}
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+            >
+              <option value="">Não informar</option>
+              {RESIDENCY_YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
+            </select>
           </div>
 
           {/* Bio */}
