@@ -622,6 +622,14 @@ export interface Database {
         Args: { p_membership_id: string; p_accept: boolean };
         Returns: void;
       };
+      browse_teams_directory: {
+        Args: { p_uf?: string | null; p_search?: string | null };
+        Returns: {
+          id: string; name: string; institution: string | null; uf: string | null;
+          residency_program_id: string | null; program_name: string | null; program_city: string | null;
+          preceptor_id: string; preceptor_name: string; created_at: string;
+        }[];
+      };
       request_to_join_team: {
         Args: { p_team_id: string };
         Returns: string;

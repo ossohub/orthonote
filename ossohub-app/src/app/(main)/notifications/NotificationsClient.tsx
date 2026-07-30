@@ -14,6 +14,8 @@ const TYPE_CONFIG: Record<NotificationType, { icon: typeof Heart; color: string;
   post_featured:        { icon: Star,         color: "text-purple-500", bg: "bg-purple-50" },
   team_invite:          { icon: Users2,       color: "text-ossohub-green", bg: "bg-ossohub-green-light" },
   team_invite_response: { icon: Users2,       color: "text-ossohub-green", bg: "bg-ossohub-green-light" },
+  join_request:          { icon: Users2,      color: "text-sky-500",    bg: "bg-sky-50" },
+  join_request_response: { icon: Users2,      color: "text-ossohub-green", bg: "bg-ossohub-green-light" },
 };
 
 export function NotificationsClient({ initialNotifications }: { initialNotifications: Notification[] }) {
@@ -47,7 +49,7 @@ export function NotificationsClient({ initialNotifications }: { initialNotificat
             const Icon = config.icon;
             const href = n.type === "new_follower"
               ? `/profile/${n.actor_id}`
-              : n.type === "team_invite" || n.type === "team_invite_response"
+              : n.type === "team_invite" || n.type === "team_invite_response" || n.type === "join_request" || n.type === "join_request_response"
               ? "/desempenho/equipe"
               : n.reference_id ? `/post/${n.reference_id}` : "#";
 
