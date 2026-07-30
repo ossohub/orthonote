@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
@@ -15,6 +15,14 @@ const NAV_LINKS = [
   { href: "/explore",       label: "Explorar",         icon: Compass },
   { href: "/network",       label: "Minha Rede",       icon: Users },
   { href: "/notifications", label: "Notificações",     icon: Bell },
+];
+
+// Mesma lista usada na Sidebar.tsx desktop — mantém as duas em sincronia.
+const DESEMPENHO_LINKS = [
+  { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
+  { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
+  { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
+  { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
 
 export function Navbar() {
@@ -139,17 +147,22 @@ export function Navbar() {
               </Button>
             </div>
 
-            {/* Banco de Questões — destaque próprio, igual à sidebar desktop */}
+            {/* Desempenho — destaque próprio, igual à sidebar desktop */}
             <div className="pt-3 border-t border-slate-100 mt-1">
-              <Link href="/questions" onClick={() => setMobileOpen(false)}
-                className={cn(
-                  "flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
-                  pathname.startsWith("/questions")
-                    ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
-                    : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
-                )}>
-                <ClipboardList className="h-4 w-4" /> Banco de Questões
-              </Link>
+              <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green">
+                Desempenho
+              </p>
+              {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => (
+                <Link key={href} href={href} onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "flex items-center gap-2 rounded-lg border px-3 py-2.5 mb-1 text-sm font-semibold transition-colors",
+                    pathname.startsWith(href)
+                      ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
+                      : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
+                  )}>
+                  <Icon className="h-4 w-4" /> {label}
+                </Link>
+              ))}
             </div>
 
             {/* Ferramentas — a sidebar fixa só aparece em telas maiores, então no

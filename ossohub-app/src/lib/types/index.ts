@@ -18,7 +18,9 @@ export type NotificationType =
   | 'new_like'
   | 'new_follower'
   | 'badge_unlocked'
-  | 'post_featured';
+  | 'post_featured'
+  | 'team_invite'
+  | 'team_invite_response';
 
 // ============================================================
 // Profile
@@ -174,22 +176,53 @@ export interface Notification {
 // ============================================================
 // Banco de Questões
 // ============================================================
+// Taxonomia usada tanto para criar/filtrar questões quanto para
+// agrupar o gráfico de pizza de Desempenho por área.
 export const QUESTION_AREAS = [
   'Ombro e Cotovelo',
   'Joelho',
-  'Coluna',
-  'Quadril',
-  'Mão e Punho',
+  'Mão',
   'Pé e Tornozelo',
-  'Tumor Ósseo',
-  'Ortopedia Pediátrica',
-  'Trauma',
-  'Medicina Esportiva',
-  'Geral',
+  'Quadril',
+  'Coluna',
+  'Pediátrica',
+  'Trauma Pediátrico',
+  'Trauma Geral',
+  'Tumor',
+  'Miscelânea',
 ] as const;
 
 export type QuestionArea = (typeof QUESTION_AREAS)[number];
 export type QuestionOption = 'A' | 'B' | 'C' | 'D' | 'E';
+
+// Questões criadas antes da taxonomia acima usavam nomes diferentes
+// (ex: "Mão e Punho", "Tumor Ósseo"). Em vez de reescrever o histórico
+// no banco, normalizamos aqui na hora de montar o gráfico/estatísticas
+// — assim as questões antigas continuam contando para a área certa.
+const LEGACY_AREA_MAP: Record<string, QuestionArea> = {
+  'Ombro e Cotovelo':      'Ombro e Cotovelo',
+  'Joelho':                'Joelho',
+  'Mão e Punho':           'Mão',
+  'Mão':                   'Mão',
+  'Pé e Tornozelo':        'Pé e Tornozelo',
+  'Quadril':               'Quadril',
+  'Coluna':                'Coluna',
+  'Ortopedia Pediátrica':  'Pediátrica',
+  'Pediátrica':            'Pediátrica',
+  'Trauma Pediátrico':     'Trauma Pediátrico',
+  'Trauma':                'Trauma Geral',
+  'Trauma Geral':          'Trauma Geral',
+  'Tumor Ósseo':           'Tumor',
+  'Tumor':                 'Tumor',
+  'Medicina Esportiva':    'Miscelânea',
+  'Geral':                 'Miscelânea',
+  'Miscelânea':            'Miscelânea',
+};
+
+export function normalizeQuestionArea(rawArea: string | null | undefined): QuestionArea {
+  if (!rawArea) return 'Miscelânea';
+  return LEGACY_AREA_MAP[rawArea] ?? 'Miscelânea';
+}
 
 // Campos públicos de uma questão — nunca inclui correct_option/explanation
 // (essas colunas são bloqueadas no banco para select direto; só chegam ao
@@ -267,6 +300,49 @@ export interface QuestionStats {
   updated_at: string;
   // join
   profile?: Profile;
+}
+
+// ============================================================
+// Desempenho — Equipes (preceptor ↔ residente), Cronograma
+// ============================================================
+export interface Team {
+  id: string;
+  preceptor_id: string;
+  name: string;
+  institution?: string | null;
+  created_at: string;
+  updated_at: string;
+  // joins
+  preceptor?: Profile;
+  members?: TeamMember[];
+}
+
+export type TeamMemberStatus = 'pending' | 'active' | 'declined';
+
+export interface TeamMember {
+  id: string;
+  team_id: string;
+  resident_id: string;
+  status: TeamMemberStatus;
+  invited_at: string;
+  responded_at?: string | null;
+  // joins
+  team?: Team;
+  resident?: Profile;
+}
+
+export interface ScheduleEntry {
+  id: string;
+  resident_id: string;
+  title: string;
+  location?: string | null;
+  starts_at: string;
+  ends_at: string;
+  notes?: string | null;
+  created_at: string;
+  updated_at: string;
+  // join
+  resident?: Profile;
 }
 
 export interface CreateQuestionForm {
@@ -371,6 +447,16 @@ export interface Database {
       question_stats: { Row: Loose<QuestionStats>; Insert: Partial<Loose<QuestionStats>>; Update: Partial<Loose<QuestionStats>>; Relationships: [
         Rel<"question_stats_user_id_fkey", ["user_id"], "profiles", ["id"]>
       ] };
+      teams: { Row: Loose<Team>; Insert: Partial<Loose<Team>>; Update: Partial<Loose<Team>>; Relationships: [
+        Rel<"teams_preceptor_id_fkey", ["preceptor_id"], "profiles", ["id"]>
+      ] };
+      team_members: { Row: Loose<TeamMember>; Insert: Partial<Loose<TeamMember>>; Update: Partial<Loose<TeamMember>>; Relationships: [
+        Rel<"team_members_team_id_fkey", ["team_id"], "teams", ["id"]>,
+        Rel<"team_members_resident_id_fkey", ["resident_id"], "profiles", ["id"]>
+      ] };
+      schedule_entries: { Row: Loose<ScheduleEntry>; Insert: Partial<Loose<ScheduleEntry>>; Update: Partial<Loose<ScheduleEntry>>; Relationships: [
+        Rel<"schedule_entries_resident_id_fkey", ["resident_id"], "profiles", ["id"]>
+      ] };
     };
     Views: Record<string, never>;
     Functions: {
@@ -400,6 +486,14 @@ export interface Database {
       };
       moderate_post: {
         Args: { p_post_id: string; p_decision: string };
+        Returns: void;
+      };
+      invite_resident_to_team: {
+        Args: { p_team_id: string; p_identifier: string };
+        Returns: string;
+      };
+      respond_team_invite: {
+        Args: { p_membership_id: string; p_accept: boolean };
         Returns: void;
       };
     };

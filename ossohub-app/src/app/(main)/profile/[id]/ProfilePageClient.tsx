@@ -11,6 +11,7 @@ import { UserLevelBadge } from "@/components/UserLevelBadge";
 import { XPProgressBar } from "@/components/XPProgressBar";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { PostCard } from "@/components/PostCard";
+import { QuestionAreaPieWidget } from "@/components/QuestionAreaPieWidget";
 import { createClient } from "@/lib/supabase/client";
 import { getInitials } from "@/lib/utils";
 import { BADGES } from "@/lib/xp";
@@ -218,6 +219,8 @@ export function ProfilePageClient({
                 <div className="text-xs text-ossohub-slate mt-1">{label}</div>
               </div>
             ))}
+
+            {isOwnProfile && <QuestionAreaPieWidget userId={profile.id} />}
           </div>
         )}
       </div>

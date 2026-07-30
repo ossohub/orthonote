@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
+  CalendarClock, PieChart, Users2,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,17 @@ import { useUser } from "@/hooks/useUser";
 // A segurança de verdade é a RPC moderate_post no banco (checa auth.uid()),
 // isto aqui é só conveniência de navegação.
 const ADMIN_ID = "9010125e-bee3-4101-8e0d-e5bd4d691659";
+
+// Desempenho — agrupa Banco de Questões, Cronograma, Gráficos e a
+// gestão de equipe (preceptor↔residente). Fica com destaque próprio,
+// separado das ferramentas clínicas (não são "ferramentas", são
+// recursos de estudo/acompanhamento).
+const DESEMPENHO_LINKS = [
+  { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
+  { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
+  { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
+  { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
+];
 
 const ICONS: Record<ToolSlug, React.ElementType> = {
   anamnese: Pencil,
@@ -66,21 +78,32 @@ export function Sidebar() {
           </div>
         ))}
 
-        {/* Banco de Questões — destaque próprio, separado das ferramentas
-            clínicas (é um recurso de quiz/ranking, não uma ferramenta). */}
+        {/* Desempenho — destaque próprio, separado das ferramentas
+            clínicas (são recursos de estudo/acompanhamento, não ferramentas). */}
         <div className="pt-1 border-t border-slate-100">
-          <Link
-            href="/questions"
-            className={cn(
-              "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
-              pathname.startsWith("/questions")
-                ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
-                : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
-            )}
-          >
-            <ClipboardList className="h-4 w-4 shrink-0" />
-            <span className="truncate">Banco de Questões</span>
-          </Link>
+          <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green">
+            Desempenho
+          </p>
+          <div className="space-y-0.5">
+            {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
+              const active = pathname.startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "flex items-center gap-2.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors",
+                    active
+                      ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
+                      : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
+                  )}
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{label}</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
 
         {/* Moderação — só visível pro admin */}

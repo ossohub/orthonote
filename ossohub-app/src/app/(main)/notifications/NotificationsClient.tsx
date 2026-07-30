@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, Heart, MessageSquare, UserPlus, Award, Star } from "lucide-react";
+import { Bell, Heart, MessageSquare, UserPlus, Award, Star, Users2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatRelativeDate, getInitials } from "@/lib/utils";
-import type { Notification } from "@/lib/types";
+import type { Notification, NotificationType } from "@/lib/types";
 
-const TYPE_CONFIG = {
-  new_like:      { icon: Heart,        color: "text-red-500",    bg: "bg-red-50" },
-  new_comment:   { icon: MessageSquare,color: "text-blue-500",   bg: "bg-blue-50" },
-  new_follower:  { icon: UserPlus,     color: "text-teal-500",   bg: "bg-teal-50" },
-  badge_unlocked:{ icon: Award,        color: "text-amber-500",  bg: "bg-amber-50" },
-  post_featured: { icon: Star,         color: "text-purple-500", bg: "bg-purple-50" },
+const TYPE_CONFIG: Record<NotificationType, { icon: typeof Heart; color: string; bg: string }> = {
+  new_like:             { icon: Heart,        color: "text-red-500",    bg: "bg-red-50" },
+  new_comment:          { icon: MessageSquare,color: "text-blue-500",   bg: "bg-blue-50" },
+  new_follower:         { icon: UserPlus,     color: "text-teal-500",   bg: "bg-teal-50" },
+  badge_unlocked:       { icon: Award,        color: "text-amber-500",  bg: "bg-amber-50" },
+  post_featured:        { icon: Star,         color: "text-purple-500", bg: "bg-purple-50" },
+  team_invite:          { icon: Users2,       color: "text-ossohub-green", bg: "bg-ossohub-green-light" },
+  team_invite_response: { icon: Users2,       color: "text-ossohub-green", bg: "bg-ossohub-green-light" },
 };
 
 export function NotificationsClient({ initialNotifications }: { initialNotifications: Notification[] }) {
@@ -43,9 +45,11 @@ export function NotificationsClient({ initialNotifications }: { initialNotificat
           {initialNotifications.map((n) => {
             const config = TYPE_CONFIG[n.type];
             const Icon = config.icon;
-            const href = n.reference_id
-              ? n.type === "new_follower" ? `/profile/${n.actor_id}` : `/post/${n.reference_id}`
-              : "#";
+            const href = n.type === "new_follower"
+              ? `/profile/${n.actor_id}`
+              : n.type === "team_invite" || n.type === "team_invite_response"
+              ? "/desempenho/equipe"
+              : n.reference_id ? `/post/${n.reference_id}` : "#";
 
             return (
               <Link
