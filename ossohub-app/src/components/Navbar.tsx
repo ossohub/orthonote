@@ -31,9 +31,8 @@ export function Navbar() {
       <div className="ossohub-container">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href={isAuthenticated ? "/feed" : "/"}
-            className="flex items-center hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="OssoHub" className="h-7 w-auto" />
+          <Link href={isAuthenticated ? "/feed" : "/"} className="flex items-center">
+            <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-7 w-auto" />
           </Link>
 
           {/* Nav links — autenticado */}

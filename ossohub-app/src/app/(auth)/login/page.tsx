@@ -68,7 +68,7 @@ function LoginForm() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center">
             <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
-              <img src="/logo.png" alt="OssoHub" className="h-8 w-auto" />
+              <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
             </div>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Entrar na plataforma</h1>
