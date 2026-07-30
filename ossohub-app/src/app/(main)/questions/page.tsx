@@ -34,7 +34,7 @@ export default function QuestionsHubPage() {
       if (!user) return;
       const [{ data: myStats }, { count }] = await Promise.all([
         supabase.from("question_stats").select("*").eq("user_id", user.id).maybeSingle(),
-        supabase.from("questions").select("*", { count: "exact", head: true }).eq("is_active", true),
+        supabase.from("questions").select("id", { count: "exact", head: true }).eq("is_active", true),
       ]);
       setStats(myStats as QuestionStats | null);
       setTotalQuestions(count ?? 0);
