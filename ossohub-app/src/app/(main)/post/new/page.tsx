@@ -286,7 +286,7 @@ export default function NewPostPage() {
   const busy = isSubmitting || uploadingMedia;
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-2xl">
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6">Nova publicação</h1>
 
@@ -342,7 +342,7 @@ export default function NewPostPage() {
             <input
               {...register("title")}
               placeholder="Ex: Fratura de clavícula medial — caso incomum com desfecho cirúrgico"
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
             />
             {errors.title && <p className="mt-1 text-xs text-red-500">{errors.title.message}</p>}
           </div>
@@ -358,12 +358,12 @@ export default function NewPostPage() {
                 <div>
                   <label className="block text-xs font-medium text-ossohub-slate mb-1">Faixa etária</label>
                   <input {...register("age_range")} placeholder="Ex: 35-45 anos"
-                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-ossohub-slate mb-1">Sexo</label>
                   <select {...register("sex")}
-                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition">
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition">
                     <option value="">Selecionar</option>
                     <option value="M">Masculino</option>
                     <option value="F">Feminino</option>
@@ -382,7 +382,7 @@ export default function NewPostPage() {
                 <div key={field}>
                   <label className="block text-xs font-medium text-ossohub-slate mb-1">{label}</label>
                   <textarea {...register(field)} rows={3} placeholder={placeholder}
-                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none" />
+                    className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none" />
                 </div>
               ))}
             </div>
@@ -401,7 +401,7 @@ export default function NewPostPage() {
                   ? "Adicione qualquer contexto extra não contemplado acima..."
                   : "Escreva o conteúdo da sua publicação..."
               }
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
             />
             {errors.content && <p className="mt-1 text-xs text-red-500">{errors.content.message}</p>}
           </div>
@@ -516,7 +516,7 @@ export default function NewPostPage() {
                 onChange={(e) => setTagInput(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(tagInput); }}}
                 placeholder="Digite uma tag e pressione Enter"
-                className="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="flex-1 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
               <Button type="button" variant="outline" size="sm" onClick={() => addTag(tagInput)}>
                 <Plus className="h-4 w-4" />

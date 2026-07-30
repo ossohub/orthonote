@@ -68,7 +68,7 @@ export function TestPageClient({ test, initialItems }: Props) {
 
   if (total === 0) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center px-4">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center px-4">
         <div className="ossohub-card p-8 text-center max-w-sm">
           <p className="text-sm text-ossohub-slate mb-4">Este teste não tem questões.</p>
           <Button asChild><Link href="/questions">Voltar ao Banco de Questões</Link></Button>
@@ -81,7 +81,7 @@ export function TestPageClient({ test, initialItems }: Props) {
     const totalAnswered = correctCount + wrongCount;
     const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center px-4 py-10">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center px-4 py-10">
         <div className="ossohub-card p-8 max-w-md w-full text-center">
           <Trophy className="h-10 w-10 text-amber-500 mx-auto mb-3" />
           <h1 className="text-xl font-bold text-ossohub-navy mb-1">Teste concluído!</h1>
@@ -125,7 +125,7 @@ export function TestPageClient({ test, initialItems }: Props) {
   ];
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-2xl">
         <div className="flex items-center justify-between mb-4">
           <Link href="/questions"

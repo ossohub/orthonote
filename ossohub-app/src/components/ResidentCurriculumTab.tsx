@@ -86,15 +86,15 @@ export function ResidentCurriculumTab({ profile }: { profile: Profile }) {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_100px] gap-2 mb-2">
             <select value={selectedTeamId} onChange={(e) => setSelectedTeamId(e.target.value)}
-              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green">
+              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark">
               {teamsToEvaluate.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
             </select>
             <input type="number" min={0} max={10} value={score} onChange={(e) => setScore(Number(e.target.value))}
-              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green" />
+              className="rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark" />
           </div>
           <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={2}
             placeholder="Comentário (opcional)"
-            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green resize-none mb-2" />
+            className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark resize-none mb-2" />
           <Button size="sm" onClick={handleSubmit} disabled={submitting}>
             {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Registrar avaliação"}
           </Button>

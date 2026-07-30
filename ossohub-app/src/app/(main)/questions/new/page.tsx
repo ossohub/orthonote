@@ -134,7 +134,7 @@ export default function NewQuestionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-2xl">
         <Link href="/questions"
           className="inline-flex items-center gap-2 text-sm text-ossohub-slate hover:text-ossohub-navy mb-5 transition-colors">
@@ -152,7 +152,7 @@ export default function NewQuestionPage() {
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Área / Tema *</label>
               <select {...register("area")}
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition">
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition">
                 <option value="">Selecionar</option>
                 {QUESTION_AREAS.map((a) => (
                   <option key={a} value={a}>{a}</option>
@@ -163,7 +163,7 @@ export default function NewQuestionPage() {
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Fonte (opcional)</label>
               <input {...register("source")} placeholder="Ex: TEOT 2023"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
             </div>
           </div>
 
@@ -171,7 +171,7 @@ export default function NewQuestionPage() {
           <div className="ossohub-card p-5">
             <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Enunciado *</label>
             <textarea {...register("statement")} rows={5} placeholder="Digite o enunciado da questão..."
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none" />
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none" />
             {errors.statement && <p className="mt-1 text-xs text-red-500">{errors.statement.message}</p>}
           </div>
 
@@ -220,7 +220,7 @@ export default function NewQuestionPage() {
                     <input
                       {...register(field)}
                       placeholder={`Alternativa ${letter}`}
-                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                     />
                     {errors[field] && <p className="mt-1 text-xs text-red-500">{errors[field]?.message}</p>}
                   </div>
@@ -233,7 +233,7 @@ export default function NewQuestionPage() {
           <div className="ossohub-card p-5">
             <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Comentário da resposta (opcional)</label>
             <textarea {...register("explanation")} rows={3} placeholder="Explique por que essa é a alternativa correta..."
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none" />
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none" />
             <p className="text-xs text-ossohub-slate mt-1">
               Exibido para quem responder, logo após a correção — nunca antes.
             </p>

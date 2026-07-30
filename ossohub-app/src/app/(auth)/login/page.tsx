@@ -62,7 +62,7 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center p-4">
+    <div className="min-h-screen ossohub-canvas flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -89,7 +89,7 @@ function LoginForm() {
                 {...register("email")}
                 type="email"
                 placeholder="seu@email.com"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
               {errors.email && (
                 <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>
@@ -106,7 +106,7 @@ function LoginForm() {
                   {...register("password")}
                   type={showPass ? "text" : "password"}
                   placeholder="••••••••"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 <button
                   type="button"

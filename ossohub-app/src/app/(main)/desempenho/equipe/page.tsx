@@ -253,7 +253,7 @@ export default function EquipePage() {
 
   if (userLoading || !user) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );

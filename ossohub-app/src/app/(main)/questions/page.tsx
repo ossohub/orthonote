@@ -56,7 +56,7 @@ export default function QuestionsHubPage() {
 
   if (userLoading || !user) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
@@ -66,7 +66,7 @@ export default function QuestionsHubPage() {
     stats && stats.total_answered > 0 ? Math.round((stats.total_correct / stats.total_answered) * 100) : null;
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-3xl">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-2">
@@ -118,7 +118,7 @@ export default function QuestionsHubPage() {
               <select
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               >
                 <option value="">Todas as áreas</option>
                 {QUESTION_AREAS.map((a) => (
@@ -131,7 +131,7 @@ export default function QuestionsHubPage() {
               <select
                 value={numQuestions}
                 onChange={(e) => setNumQuestions(Number(e.target.value))}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               >
                 {NUM_OPTIONS.map((n) => (
                   <option key={n} value={n}>{n} questões</option>

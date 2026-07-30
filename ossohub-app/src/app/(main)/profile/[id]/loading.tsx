@@ -1,6 +1,6 @@
 export default function ProfileLoading() {
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-3xl animate-pulse">
         <div className="ossohub-card p-6 mb-5">
           <div className="flex gap-5">

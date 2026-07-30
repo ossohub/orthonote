@@ -166,7 +166,7 @@ const LEVELS = [
 
 function BenefitsSection() {
   return (
-    <section className="ossohub-section bg-ossohub-bg-light">
+    <section className="ossohub-section ossohub-canvas">
       <div className="ossohub-container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Benefícios */}

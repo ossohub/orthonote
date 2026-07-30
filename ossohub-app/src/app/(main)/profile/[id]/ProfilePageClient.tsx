@@ -62,7 +62,7 @@ export function ProfilePageClient({
   const totalComments = posts.reduce((sum, p) => sum + p.comments_count, 0);
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-3xl">
 
         {/* Header do perfil */}

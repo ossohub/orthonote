@@ -48,7 +48,7 @@ export function ExploreClient({ suggestedUsers, featuredPosts, currentUserId }: 
   const displayUsers = results.length > 0 ? results : suggestedUsers;
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-4xl">
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6">Explorar</h1>
 
@@ -62,7 +62,7 @@ export function ExploreClient({ suggestedUsers, featuredPosts, currentUserId }: 
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => { if (e.key === "Enter") handleSearch(); }}
                 placeholder="Buscar por nome ou especialidade (ex: Joelho, Ombro)..."
-                className="w-full rounded-xl border border-slate-300 bg-white pl-10 pr-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white pl-10 pr-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
             </div>
             <Button onClick={handleSearch} disabled={searching}>

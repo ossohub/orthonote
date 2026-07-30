@@ -108,7 +108,7 @@ export default function CronogramaPage() {
 
   if (userLoading || !user) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
@@ -124,7 +124,7 @@ export default function CronogramaPage() {
   const sortedKeys = Array.from(groups.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-3xl">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-2">
@@ -141,7 +141,7 @@ export default function CronogramaPage() {
             <select
               value={selectedResidentId}
               onChange={(e) => setSelectedResidentId(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
             >
               <option value="">Meu próprio cronograma</option>
               {residents.map((m) => (
@@ -168,7 +168,7 @@ export default function CronogramaPage() {
                 <label className="block text-xs font-medium text-ossohub-slate mb-1">Título / rodízio</label>
                 <input value={title} onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ex: Ambulatório de Joelho, Plantão Trauma..."
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
               </div>
               <div className="sm:col-span-2">
                 <label className="flex items-center gap-1 text-xs font-medium text-ossohub-slate mb-1">
@@ -176,23 +176,23 @@ export default function CronogramaPage() {
                 </label>
                 <input value={location} onChange={(e) => setLocation(e.target.value)}
                   placeholder="Ex: Hospital X — Bloco Cirúrgico"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-ossohub-slate mb-1">Início</label>
                 <input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-ossohub-slate mb-1">Fim</label>
                 <input type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-xs font-medium text-ossohub-slate mb-1">Observações (opcional)</label>
                 <input value={notes} onChange={(e) => setNotes(e.target.value)}
                   placeholder="Ex: cobrindo Dr. Fulano"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                  className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
               </div>
             </div>
             <Button onClick={handleCreate} disabled={saving} size="sm">

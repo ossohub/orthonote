@@ -9,15 +9,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-ossohub-green text-white shadow-sm hover:bg-ossohub-green-dark active:scale-[0.98]",
+          "bg-ossohub-green-dark text-white shadow-[0_1px_2px_rgba(15,23,42,0.06),0_6px_16px_-6px_rgba(5,150,105,0.45)] hover:bg-emerald-700 hover:shadow-[0_1px_2px_rgba(15,23,42,0.06),0_10px_22px_-6px_rgba(5,150,105,0.5)] active:scale-[0.98]",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-white shadow-sm hover:border-ossohub-green-dark/40 hover:bg-ossohub-green-dark/5 hover:text-ossohub-green-dark",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-ossohub-green underline-offset-4 hover:underline",
+        link: "text-ossohub-green-dark underline-offset-4 hover:underline",
         navy:
           "bg-ossohub-navy text-white shadow-sm hover:bg-ossohub-navy/90 active:scale-[0.98]",
       },

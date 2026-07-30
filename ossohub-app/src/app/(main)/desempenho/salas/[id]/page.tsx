@@ -177,7 +177,7 @@ export default function SalaChatPage() {
 
   if (userLoading || !user || loading) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
@@ -185,14 +185,14 @@ export default function SalaChatPage() {
 
   if (!room) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center text-sm text-ossohub-slate">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center text-sm text-ossohub-slate">
         Sala não encontrada ou sem acesso.
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light flex flex-col">
+    <div className="min-h-screen ossohub-canvas flex flex-col">
       <div className="ossohub-container max-w-3xl w-full py-4 flex-1 flex flex-col">
         <div className="flex items-center gap-2 mb-3">
           <Link href="/desempenho/salas" className="text-ossohub-slate hover:text-ossohub-navy"><ArrowLeft className="h-5 w-5" /></Link>
@@ -215,20 +215,20 @@ export default function SalaChatPage() {
           {showExamForm && (
             <div className="mb-3 grid grid-cols-1 sm:grid-cols-2 gap-2 rounded-xl border border-slate-200 p-3">
               <input value={examTitle} onChange={(e) => setExamTitle(e.target.value)} placeholder="Título da prova"
-                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green sm:col-span-2" />
+                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green-dark sm:col-span-2" />
               <select value={examArea} onChange={(e) => setExamArea(e.target.value)}
-                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green">
+                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green-dark">
                 <option value="">Todas as áreas</option>
                 {QUESTION_AREAS.map((a) => <option key={a} value={a}>{a}</option>)}
               </select>
               <input type="number" min={1} max={50} value={examNumQ} onChange={(e) => setExamNumQ(Number(e.target.value))}
                 placeholder="Nº de questões"
-                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green" />
+                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green-dark" />
               <input type="number" min={1} max={480} value={examDuration} onChange={(e) => setExamDuration(Number(e.target.value))}
                 placeholder="Duração (min)"
-                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green" />
+                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green-dark" />
               <input type="datetime-local" value={examOpensAt} onChange={(e) => setExamOpensAt(e.target.value)}
-                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green" />
+                className="rounded-lg border border-slate-300 px-2.5 py-2 text-sm outline-none focus:border-ossohub-green-dark" />
               <Button size="sm" onClick={handleCreateExam} disabled={creatingExam} className="sm:col-span-2">
                 {creatingExam ? <Loader2 className="h-4 w-4 animate-spin" /> : "Agendar prova"}
               </Button>
@@ -327,7 +327,7 @@ export default function SalaChatPage() {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSendText(); } }}
             placeholder="Escreva uma mensagem..."
-            className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green"
+            className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark"
           />
           <Button size="sm" onClick={handleSendText} disabled={sending || !text.trim()}>
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}

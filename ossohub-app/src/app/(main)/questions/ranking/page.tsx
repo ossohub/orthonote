@@ -59,7 +59,7 @@ export default async function QuestionRankingPage({ searchParams }: Props) {
   const ranking = (rows ?? []) as unknown as RankRow[];
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-2xl">
         <Link href="/questions"
           className="inline-flex items-center gap-2 text-sm text-ossohub-slate hover:text-ossohub-navy mb-5 transition-colors">

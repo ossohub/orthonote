@@ -142,14 +142,14 @@ export default function EditProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
   }
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-lg">
         <Link href={`/profile/${userId}`}
           className="inline-flex items-center gap-2 text-sm text-ossohub-slate hover:text-ossohub-navy mb-5 transition-colors">
@@ -200,7 +200,7 @@ export default function EditProfilePage() {
           <div className="ossohub-card p-5">
             <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Nome completo *</label>
             <input {...register("full_name")}
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
             {errors.full_name && <p className="mt-1 text-xs text-red-500">{errors.full_name.message}</p>}
           </div>
 
@@ -209,12 +209,12 @@ export default function EditProfilePage() {
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">RQE</label>
               <input {...register("rqe")} placeholder="12345"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
             </div>
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Cidade/Estado</label>
               <input {...register("city_state")} placeholder="São Paulo, SP"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition" />
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
             </div>
           </div>
 
@@ -224,7 +224,7 @@ export default function EditProfilePage() {
             <select
               value={residencyYear}
               onChange={(e) => setResidencyYear(e.target.value as ResidencyYear | "")}
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
             >
               <option value="">Não informar</option>
               {RESIDENCY_YEARS.map((y) => <option key={y} value={y}>{y}</option>)}
@@ -237,7 +237,7 @@ export default function EditProfilePage() {
               Bio <span className="text-ossohub-slate font-normal">(máx. 280 caracteres)</span>
             </label>
             <textarea {...register("bio")} rows={3} placeholder="Conte brevemente sobre você..."
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none" />
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none" />
             {errors.bio && <p className="mt-1 text-xs text-red-500">{errors.bio.message}</p>}
           </div>
 

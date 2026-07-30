@@ -97,7 +97,7 @@ export default function SalasPage() {
 
   if (userLoading || !user || loading) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
@@ -106,7 +106,7 @@ export default function SalasPage() {
   const isPreceptor = isPreceptorOf.has(selectedTeamId);
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-3xl">
         <div className="flex items-center gap-2 mb-6">
           <MessagesSquare className="h-6 w-6 text-ossohub-green" />
@@ -123,7 +123,7 @@ export default function SalasPage() {
             <div className="ossohub-card p-4 mb-5">
               <label className="text-xs font-semibold text-ossohub-slate uppercase tracking-wide">Equipe</label>
               <select value={selectedTeamId} onChange={(e) => setSelectedTeamId(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green">
+                className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark">
                 {myTeams.map((t) => (
                   <option key={t.id} value={t.id}>{t.name}{isPreceptorOf.has(t.id) ? " (preceptor)" : ""}</option>
                 ))}
@@ -138,9 +138,9 @@ export default function SalasPage() {
                 <div className="flex flex-col sm:flex-row gap-2">
                   <input value={newRoomName} onChange={(e) => setNewRoomName(e.target.value)}
                     placeholder="Ex: Aula de Trauma — Semana 3"
-                    className="flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green" />
+                    className="flex-1 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark" />
                   <select value={newRoomKind} onChange={(e) => setNewRoomKind(e.target.value as RoomKind)}
-                    className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green">
+                    className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark">
                     <option value="geral">Geral</option>
                     <option value="aula">Aula</option>
                     <option value="prova">Prova</option>

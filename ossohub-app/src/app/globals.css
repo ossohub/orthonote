@@ -73,7 +73,10 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
+    background-color: #F7F8FA;
+    background-image: radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.05) 1px, transparent 0);
+    background-size: 22px 22px;
   }
 
   /* Smooth scrolling */
@@ -102,23 +105,24 @@
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* Cards do site inteiro — padrão premium (sombra em duas camadas,
+     bordas suaves, cantos maiores). Antes era um estilo mais simples;
+     agora toda tela que usa .ossohub-card herda a versão refinada. */
   .ossohub-card {
-    @apply bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow;
+    @apply bg-white rounded-2xl border border-slate-200/70 transition-shadow duration-300;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -16px rgba(15, 23, 42, 0.12);
+  }
+  .ossohub-card:hover {
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 36px -16px rgba(15, 23, 42, 0.16);
   }
 
   .ossohub-section {
     @apply py-16 sm:py-24;
   }
 
-  /* Superfície "premium" — usada em telas que pedem uma sensação mais
-     sofisticada (sombra em duas camadas, borda mais suave). Aditivo:
-     não substitui .ossohub-card em nenhuma tela existente. */
+  /* Alias mantido por compatibilidade — .ossohub-card já é premium agora. */
   .ossohub-card-premium {
-    @apply bg-white rounded-2xl border border-slate-200/70 transition-shadow duration-300;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -16px rgba(15, 23, 42, 0.12);
-  }
-  .ossohub-card-premium:hover {
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 16px 36px -16px rgba(15, 23, 42, 0.16);
+    @apply ossohub-card;
   }
 
   /* Fundo com textura sutil em pontos — usado em telas "premium" no

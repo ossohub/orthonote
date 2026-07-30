@@ -52,7 +52,7 @@ export default async function NetworkPage() {
   }
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-4xl">
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6 flex items-center gap-2">
           <Users className="h-6 w-6 text-ossohub-green" /> Minha Rede

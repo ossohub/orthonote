@@ -21,7 +21,7 @@ const TYPE_CONFIG: Record<NotificationType, { icon: typeof Heart; color: string;
 export function NotificationsClient({ initialNotifications }: { initialNotifications: Notification[] }) {
   if (initialNotifications.length === 0) {
     return (
-      <div className="bg-ossohub-bg-light min-h-screen py-6">
+      <div className="ossohub-canvas min-h-screen py-6">
         <div className="ossohub-container max-w-2xl">
           <h1 className="text-2xl font-bold text-ossohub-navy mb-6 flex items-center gap-2">
             <Bell className="h-6 w-6 text-ossohub-green" /> Notificações
@@ -37,7 +37,7 @@ export function NotificationsClient({ initialNotifications }: { initialNotificat
   }
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-2xl">
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6 flex items-center gap-2">
           <Bell className="h-6 w-6 text-ossohub-green" /> Notificações

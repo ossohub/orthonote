@@ -82,7 +82,7 @@ export default function GraficosPage() {
 
   if (userLoading || !user) {
     return (
-      <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+      <div className="min-h-screen ossohub-canvas flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-ossohub-green" />
       </div>
     );
@@ -96,7 +96,7 @@ export default function GraficosPage() {
   const riskAreas = trend.filter((t) => t.risk === "alto" || t.risk === "atencao");
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-4xl">
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-2">
@@ -113,7 +113,7 @@ export default function GraficosPage() {
             <select
               value={selectedResidentId}
               onChange={(e) => setSelectedResidentId(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
             >
               <option value="">Meu próprio desempenho</option>
               {residents.map((m) => (

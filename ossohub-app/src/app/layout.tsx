@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased bg-ossohub-bg-light`}>
+      <body className={`${inter.variable} font-sans antialiased ossohub-canvas`}>
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Toaster

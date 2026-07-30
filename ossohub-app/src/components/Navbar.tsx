@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2, MessagesSquare } from "lucide-react";
+import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2, MessagesSquare, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
@@ -74,13 +74,13 @@ export function Navbar() {
             ) : (
               <>
                 <Button size="sm" className="hidden sm:flex" asChild>
-                  <Link href="/post/new">+ Publicar</Link>
+                  <Link href="/post/new"><Plus className="h-4 w-4" /> Publicar</Link>
                 </Button>
 
                 {/* Avatar dropdown */}
                 <div className="relative">
                   <button onClick={() => setDropdownOpen((v) => !v)}
-                    className="flex items-center gap-2 rounded-full border-2 border-transparent hover:border-ossohub-green/50 transition-colors p-0.5">
+                    className="flex items-center gap-2 rounded-full border-2 border-transparent hover:border-ossohub-green-dark/50 transition-colors p-0.5">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={profile?.photo_url ?? undefined} />
                       <AvatarFallback className="text-xs">{getInitials(profile?.full_name ?? "U")}</AvatarFallback>
@@ -90,7 +90,10 @@ export function Navbar() {
                   {dropdownOpen && (
                     <>
                       <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
-                      <div className="absolute right-0 top-full mt-2 w-52 rounded-xl border border-slate-200 bg-white shadow-lg z-20 py-1">
+                      <div
+                        className="absolute right-0 top-full mt-2 w-52 rounded-2xl border border-slate-200/70 bg-white z-20 py-1"
+                        style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 16px 36px -16px rgba(15,23,42,0.22)" }}
+                      >
                         <div className="px-4 py-3 border-b border-slate-100">
                           <p className="text-sm font-semibold text-ossohub-navy truncate">{profile?.full_name}</p>
                           <p className="text-xs text-ossohub-slate">CRM {profile?.crm}</p>
@@ -150,7 +153,7 @@ export function Navbar() {
 
             {/* Desempenho — destaque próprio, igual à sidebar desktop */}
             <div className="pt-3 border-t border-slate-100 mt-1">
-              <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green">
+              <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green-dark">
                 Desempenho
               </p>
               {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => (
@@ -158,8 +161,8 @@ export function Navbar() {
                   className={cn(
                     "flex items-center gap-2 rounded-lg border px-3 py-2.5 mb-1 text-sm font-semibold transition-colors",
                     pathname.startsWith(href)
-                      ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
-                      : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
+                      ? "border-ossohub-green-dark/40 bg-ossohub-green-dark/10 text-ossohub-green-dark"
+                      : "border-ossohub-green-dark/20 bg-ossohub-green-dark/5 text-ossohub-green-dark hover:bg-ossohub-green-dark/10"
                   )}>
                   <Icon className="h-4 w-4" /> {label}
                 </Link>

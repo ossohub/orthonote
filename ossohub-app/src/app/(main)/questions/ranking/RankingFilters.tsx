@@ -20,7 +20,7 @@ export function RankingFilters({ teams }: { teams: TeamOption[] }) {
       <select
         defaultValue={searchParams.get("team") ?? ""}
         onChange={(e) => setParam("team", e.target.value)}
-        className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green"
+        className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark"
       >
         <option value="">Todas as equipes</option>
         {teams.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -28,7 +28,7 @@ export function RankingFilters({ teams }: { teams: TeamOption[] }) {
       <select
         defaultValue={searchParams.get("year") ?? ""}
         onChange={(e) => setParam("year", e.target.value)}
-        className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green"
+        className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-ossohub-green-dark"
       >
         <option value="">Todos os anos de residência</option>
         {RESIDENCY_YEARS.map((y) => <option key={y} value={y}>{y}</option>)}

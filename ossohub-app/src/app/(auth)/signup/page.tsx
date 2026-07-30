@@ -107,7 +107,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center p-4 py-12">
+    <div className="min-h-screen ossohub-canvas flex items-center justify-center p-4 py-12">
       <div className="w-full max-w-lg">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -132,7 +132,7 @@ export default function SignupPage() {
               <input
                 {...register("full_name")}
                 placeholder="Dr. João Silva"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
               {errors.full_name && <p className="mt-1 text-xs text-red-500">{errors.full_name.message}</p>}
             </div>
@@ -144,7 +144,7 @@ export default function SignupPage() {
                 {...register("email")}
                 type="email"
                 placeholder="seu@email.com"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
               {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
             </div>
@@ -157,7 +157,7 @@ export default function SignupPage() {
                   {...register("password")}
                   type={showPass ? "text" : "password"}
                   placeholder="Mínimo 8 caracteres"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 <button type="button" onClick={() => setShowPass((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
@@ -174,7 +174,7 @@ export default function SignupPage() {
                 <input
                   {...register("crm")}
                   placeholder="12345/SP"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 {errors.crm && <p className="mt-1 text-xs text-red-500">{errors.crm.message}</p>}
               </div>
@@ -185,7 +185,7 @@ export default function SignupPage() {
                 <input
                   {...register("rqe")}
                   placeholder="12345"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
               </div>
             </div>
@@ -228,7 +228,7 @@ export default function SignupPage() {
               <input
                 {...register("city_state")}
                 placeholder="São Paulo, SP"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
             </div>
 
@@ -241,7 +241,7 @@ export default function SignupPage() {
                 {...register("bio")}
                 rows={2}
                 placeholder="Ortopedista especialista em Joelho. Hospital..."
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
               />
               {errors.bio && <p className="mt-1 text-xs text-red-500">{errors.bio.message}</p>}
             </div>

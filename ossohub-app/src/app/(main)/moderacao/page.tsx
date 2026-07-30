@@ -85,7 +85,7 @@ export default function ModeracaoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ossohub-bg-light py-8">
+    <div className="min-h-screen ossohub-canvas py-8">
       <div className="ossohub-container max-w-2xl">
         <div className="flex items-center gap-2 mb-6">
           <ShieldCheck className="h-6 w-6 text-ossohub-green" />

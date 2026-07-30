@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-ossohub-bg-light flex items-center justify-center">
+    <div className="min-h-screen ossohub-canvas flex items-center justify-center">
       <div className="text-center">
         <div className="flex justify-center mb-4">
           <div className="inline-flex items-center rounded-xl bg-ossohub-navy px-4 py-3 opacity-40">

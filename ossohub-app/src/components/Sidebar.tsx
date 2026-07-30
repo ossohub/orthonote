@@ -66,7 +66,7 @@ export function Sidebar() {
                     className={cn(
                       "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium border-l-2 transition-colors",
                       active
-                        ? "border-l-ossohub-green bg-ossohub-green/10 text-ossohub-green"
+                        ? "border-l-ossohub-green-dark bg-ossohub-green-dark/8 text-ossohub-green-dark"
                         : "border-l-transparent text-ossohub-slate hover:bg-slate-50 hover:text-ossohub-navy"
                     )}
                   >
@@ -82,7 +82,7 @@ export function Sidebar() {
         {/* Desempenho — destaque próprio, separado das ferramentas
             clínicas (são recursos de estudo/acompanhamento, não ferramentas). */}
         <div className="pt-1 border-t border-slate-100">
-          <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green">
+          <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green-dark">
             Desempenho
           </p>
           <div className="space-y-0.5">
@@ -95,8 +95,8 @@ export function Sidebar() {
                   className={cn(
                     "flex items-center gap-2.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors",
                     active
-                      ? "border-ossohub-green bg-ossohub-green/10 text-ossohub-green"
-                      : "border-ossohub-green/30 bg-ossohub-green/5 text-ossohub-green hover:bg-ossohub-green/10"
+                      ? "border-ossohub-green-dark/40 bg-ossohub-green-dark/10 text-ossohub-green-dark"
+                      : "border-ossohub-green-dark/20 bg-ossohub-green-dark/5 text-ossohub-green-dark hover:bg-ossohub-green-dark/10"
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" />

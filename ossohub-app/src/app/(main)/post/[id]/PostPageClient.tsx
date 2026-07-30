@@ -95,7 +95,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
   const structuredData = post.structured_data;
 
   return (
-    <div className="bg-ossohub-bg-light min-h-screen py-6">
+    <div className="ossohub-canvas min-h-screen py-6">
       <div className="ossohub-container max-w-2xl">
         {/* Voltar */}
         <Link href="/feed" className="inline-flex items-center gap-2 text-sm text-ossohub-slate hover:text-ossohub-navy mb-5 transition-colors">
@@ -236,7 +236,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
                 onKeyDown={(e) => { if (e.key === "Enter" && e.ctrlKey) handleComment(); }}
                 rows={2}
                 placeholder="Escreva um comentário construtivo... (+15 XP)"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green focus:ring-2 focus:ring-ossohub-green/20 transition resize-none"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
               />
             </div>
             <Button onClick={handleComment} disabled={posting || !commentText.trim()} size="icon" className="self-end h-10 w-10 shrink-0">
