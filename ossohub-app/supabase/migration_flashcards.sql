@@ -25,6 +25,19 @@
 --     de uma questão que ele não respondeu.
 
 -- ============================================================
+-- Garante a função de updated_at (mesma de schema.sql) — recriada
+-- aqui com CREATE OR REPLACE por segurança, caso este projeto
+-- Supabase não tenha essa função no schema `public` ainda.
+-- ============================================================
+CREATE OR REPLACE FUNCTION public.update_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- ============================================================
 -- TABELA: flashcards
 -- ============================================================
 CREATE TABLE public.flashcards (
