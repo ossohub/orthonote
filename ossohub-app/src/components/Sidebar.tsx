@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
-  CalendarClock, PieChart, Users2, MessagesSquare,
+  CalendarClock, PieChart, Users2, MessagesSquare, Layers,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -22,6 +22,7 @@ const ADMIN_ID = "9010125e-bee3-4101-8e0d-e5bd4d691659";
 // recursos de estudo/acompanhamento).
 const DESEMPENHO_LINKS = [
   { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
+  { href: "/flashcards",             label: "Flashcards",        icon: Layers },
   { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
   { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
   { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },

@@ -322,6 +322,40 @@ export interface QuestionStats {
 }
 
 // ============================================================
+// Flashcards
+// ============================================================
+// Reaproveita a mesma taxonomia de área do Banco de Questões —
+// todo flashcard (manual ou gerado automaticamente) é salvo já
+// categorizado por área de estudo, para manter a organização
+// consistente em todo o site.
+export type FlashcardOrigin = 'manual' | 'auto_question' | 'auto_classification';
+
+export interface Flashcard {
+  id: string;
+  author_id: string;
+  area: string;
+  front: string;
+  back: string;
+  source?: string | null;
+  origin: FlashcardOrigin;
+  is_public: boolean;
+  created_at: string;
+  updated_at: string;
+  // join
+  author?: Profile;
+}
+
+export interface FlashcardInsert {
+  author_id: string;
+  area: string;
+  front: string;
+  back: string;
+  source?: string | null;
+  origin?: FlashcardOrigin;
+  is_public?: boolean;
+}
+
+// ============================================================
 // Desempenho — Equipes (preceptor ↔ residente), Cronograma
 // ============================================================
 export interface ResidencyProgram {
@@ -583,6 +617,9 @@ export interface Database {
         Rel<"resident_evaluations_resident_id_fkey", ["resident_id"], "profiles", ["id"]>,
         Rel<"resident_evaluations_preceptor_id_fkey", ["preceptor_id"], "profiles", ["id"]>
       ] };
+      flashcards: { Row: Loose<Flashcard>; Insert: Partial<Loose<FlashcardInsert>>; Update: Partial<Loose<Flashcard>>; Relationships: [
+        Rel<"flashcards_author_id_fkey", ["author_id"], "profiles", ["id"]>
+      ] };
     };
     Views: Record<string, never>;
     Functions: {
@@ -645,6 +682,10 @@ export interface Database {
       close_scheduled_exam_and_post_summary: {
         Args: { p_exam_id: string };
         Returns: void;
+      };
+      generate_flashcards_from_questions: {
+        Args: { p_area?: string | null; p_count: number };
+        Returns: Loose<Flashcard>[];
       };
     };
   };
