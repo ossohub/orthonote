@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
-  CalendarClock, PieChart, Users2, MessagesSquare, Layers,
+  CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -109,20 +109,38 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* Moderação — só visível pro admin */}
+        {/* Moderação e Painel de Sugestões — só visíveis pro admin. A
+            segurança de verdade continua nas regras do banco (RPC
+            moderate_post / Firestore + Firebase Auth); isto aqui é só
+            conveniência de navegação, lida do próprio perfil
+            (profiles.app_role) em vez de link escondido. */}
         {profile?.app_role === "admin" && (
-          <Link
-            href="/moderacao"
-            className={cn(
-              "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
-              pathname.startsWith("/moderacao")
-                ? "border-red-400 bg-red-50 text-red-600"
-                : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
-            )}
-          >
-            <ShieldCheck className="h-4 w-4 shrink-0" />
-            <span className="truncate">Moderação</span>
-          </Link>
+          <div className="space-y-1.5">
+            <Link
+              href="/moderacao"
+              className={cn(
+                "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+                pathname.startsWith("/moderacao")
+                  ? "border-red-400 bg-red-50 text-red-600"
+                  : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
+              )}
+            >
+              <ShieldCheck className="h-4 w-4 shrink-0" />
+              <span className="truncate">Moderação</span>
+            </Link>
+            <Link
+              href="/tools/admin"
+              className={cn(
+                "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+                pathname.startsWith("/tools/admin")
+                  ? "border-red-400 bg-red-50 text-red-600"
+                  : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
+              )}
+            >
+              <Wrench className="h-4 w-4 shrink-0" />
+              <span className="truncate">Painel de Sugestões</span>
+            </Link>
+          </div>
         )}
       </nav>
     </aside>
