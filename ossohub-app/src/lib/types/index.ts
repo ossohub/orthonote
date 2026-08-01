@@ -56,6 +56,7 @@ export interface Profile {
   total_xp: number;
   verified: boolean;
   residency_year?: ResidencyYear | null;
+  app_role?: "member" | "moderator" | "admin";
   created_at: string;
   updated_at: string;
 }

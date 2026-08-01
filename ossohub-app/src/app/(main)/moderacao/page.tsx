@@ -10,11 +10,11 @@ import { useUser } from "@/hooks/useUser";
 import { formatRelativeDate } from "@/lib/utils";
 import type { Post, Profile } from "@/lib/types";
 
-// Rota escondida (não aparece na Sidebar) — só o perfil abaixo consegue
-// realmente aprovar/rejeitar, isso é garantido pela RPC moderate_post no
-// banco (que checa auth.uid() no servidor). Esse check aqui é só pra não
-// mostrar a tela pra quem não é admin; não é a camada de segurança real.
-const ADMIN_ID = "9010125e-bee3-4101-8e0d-e5bd4d691659";
+// Rota escondida (não aparece na Sidebar) — só quem tem profiles.app_role =
+// 'admin' consegue realmente aprovar/rejeitar, isso é garantido pela RPC
+// moderate_post no banco (que checa app_private.is_admin() via auth.uid()
+// no servidor). Esse check aqui é só pra não mostrar a tela pra quem não é
+// admin; não é a camada de segurança real.
 
 const POST_TYPE_LABELS: Record<string, { label: string; icon: React.ElementType }> = {
   clinical_case:      { label: "Caso Clínico", icon: Stethoscope },
@@ -24,7 +24,8 @@ const POST_TYPE_LABELS: Record<string, { label: string; icon: React.ElementType 
 };
 
 export default function ModeracaoPage() {
-  const { user, loading: userLoading } = useUser();
+  const { user, profile, loading: userLoading } = useUser();
+  const isAdmin = profile?.app_role === "admin";
   const supabase = createClient();
   const [posts, setPosts] = useState<Post[]>([]);
   const [authors, setAuthors] = useState<Record<string, Profile>>({});
@@ -33,10 +34,10 @@ export default function ModeracaoPage() {
 
   useEffect(() => {
     if (userLoading) return;
-    if (!user || user.id !== ADMIN_ID) { setLoading(false); return; }
+    if (!user || !isAdmin) { setLoading(false); return; }
     loadPending();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userLoading, user?.id]);
+  }, [userLoading, user?.id, isAdmin]);
 
   async function loadPending() {
     setLoading(true);
@@ -76,7 +77,7 @@ export default function ModeracaoPage() {
     );
   }
 
-  if (!user || user.id !== ADMIN_ID) {
+  if (!user || !isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <p className="text-sm text-ossohub-slate">Você não tem acesso a esta página.</p>

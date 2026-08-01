@@ -12,9 +12,10 @@ import { cn } from "@/lib/utils";
 import { useUser } from "@/hooks/useUser";
 
 // Só aparece pro admin — os demais usuários nem sabem que este link existe.
-// A segurança de verdade é a RPC moderate_post no banco (checa auth.uid()),
-// isto aqui é só conveniência de navegação.
-const ADMIN_ID = "9010125e-bee3-4101-8e0d-e5bd4d691659";
+// A segurança de verdade é a RPC moderate_post no banco (checa
+// app_private.is_admin() via auth.uid()), isto aqui é só conveniência de
+// navegação, lida do próprio perfil (profiles.app_role) em vez de um
+// UUID fixo no código.
 
 // Desempenho — agrupa Banco de Questões, Cronograma, Gráficos e a
 // gestão de equipe (preceptor↔residente). Fica com destaque próprio,
@@ -45,7 +46,7 @@ const ICONS: Record<ToolSlug, React.ElementType> = {
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { user } = useUser();
+  const { profile } = useUser();
 
   return (
     <aside className="hidden md:block w-56 shrink-0 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
@@ -109,7 +110,7 @@ export function Sidebar() {
         </div>
 
         {/* Moderação — só visível pro admin */}
-        {user?.id === ADMIN_ID && (
+        {profile?.app_role === "admin" && (
           <Link
             href="/moderacao"
             className={cn(
