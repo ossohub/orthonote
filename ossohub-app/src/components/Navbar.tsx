@@ -37,14 +37,22 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-ossohub-navy">
-      <div className="ossohub-container">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href={isAuthenticated ? "/feed" : "/"} className="flex items-center">
-            <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-7 w-auto" />
+      <div className={isAuthenticated ? "ossohub-shell" : "ossohub-container"}>
+        <div className={cn(
+          "flex h-16 items-center justify-between",
+          isAuthenticated && "md:justify-start md:gap-8"
+        )}>
+          {/* Logo — maior e mais nítida (fonte já é 972×441, só estava
+              exibida pequena demais); fica sempre no início da barra. */}
+          <Link href={isAuthenticated ? "/feed" : "/"} className="flex items-center shrink-0">
+            <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-10 w-auto" />
           </Link>
 
-          {/* Nav links — autenticado */}
+          {/* Nav links — autenticado. Antes ficava espalhado pelo meio da
+              barra por causa do justify-between; agora (em telas médias+)
+              fica logo depois da logo, tudo agrupado à esquerda sem vão
+              grande no meio. No mobile o justify-between volta a valer
+              (nav fica escondida mesmo, então não afeta o menu ali). */}
           {isAuthenticated && (
             <nav className="hidden md:flex items-center gap-1">
               {NAV_LINKS.map(({ href, label, icon: Icon }) => (
@@ -62,7 +70,10 @@ export function Navbar() {
             </nav>
           )}
 
-          {/* Direita */}
+          {/* Direita — em telas médias+ fica logo em seguida da navegação
+              (não mais empurrado lá pra ponta direita da barra); no mobile
+              o justify-between do pai já cuida de deixá-la na ponta, onde
+              fica o botão do menu hambúrguer. Deslogado sempre na ponta. */}
           <div className="flex items-center gap-2">
             {!isAuthenticated ? (
               <>

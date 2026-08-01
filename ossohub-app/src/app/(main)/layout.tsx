@@ -7,7 +7,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex">
+    // ossohub-shell (max-w-[1600px] mx-auto) alinha esta linha com o
+    // conteúdo do Navbar — em telas largas o app inteiro (sidebar +
+    // conteúdo) fica centralizado, em vez da sidebar grudada na borda
+    // esquerda enquanto o resto do vão fica todo sobrando à direita.
+    <div className="ossohub-shell flex">
       <Sidebar />
       <div className="flex-1 min-w-0">
         {children}

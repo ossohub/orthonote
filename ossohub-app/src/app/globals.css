@@ -105,6 +105,15 @@
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* "Casca" externa do app (navbar + sidebar + conteúdo) — mais larga que
+     .ossohub-container (que é só pra largura do conteúdo de cada página).
+     Usada no Navbar e no layout (main) pra que os dois fiquem alinhados e
+     centralizados juntos em telas largas, em vez da sidebar ficar grudada
+     na borda esquerda enquanto o conteúdo centraliza sozinho lá longe. */
+  .ossohub-shell {
+    @apply max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
   /* Cards do site inteiro — padrão premium (sombra em duas camadas,
      bordas suaves, cantos maiores). Antes era um estilo mais simples;
      agora toda tela que usa .ossohub-card herda a versão refinada. */
