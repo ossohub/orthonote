@@ -3465,14 +3465,18 @@ let adminFilter = 'todos';
 let todasSugestoes = [];
 
 // A visibilidade do botão "Admin" na barra lateral é só uma
-// conveniência de navegação (mostra o link pra quem entrar numa
-// sala com esse nome) — NÃO é o controle de segurança. Quem
+// conveniência de navegação — NÃO é o controle de segurança. Quem
 // realmente decide o que pode ser lido/editado são as regras do
 // Firestore, checadas contra o e-mail autenticado via Firebase
 // Auth (ver login abaixo e as regras "suggestions" no console).
+// Antes essa visibilidade dependia de currentRoom === ADMIN_ROOM,
+// um resquício do antigo sistema de "salas". Desde a unificação do
+// login (auto-login sempre usa room = user.id do Supabase), essa
+// condição nunca era satisfeita e o botão nunca aparecia para
+// ninguém — por isso agora ele é sempre exibido; quem não for admin
+// simplesmente não consegue logar (ou não vê nada) na aba.
 function verificarAdmin(roomId) {
-  const isAdmin = roomId === ADMIN_ROOM;
-  document.getElementById('sb-admin').style.display = isAdmin ? 'block' : 'none';
+  document.getElementById('sb-admin').style.display = 'block';
 }
 
 const _auth = firebase.auth();
