@@ -44,50 +44,74 @@ const ICONS: Record<ToolSlug, React.ElementType> = {
   pdf: FileType,
 };
 
+// Cada grupo de ferramentas ganha uma cor de identidade própria no badge
+// do ícone (estado inativo) — dá hierarquia visual sem perder consistência,
+// já que o estado ativo/hover sempre convergem pro verde da marca.
+const GROUP_STYLES: Record<string, { icon: string; hover: string }> = {
+  "Clínica":      { icon: "bg-sky-50 text-sky-600 ring-sky-100",         hover: "hover:border-sky-200 hover:bg-sky-50/60" },
+  "Pessoal":      { icon: "bg-violet-50 text-violet-600 ring-violet-100", hover: "hover:border-violet-200 hover:bg-violet-50/60" },
+  "Referência":   { icon: "bg-amber-50 text-amber-600 ring-amber-100",   hover: "hover:border-amber-200 hover:bg-amber-50/60" },
+  "Calculadoras": { icon: "bg-indigo-50 text-indigo-600 ring-indigo-100", hover: "hover:border-indigo-200 hover:bg-indigo-50/60" },
+  "Ferramentas":  { icon: "bg-cyan-50 text-cyan-600 ring-cyan-100",      hover: "hover:border-cyan-200 hover:bg-cyan-50/60" },
+};
+const DEFAULT_GROUP_STYLE = { icon: "bg-slate-100 text-ossohub-slate ring-slate-200", hover: "hover:border-slate-300 hover:bg-slate-50" };
+
 export function Sidebar() {
   const pathname = usePathname();
   const { profile } = useUser();
 
   return (
-    <aside className="hidden md:block w-56 shrink-0 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
+    <aside className="hidden md:block w-60 shrink-0 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
       <nav className="py-5 px-3 space-y-5 sticky top-16">
-        {TOOL_GROUPS.map((group) => (
-          <div key={group.label}>
-            <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ossohub-slate">
-              {group.label}
-            </p>
-            <div className="space-y-0.5">
-              {group.items.map(({ slug, label }) => {
-                const Icon = ICONS[slug];
-                const href = `/tools/${slug}`;
-                const active = pathname === href;
-                return (
-                  <Link
-                    key={slug}
-                    href={href}
-                    className={cn(
-                      "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium border-l-2 transition-colors",
-                      active
-                        ? "border-l-ossohub-green-dark bg-ossohub-green-dark/8 text-ossohub-green-dark"
-                        : "border-l-transparent text-ossohub-slate hover:bg-slate-50 hover:text-ossohub-navy"
-                    )}
-                  >
-                    <Icon className="h-4 w-4 shrink-0" />
-                    <span className="truncate">{label}</span>
-                  </Link>
-                );
-              })}
+        {TOOL_GROUPS.map((group) => {
+          const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
+          return (
+            <div key={group.label}>
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-slate/70">
+                {group.label}
+              </p>
+              <div className="space-y-1">
+                {group.items.map(({ slug, label }) => {
+                  const Icon = ICONS[slug];
+                  const href = `/tools/${slug}`;
+                  const active = pathname === href;
+                  return (
+                    <Link
+                      key={slug}
+                      href={href}
+                      className={cn(
+                        "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                        active
+                          ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
+                          : cn("border-slate-200/80 text-ossohub-slate", style.hover)
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                          active
+                            ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
+                            : cn(style.icon, "group-hover:ring-transparent")
+                        )}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="truncate">{label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Desempenho — destaque próprio, separado das ferramentas
             clínicas (são recursos de estudo/acompanhamento, não ferramentas). */}
-        <div className="pt-1 border-t border-slate-100">
-          <p className="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green-dark">
+        <div className="pt-4 border-t border-slate-100">
+          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-green-dark">
             Desempenho
           </p>
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
               const active = pathname.startsWith(href);
               return (
@@ -95,13 +119,22 @@ export function Sidebar() {
                   key={href}
                   href={href}
                   className={cn(
-                    "flex items-center gap-2.5 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors",
+                    "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
                     active
-                      ? "border-ossohub-green-dark/40 bg-ossohub-green-dark/10 text-ossohub-green-dark"
-                      : "border-ossohub-green-dark/20 bg-ossohub-green-dark/5 text-ossohub-green-dark hover:bg-ossohub-green-dark/10"
+                      ? "border-ossohub-green-dark bg-ossohub-green-dark text-white shadow-sm"
+                      : "border-ossohub-green-dark/25 bg-ossohub-green-light/50 text-ossohub-green-dark hover:border-ossohub-green-dark/50 hover:bg-ossohub-green-light"
                   )}
                 >
-                  <Icon className="h-4 w-4 shrink-0" />
+                  <span
+                    className={cn(
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                      active
+                        ? "bg-white/15 text-white ring-white/20"
+                        : "bg-white text-ossohub-green-dark ring-ossohub-green-dark/10 shadow-sm"
+                    )}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
                   <span className="truncate">{label}</span>
                 </Link>
               );
@@ -115,29 +148,50 @@ export function Sidebar() {
             conveniência de navegação, lida do próprio perfil
             (profiles.app_role) em vez de link escondido. */}
         {profile?.app_role === "admin" && (
-          <div className="space-y-1.5">
+          <div className="pt-4 border-t border-slate-100 space-y-1">
+            <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-red-500">
+              Admin
+            </p>
             <Link
               href="/moderacao"
               className={cn(
-                "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+                "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
                 pathname.startsWith("/moderacao")
-                  ? "border-red-400 bg-red-50 text-red-600"
-                  : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
+                  ? "border-red-500 bg-red-500 text-white shadow-sm"
+                  : "border-red-200 bg-red-50/60 text-red-600 hover:border-red-300 hover:bg-red-50"
               )}
             >
-              <ShieldCheck className="h-4 w-4 shrink-0" />
+              <span
+                className={cn(
+                  "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                  pathname.startsWith("/moderacao")
+                    ? "bg-white/15 text-white ring-white/20"
+                    : "bg-white text-red-500 ring-red-100 shadow-sm"
+                )}
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+              </span>
               <span className="truncate">Moderação</span>
             </Link>
             <Link
               href="/tools/admin"
               className={cn(
-                "flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-sm font-semibold transition-colors",
+                "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
                 pathname.startsWith("/tools/admin")
-                  ? "border-red-400 bg-red-50 text-red-600"
-                  : "border-red-200 bg-red-50/50 text-red-600 hover:bg-red-50"
+                  ? "border-red-500 bg-red-500 text-white shadow-sm"
+                  : "border-red-200 bg-red-50/60 text-red-600 hover:border-red-300 hover:bg-red-50"
               )}
             >
-              <Wrench className="h-4 w-4 shrink-0" />
+              <span
+                className={cn(
+                  "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                  pathname.startsWith("/tools/admin")
+                    ? "bg-white/15 text-white ring-white/20"
+                    : "bg-white text-red-500 ring-red-100 shadow-sm"
+                )}
+              >
+                <Wrench className="h-3.5 w-3.5" />
+              </span>
               <span className="truncate">Painel de Sugestões</span>
             </Link>
           </div>
