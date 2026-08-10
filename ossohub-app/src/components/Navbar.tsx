@@ -3,12 +3,44 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList, CalendarClock, PieChart, Users2, MessagesSquare, Plus } from "lucide-react";
+import {
+  Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList,
+  CalendarClock, PieChart, Users2, MessagesSquare, Plus,
+  Pill, FileText, StickyNote, LayoutGrid, Route, HandMetal, Calculator,
+  GitBranch, FileType, Baby,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@/hooks/useUser";
 import { cn, getInitials } from "@/lib/utils";
-import { TOOL_GROUPS } from "@/lib/clinicalTool";
+import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
+
+// Mesmos mapas de ícone/cor da Sidebar.tsx desktop — duplicados aqui (em
+// vez de importados) porque o menu mobile precisa do mesmo visual de
+// "retângulo com ícone" que a sidebar fixa tem, mas via dropdown do
+// hambúrguer em vez de coluna lateral.
+const TOOL_ICONS: Record<ToolSlug, React.ElementType> = {
+  anamnese: Pencil,
+  medicamentos: Pill,
+  documentos: FileText,
+  "texto-salvo": StickyNote,
+  classificacoes: LayoutGrid,
+  pediatria: Baby,
+  "vias-acesso": Route,
+  "exame-fisico": HandMetal,
+  calculadora: Calculator,
+  algoritmos: GitBranch,
+  pdf: FileType,
+};
+
+const GROUP_STYLES: Record<string, { icon: string; hover: string }> = {
+  "Clínica":      { icon: "bg-sky-50 text-sky-600 ring-sky-100",         hover: "hover:border-sky-200 hover:bg-sky-50/60" },
+  "Pessoal":      { icon: "bg-violet-50 text-violet-600 ring-violet-100", hover: "hover:border-violet-200 hover:bg-violet-50/60" },
+  "Referência":   { icon: "bg-amber-50 text-amber-600 ring-amber-100",   hover: "hover:border-amber-200 hover:bg-amber-50/60" },
+  "Calculadoras": { icon: "bg-indigo-50 text-indigo-600 ring-indigo-100", hover: "hover:border-indigo-200 hover:bg-indigo-50/60" },
+  "Ferramentas":  { icon: "bg-cyan-50 text-cyan-600 ring-cyan-100",      hover: "hover:border-cyan-200 hover:bg-cyan-50/60" },
+};
+const DEFAULT_GROUP_STYLE = { icon: "bg-slate-100 text-ossohub-slate ring-slate-200", hover: "hover:border-slate-300 hover:bg-slate-50" };
 
 const NAV_LINKS = [
   { href: "/feed",          label: "Início",           icon: Home },
@@ -164,18 +196,29 @@ export function Navbar() {
           tamanho da tela e não tinha como chegar até "Sair" no fim. */}
       {isAuthenticated && mobileOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
-          <nav className="flex flex-col gap-1">
-            {NAV_LINKS.map(({ href, label, icon: Icon }) => (
-              <Link key={href} href={href} onClick={() => setMobileOpen(false)}
-                className={cn(
-                  "flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                  pathname.startsWith(href)
-                    ? "bg-ossohub-green-light text-ossohub-green-dark"
-                    : "text-ossohub-slate hover:bg-slate-100"
-                )}>
-                <Icon className="h-4 w-4" />{label}
-              </Link>
-            ))}
+          <nav className="flex flex-col gap-1.5">
+            {NAV_LINKS.map(({ href, label, icon: Icon }) => {
+              const active = pathname.startsWith(href);
+              return (
+                <Link key={href} href={href} onClick={() => setMobileOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                    active
+                      ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
+                      : "border-slate-200/80 text-ossohub-slate hover:border-slate-300 hover:bg-slate-50"
+                  )}>
+                  <span className={cn(
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                    active
+                      ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
+                      : "bg-slate-100 text-ossohub-slate ring-slate-200 group-hover:ring-transparent"
+                  )}>
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="truncate">{label}</span>
+                </Link>
+              );
+            })}
             <div className="pt-2 border-t border-slate-100 mt-1 space-y-1">
               <Button size="sm" className="w-full" asChild>
                 <Link href="/post/new" onClick={() => setMobileOpen(false)}>+ Publicar</Link>
@@ -184,43 +227,75 @@ export function Navbar() {
 
             {/* Desempenho — destaque próprio, igual à sidebar desktop */}
             <div className="pt-3 border-t border-slate-100 mt-1">
-              <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-green-dark">
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-green-dark">
                 Desempenho
               </p>
-              {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => (
-                <Link key={href} href={href} onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "flex items-center gap-2 rounded-lg border px-3 py-2.5 mb-1 text-sm font-semibold transition-colors",
-                    pathname.startsWith(href)
-                      ? "border-ossohub-green-dark/40 bg-ossohub-green-dark/10 text-ossohub-green-dark"
-                      : "border-ossohub-green-dark/20 bg-ossohub-green-dark/5 text-ossohub-green-dark hover:bg-ossohub-green-dark/10"
-                  )}>
-                  <Icon className="h-4 w-4" /> {label}
-                </Link>
-              ))}
+              <div className="space-y-1.5">
+                {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
+                  const active = pathname.startsWith(href);
+                  return (
+                    <Link key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
+                        active
+                          ? "border-ossohub-green-dark bg-ossohub-green-dark text-white shadow-sm"
+                          : "border-ossohub-green-dark/25 bg-ossohub-green-light/50 text-ossohub-green-dark hover:border-ossohub-green-dark/50 hover:bg-ossohub-green-light"
+                      )}>
+                      <span className={cn(
+                        "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                        active
+                          ? "bg-white/15 text-white ring-white/20"
+                          : "bg-white text-ossohub-green-dark ring-ossohub-green-dark/10 shadow-sm"
+                      )}>
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="truncate">{label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Ferramentas — a sidebar fixa só aparece em telas maiores, então no
-                mobile as ferramentas clínicas ficam listadas aqui dentro do menu. */}
-            <div className="pt-3 border-t border-slate-100 mt-1">
-              {TOOL_GROUPS.map((group) => (
-                <div key={group.label} className="mb-2">
-                  <p className="px-3 mb-1 text-[11px] font-semibold uppercase tracking-wide text-ossohub-slate">
-                    {group.label}
-                  </p>
-                  {group.items.map(({ slug, label }) => (
-                    <Link key={slug} href={`/tools/${slug}`} onClick={() => setMobileOpen(false)}
-                      className={cn(
-                        "flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                        pathname === `/tools/${slug}`
-                          ? "bg-ossohub-green-light text-ossohub-green-dark"
-                          : "text-ossohub-slate hover:bg-slate-100"
-                      )}>
-                      {label}
-                    </Link>
-                  ))}
-                </div>
-              ))}
+                mobile as ferramentas clínicas ficam listadas aqui dentro do menu,
+                com o mesmo visual de retângulo + ícone da sidebar desktop. */}
+            <div className="pt-3 border-t border-slate-100 mt-1 space-y-4">
+              {TOOL_GROUPS.map((group) => {
+                const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
+                return (
+                  <div key={group.label}>
+                    <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-slate/70">
+                      {group.label}
+                    </p>
+                    <div className="space-y-1.5">
+                      {group.items.map(({ slug, label }) => {
+                        const Icon = TOOL_ICONS[slug];
+                        const href = `/tools/${slug}`;
+                        const active = pathname === href;
+                        return (
+                          <Link key={slug} href={href} onClick={() => setMobileOpen(false)}
+                            className={cn(
+                              "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                              active
+                                ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
+                                : cn("border-slate-200/80 text-ossohub-slate", style.hover)
+                            )}>
+                            <span className={cn(
+                              "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                              active
+                                ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
+                                : cn(style.icon, "group-hover:ring-transparent")
+                            )}>
+                              <Icon className="h-3.5 w-3.5" />
+                            </span>
+                            <span className="truncate">{label}</span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="pt-2 border-t border-slate-100 mt-1">
