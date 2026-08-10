@@ -1200,12 +1200,6 @@ async function splitAllChapters() {
     try {
         progressText.textContent = 'Preparando PDF...';
         await yieldToUI();
-        // Carrega o PDF de origem UMA VEZ e reaproveita pra todos os
-        // capítulos — antes recarregava e reparseava o arquivo inteiro a
-        // cada capítulo, o que em livros grandes com muitos capítulos
-        // podia levar minutos e travar a aba (parecia que o clique em
-        // "Baixar todos" não fazia nada).
-        const srcDoc = await loadFreshSrcDoc();
 
         for (let i = 0; i < chapters.length; i++) {
             const ch = chapters[i];
@@ -1214,7 +1208,14 @@ async function splitAllChapters() {
             progressText.textContent = `Processando ${i + 1}/${chapters.length}: ${ch.title.substring(0, 50)}...`;
             await yieldToUI();
             try {
-                const blob = await extractPageRange(ch.startPage, ch.endPage, srcDoc);
+                // Recarrega o PDF de origem do zero a cada capítulo (em vez de
+                // reaproveitar um único srcDoc). Chegamos a testar reaproveitar
+                // o mesmo documento pra ganhar velocidade, mas em livros grandes
+                // isso corrompe streams internos do PDFLib e gera erro de
+                // buffer na hora de gerar o ZIP — então voltamos ao jeito seguro
+                // aqui; o ganho de performance real fica por conta do feedback
+                // de progresso (abaixo) não deixar a aba parecer travada.
+                const blob = await extractPageRange(ch.startPage, ch.endPage);
                 const name = sanitize(ch.title, 50);
                 zip.file(`${pad(ch.startPage)}-${pad(ch.endPage)}_${name}.pdf`, await blob.arrayBuffer());
                 ok++;
@@ -1306,10 +1307,6 @@ async function splitMultiRanges() {
     if (customRanges.length === 0) { showToast('Adicione ao menos um intervalo.', 'error'); return; }
     showLoading('Processando intervalos...');
     try {
-        // Mesma otimização de splitAllChapters: carrega o PDF de origem
-        // uma única vez e reaproveita pra todos os intervalos, em vez de
-        // reparsear o arquivo inteiro a cada recorte.
-        const srcDoc = await loadFreshSrcDoc();
         const zip = new JSZip();
         let ok = 0;
         for (let i = 0; i < customRanges.length; i++) {
@@ -1318,7 +1315,10 @@ async function splitMultiRanges() {
             document.getElementById('loading-text').textContent = `Processando intervalo ${i + 1}/${customRanges.length}...`;
             await yieldToUI();
             try {
-                const blob = await extractPageRange(r.start, r.end, srcDoc);
+                // Recarrega o PDF de origem a cada intervalo — reaproveitar o
+                // mesmo documento corrompe streams internos do PDFLib em
+                // arquivos grandes (erro de buffer ao gerar o ZIP).
+                const blob = await extractPageRange(r.start, r.end);
                 const label = r.label.trim() || `secao_${i+1}`;
                 zip.file(`${pad(r.start)}-${pad(r.end)}_${sanitize(label, 50)}.pdf`, await blob.arrayBuffer());
                 ok++;
@@ -1339,12 +1339,12 @@ async function splitMultiRanges() {
 
 // ── CORE EXTRACT ──
 // Carrega uma cópia fresca do documento pdf-lib a partir dos bytes originais.
-// Isso evita o bug de ArrayBuffer detached / página 1 repetida — mas é uma
-// operação cara (reparseia o PDF inteiro), então em lotes (splitAllChapters,
-// splitMultiRanges) ela é feita UMA VEZ só e o mesmo srcDoc (só leitura) é
-// reaproveitado pra todos os capítulos/intervalos, em vez de recarregar o
-// PDF do zero a cada item. Isso é o que tornava "Baixar todos (ZIP)" lento
-// (ou parecendo travado/sem reação) em arquivos grandes com muitos capítulos.
+// SEMPRE recarregada do zero a cada extração (nunca reaproveitada entre
+// capítulos/intervalos) — evita tanto o bug de ArrayBuffer detached quanto
+// corrupção de streams internos do PDFLib (erro de buffer) que acontece ao
+// reusar o mesmo documento de origem em muitas cópias sucessivas. É mais
+// lento que reaproveitar, mas é o único jeito comprovadamente seguro pra
+// livros grandes/complexos.
 async function loadFreshSrcDoc() {
     if (!currentBytes) throw new Error('PDF não carregado.');
     const freshBytes = currentBytes.slice(0);
@@ -1359,8 +1359,8 @@ function yieldToUI() {
     return new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
 }
 
-async function extractPageRange(startPage, endPage, srcDocOverride) {
-    const srcDoc = srcDocOverride || await loadFreshSrcDoc();
+async function extractPageRange(startPage, endPage) {
+    const srcDoc = await loadFreshSrcDoc();
 
     const newPdf = await PDFLib.PDFDocument.create();
 
