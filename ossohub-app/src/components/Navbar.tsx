@@ -7,7 +7,7 @@ import {
   Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList,
   CalendarClock, PieChart, Users2, MessagesSquare, Plus,
   Pill, FileText, StickyNote, LayoutGrid, Route, HandMetal, Calculator,
-  GitBranch, FileType, Baby,
+  GitBranch, FileType, Baby, Brain,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -57,6 +57,10 @@ const DESEMPENHO_LINKS = [
   { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
   { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
+
+// Só aparece pro próprio residente (professional_role === 'medico_residente')
+// — mesma regra de Sidebar.tsx.
+const RESIDENT_ONLY_LINK = { href: "/desempenho/preditivo", label: "Análise Preditiva", icon: Brain };
 
 export function Navbar() {
   const pathname = usePathname();
@@ -231,7 +235,10 @@ export function Navbar() {
                 Desempenho
               </p>
               <div className="space-y-1.5">
-                {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
+                {(profile?.professional_role === "medico_residente"
+                  ? [...DESEMPENHO_LINKS, RESIDENT_ONLY_LINK]
+                  : DESEMPENHO_LINKS
+                ).map(({ href, label, icon: Icon }) => {
                   const active = pathname.startsWith(href);
                   return (
                     <Link key={href} href={href} onClick={() => setMobileOpen(false)}

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
-  CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench,
+  CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench, Brain,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -29,6 +29,12 @@ const DESEMPENHO_LINKS = [
   { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
   { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
+
+// Só aparece pro próprio residente (professional_role === 'medico_residente')
+// — mesma regra de elegibilidade aplicada no backend (GET
+// /api/v1/resident/[user_id]/risk). Fica junto do resto de Desempenho,
+// mas separado do array acima porque a visibilidade depende do perfil.
+const RESIDENT_ONLY_LINK = { href: "/desempenho/preditivo", label: "Análise Preditiva", icon: Brain };
 
 const ICONS: Record<ToolSlug, React.ElementType> = {
   anamnese: Pencil,
@@ -112,7 +118,10 @@ export function Sidebar() {
             Desempenho
           </p>
           <div className="space-y-1">
-            {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
+            {(profile?.professional_role === "medico_residente"
+              ? [...DESEMPENHO_LINKS, RESIDENT_ONLY_LINK]
+              : DESEMPENHO_LINKS
+            ).map(({ href, label, icon: Icon }) => {
               const active = pathname.startsWith(href);
               return (
                 <Link

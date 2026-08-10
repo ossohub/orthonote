@@ -1,5 +1,13 @@
 import { createClient } from "@/lib/supabase/client";
 import { QUESTION_AREAS, normalizeQuestionArea, type QuestionArea } from "@/lib/types";
+import {
+  isoWeekStart,
+  linearRegression,
+  classifyTrendRisk,
+  MIN_ANSWERED_FOR_TREND,
+  MIN_WEEKS_FOR_TREND,
+  type TrendRisk,
+} from "@/lib/predictive/trendMath";
 
 // ============================================================
 // Desempenho — Gráficos e alerta preditivo
@@ -80,7 +88,12 @@ export interface AreaTrendPoint {
   answered: number;
 }
 
-export type PerformanceRisk = "alto" | "atencao" | "estavel" | "dados_insuficientes";
+// Alias mantido por compatibilidade — todo código existente que importa
+// `PerformanceRisk` de performance.ts continua funcionando; o tipo em si
+// agora vive em lib/predictive/trendMath.ts (compartilhado com
+// lib/residentRisk.ts, que absorve esta mesma lógica de tendência no
+// risk_score unificado da Análise Preditiva de Desempenho).
+export type PerformanceRisk = TrendRisk;
 
 export interface AreaTrendResult {
   area: QuestionArea;
@@ -88,42 +101,6 @@ export interface AreaTrendResult {
   slopePerWeek: number | null;         // pontos percentuais de acerto por semana
   projectedAccuracy4w: number | null;  // projeção de acerto (%) em 4 semanas
   risk: PerformanceRisk;
-}
-
-const MIN_ANSWERED_FOR_TREND = 6;
-const MIN_WEEKS_FOR_TREND = 2;
-
-function isoWeekStart(dateStr: string): string {
-  const d = new Date(dateStr);
-  const day = (d.getUTCDay() + 6) % 7; // segunda = 0
-  d.setUTCHours(0, 0, 0, 0);
-  d.setUTCDate(d.getUTCDate() - day);
-  return d.toISOString().slice(0, 10);
-}
-
-// Regressão linear simples (mínimos quadrados) de accuracy vs índice da semana.
-function linearRegression(xs: number[], ys: number[]): { slope: number; intercept: number } {
-  const n = xs.length;
-  const meanX = xs.reduce((a, b) => a + b, 0) / n;
-  const meanY = ys.reduce((a, b) => a + b, 0) / n;
-  let num = 0;
-  let den = 0;
-  for (let i = 0; i < n; i++) {
-    num += (xs[i] - meanX) * (ys[i] - meanY);
-    den += (xs[i] - meanX) ** 2;
-  }
-  const slope = den === 0 ? 0 : num / den;
-  const intercept = meanY - slope * meanX;
-  return { slope, intercept };
-}
-
-function classifyRisk(slope: number | null, projected: number | null, weeksOfData: number, totalAnswered: number): PerformanceRisk {
-  if (slope === null || projected === null || weeksOfData < MIN_WEEKS_FOR_TREND || totalAnswered < MIN_ANSWERED_FOR_TREND) {
-    return "dados_insuficientes";
-  }
-  if (projected < 50 || slope <= -5) return "alto";
-  if (projected < 65 || slope <= -2) return "atencao";
-  return "estavel";
 }
 
 export async function getPerformanceTrend(residentId: string): Promise<AreaTrendResult[]> {
@@ -172,7 +149,7 @@ export async function getPerformanceTrend(residentId: string): Promise<AreaTrend
       points,
       slopePerWeek: Math.round(slope * 10) / 10,
       projectedAccuracy4w: projected,
-      risk: classifyRisk(slope, projected, weeks.length, totalAnswered),
+      risk: classifyTrendRisk(slope, projected, weeks.length, totalAnswered),
     };
   });
 }

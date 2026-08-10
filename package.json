@@ -11,5 +11,10 @@
   "description": "",
   "devDependencies": {
     "vercel": "^54.9.1"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.111.0",
+    "@vercel/analytics": "^2.0.1"
   }
 }

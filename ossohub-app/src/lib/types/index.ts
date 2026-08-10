@@ -40,6 +40,20 @@ export const BRAZIL_STATES = [
 export type ResidencyYear = 'R1' | 'R2' | 'R3' | 'R4' | 'R5';
 export const RESIDENCY_YEARS: ResidencyYear[] = ['R1', 'R2', 'R3', 'R4', 'R5'];
 
+// Papel profissional do usuário — usado, entre outras coisas, como gate de
+// elegibilidade do módulo de Análise Preditiva de Desempenho (só
+// 'medico_residente' vê o dashboard). Enum existe no banco (professional_role)
+// mas ainda não tinha sido refletido aqui — foi adicionado junto com o módulo
+// preditivo.
+export type ProfessionalRole =
+  | 'medico_ortopedista'
+  | 'medico_residente'
+  | 'medico_outra_especialidade'
+  | 'estudante_medicina'
+  | 'fisioterapeuta'
+  | 'enfermeiro'
+  | 'outro_profissional_saude';
+
 // ============================================================
 // Profile
 // ============================================================
@@ -56,6 +70,8 @@ export interface Profile {
   total_xp: number;
   verified: boolean;
   residency_year?: ResidencyYear | null;
+  professional_role: ProfessionalRole;
+  account_active: boolean;
   app_role?: "member" | "moderator" | "admin";
   created_at: string;
   updated_at: string;
@@ -357,6 +373,56 @@ export interface FlashcardInsert {
 }
 
 // ============================================================
+// Consentimento LGPD
+// ============================================================
+// Espelha public.consent_logs — tabela pré-existente (fora de qualquer
+// .sql versionado, aplicada direto via Supabase MCP em sessão anterior)
+// reaproveitada aqui como o registro de consentimento do módulo de
+// Análise Preditiva de Desempenho (consent_type = 'analise_preditiva').
+export type ConsentType =
+  | 'termos_de_uso'
+  | 'politica_privacidade'
+  | 'termo_dados_pacientes'
+  | 'cookies'
+  | 'analise_preditiva';
+
+export interface ConsentLog {
+  id: string;
+  user_id: string;
+  consent_type: ConsentType;
+  policy_version: string;
+  accepted_at: string;
+}
+
+// ============================================================
+// Análise Preditiva de Desempenho (Residentes)
+// ============================================================
+// Espelha public.resident_features (ver supabase/migration_analise_preditiva.sql).
+// Escrito só pelo service_role (src/lib/residentRisk.ts) — o residente só
+// lê (RLS restringe SELECT a auth.uid() = user_id). top_reasons/
+// recommendations são jsonb no banco (array de strings).
+export interface ResidentFeatures {
+  id: string;
+  user_id: string;
+  date: string; // YYYY-MM-DD
+  xp_gain_7d: number;
+  xp_gain_30d: number;
+  xp_gain_90d: number;
+  cases_published_30d: number;
+  comments_30d: number;
+  login_days_30d: number;
+  engagement_score: number;
+  risk_score: number; // 0-1
+  risk_level: 'baixo' | 'médio' | 'alto';
+  top_reasons: string[];
+  recommendations: string[];
+  peer_group_size: number | null;
+  model_version: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// ============================================================
 // Desempenho — Equipes (preceptor ↔ residente), Cronograma
 // ============================================================
 export interface ResidencyProgram {
@@ -620,6 +686,12 @@ export interface Database {
       ] };
       flashcards: { Row: Loose<Flashcard>; Insert: Partial<Loose<FlashcardInsert>>; Update: Partial<Loose<Flashcard>>; Relationships: [
         Rel<"flashcards_author_id_fkey", ["author_id"], "profiles", ["id"]>
+      ] };
+      resident_features: { Row: Loose<ResidentFeatures>; Insert: Partial<Loose<ResidentFeatures>>; Update: Partial<Loose<ResidentFeatures>>; Relationships: [
+        Rel<"resident_features_user_id_fkey", ["user_id"], "profiles", ["id"]>
+      ] };
+      consent_logs: { Row: Loose<ConsentLog>; Insert: Partial<Loose<ConsentLog>>; Update: Partial<Loose<ConsentLog>>; Relationships: [
+        Rel<"consent_logs_user_id_fkey", ["user_id"], "profiles", ["id"]>
       ] };
     };
     Views: Record<string, never>;
