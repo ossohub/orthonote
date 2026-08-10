@@ -1192,32 +1192,50 @@ async function splitAllChapters() {
     const progressFill = document.getElementById('progress-fill');
     const progressText = document.getElementById('progress-text');
     progressWrap.style.display = 'block';
+    progressFill.style.width = '0%';
 
     const zip = new JSZip();
     let ok = 0, fail = 0;
 
-    for (let i = 0; i < chapters.length; i++) {
-        const ch = chapters[i];
-        const pct = Math.round(((i) / chapters.length) * 100);
-        progressFill.style.width = pct + '%';
-        progressText.textContent = `Processando ${i + 1}/${chapters.length}: ${ch.title.substring(0, 50)}...`;
-        try {
-            const blob = await extractPageRange(ch.startPage, ch.endPage);
-            const name = sanitize(ch.title, 50);
-            zip.file(`${pad(ch.startPage)}-${pad(ch.endPage)}_${name}.pdf`, await blob.arrayBuffer());
-            ok++;
-        } catch (e) { fail++; console.error(e); }
+    try {
+        progressText.textContent = 'Preparando PDF...';
+        await yieldToUI();
+        // Carrega o PDF de origem UMA VEZ e reaproveita pra todos os
+        // capítulos — antes recarregava e reparseava o arquivo inteiro a
+        // cada capítulo, o que em livros grandes com muitos capítulos
+        // podia levar minutos e travar a aba (parecia que o clique em
+        // "Baixar todos" não fazia nada).
+        const srcDoc = await loadFreshSrcDoc();
+
+        for (let i = 0; i < chapters.length; i++) {
+            const ch = chapters[i];
+            const pct = Math.round(((i) / chapters.length) * 100);
+            progressFill.style.width = pct + '%';
+            progressText.textContent = `Processando ${i + 1}/${chapters.length}: ${ch.title.substring(0, 50)}...`;
+            await yieldToUI();
+            try {
+                const blob = await extractPageRange(ch.startPage, ch.endPage, srcDoc);
+                const name = sanitize(ch.title, 50);
+                zip.file(`${pad(ch.startPage)}-${pad(ch.endPage)}_${name}.pdf`, await blob.arrayBuffer());
+                ok++;
+            } catch (e) { fail++; console.error(e); }
+        }
+
+        progressFill.style.width = '100%';
+        progressText.textContent = 'Gerando ZIP...';
+        await yieldToUI();
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        const zipName = currentPDF.name.replace('.pdf', '') + '_capitulos.zip';
+        downloadBlob(zipBlob, zipName);
+
+        showToast(`${ok} capítulos extraídos${fail > 0 ? ` (${fail} com erro)` : ''}!`, fail ? 'error' : 'success', 5000);
+    } catch (e) {
+        console.error('[splitAllChapters]', e);
+        showToast('Erro ao gerar o ZIP: ' + (e.message || e), 'error', 6000);
+    } finally {
+        setTimeout(() => { progressWrap.style.display = 'none'; }, 2000);
     }
-
-    progressFill.style.width = '100%';
-    progressText.textContent = 'Gerando ZIP...';
-
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
-    const zipName = currentPDF.name.replace('.pdf', '') + '_capitulos.zip';
-    downloadBlob(zipBlob, zipName);
-
-    setTimeout(() => { progressWrap.style.display = 'none'; }, 2000);
-    showToast(`${ok} capítulos extraídos${fail > 0 ? ` (${fail} com erro)` : ''}!`, fail ? 'error' : 'success', 5000);
 }
 
 // ── MANUAL RANGE ──
@@ -1287,33 +1305,62 @@ function updateRangesCount() {
 async function splitMultiRanges() {
     if (customRanges.length === 0) { showToast('Adicione ao menos um intervalo.', 'error'); return; }
     showLoading('Processando intervalos...');
-    const zip = new JSZip();
-    let ok = 0;
-    for (let i = 0; i < customRanges.length; i++) {
-        const r = customRanges[i];
-        if (r.start < 1 || r.end > totalPages || r.start > r.end) continue;
-        try {
-            const blob = await extractPageRange(r.start, r.end);
-            const label = r.label.trim() || `secao_${i+1}`;
-            zip.file(`${pad(r.start)}-${pad(r.end)}_${sanitize(label, 50)}.pdf`, await blob.arrayBuffer());
-            ok++;
-        } catch (e) { console.error(e); }
+    try {
+        // Mesma otimização de splitAllChapters: carrega o PDF de origem
+        // uma única vez e reaproveita pra todos os intervalos, em vez de
+        // reparsear o arquivo inteiro a cada recorte.
+        const srcDoc = await loadFreshSrcDoc();
+        const zip = new JSZip();
+        let ok = 0;
+        for (let i = 0; i < customRanges.length; i++) {
+            const r = customRanges[i];
+            if (r.start < 1 || r.end > totalPages || r.start > r.end) continue;
+            document.getElementById('loading-text').textContent = `Processando intervalo ${i + 1}/${customRanges.length}...`;
+            await yieldToUI();
+            try {
+                const blob = await extractPageRange(r.start, r.end, srcDoc);
+                const label = r.label.trim() || `secao_${i+1}`;
+                zip.file(`${pad(r.start)}-${pad(r.end)}_${sanitize(label, 50)}.pdf`, await blob.arrayBuffer());
+                ok++;
+            } catch (e) { console.error(e); }
+        }
+        document.getElementById('loading-text').textContent = 'Gerando ZIP...';
+        await yieldToUI();
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        downloadBlob(zipBlob, currentPDF.name.replace('.pdf','') + '_recortes.zip');
+        hideLoading();
+        showToast(`${ok} recortes extraídos com sucesso!`, 'success');
+    } catch (e) {
+        hideLoading();
+        console.error('[splitMultiRanges]', e);
+        showToast('Erro ao gerar o ZIP: ' + (e.message || e), 'error', 6000);
     }
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
-    downloadBlob(zipBlob, currentPDF.name.replace('.pdf','') + '_recortes.zip');
-    hideLoading();
-    showToast(`${ok} recortes extraídos com sucesso!`, 'success');
 }
 
 // ── CORE EXTRACT ──
-// Sempre recarrega o documento pdf-lib a partir dos bytes originais
-// para evitar o bug de ArrayBuffer detached / página 1 repetida.
-async function extractPageRange(startPage, endPage) {
+// Carrega uma cópia fresca do documento pdf-lib a partir dos bytes originais.
+// Isso evita o bug de ArrayBuffer detached / página 1 repetida — mas é uma
+// operação cara (reparseia o PDF inteiro), então em lotes (splitAllChapters,
+// splitMultiRanges) ela é feita UMA VEZ só e o mesmo srcDoc (só leitura) é
+// reaproveitado pra todos os capítulos/intervalos, em vez de recarregar o
+// PDF do zero a cada item. Isso é o que tornava "Baixar todos (ZIP)" lento
+// (ou parecendo travado/sem reação) em arquivos grandes com muitos capítulos.
+async function loadFreshSrcDoc() {
     if (!currentBytes) throw new Error('PDF não carregado.');
-
-    // Cria cópia fresca dos bytes para esta operação
     const freshBytes = currentBytes.slice(0);
-    const srcDoc = await PDFLib.PDFDocument.load(freshBytes, { ignoreEncryption: true });
+    return await PDFLib.PDFDocument.load(freshBytes, { ignoreEncryption: true });
+}
+
+// Cede o controle ao navegador por um instante — usado entre iterações de
+// loops pesados (extração de capítulos) pra a barra de progresso e a UI
+// continuarem respondendo em vez de a aba parecer travada durante o
+// processamento de arquivos grandes.
+function yieldToUI() {
+    return new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+}
+
+async function extractPageRange(startPage, endPage, srcDocOverride) {
+    const srcDoc = srcDocOverride || await loadFreshSrcDoc();
 
     const newPdf = await PDFLib.PDFDocument.create();
 
