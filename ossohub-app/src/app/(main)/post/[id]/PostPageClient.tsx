@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Heart, MessageSquare, Share2, ArrowLeft, Send, Loader2 } from "lucide-react";
+import { Hammer, MessageSquare, Share2, ArrowLeft, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
@@ -28,6 +28,7 @@ interface Props {
 export function PostPageClient({ post, initialComments, currentUserId }: Props) {
   const [liked, setLiked]           = useState(post.is_liked_by_me ?? false);
   const [likesCount, setLikesCount] = useState(post.likes_count);
+  const [strikeCount, setStrikeCount] = useState(0);
   const [comments, setComments]     = useState<Comment[]>(initialComments);
   const [commentText, setCommentText] = useState("");
   const [posting, setPosting]       = useState(false);
@@ -58,6 +59,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
   }, [post.id, currentUserId, supabase]);
 
   async function handleLike() {
+    setStrikeCount((n) => n + 1); // dispara a animação de martelada
     const wasLiked = liked;
     setLiked(!wasLiked);
     setLikesCount((c) => wasLiked ? c - 1 : c + 1);
@@ -205,7 +207,10 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
           {/* Ações */}
           <div className="flex items-center gap-2 pt-4 border-t border-slate-100">
             <button onClick={handleLike} className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm transition-colors ${liked ? "text-red-500 bg-red-50" : "text-ossohub-slate hover:bg-slate-100"}`}>
-              <Heart className={`h-4 w-4 ${liked ? "fill-current" : ""}`} />
+              <Hammer
+                key={strikeCount}
+                className={`h-4 w-4 ${liked ? "fill-current" : ""} ${strikeCount > 0 ? "martelada-swing" : ""}`}
+              />
               {likesCount} curtidas
             </button>
             <button onClick={() => commentsRef.current?.scrollIntoView({ behavior: "smooth" })}

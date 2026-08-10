@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, Heart, MessageSquare, UserPlus, Award, Star, Users2 } from "lucide-react";
+import { Bell, Hammer, MessageSquare, UserPlus, Award, Star, Users2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { formatRelativeDate, getInitials } from "@/lib/utils";
 import type { Notification, NotificationType } from "@/lib/types";
 
-const TYPE_CONFIG: Record<NotificationType, { icon: typeof Heart; color: string; bg: string }> = {
-  new_like:             { icon: Heart,        color: "text-red-500",    bg: "bg-red-50" },
+const TYPE_CONFIG: Record<NotificationType, { icon: typeof Hammer; color: string; bg: string }> = {
+  new_like:             { icon: Hammer,       color: "text-red-500",    bg: "bg-red-50" },
   new_comment:          { icon: MessageSquare,color: "text-blue-500",   bg: "bg-blue-50" },
   new_follower:         { icon: UserPlus,     color: "text-teal-500",   bg: "bg-teal-50" },
   badge_unlocked:       { icon: Award,        color: "text-amber-500",  bg: "bg-amber-50" },
