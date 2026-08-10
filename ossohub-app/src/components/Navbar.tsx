@@ -158,9 +158,12 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav — altura travada na tela menos a navbar, com rolagem
+          própria (max-h + overflow-y-auto). Sem isso, em telas com muitos
+          itens (Desempenho + todas as Ferramentas), o menu passava do
+          tamanho da tela e não tinha como chegar até "Sair" no fim. */}
       {isAuthenticated && mobileOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3">
+        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
           <nav className="flex flex-col gap-1">
             {NAV_LINKS.map(({ href, label, icon: Icon }) => (
               <Link key={href} href={href} onClick={() => setMobileOpen(false)}
