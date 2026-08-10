@@ -35,12 +35,23 @@ export function Navbar() {
   const isLanding = pathname === "/" || pathname === "/login" || pathname === "/signup";
   const isAuthenticated = !!user;
 
+  // "Dr." fica sempre na frente do nome exibido na navbar — sem duplicar
+  // caso o próprio full_name já comece com "Dr." (alguns cadastros antigos).
+  const doctorName = profile?.full_name
+    ? /^dr\.?\s/i.test(profile.full_name.trim())
+      ? profile.full_name
+      : `Dr. ${profile.full_name}`
+    : null;
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/10 bg-ossohub-navy">
       <div className={isAuthenticated ? "ossohub-shell" : "ossohub-container"}>
         <div className={cn(
           "flex h-16 items-center justify-between",
-          isAuthenticated && "md:justify-start md:gap-8"
+          // Layout de 3 colunas em telas médias+: logo à esquerda, menu
+          // superior centralizado no meio, ações (Publicar + perfil)
+          // fixas na ponta direita — em vez de tudo agrupado à esquerda.
+          isAuthenticated && "md:grid md:grid-cols-[auto_1fr_auto] md:gap-4"
         )}>
           {/* Logo — maior e mais nítida (fonte já é 972×441, só estava
               exibida pequena demais); fica sempre no início da barra. */}
@@ -48,13 +59,12 @@ export function Navbar() {
             <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-10 w-auto" />
           </Link>
 
-          {/* Nav links — autenticado. Antes ficava espalhado pelo meio da
-              barra por causa do justify-between; agora (em telas médias+)
-              fica logo depois da logo, tudo agrupado à esquerda sem vão
-              grande no meio. No mobile o justify-between volta a valer
-              (nav fica escondida mesmo, então não afeta o menu ali). */}
+          {/* Nav links — autenticado. Coluna central do grid: os links
+              ficam centralizados no meio da barra, entre a logo e as
+              ações à direita. No mobile fica escondida mesmo (o menu
+              aparece no hambúrguer). */}
           {isAuthenticated && (
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden md:flex items-center justify-center gap-1">
               {NAV_LINKS.map(({ href, label, icon: Icon }) => (
                 <Link key={href} href={href}
                   className={cn(
@@ -88,14 +98,21 @@ export function Navbar() {
                   <Link href="/post/new"><Plus className="h-4 w-4" /> Publicar</Link>
                 </Button>
 
-                {/* Avatar dropdown */}
+                {/* Avatar dropdown — círculo + nome do médico (com "Dr."
+                    na frente) lado a lado, sempre na ponta direita da
+                    barra graças ao layout de 3 colunas do header. */}
                 <div className="relative">
                   <button onClick={() => setDropdownOpen((v) => !v)}
-                    className="flex items-center gap-2 rounded-full border-2 border-transparent hover:border-ossohub-green-dark/50 transition-colors p-0.5">
+                    className="flex items-center gap-2.5 rounded-full border-2 border-transparent hover:border-ossohub-green-dark/50 hover:bg-white/5 transition-colors py-0.5 pl-0.5 pr-3">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={profile?.photo_url ?? undefined} />
                       <AvatarFallback className="text-xs">{getInitials(profile?.full_name ?? "U")}</AvatarFallback>
                     </Avatar>
+                    {doctorName && (
+                      <span className="hidden sm:inline max-w-[160px] truncate text-sm font-medium text-white/90">
+                        {doctorName}
+                      </span>
+                    )}
                   </button>
 
                   {dropdownOpen && (
@@ -106,7 +123,7 @@ export function Navbar() {
                         style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 16px 36px -16px rgba(15,23,42,0.22)" }}
                       >
                         <div className="px-4 py-3 border-b border-slate-100">
-                          <p className="text-sm font-semibold text-ossohub-navy truncate">{profile?.full_name}</p>
+                          <p className="text-sm font-semibold text-ossohub-navy truncate">{doctorName}</p>
                           <p className="text-xs text-ossohub-slate">CRM {profile?.crm}</p>
                         </div>
                         <Link href={`/profile/${user.id}`}
