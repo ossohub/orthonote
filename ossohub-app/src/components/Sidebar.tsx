@@ -61,8 +61,8 @@ export function Sidebar() {
   const { profile } = useUser();
 
   return (
-    <aside className="hidden md:block w-60 shrink-0 border-r border-slate-200 bg-white min-h-[calc(100vh-4rem)]">
-      <nav className="py-5 px-3 space-y-5 sticky top-16">
+    <aside className="hidden md:block w-60 shrink-0 border-r border-slate-200 bg-white sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain">
+      <nav className="py-5 px-3 space-y-5">
         {TOOL_GROUPS.map((group) => {
           const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
           return (
