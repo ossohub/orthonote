@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Loader2, Plus, X, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { GoogleAuthButton } from "@/components/GoogleAuthButton";
 import { createClient } from "@/lib/supabase/client";
 import type { SignupForm } from "@/lib/types";
 
@@ -21,7 +22,10 @@ const SPECIALTIES = [
 const schema = z.object({
   full_name: z.string().min(3, "Nome deve ter pelo menos 3 caracteres"),
   email: z.string().email("Email inválido"),
-  password: z.string().min(8, "Senha deve ter pelo menos 8 caracteres"),
+  password: z.string()
+    .min(8, "Senha deve ter pelo menos 8 caracteres")
+    .regex(/[a-zA-Z]/, "A senha precisa ter pelo menos uma letra")
+    .regex(/[0-9]/, "A senha precisa ter pelo menos um número"),
   crm: z.string().min(4, "CRM inválido"),
   rqe: z.string().optional(),
   specialties: z.array(z.string()).min(1, "Selecione pelo menos uma especialidade"),
@@ -78,10 +82,13 @@ export default function SignupPage() {
     }
 
     // 2. Atualizar perfil com dados extras (o trigger já criou o registro básico)
+    //    O gatilho não recebe o CRM (só nome/professional_role/etc via
+    //    raw_user_meta_data), então é aqui que ele é gravado de fato.
     if (authData.user) {
       const { error: profileError } = await supabase
         .from("profiles")
         .update({
+          crm: data.crm,
           rqe: data.rqe ?? null,
           specialties: data.specialties,
           city_state: data.city_state ?? null,
@@ -123,6 +130,14 @@ export default function SignupPage() {
         </div>
 
         <div className="ossohub-card p-8">
+          <GoogleAuthButton redirectTo="/feed" />
+
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200" />
+            <span className="text-xs font-medium text-slate-400">ou cadastre-se com email</span>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Nome completo */}
             <div>

@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useRef, useState, type ChangeEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, ArrowLeft, Plus, X, Camera } from "lucide-react";
+import { Loader2, ArrowLeft, Plus, X, Camera, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/lib/supabase/client";
 import { getInitials } from "@/lib/utils";
-import { RESIDENCY_YEARS, type ResidencyYear } from "@/lib/types";
+import { RESIDENCY_YEARS, type ResidencyYear, type ProfessionalRole } from "@/lib/types";
 import Link from "next/link";
 
 const SPECIALTIES = [
@@ -20,8 +20,19 @@ const SPECIALTIES = [
   "Ortopedia Pediátrica", "Trauma", "Medicina Esportiva",
 ];
 
+const PROFESSIONAL_ROLE_OPTIONS: { value: ProfessionalRole; label: string }[] = [
+  { value: "medico_ortopedista",        label: "Médico ortopedista" },
+  { value: "medico_residente",          label: "Médico residente" },
+  { value: "medico_outra_especialidade", label: "Médico de outra especialidade" },
+  { value: "estudante_medicina",        label: "Estudante de medicina" },
+  { value: "fisioterapeuta",            label: "Fisioterapeuta" },
+  { value: "enfermeiro",                label: "Enfermeiro(a)" },
+  { value: "outro_profissional_saude",  label: "Outro profissional de saúde" },
+];
+
 const schema = z.object({
   full_name:  z.string().min(3),
+  crm:        z.string().min(4, "Informe seu CRM (ex: 12345/SP)"),
   bio:        z.string().max(280).optional(),
   city_state: z.string().optional(),
   rqe:        z.string().optional(),
@@ -30,10 +41,21 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function EditProfilePage() {
+  return (
+    <Suspense fallback={null}>
+      <EditProfileForm />
+    </Suspense>
+  );
+}
+
+function EditProfileForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const welcome = searchParams.get("bemvindo") === "1";
   const supabase = createClient();
   const [specialties, setSpecialties] = useState<string[]>([]);
   const [residencyYear, setResidencyYear] = useState<ResidencyYear | "">("");
+  const [professionalRole, setProfessionalRole] = useState<ProfessionalRole>("outro_profissional_saude");
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string>("");
   const [fullName, setFullName] = useState("");
@@ -62,12 +84,14 @@ export default function EditProfilePage() {
       if (profile) {
         reset({
           full_name:  profile.full_name,
+          crm:        profile.crm ?? "",
           bio:        profile.bio ?? "",
           city_state: profile.city_state ?? "",
           rqe:        profile.rqe ?? "",
         });
         setSpecialties(profile.specialties ?? []);
         setResidencyYear((profile.residency_year as ResidencyYear) ?? "");
+        setProfessionalRole((profile.professional_role as ProfessionalRole) ?? "outro_profissional_saude");
         setFullName(profile.full_name);
         setPhotoUrl(profile.photo_url ?? null);
       }
@@ -126,12 +150,14 @@ export default function EditProfilePage() {
       .from("profiles")
       .update({
         full_name:   data.full_name,
+        crm:         data.crm,
         bio:         data.bio || null,
         city_state:  data.city_state || null,
         rqe:         data.rqe || null,
         photo_url:   newPhotoUrl,
         specialties,
         residency_year: residencyYear || null,
+        professional_role: professionalRole,
       })
       .eq("id", userId);
 
@@ -157,6 +183,19 @@ export default function EditProfilePage() {
         </Link>
 
         <h1 className="text-2xl font-bold text-ossohub-navy mb-6">Editar perfil</h1>
+
+        {welcome && (
+          <div className="mb-5 rounded-xl border border-ossohub-green/30 bg-ossohub-green-light/50 p-4 flex gap-3">
+            <Sparkles className="h-5 w-5 text-ossohub-green shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-ossohub-navy">Bem-vindo(a) ao OssoHub!</p>
+              <p className="text-sm text-ossohub-slate mt-0.5">
+                Sua conta foi criada com o Google. Antes de continuar, confirme seu CRM e sua
+                categoria profissional abaixo — isso é obrigatório pra liberar o resto da plataforma.
+              </p>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Foto de perfil */}
@@ -204,12 +243,34 @@ export default function EditProfilePage() {
             {errors.full_name && <p className="mt-1 text-xs text-red-500">{errors.full_name.message}</p>}
           </div>
 
-          {/* RQE + Cidade */}
+          {/* CRM + RQE */}
           <div className="ossohub-card p-5 grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">CRM *</label>
+              <input {...register("crm")} placeholder="12345/SP"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
+              {errors.crm && <p className="mt-1 text-xs text-red-500">{errors.crm.message}</p>}
+            </div>
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">RQE</label>
               <input {...register("rqe")} placeholder="12345"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition" />
+            </div>
+          </div>
+
+          {/* Categoria profissional + Cidade */}
+          <div className="ossohub-card p-5 grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Categoria profissional</label>
+              <select
+                value={professionalRole}
+                onChange={(e) => setProfessionalRole(e.target.value as ProfessionalRole)}
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
+              >
+                {PROFESSIONAL_ROLE_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Cidade/Estado</label>

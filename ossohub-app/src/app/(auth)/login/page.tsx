@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { GoogleAuthButton } from "@/components/GoogleAuthButton";
 import { createClient } from "@/lib/supabase/client";
 
 const schema = z.object({
@@ -79,6 +80,14 @@ function LoginForm() {
 
         {/* Form card */}
         <div className="ossohub-card p-8">
+          <GoogleAuthButton redirectTo={redirect} />
+
+          <div className="my-5 flex items-center gap-3">
+            <div className="h-px flex-1 bg-slate-200" />
+            <span className="text-xs font-medium text-slate-400">ou entre com email</span>
+            <div className="h-px flex-1 bg-slate-200" />
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email */}
             <div>
@@ -98,9 +107,14 @@ function LoginForm() {
 
             {/* Senha */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
-                Senha
-              </label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium text-ossohub-navy">
+                  Senha
+                </label>
+                <Link href="/forgot-password" className="text-xs font-medium text-ossohub-green hover:underline">
+                  Esqueci minha senha
+                </Link>
+              </div>
               <div className="relative">
                 <input
                   {...register("password")}
