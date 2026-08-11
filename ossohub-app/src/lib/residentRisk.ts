@@ -1,7 +1,15 @@
 // ============================================================
-// OssoHub — Análise Preditiva de Desempenho (Residentes)
+// OssoHub — Análise Preditiva de Desempenho
 // Service de cálculo de risco — SERVER-ONLY
 // ============================================================
+// Aberto para QUALQUER perfil (não só médico_residente) — os nomes
+// "resident"/"residentRisk"/resident_features são históricos (o módulo
+// começou pensado só pra residentes) mas hoje qualquer usuário logado
+// pode ver a própria análise. Nada na lógica abaixo depende de
+// profissão; onde havia um filtro fixo em 'medico_residente' (grupo de
+// pares e a lista do cron), foi trocado por "mesma profissão do próprio
+// usuário, com fallback pra todos os perfis ativos".
+//
 // Este arquivo usa o Supabase admin client (service_role — ver
 // src/lib/supabase/admin.ts), então NUNCA pode ser importado por um
 // componente "use client". Ele é chamado apenas por:
@@ -12,11 +20,11 @@
 //     src/app/api/internal/cron/resident-risk/route.ts)
 //
 // O que este service faz, em ordem:
-//   1. Busca as features de engajamento do residente nas janelas de
+//   1. Busca as features de engajamento do usuário nas janelas de
 //      7/30/90 dias (XP, casos publicados, comentários, dias ativos).
 //   2. Busca o mesmo dado agregado (só XP de 30d) de um grupo de pares
-//      (mesmo residency_year; se não houver pares suficientes, usa todo
-//      o cohort de médico_residente) para calcular um z-score.
+//      (mesma profissão; se não houver pares suficientes, usa todos os
+//      perfis ativos da plataforma) para calcular um z-score.
 //   3. Absorve a lógica de tendência de acerto do banco de questões que
 //      já existia em lib/performance.ts (mesmas funções puras, agora em
 //      lib/predictive/trendMath.ts) — só que aqui agregada por TODAS as
@@ -33,7 +41,7 @@
 // escrevem com a service_role key, que ignora RLS.
 
 import { createAdminClient } from "@/lib/supabase/admin";
-import { normalizeQuestionArea, type ResidencyYear } from "@/lib/types";
+import { normalizeQuestionArea, type ResidencyYear, type ProfessionalRole } from "@/lib/types";
 import {
   isoWeekStart,
   linearRegression,
@@ -132,7 +140,7 @@ export async function computeAndSaveResidentRisk(userId: string): Promise<Reside
   const profile = await fetchResidentProfile(admin, userId);
   const engagement = await fetchEngagementFeatures(admin, userId, today);
   const quizTrend = await fetchQuizTrend(admin, userId, today);
-  const risk = await computeRisk(admin, userId, profile.residencyYear, engagement, quizTrend);
+  const risk = await computeRisk(admin, userId, profile, engagement, quizTrend);
 
   const { data, error } = await admin
     .from("resident_features")
@@ -213,10 +221,11 @@ export async function getResidentRiskHistory(userId: string, days = 90): Promise
 }
 
 // Usado pelo cron diário (/api/internal/cron/resident-risk) — recalcula
-// TODOS os residentes elegíveis. Sequencial de propósito: o volume atual
-// da plataforma é pequeno e isso evita sobrecarregar o Postgres/Supabase
-// com N queries em paralelo. Se a base de residentes crescer muito,
-// trocar por um `Promise.allSettled` em lotes de ~10.
+// TODOS os perfis ativos (qualquer profissão, não só médico_residente).
+// Sequencial de propósito: o volume atual da plataforma é pequeno e isso
+// evita sobrecarregar o Postgres/Supabase com N queries em paralelo. Se
+// a base de usuários crescer muito, trocar por um `Promise.allSettled`
+// em lotes de ~10.
 export async function recomputeAllResidentsRisk(): Promise<{
   processed: number;
   failed: { userId: string; message: string }[];
@@ -225,10 +234,9 @@ export async function recomputeAllResidentsRisk(): Promise<{
   const { data, error } = await admin
     .from("profiles")
     .select("id")
-    .eq("professional_role", "medico_residente")
     .eq("account_active", true);
 
-  if (error) throw new Error(`Falha ao listar residentes: ${error.message}`);
+  if (error) throw new Error(`Falha ao listar perfis ativos: ${error.message}`);
 
   const failed: { userId: string; message: string }[] = [];
   let processed = 0;
@@ -256,13 +264,15 @@ async function fetchResidentProfile(admin: ReturnType<typeof createAdminClient>,
     .eq("id", userId)
     .single();
 
-  if (error) throw new Error(`Residente não encontrado: ${error.message}`);
+  if (error) throw new Error(`Perfil não encontrado: ${error.message}`);
   return {
     residencyYear: (data.residency_year as ResidencyYear | null) ?? null,
-    professionalRole: data.professional_role as string,
+    professionalRole: data.professional_role as ProfessionalRole,
     accountActive: data.account_active as boolean,
   };
 }
+
+type ResidentProfile = Awaited<ReturnType<typeof fetchResidentProfile>>;
 
 async function fetchEngagementFeatures(
   admin: ReturnType<typeof createAdminClient>,
@@ -420,32 +430,48 @@ async function fetchQuizTrend(
 async function fetchPeerXpGain30d(
   admin: ReturnType<typeof createAdminClient>,
   userId: string,
-  residencyYear: ResidencyYear | null,
+  profile: { residencyYear: ResidencyYear | null; professionalRole: ProfessionalRole },
   now: Date
 ): Promise<{ scores: number[]; groupSize: number }> {
   let peerIds: string[] = [];
 
-  if (residencyYear) {
+  // Grupo mais específico: mesma profissão + mesmo ano de residência
+  // (só existe pra médico_residente; pra qualquer outra profissão
+  // residencyYear é null e este bloco é pulado direto pro próximo).
+  if (profile.residencyYear) {
     const { data, error } = await admin
       .from("profiles")
       .select("id")
-      .eq("professional_role", "medico_residente")
-      .eq("residency_year", residencyYear)
+      .eq("professional_role", profile.professionalRole)
+      .eq("residency_year", profile.residencyYear)
       .neq("id", userId);
-    if (error) throw new Error(`Falha ao buscar pares (residency_year): ${error.message}`);
+    if (error) throw new Error(`Falha ao buscar pares (profissão + ano): ${error.message}`);
     peerIds = (data ?? []).map((p) => p.id as string);
   }
 
-  // Fallback: sem residency_year definido ou grupo pequeno demais pro
-  // z-score ser confiável (mesmo limiar de lib/predictive/trendMath.zScore)
-  // — usa todo o cohort de médico_residente em vez de só o ano.
+  // Fallback 1: mesma profissão, sem filtrar por ano — cobre todo mundo
+  // que não é médico_residente (ou é, mas o grupo por ano era pequeno
+  // demais pro z-score ser confiável, mesmo limiar de
+  // lib/predictive/trendMath.zScore).
   if (peerIds.length < 3) {
     const { data, error } = await admin
       .from("profiles")
       .select("id")
-      .eq("professional_role", "medico_residente")
+      .eq("professional_role", profile.professionalRole)
       .neq("id", userId);
-    if (error) throw new Error(`Falha ao buscar pares (cohort geral): ${error.message}`);
+    if (error) throw new Error(`Falha ao buscar pares (mesma profissão): ${error.message}`);
+    peerIds = (data ?? []).map((p) => p.id as string);
+  }
+
+  // Fallback 2: ainda pequeno demais (ex: profissão rara na base) — usa
+  // todos os perfis ativos da plataforma, independente de profissão.
+  if (peerIds.length < 3) {
+    const { data, error } = await admin
+      .from("profiles")
+      .select("id")
+      .eq("account_active", true)
+      .neq("id", userId);
+    if (error) throw new Error(`Falha ao buscar pares (todos os perfis ativos): ${error.message}`);
     peerIds = (data ?? []).map((p) => p.id as string);
   }
 
@@ -496,11 +522,11 @@ async function fetchPeerXpGain30d(
 async function computeRisk(
   admin: ReturnType<typeof createAdminClient>,
   userId: string,
-  residencyYear: ResidencyYear | null,
+  profile: ResidentProfile,
   engagement: EngagementFeatures,
   quizTrend: TrendRisk
 ): Promise<RiskComputation> {
-  const { scores: peerScores, groupSize } = await fetchPeerXpGain30d(admin, userId, residencyYear, new Date());
+  const { scores: peerScores, groupSize } = await fetchPeerXpGain30d(admin, userId, profile, new Date());
 
   // Média móvel simples: XP médio mensal dos últimos 3 meses, usado como
   // "linha de base" pra comparar com o mês mais recente.
@@ -524,8 +550,9 @@ async function computeRisk(
     topReasons.push(`Ganho de XP ${Math.abs(Math.round(xpDropPct))}% abaixo da média dos últimos 3 meses.`);
   }
 
-  // Sinal 2 — z-score de XP de 30d vs pares (mesmo ano de residência,
-  // com fallback pro cohort geral de médico_residente).
+  // Sinal 2 — z-score de XP de 30d vs pares (mesma profissão + ano de
+  // residência quando aplicável, com fallback pra mesma profissão e
+  // depois pra todos os perfis ativos).
   if (zEngagementXp !== null && zEngagementXp <= -1.5) {
     score += 0.25;
     topReasons.push("Engajamento (XP) significativamente abaixo da média dos colegas do mesmo grupo.");

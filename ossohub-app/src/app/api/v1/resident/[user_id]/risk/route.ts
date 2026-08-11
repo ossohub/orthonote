@@ -6,13 +6,13 @@ import { getResidentRisk, getResidentRiskHistory } from "@/lib/residentRisk";
 // ============================================================
 // GET /api/v1/resident/[user_id]/risk
 // ============================================================
-// Endpoint de leitura da Análise Preditiva de Desempenho de UM
-// residente. Regra de acesso mais importante do módulo inteiro: "só o
-// próprio residente vê seus dados" — não existe bypass de preceptor
-// nem de admin aqui, mesmo que preceptores enxerguem outros dados de
-// desempenho do residente em outras telas (isso é intencional, pedido
-// explicitamente na spec do módulo, porque risk_score é uma inferência
-// sensível sobre a pessoa, não um resultado de prova).
+// Endpoint de leitura da Análise Preditiva de Desempenho de UM usuário.
+// Aberto pra qualquer perfil (não só médico_residente) — o nome
+// "resident"/"residentRisk" no código é histórico (o módulo começou
+// pensado só pra residentes) mas a regra de acesso nunca dependeu de
+// profissão, só de identidade: "só o próprio dono dos dados vê" — não
+// existe bypass de preceptor nem de admin aqui, porque risk_score é uma
+// inferência sensível sobre a pessoa, não um resultado de prova.
 //
 // Autenticação: sessão de navegador normal (cookies), igual ao resto
 // do app — createClient() de lib/supabase/server.ts. Nada de service
@@ -23,9 +23,8 @@ import { getResidentRisk, getResidentRiskHistory } from "@/lib/residentRisk";
 //   401 unauthorized    — sem sessão válida
 //   403 forbidden        — sessão válida, mas de outra pessoa
 //   404 not_found        — user_id não corresponde a um perfil
-//   403 not_eligible     — perfil existe mas não é médico_residente
-//   403 consent_required — residente elegível mas ainda não aceitou o
-//                          termo de consentimento (consent_logs)
+//   403 consent_required — perfil existe mas ainda não aceitou o termo
+//                          de consentimento (consent_logs)
 //   200                  — shape pedido na spec do módulo (risk_score,
 //                          risk_level, top_reasons, recommendations,
 //                          last_updated) + um campo `history` aditivo
@@ -68,22 +67,12 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
   const { data: profile, error: profileError } = await admin
     .from("profiles")
-    .select("professional_role")
+    .select("id")
     .eq("id", userId)
     .single();
 
   if (profileError || !profile) {
     return NextResponse.json({ error: "not_found", message: "Perfil não encontrado." }, { status: 404 });
-  }
-
-  if (profile.professional_role !== "medico_residente") {
-    return NextResponse.json(
-      {
-        error: "not_eligible",
-        message: "A Análise Preditiva de Desempenho está disponível apenas para médicos residentes.",
-      },
-      { status: 403 }
-    );
   }
 
   const { data: consent, error: consentError } = await admin

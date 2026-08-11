@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Loader2, Brain, ShieldCheck, TrendingDown, TrendingUp, Minus,
+  Loader2, Brain, TrendingDown, TrendingUp, Minus,
   AlertTriangle, Lightbulb, Lock,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -15,17 +15,14 @@ import { useUser } from "@/hooks/useUser";
 // ============================================================
 // /desempenho/preditivo — "Análise Preditiva de Desempenho"
 // ============================================================
-// Página PRIVADA — só o próprio residente vê a própria análise (o
-// endpoint por trás recusa qualquer user_id que não seja o da sessão
-// logada, então nem vale a pena montar um seletor de "ver de outro
-// residente" aqui como a página de Gráficos tem). Fluxo:
-//   1. Gate de elegibilidade: só profiles.professional_role ===
-//      'medico_residente' vê o conteúdo — outros perfis veem um aviso.
-//   2. Gate de consentimento LGPD: antes de qualquer dado aparecer, o
-//      residente precisa aceitar explicitamente (GET/POST
+// Página PRIVADA — só o próprio usuário vê a própria análise (o endpoint
+// por trás recusa qualquer user_id que não seja o da sessão logada).
+// Disponível para QUALQUER perfil, não só médico residente. Fluxo:
+//   1. Gate de consentimento LGPD: antes de qualquer dado aparecer, o
+//      usuário precisa aceitar explicitamente (GET/POST
 //      /api/v1/resident/consent). Sem isso, GET .../risk devolve
 //      403 consent_required e mostramos o card de consentimento aqui.
-//   3. Com consentimento, buscamos GET /api/v1/resident/[user_id]/risk
+//   2. Com consentimento, buscamos GET /api/v1/resident/[user_id]/risk
 //      — risk_score/risk_level/top_reasons/recommendations/last_updated
 //      + history (90 dias) pro gráfico.
 
@@ -65,11 +62,11 @@ function RiskIcon({ level }: { level: RiskLevel }) {
   return <TrendingUp className="h-4 w-4" />;
 }
 
-type ViewState = "loading" | "not_eligible" | "consent_required" | "ready" | "error";
+type ViewState = "loading" | "consent_required" | "ready" | "error";
 
 export default function AnalisePreditivaPage() {
   const router = useRouter();
-  const { user, profile, loading: userLoading } = useUser();
+  const { user, loading: userLoading } = useUser();
 
   const [view, setView] = useState<ViewState>("loading");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -90,10 +87,6 @@ export default function AnalisePreditivaPage() {
         setView("consent_required");
         return;
       }
-      if (res.status === 403 && body.error === "not_eligible") {
-        setView("not_eligible");
-        return;
-      }
       if (!res.ok) {
         setErrorMessage(body.message ?? "Falha ao carregar a Análise Preditiva de Desempenho.");
         setView("error");
@@ -110,17 +103,8 @@ export default function AnalisePreditivaPage() {
 
   useEffect(() => {
     if (!user || userLoading) return;
-    // Perfil ainda não carregou — espera antes de decidir elegibilidade
-    // (evita piscar "não elegível" pra quem na verdade é residente).
-    if (!profile) return;
-
-    if (profile.professional_role !== "medico_residente") {
-      setView("not_eligible");
-      return;
-    }
-
     loadRisk(user.id);
-  }, [user, userLoading, profile, loadRisk]);
+  }, [user, userLoading, loadRisk]);
 
   async function handleAcceptConsent() {
     if (!user) return;
@@ -155,13 +139,6 @@ export default function AnalisePreditivaPage() {
           <Brain className="h-6 w-6 text-ossohub-green" />
           <h1 className="text-2xl font-bold text-ossohub-navy">Análise Preditiva de Desempenho</h1>
         </div>
-
-        {view === "not_eligible" && (
-          <div className="ossohub-card p-8 text-center text-sm text-ossohub-slate">
-            <ShieldCheck className="h-8 w-8 mx-auto mb-3 text-ossohub-green" />
-            A Análise Preditiva de Desempenho está disponível apenas para contas de médico residente.
-          </div>
-        )}
 
         {view === "error" && (
           <div className="ossohub-card p-8 text-center text-sm text-red-600">

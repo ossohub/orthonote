@@ -54,13 +54,10 @@ const DESEMPENHO_LINKS = [
   { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
   { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
   { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
+  { href: "/desempenho/preditivo",   label: "Análise Preditiva", icon: Brain },
   { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
   { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
 ];
-
-// Só aparece pro próprio residente (professional_role === 'medico_residente')
-// — mesma regra de Sidebar.tsx.
-const RESIDENT_ONLY_LINK = { href: "/desempenho/preditivo", label: "Análise Preditiva", icon: Brain };
 
 export function Navbar() {
   const pathname = usePathname();
@@ -235,10 +232,7 @@ export function Navbar() {
                 Desempenho
               </p>
               <div className="space-y-1.5">
-                {(profile?.professional_role === "medico_residente"
-                  ? [...DESEMPENHO_LINKS, RESIDENT_ONLY_LINK]
-                  : DESEMPENHO_LINKS
-                ).map(({ href, label, icon: Icon }) => {
+                {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
                   const active = pathname.startsWith(href);
                   return (
                     <Link key={href} href={href} onClick={() => setMobileOpen(false)}
