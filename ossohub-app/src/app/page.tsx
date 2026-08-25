@@ -12,53 +12,56 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 // --- Hero ---
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-ossohub-navy py-24 sm:py-32">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-        />
-      </div>
-      {/* Glow accent */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-ossohub-green/10 blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden py-24 sm:py-32" style={{ background: "#060F1E" }}>
+      {/* Dot grid */}
+      <div className="absolute inset-0 opacity-100"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(14,165,233,0.06) 1px, transparent 0)`,
+          backgroundSize: "28px 28px",
+        }}
+      />
+      {/* Ambient glows */}
+      <div className="absolute -top-40 -right-40 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)" }} />
+      <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(14,165,233,0.07) 0%, transparent 70%)" }} />
 
       <div className="ossohub-container relative">
         <div className="max-w-3xl mx-auto text-center">
           {/* Pill badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-ossohub-green/30 bg-ossohub-green/10 px-4 py-1.5 text-sm text-ossohub-green mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-sm text-emerald-400 mb-8">
             <Star className="h-3.5 w-3.5" />
             A rede que a ortopedia brasileira precisava
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
+            style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
             Compartilhe conhecimento.{" "}
-            <span className="text-ossohub-green">Evolua junto.</span>
+            <span style={{ background: "linear-gradient(135deg,#10B981,#0EA5E9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              Evolua junto.
+            </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
             OssoHub é a rede profissional exclusiva para ortopedistas brasileiros.
             Publique casos clínicos, discuta artigos e conecte-se com especialistas
             de todo o Brasil — com sistema de recompensa por contribuição.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
+            <Button size="lg" asChild className="btn-teal border-0">
               <Link href="/signup">
                 Criar conta gratuita
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
             <Button size="lg" variant="outline"
-              className="border-slate-600 text-white hover:bg-white/10 hover:text-white bg-transparent"
+              className="border-white/15 text-white hover:bg-white/8 hover:text-white bg-transparent"
               asChild
             >
               <Link href="/login">Já tenho conta</Link>
@@ -66,15 +69,16 @@ function HeroSection() {
           </div>
 
           {/* Stats row */}
-          <div className="mt-16 grid grid-cols-3 gap-6 border-t border-slate-700 pt-10">
+          <div className="mt-16 grid grid-cols-3 gap-6 border-t pt-10"
+            style={{ borderColor: "rgba(255,255,255,0.08)" }}>
             {[
               { value: "100%", label: "Verificados por CRM" },
               { value: "Gratuito", label: "Para sempre" },
               { value: "LGPD", label: "Compliant" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-2xl font-bold text-ossohub-green">{stat.value}</div>
-                <div className="text-sm text-slate-400 mt-1">{stat.label}</div>
+                <div className="text-2xl font-bold text-emerald-400">{stat.value}</div>
+                <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -114,30 +118,38 @@ const STEPS = [
 
 function HowItWorksSection() {
   return (
-    <section className="ossohub-section bg-white">
+    <section className="ossohub-section" style={{ background: "#060F1E" }}>
       <div className="ossohub-container">
         <div className="text-center mb-14">
-          <Badge variant="green-light" className="mb-4">Como funciona</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold text-ossohub-navy mb-4">
-            Simples. Profissional. Recompensador.
+          <span className="inline-block rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1 text-xs font-semibold text-sky-400 mb-4 uppercase tracking-wider">
+            Como funciona
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4"
+            style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+            Simples. Profissional. <span className="text-gradient">Recompensador.</span>
           </h2>
-          <p className="text-ossohub-slate max-w-xl mx-auto">
+          <p className="text-slate-400 max-w-xl mx-auto">
             Em 4 passos você começa a contribuir e se destacar na maior rede de ortopedistas do Brasil.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map(({ step, icon: Icon, title, desc }) => (
-            <Card key={step} className="relative p-6 hover:border-ossohub-green/40 transition-colors">
-              <CardContent className="p-0">
-                <div className="text-5xl font-black text-slate-100 mb-4 leading-none">{step}</div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ossohub-green-light mb-4">
-                  <Icon className="h-5 w-5 text-ossohub-green-dark" />
-                </div>
-                <h3 className="font-semibold text-ossohub-navy mb-2">{title}</h3>
-                <p className="text-sm text-ossohub-slate leading-relaxed">{desc}</p>
-              </CardContent>
-            </Card>
+            <div key={step} className="ossohub-card p-6 group cursor-default">
+              <div className="text-5xl font-black mb-4 leading-none"
+                style={{ color: "rgba(14,165,233,0.15)" }}>
+                {step}
+              </div>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl mb-4"
+                style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.2)" }}>
+                <Icon className="h-5 w-5 text-emerald-400" />
+              </div>
+              <h3 className="font-semibold text-white mb-2 text-sm"
+                style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+                {title}
+              </h3>
+              <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -157,11 +169,11 @@ const BENEFITS = [
 
 // --- Gamificação Teaser ---
 const LEVELS = [
-  { level: 1, name: "Aprendiz", xp: "0–150 XP", color: "level-aprendiz" },
-  { level: 2, name: "Residente", xp: "151–400 XP", color: "level-residente" },
-  { level: 3, name: "Especialista", xp: "401–800 XP", color: "level-especialista" },
-  { level: 4, name: "Mestre", xp: "801–1500 XP", color: "level-mestre" },
-  { level: 5, name: "Lenda", xp: "1501+ XP", color: "level-lenda" },
+  { level: 1, name: "Aprendiz",     xp: "0–150 XP",    color: "level-aprendiz" },
+  { level: 2, name: "Residente",    xp: "151–400 XP",  color: "level-residente" },
+  { level: 3, name: "Especialista", xp: "401–800 XP",  color: "level-especialista" },
+  { level: 4, name: "Mestre",       xp: "801–1500 XP", color: "level-mestre" },
+  { level: 5, name: "Lenda",        xp: "1501+ XP",    color: "level-lenda" },
 ];
 
 function BenefitsSection() {
@@ -171,16 +183,19 @@ function BenefitsSection() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Benefícios */}
           <div>
-            <Badge variant="green-light" className="mb-4">Por que OssoHub</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-ossohub-navy mb-6">
+            <span className="inline-block rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1 text-xs font-semibold text-emerald-400 mb-4 uppercase tracking-wider">
+              Por que OssoHub
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6"
+              style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
               Feito por ortopedistas,{" "}
-              <span className="text-ossohub-green">para ortopedistas</span>
+              <span className="text-gradient">para ortopedistas</span>
             </h2>
             <div className="space-y-4">
               {BENEFITS.map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-ossohub-green mt-0.5 shrink-0" />
-                  <p className="text-ossohub-slate">{text}</p>
+                  <CheckCircle2 className="h-5 w-5 text-emerald-400 mt-0.5 shrink-0" />
+                  <p className="text-slate-300">{text}</p>
                 </div>
               ))}
             </div>
@@ -188,13 +203,16 @@ function BenefitsSection() {
 
           {/* Gamificação Teaser */}
           <div>
-            <Badge variant="green-light" className="mb-4">Sistema de Recompensa</Badge>
-            <h2 className="text-3xl font-bold text-ossohub-navy mb-2">
+            <span className="inline-block rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1 text-xs font-semibold text-sky-400 mb-4 uppercase tracking-wider">
+              Sistema de Recompensa
+            </span>
+            <h2 className="text-3xl font-bold text-white mb-2"
+              style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
               Quanto mais você contribui,
               <br />
-              <span className="text-ossohub-green">mais você cresce</span>
+              <span className="text-gradient">mais você cresce</span>
             </h2>
-            <p className="text-ossohub-slate mb-8">
+            <p className="text-slate-400 mb-8">
               Publique casos, comente, receba likes e suba na hierarquia da ortopedia brasileira.
             </p>
 
@@ -202,16 +220,21 @@ function BenefitsSection() {
               {LEVELS.map(({ level, name, xp, color }) => (
                 <div
                   key={level}
-                  className="flex items-center gap-4 p-3 rounded-xl border border-slate-200 bg-white"
+                  className="flex items-center gap-4 p-3 rounded-xl"
+                  style={{
+                    background: "rgba(10,22,40,0.7)",
+                    border: "1px solid rgba(14,165,233,0.1)",
+                    backdropFilter: "blur(8px)",
+                  }}
                 >
                   <div className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${color}`}>
                     {level}
                   </div>
                   <div className="flex-1">
-                    <div className="font-medium text-ossohub-navy text-sm">{name}</div>
-                    <div className="text-xs text-ossohub-slate">{xp}</div>
+                    <div className="font-medium text-white text-sm">{name}</div>
+                    <div className="text-xs text-slate-500">{xp}</div>
                   </div>
-                  <Bone className="h-4 w-4 text-slate-300" />
+                  <Bone className="h-4 w-4" style={{ color: "rgba(14,165,233,0.3)" }} />
                 </div>
               ))}
             </div>
@@ -225,21 +248,31 @@ function BenefitsSection() {
 // --- CTA Final ---
 function CTASection() {
   return (
-    <section className="ossohub-section bg-ossohub-navy">
+    <section className="ossohub-section" style={{ background: "#060F1E" }}>
       <div className="ossohub-container text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          Pronto para fazer parte?
-        </h2>
-        <p className="text-slate-300 mb-8 max-w-xl mx-auto">
-          Cadastre-se gratuitamente com seu CRM e comece a compartilhar
-          conhecimento com ortopedistas de todo o Brasil.
-        </p>
-        <Button size="lg" asChild>
-          <Link href="/signup">
-            Criar conta grátis
-            <ArrowRight className="h-5 w-5" />
-          </Link>
-        </Button>
+        {/* Glow */}
+        <div className="relative inline-block w-full">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-96 h-96 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)" }} />
+          </div>
+          <div className="relative">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4"
+              style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+              Pronto para fazer parte?
+            </h2>
+            <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+              Cadastre-se gratuitamente com seu CRM e comece a compartilhar
+              conhecimento com ortopedistas de todo o Brasil.
+            </p>
+            <Button size="lg" asChild className="btn-teal border-0">
+              <Link href="/signup">
+                Criar conta grátis
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -248,15 +281,16 @@ function CTASection() {
 // --- Footer ---
 function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white py-8">
-      <div className="ossohub-container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ossohub-slate">
-        <div className="flex items-center rounded-lg bg-ossohub-navy px-2 py-1">
-          <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-5 w-auto" />
+    <footer className="py-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#060F1E" }}>
+      <div className="ossohub-container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        {/* Logo original mantida */}
+        <div className="flex items-center">
+          <img src="/logo.png" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
         </div>
-        <p>© 2024 OssoHub — Todos os direitos reservados</p>
+        <p className="text-slate-600">© 2024 OssoHub — Todos os direitos reservados</p>
         <div className="flex gap-4">
-          <Link href="/privacy" className="hover:text-ossohub-navy transition-colors">Privacidade</Link>
-          <Link href="/terms" className="hover:text-ossohub-navy transition-colors">Termos</Link>
+          <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacidade</Link>
+          <Link href="/terms" className="hover:text-slate-300 transition-colors">Termos</Link>
         </div>
       </div>
     </footer>

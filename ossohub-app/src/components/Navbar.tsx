@@ -152,26 +152,31 @@ export function Navbar() {
                     <>
                       <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
                       <div
-                        className="absolute right-0 top-full mt-2 w-52 rounded-2xl border border-slate-200/70 bg-white z-20 py-1"
-                        style={{ boxShadow: "0 1px 2px rgba(15,23,42,0.04), 0 16px 36px -16px rgba(15,23,42,0.22)" }}
+                        className="absolute right-0 top-full mt-2 w-52 rounded-2xl z-20 py-1"
+                        style={{
+                          background: "rgba(10,22,40,0.97)",
+                          border: "1px solid rgba(14,165,233,0.15)",
+                          backdropFilter: "blur(20px)",
+                          boxShadow: "0 4px 6px rgba(0,0,0,0.4), 0 24px 48px -16px rgba(0,0,0,0.6), 0 0 0 1px rgba(14,165,233,0.06)",
+                        }}
                       >
-                        <div className="px-4 py-3 border-b border-slate-100">
-                          <p className="text-sm font-semibold text-ossohub-navy truncate">{doctorName}</p>
-                          <p className="text-xs text-ossohub-slate">CRM {profile?.crm}</p>
+                        <div className="px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+                          <p className="text-sm font-semibold text-white truncate">{doctorName}</p>
+                          <p className="text-xs text-slate-500">CRM {profile?.crm}</p>
                         </div>
                         <Link href={`/profile/${user.id}`}
                           onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-ossohub-slate hover:bg-slate-50 hover:text-ossohub-navy transition-colors">
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-400 hover:bg-white/6 hover:text-white transition-colors">
                           <User className="h-4 w-4" /> Meu Perfil
                         </Link>
                         <Link href="/profile/edit"
                           onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-ossohub-slate hover:bg-slate-50 hover:text-ossohub-navy transition-colors">
+                          className="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-400 hover:bg-white/6 hover:text-white transition-colors">
                           <Pencil className="h-4 w-4" /> Editar Perfil
                         </Link>
-                        <div className="border-t border-slate-100 mt-1 pt-1">
+                        <div className="mt-1 pt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                           <button onClick={signOut}
-                            className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
+                            className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-400 hover:bg-red-900/30 transition-colors">
                             <LogOut className="h-4 w-4" /> Sair
                           </button>
                         </div>
@@ -191,28 +196,27 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav — altura travada na tela menos a navbar, com rolagem
-          própria (max-h + overflow-y-auto). Sem isso, em telas com muitos
-          itens (Desempenho + todas as Ferramentas), o menu passava do
-          tamanho da tela e não tinha como chegar até "Sair" no fim. */}
+      {/* Mobile Nav — dark premium */}
       {isAuthenticated && mobileOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
+        <div className="md:hidden px-4 py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "#0A1628" }}>
           <nav className="flex flex-col gap-1.5">
             {NAV_LINKS.map(({ href, label, icon: Icon }) => {
               const active = pathname.startsWith(href);
               return (
                 <Link key={href} href={href} onClick={() => setMobileOpen(false)}
                   className={cn(
-                    "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
                     active
-                      ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
-                      : "border-slate-200/80 text-ossohub-slate hover:border-slate-300 hover:bg-slate-50"
-                  )}>
+                      ? "bg-emerald-900/40 text-emerald-400"
+                      : "text-slate-400 hover:bg-white/6 hover:text-white"
+                  )}
+                  style={{ border: active ? "1px solid rgba(16,185,129,0.3)" : "1px solid rgba(255,255,255,0.06)" }}>
                   <span className={cn(
-                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
                     active
-                      ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
-                      : "bg-slate-100 text-ossohub-slate ring-slate-200 group-hover:ring-transparent"
+                      ? "bg-emerald-500/20 text-emerald-400"
+                      : "bg-white/5 text-slate-500"
                   )}>
                     <Icon className="h-3.5 w-3.5" />
                   </span>
@@ -220,15 +224,15 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="pt-2 border-t border-slate-100 mt-1 space-y-1">
-              <Button size="sm" className="w-full" asChild>
+            <div className="pt-2 mt-1 space-y-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <Button size="sm" className="w-full btn-teal border-0" asChild>
                 <Link href="/post/new" onClick={() => setMobileOpen(false)}>+ Publicar</Link>
               </Button>
             </div>
 
-            {/* Desempenho — destaque próprio, igual à sidebar desktop */}
-            <div className="pt-3 border-t border-slate-100 mt-1">
-              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-green-dark">
+            {/* Desempenho */}
+            <div className="pt-3 mt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-400/70">
                 Desempenho
               </p>
               <div className="space-y-1.5">
@@ -237,17 +241,13 @@ export function Navbar() {
                   return (
                     <Link key={href} href={href} onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
+                        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-semibold transition-all duration-150",
                         active
-                          ? "border-ossohub-green-dark bg-ossohub-green-dark text-white shadow-sm"
-                          : "border-ossohub-green-dark/25 bg-ossohub-green-light/50 text-ossohub-green-dark hover:border-ossohub-green-dark/50 hover:bg-ossohub-green-light"
-                      )}>
-                      <span className={cn(
-                        "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
-                        active
-                          ? "bg-white/15 text-white ring-white/20"
-                          : "bg-white text-ossohub-green-dark ring-ossohub-green-dark/10 shadow-sm"
-                      )}>
+                          ? "bg-emerald-900/50 text-emerald-300"
+                          : "text-emerald-400/80 hover:bg-emerald-900/30 hover:text-emerald-300"
+                      )}
+                      style={{ border: active ? "1px solid rgba(16,185,129,0.35)" : "1px solid rgba(16,185,129,0.15)" }}>
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-900/40 text-emerald-400">
                         <Icon className="h-3.5 w-3.5" />
                       </span>
                       <span className="truncate">{label}</span>
@@ -257,51 +257,45 @@ export function Navbar() {
               </div>
             </div>
 
-            {/* Ferramentas — a sidebar fixa só aparece em telas maiores, então no
-                mobile as ferramentas clínicas ficam listadas aqui dentro do menu,
-                com o mesmo visual de retângulo + ícone da sidebar desktop. */}
-            <div className="pt-3 border-t border-slate-100 mt-1 space-y-4">
-              {TOOL_GROUPS.map((group) => {
-                const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
-                return (
-                  <div key={group.label}>
-                    <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-slate/70">
-                      {group.label}
-                    </p>
-                    <div className="space-y-1.5">
-                      {group.items.map(({ slug, label }) => {
-                        const Icon = TOOL_ICONS[slug];
-                        const href = `/tools/${slug}`;
-                        const active = pathname === href;
-                        return (
-                          <Link key={slug} href={href} onClick={() => setMobileOpen(false)}
-                            className={cn(
-                              "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
-                              active
-                                ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
-                                : cn("border-slate-200/80 text-ossohub-slate", style.hover)
-                            )}>
-                            <span className={cn(
-                              "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
-                              active
-                                ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
-                                : cn(style.icon, "group-hover:ring-transparent")
-                            )}>
-                              <Icon className="h-3.5 w-3.5" />
-                            </span>
-                            <span className="truncate">{label}</span>
-                          </Link>
-                        );
-                      })}
-                    </div>
+            {/* Ferramentas clínicas */}
+            <div className="pt-3 mt-1 space-y-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              {TOOL_GROUPS.map((group) => (
+                <div key={group.label}>
+                  <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-600">
+                    {group.label}
+                  </p>
+                  <div className="space-y-1.5">
+                    {group.items.map(({ slug, label }) => {
+                      const Icon = TOOL_ICONS[slug];
+                      const href = `/tools/${slug}`;
+                      const active = pathname === href;
+                      return (
+                        <Link key={slug} href={href} onClick={() => setMobileOpen(false)}
+                          className={cn(
+                            "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                            active
+                              ? "bg-sky-900/40 text-sky-300"
+                              : "text-slate-400 hover:bg-white/6 hover:text-white"
+                          )}
+                          style={{ border: active ? "1px solid rgba(14,165,233,0.3)" : "1px solid rgba(255,255,255,0.06)" }}>
+                          <span className={cn(
+                            "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg",
+                            active ? "bg-sky-900/50 text-sky-400" : "bg-white/5 text-slate-500"
+                          )}>
+                            <Icon className="h-3.5 w-3.5" />
+                          </span>
+                          <span className="truncate">{label}</span>
+                        </Link>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
 
-            <div className="pt-2 border-t border-slate-100 mt-1">
+            <div className="pt-2 mt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <button onClick={signOut}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
+                className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm text-red-400 hover:bg-red-900/30 transition-colors">
                 <LogOut className="h-4 w-4" /> Sair
               </button>
             </div>

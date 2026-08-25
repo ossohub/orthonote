@@ -47,6 +47,9 @@ const config: Config = {
         // OssoHub brand colors
         ossohub: {
           navy: "#0F172A",
+          "navy-deep": "#060F1E",
+          "navy-card": "#0A1628",
+          teal: "#0EA5E9",
           green: "#10B981",
           "green-dark": "#059669",
           "green-light": "#D1FAE5",
