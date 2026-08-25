@@ -218,6 +218,73 @@
   }
 }
 
+/* =========================================
+   DARK THEME ENFORCER
+   Remapeia classes Tailwind claras para
+   equivalentes escuros em todo o app.
+   ========================================= */
+
+/* --- Backgrounds --- */
+body .bg-white                  { background-color: #0A1628 !important; }
+body .bg-slate-50,
+body .bg-gray-50                { background-color: #091424 !important; }
+body .bg-slate-100,
+body .bg-gray-100               { background-color: #0d1b2e !important; }
+body .bg-slate-200,
+body .bg-gray-200               { background-color: #101f38 !important; }
+body .bg-ossohub-bg-light       { background-color: #0A1628 !important; }
+body .bg-ossohub-green-light    { background-color: rgba(16,185,129,0.12) !important; }
+
+/* --- Texto — tornar legível no fundo escuro --- */
+body .text-gray-900,
+body .text-slate-900            { color: #F1F5F9 !important; }
+body .text-gray-800,
+body .text-slate-800            { color: #E2E8F0 !important; }
+body .text-gray-700,
+body .text-slate-700            { color: #CBD5E1 !important; }
+body .text-gray-600,
+body .text-slate-600            { color: #94A3B8 !important; }
+body .text-gray-500,
+body .text-slate-500            { color: #64748B !important; }
+body .text-ossohub-slate        { color: #94A3B8 !important; }
+body .text-ossohub-green-dark   { color: #10B981 !important; }
+
+/* --- Bordas --- */
+body .border-white              { border-color: rgba(255,255,255,0.08) !important; }
+body .border-gray-100,
+body .border-slate-100          { border-color: rgba(255,255,255,0.05) !important; }
+body .border-gray-200,
+body .border-slate-200          { border-color: rgba(255,255,255,0.08) !important; }
+body .border-gray-300,
+body .border-slate-300          { border-color: rgba(255,255,255,0.12) !important; }
+body .border-ossohub-green-dark { border-color: rgba(16,185,129,0.35) !important; }
+
+/* --- Dividers --- */
+body .divide-gray-100 > * + *,
+body .divide-slate-100 > * + * { border-color: rgba(255,255,255,0.05) !important; }
+body .divide-gray-200 > * + *,
+body .divide-slate-200 > * + * { border-color: rgba(255,255,255,0.08) !important; }
+
+/* --- Inputs e formulários --- */
+body input,
+body textarea,
+body select {
+  background-color: #0d1b2e !important;
+  color: #E2E8F0 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+body input::placeholder,
+body textarea::placeholder      { color: #475569 !important; }
+body input:focus,
+body textarea:focus             {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.12) !important;
+  outline: none !important;
+}
+
+/* --- Ring / focus visible --- */
+body .ring-ossohub-green-dark\/10 { --tw-ring-color: rgba(16,185,129,0.1); }
+
 /* Martelada */
 .martelada-swing {
   animation: martelada-swing 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) both;

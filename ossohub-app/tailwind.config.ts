@@ -51,10 +51,10 @@ const config: Config = {
           "navy-card": "#0A1628",
           teal: "#0EA5E9",
           green: "#10B981",
-          "green-dark": "#059669",
-          "green-light": "#D1FAE5",
-          slate: "#475569",
-          "bg-light": "#F8FAFC",
+          "green-dark": "#10B981",   /* brightened — era #059669, ilegível no fundo dark */
+          "green-light": "rgba(16,185,129,0.15)", /* era #D1FAE5, muito claro */
+          slate: "#94A3B8",          /* era #475569, ilegível no fundo dark */
+          "bg-light": "#0A1628",     /* era #F8FAFC — invertido para dark */
         },
       },
       borderRadius: {
