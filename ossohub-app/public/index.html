@@ -494,6 +494,9 @@ textarea.flash{border-color:var(--og)!important;box-shadow:0 0 0 3px rgba(16,185
 
 /* Region buttons — active com glow */
 .region-btn.active{box-shadow:0 2px 12px rgba(16,185,129,.25)}
+.va-disclaimer{margin-top:.7rem;border:1.5px solid rgba(245,158,11,.35);background:rgba(245,158,11,.07);border-radius:10px;padding:.7rem .9rem}
+.va-disclaimer-label{font-size:.72rem;font-weight:700;color:#F59E0B;display:flex;align-items:center;gap:.35rem;margin-bottom:.4rem;letter-spacing:.01em}
+.va-disclaimer-body{font-size:.78rem;color:#CBD5E1;line-height:1.55;white-space:pre-line}
 .region-btn{transition:all .15s cubic-bezier(.16,1,.3,1)}
 .region-btn:hover{transform:translateY(-1px)}
 
@@ -1517,14 +1520,15 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
         <div class="region-nav" id="va-region-nav">
           <button class="region-btn active" onclick="selectViaRegion('pe')" data-vregion="pe">Pé <span class="rbadge">4</span></button>
           <button class="region-btn" onclick="selectViaRegion('tornozelo')" data-vregion="tornozelo">Tornozelo <span class="rbadge">10</span></button>
-          <button class="region-btn" onclick="selectViaRegion('tibia')" data-vregion="tibia">Tíbia/Fíbula <span class="rbadge">5</span></button>
+          <button class="region-btn" onclick="selectViaRegion('tibia')" data-vregion="tibia">Tíbia/Fíbula <span class="rbadge">6</span></button>
           <button class="region-btn" onclick="selectViaRegion('joelho')" data-vregion="joelho">Joelho <span class="rbadge">8</span></button>
-          <button class="region-btn" onclick="selectViaRegion('femur')" data-vregion="femur">Fêmur <span class="rbadge">3</span></button>
+          <button class="region-btn" onclick="selectViaRegion('femur')" data-vregion="femur">Fêmur <span class="rbadge">4</span></button>
           <button class="region-btn" onclick="selectViaRegion('quadril')" data-vregion="quadril">Quadril <span class="rbadge">9</span></button>
           <button class="region-btn" onclick="selectViaRegion('pelve')" data-vregion="pelve">Pelve/Acetábulo <span class="rbadge">7</span></button>
           <button class="region-btn" onclick="selectViaRegion('ombro')" data-vregion="ombro">Ombro/Úmero <span class="rbadge">10</span></button>
           <button class="region-btn" onclick="selectViaRegion('cotovelo')" data-vregion="cotovelo">Cotovelo/Antebraço <span class="rbadge">9</span></button>
-          <button class="region-btn" onclick="selectViaRegion('punho')" data-vregion="punho">Punho <span class="rbadge">4</span></button>
+          <button class="region-btn" onclick="selectViaRegion('punho')" data-vregion="punho">Punho <span class="rbadge">5</span></button>
+          <button class="region-btn" onclick="selectViaRegion('coluna')" data-vregion="coluna">Coluna <span class="rbadge">2</span></button>
         </div>
         <div id="va-regions"></div>
       </div>
@@ -9594,14 +9598,15 @@ const CL_LW_MAP = new Set([
 const VA_REGIOES = [
   {id:'pe',       nome:'Pé',                   desc:'Articulações interfalangeanas, metatarsofalangeanas, hálux', count:4},
   {id:'tornozelo',nome:'Tornozelo',             desc:'Calcâneo, tálus, maléolos, pilão tibial, subtalar', count:10},
-  {id:'tibia',    nome:'Tíbia/Fíbula',          desc:'Platô tibial (anterior, medial, posterior), diáfise tibial', count:5},
+  {id:'tibia',    nome:'Tíbia/Fíbula',          desc:'Platô tibial (anterior, medial, posterior), diáfise tibial, diáfise anterior', count:6},
   {id:'joelho',   nome:'Joelho',                desc:'Parapatelar, posterior, posterolateral, extensile', count:8},
-  {id:'femur',    nome:'Fêmur',                 desc:'Diáfise femoral, fêmur distal', count:3},
+  {id:'femur',    nome:'Fêmur',                 desc:'Diáfise femoral, fêmur distal, região trocantérica', count:4},
   {id:'quadril',  nome:'Quadril',               desc:'Anterior (Smith-Petersen), lateral (Watson-Jones, Hardinge), posterior (Gibson, Moore), medial (Ludloff)', count:9},
   {id:'pelve',    nome:'Pelve/Acetábulo',        desc:'Ilioinguinal, Stoppa, Kocher-Langenbeck, iliofemoral extensile, pelve', count:7},
   {id:'ombro',    nome:'Ombro/Úmero',           desc:'Deltopeitoral, deltoid-splitting, posterior, transacromial, anterolateral', count:10},
   {id:'cotovelo', nome:'Cotovelo/Antebraço',    desc:'Posterior, lateral (Kaplan, Kocher), medial, Henry, Thompson, ulna', count:9},
-  {id:'punho',    nome:'Punho',                 desc:'Dorsal, volar, lateral, medial', count:4}
+  {id:'punho',    nome:'Punho',                 desc:'Dorsal, volar, lateral, medial, volar escafoide', count:5},
+  {id:'coluna',   nome:'Coluna',                desc:'Via posterior lombar, via anterior cervical Smith-Robinson', count:2}
 ];
 
 const VA_DATA = [
@@ -9647,7 +9652,8 @@ const VA_DATA = [
    incisao:'Incisão em "L" invertido com braço vertical posterior à fíbula e braço horizontal 2mm superior ao plano plantar, com ângulo arredondado. Retalho de espessura total elevado em bloco.',
    risco:'⚠️ Alta incidência de complicações de partes moles (deiscência, necrose). Ramo sural. Aguardar resolução do edema pós-trauma (10–14 dias).',
    nota:'Sutura de Allgöwer-Donati reduz complicações. Tendência atual: substituída pela via do seio do tarso.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Técnica de retração do retalho:\n• Campbell\'s 15ª ed.: retração com afastadores convencionais sobre o retalho cutâneo.\n• Hoppenfeld 4ª ed.: retração com fios de Kirschner (K-wires) no calcâneo e tálus para evitar compressão direta sobre a pele — técnica recomendada para reduzir complicações de partes moles e necrose do retalho.\nTécnica com K-wires: considerada superior por evitar pressão direta da lâmina do afastador sobre a derme já comprometida pelo trauma.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-calcaneo-sinus-tarsi', nome:'Via do Seio do Tarso (Sinus Tarsi)', regiao:'tornozelo',
    indicacoes:'RAFI minimamente invasiva de fraturas intrarticulares do calcâneo. Alternativa à via extensile com menores complicações cutâneas.',
    incisao:'Incisão oblíqua de ~3cm abaixo da ponta do maléolo lateral, dirigida à base do 4° metatarso.',
@@ -9676,7 +9682,8 @@ const VA_DATA = [
    incisao:'Incisão anterior de 7,5–10cm. Intervalo entre EHL e EDL. Alternativamente entre tibialis anterior e EHL (feixe neurovascular retraído lateralmente).',
    risco:'Artéria tibial anterior e nervo peroneal profundo (feixe neurovascular anterior).',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Localização do feixe neurovascular e exsanguinação:\n• Campbell\'s 15ª ed.: feixe entre EHL e EDL; torniquete sem exsanguinação prévia não mencionado especificamente.\n• Hoppenfeld 4ª ed.: feixe neurovascular localizado medialmente ao EHL (não entre EHL e EDL); recomenda exsanguinação parcial com torniquete para melhor visualização vascular intraoperatória.\nLocalização do feixe: Hoppenfeld é mais preciso (medial ao EHL). Exsanguinação parcial: facilita identificação e preservação da artéria tibial anterior.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-fibula-distal-lateral', nome:'Via Lateral à Fíbula Distal', regiao:'tornozelo',
    indicacoes:'RAFI do maléolo lateral, artrodese do tornozelo lateral, visualização direta da sindesmose tibiofibular.',
    incisao:'Incisão ao longo da borda anterior ou posterior da fíbula distal, comprimento variável conforme indicação.',
@@ -9820,7 +9827,8 @@ const VA_DATA = [
    incisao:'Modificação de McFarland-Osborne. Split longitudinal através do glúteo médio e vasto lateral em linha reta sobre o trocânter maior.',
    risco:'N. glúteo superior (split não deve ultrapassar 5cm acima do acetábulo). Fraqueza do abdutor pós-op.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008. Miller não cita "Hardinge"; descreve esta via apenas como "via lateral ao quadril", mesmo trajeto.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Ponto de referência para o split muscular:\n• Campbell\'s 15ª ed.: o split do glúteo médio não deve ultrapassar 5cm acima da margem acetabular superior.\n• Hoppenfeld 4ª ed.: referência de 3cm acima da margem superior do acetábulo para preservação do n. glúteo superior.\nAmbas as fontes concordam com o risco ao nervo; diferem no limite numérico seguro. Recomenda-se o critério conservador de Hoppenfeld (3cm) em casos com dúvida.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-quadril-posterolateral-gibson', nome:'Via Posterolateral de Gibson ao Quadril (Kocher-Langenbeck)', regiao:'quadril',
    indicacoes:'ATQ (mais usada no mundo). Artroplastia parcial, revisões posteriores.',
    incisao:'Incisão posterior ao trocânter, 15–18cm. Desinserção dos rotadores externos curtos (piriforme, gêmeos, obturador interno). Cápsula incisada em T com o quadril em rotação interna.',
@@ -9832,7 +9840,8 @@ const VA_DATA = [
    incisao:'Decúbito lateral. Incisão 4,5cm distal-lateral à EIPS, dirigindo-se ao trocânter maior e distalmente pelo fêmur 15–18cm.',
    risco:'N. ciático, a. circunflexa femoral medial.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008. Miller não distingue a variante de Moore ("Southern Exposure"); imagem mostra a via posterior padrão ao quadril.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Comprimento da incisão e técnica dos rotadores:\n• Campbell\'s 15ª ed.: incisão de 15–18cm, desinserção simples dos rotadores externos curtos.\n• Hoppenfeld 4ª ed.: incisão de 10–15cm; descreve técnica específica com cotos de 1–2cm nos rotadores externos para facilitar o reparo (melhora estabilidade e reduz luxação pós-op).\nReparo dos rotadores com cotos: técnica atualmente recomendada pela maioria dos serviços para reduzir taxa de luxação — abordagem de Hoppenfeld mais detalhada.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-quadril-medial-ludloff', nome:'Via Medial ao Quadril (Ludloff)', regiao:'quadril',
    indicacoes:'Tenotomia do psoas (displasia infantil), RAFI de fraturas subtrocantéricas em crianças.',
    incisao:'Intervalo entre adutor longo (anterior) e grácil (posterior). Acesso ao pequeno trocânter e aspecto medial do colo femoral.',
@@ -9869,7 +9878,8 @@ const VA_DATA = [
    incisao:'Incisão posterolateral do quadril (similar à via de Gibson). Exposição da parede posterior, coluna posterior e teto acetabular posterior.',
    risco:'N. ciático, a. glútea superior.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Riscos vasculares e complicação tardia:\n• Campbell\'s 15ª ed.: riscos principais = n. ciático e a. glútea superior.\n• Hoppenfeld 4ª ed.: acrescenta riscos à a. glútea inferior, vasos circunflexos femorais mediais e alerta explícito para ossificação heterotópica (OH) — profilaxia com indometacina ou radioterapia pós-op recomendada.\nOH é complicação relevante não mencionada no Campbell\'s; considerar profilaxia rotineira especialmente em lesões craniencefálicas concomitantes.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-acet-gibson', nome:'Via de Gibson ao Acetábulo Posterior', regiao:'pelve',
    indicacoes:'Fraturas da parede e coluna posterior com extensão cranial.',
    incisao:'Variante da Kocher-Langenbeck com incisão ligeiramente mais lateral, acesso anterior adicional ao acetábulo.',
@@ -9987,7 +9997,8 @@ const VA_DATA = [
    incisao:'Incisão lateral ao cotovelo, intervalo entre anconeo (posterior) e extensor carpi ulnaris (anterior).',
    risco:'⚠️ N. interósseo posterior ao redor do colo do rádio. NUNCA pronação forçada ao retratar.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Proteção do nervo interósseo posterior (NIP) — posição do antebraço:\n• Campbell\'s 15ª ed.: alerta genérico ao NIP; não especifica posição do antebraço durante retração.\n• Hoppenfeld 4ª ed.: a pronação do antebraço move o NIP anteriormente e para longe do campo cirúrgico — manobra ativa de proteção recomendada durante toda a retração distal.\nPronação protetora: manobra simples e eficaz descrita por Hoppenfeld; deve ser adotada rotineiramente ao dissecar no nível do colo do rádio pela via de Kocher.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-cotovelo-medial', nome:'Via Medial ao Cotovelo (Com Osteotomia do Epicôndilo)', regiao:'cotovelo',
    indicacoes:'Reparos do LCM, neuropatia cubital, RAFI do epicôndilo medial, instabilidade medial.',
    incisao:'Incisão medial; osteotomia do epicôndilo medial + transposição anterior do n. ulnar.',
@@ -9999,13 +10010,15 @@ const VA_DATA = [
    incisao:'Incisão volar ao longo do bordo radial do antebraço, entre braquiorradial (lateral) e flexor radial do carpo (medial).',
    risco:'N. radial superficial (retrair lateralmente com braquiorradial). A. radial.',
    nota:'Abordagem clássica de Henry ao rádio. Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Variação anatômica do nervo interósseo posterior (NIP) no colo do rádio:\n• Campbell\'s 15ª ed.: NIP identificado na margem anterior do supinador — não menciona variações de contato com o rádio.\n• Hoppenfeld 4ª ed.: em aproximadamente 25% dos casos, o NIP toca ou adere à superfície lateral do colo do rádio — exige identificação e proteção ativa antes da dissecção, especialmente em pronação forçada.\nVariação de 25%: clinicamente significativa; identificação sistemática do NIP no colo do rádio é recomendada em todos os casos.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-radio-posterior-thompson', nome:'Via Posterior ao Rádio (Thompson)', regiao:'cotovelo',
    indicacoes:'RAFI do terço proximal do rádio (Monteggia, cabeça do rádio proximal).',
    incisao:'Incisão dorsal ao antebraço, intervalo entre ECRB (radial) e extensor digitorum (ulnar).',
    risco:'⚠️ N. interósseo posterior no terço proximal do rádio — identificar antes de prosseguir.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008.',
-   fonte:"Campbell's 15ª ed. Cap.1"},
+   disclaimer:'Extensão de exposição do rádio:\n• Campbell\'s 15ª ed.: acesso ao terço proximal do rádio.\n• Hoppenfeld 4ª ed.: via permite acesso a toda a extensão dorsal do rádio (terço proximal, médio e distal) — não limitada ao terço proximal.\nExtensão da via: Hoppenfeld oferece cobertura anatômica mais abrangente. Para rádio médio/distal pela via dorsal, seguir a descrição de Hoppenfeld com atenção ao n. interósseo posterior no terço proximal.',
+   fonte:"Campbell's 15ª ed. Cap.1 | Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009"},
   {id:'va-ulna', nome:'Via Subcutânea à Ulna', regiao:'cotovelo',
    indicacoes:'RAFI de qualquer fratura diafisária da ulna.',
    incisao:'Incisão direta sobre a borda subcutânea da ulna (palpável em todo o comprimento).',
@@ -10035,7 +10048,46 @@ const VA_DATA = [
    incisao:'Incisão medial entre flexor carpi ulnaris e as estruturas ulnares. Acesso ao aspecto ulnar do punho.',
    risco:'N. e a. ulnares no canal de Guyon.',
    nota:'Imagem: Miller, Orthopaedic Surgical Approaches, Saunders/Elsevier, 2008. Imagem da via de Miller ao nervo/artéria ulnar no antebraço distal e palma, anatomicamente equivalente à via medial ao punho.',
-   fonte:"Campbell's 15ª ed. Cap.1"}
+   fonte:"Campbell's 15ª ed. Cap.1"},
+
+  // ── PUNHO (Hoppenfeld) ──
+  {id:'va-punho-volar-escafoide', nome:'Via Volar ao Escafoide', regiao:'punho',
+   indicacoes:'RAFI de fraturas do polo distal e colo do escafoide; pseudartrose do escafoide distal.',
+   incisao:'Antebraço em supinação. Incisão volar longitudinal entre o tendão do FCR e a artéria radial. Dissecção entre esses dois limites. Abertura da cápsula volar para acesso ao escafoide.',
+   risco:'Artéria radial (lateral à incisão — requer afastamento cuidadoso). Ramo cutâneo palmar do nervo mediano.',
+   nota:'Limitação: acesso restrito a 2/3 distais do escafoide. Polo proximal requer via dorsal.',
+   fonte:'Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009'},
+
+  // ── TÍBIA (Hoppenfeld) ──
+  {id:'va-tibia-anterior', nome:'Via Anterior à Diáfise Tibial', regiao:'tibia',
+   indicacoes:'Osteotomia tibial, biópsia óssea, acesso à face anterior da diáfise tibial.',
+   incisao:'Incisão longitudinal medial à crista tibial anterior, acompanhando o subcutâneo sobre a face anteromedial da tíbia. Não há plano internervoso — dissecção direta até o periósteo.',
+   risco:'Pele fina sobre a tíbia (alta taxa de complicação de ferida). Nervo safeno e veia safena magna (na borda medial — preservar). Ausência de plano internervoso verdadeiro.',
+   nota:'Via de acesso direto sem plano intermuscular; indicada apenas quando outras vias não são adequadas pela localização da lesão.',
+   fonte:'Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009'},
+
+  // ── FÊMUR (Hoppenfeld) ──
+  {id:'va-femur-lateral-trocanter', nome:'Via Lateral ao Fêmur Proximal (Trocantérica)', regiao:'femur',
+   indicacoes:'Fixação de fraturas trocantéricas (DHS, haste cefalomedular); acesso ao trocânter maior.',
+   incisao:'Paciente em mesa ortopédica (tração). Incisão longitudinal lateral sobre o trocânter maior. Divulsão e divisão longitudinal do músculo vasto lateral sobre o septo intermuscular lateral.',
+   risco:'Ramos perfurantes da artéria femoral profunda (identificar e ligar). Nervo ciático (posterior — manter afastamento posterior adequado).',
+   nota:'Mesa ortopédica facilita a redução indireta com tração e rotação. Identificar e ligar ramos perfurantes da femoral profunda antes de prosseguir.',
+   fonte:'Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009'},
+
+  // ── COLUNA (Hoppenfeld) ──
+  {id:'va-coluna-posterior-lombar', nome:'Via Posterior à Coluna Lombar', regiao:'coluna',
+   indicacoes:'Descompressão (laminectomia, foraminotomia), fusão posterolateral, instrumentação transpedicular, discectomia lombar posterior.',
+   incisao:'Decúbito ventral. Referência: crista ilíaca = nível L4-L5. Incisão longitudinal posterior na linha média sobre os processos espinhosos. Desinserção subperiosteal bilateral dos músculos paravertebrais até as lâminas e facetas. Afastamento lateral com afastadores autopropelidos.',
+   risco:'Dura-máter e raízes nervosas (risco de laceração durante laminectomia). Vasos segmentares (durante dissecção lateral extensa). Síndrome compartimental dos paravertebrais (retração prolongada — soltar periodicamente). Confirmação radioscópica intraoperatória obrigatória para identificação do nível correto.',
+   nota:'Confirmação do nível cirúrgico com fluoroscopia antes de qualquer ressecção óssea é mandatória. Soltar os afastadores a cada 20-30 min para prevenir isquemia muscular.',
+   fonte:'Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009'},
+
+  {id:'va-coluna-anterior-cervical', nome:'Via Anterior Cervical (Smith-Robinson)', regiao:'coluna',
+   indicacoes:'Discectomia e fusão cervical anterior (ACDF), corpectomia cervical; acesso a C3-T1.',
+   incisao:'Decúbito dorsal com coxim interescapular. Referências: hioide=C3, cartilagem tireóidea=C4-C5, tubérculo de Chassaignac=C6. Incisão transversa ou oblíqua à esquerda (preferencial). Plano entre ECM+carótida (lateral) e músculos infra-hióideos+traqueia+esôfago (medial). Dissecção do SMAS, platisma, bainha carotídea lateralizada. Acesso ao espaço pré-vertebral.',
+   risco:'N. laríngeo recurrente (mais vulnerável à direita pela trajetória extralaríngea; abordagem esquerda reduz risco). N. laríngeo superior (ramo externo — retrair cranialmente). Síndrome de Horner (gânglio estrelado — evitar retração excessiva lateral). Artéria vertebral (no forame transverso — não ultrapassar os processos uncinados). Esôfago (medial — risco de perfuração; usar sonda nasogástrica).',
+   nota:'Preferência pelo lado esquerdo reduz risco ao n. laríngeo recurrente. Confirmar nível com fluoroscopia antes da discectomia.',
+   fonte:'Hoppenfeld S., deBoer P., Buckley R. Surgical Exposures in Orthopaedics, 4th ed., LWW, 2009'}
 ];
 
 /* ── VIAS DE ACESSO FUNCTIONS ── */
@@ -12434,6 +12486,7 @@ function renderVias() {
     let cardsHtml = '';
     vias.forEach(v => {
       const notaHtml = v.nota ? `<div class="va-nota">${escHtml(v.nota)}</div>` : '';
+      const disclaimerHtml = v.disclaimer ? `<div class="va-disclaimer"><div class="va-disclaimer-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>⚠ Divergência entre fontes (Campbell's × Hoppenfeld)</div><div class="va-disclaimer-body">${escHtml(v.disclaimer)}</div></div>` : '';
       const admin = isAdminLoggedIn();
       const override = GLOBAL_IMG['va_' + v.id];
       const hasImg = !!override || VA_IMG_MAP.has(v.id);
@@ -12477,6 +12530,7 @@ function renderVias() {
             <div class="va-risco">${escHtml(v.risco)}</div>
           </div>
           ${notaHtml}
+          ${disclaimerHtml}
           ${figBtn}
           ${adminImgCtrls}
         </div>
