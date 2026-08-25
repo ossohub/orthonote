@@ -101,16 +101,14 @@ export function ClinicalToolFrame() {
       src="/index.html"
       onLoad={handleLoad}
       title="Ferramenta Clínica"
-      className="w-full h-full border-0 block"
-      // height:100% (não mais um calc(100vh - ...) fixo) — o pai
-      // (flex-1 do layout) já estica para acompanhar a altura da
-      // Sidebar via flexbox; se o iframe tivesse altura fixa e a
-      // Sidebar fosse mais alta que a viewport (muitos itens de menu),
-      // sobrava uma faixa branca em baixo cortando o conteúdo do
-      // iframe quando a página rolava até o fim. Com 100% o iframe
-      // sempre preenche a coluna inteira, não importa quão alta ela
-      // fique.
-      style={{ height: "100%", display: isToolsRoute ? "block" : "none" }}
+      className="w-full border-0 block"
+      // calc(100dvh - 4rem): dá ao iframe uma altura explícita baseada
+      // no viewport, independente da cadeia de pais — necessário para
+      // iOS Safari, que não consegue resolver height:100% quando os pais
+      // não têm altura explícita (problema clássico em iframes no iPhone).
+      // 4rem = h-16 do Navbar. dvh (dynamic viewport height) desconta
+      // automaticamente a barra de endereços/tabs do Safari.
+      style={{ height: isToolsRoute ? "calc(100dvh - 4rem)" : 0, display: isToolsRoute ? "block" : "none" }}
       sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-popups-to-escape-sandbox allow-downloads"
     />
   );
