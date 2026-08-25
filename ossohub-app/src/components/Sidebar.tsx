@@ -11,16 +11,6 @@ import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/hooks/useUser";
 
-// Só aparece pro admin — os demais usuários nem sabem que este link existe.
-// A segurança de verdade é a RPC moderate_post no banco (checa
-// app_private.is_admin() via auth.uid()), isto aqui é só conveniência de
-// navegação, lida do próprio perfil (profiles.app_role) em vez de um
-// UUID fixo no código.
-
-// Desempenho — agrupa Banco de Questões, Cronograma, Gráficos e a
-// gestão de equipe (preceptor↔residente). Fica com destaque próprio,
-// separado das ferramentas clínicas (não são "ferramentas", são
-// recursos de estudo/acompanhamento).
 const DESEMPENHO_LINKS = [
   { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
   { href: "/flashcards",             label: "Flashcards",        icon: Layers },
@@ -45,30 +35,34 @@ const ICONS: Record<ToolSlug, React.ElementType> = {
   pdf: FileType,
 };
 
-// Cada grupo de ferramentas ganha uma cor de identidade própria no badge
-// do ícone (estado inativo) — dá hierarquia visual sem perder consistência,
-// já que o estado ativo/hover sempre convergem pro verde da marca.
-const GROUP_STYLES: Record<string, { icon: string; hover: string }> = {
-  "Clínica":      { icon: "bg-sky-50 text-sky-600 ring-sky-100",         hover: "hover:border-sky-200 hover:bg-sky-50/60" },
-  "Pessoal":      { icon: "bg-violet-50 text-violet-600 ring-violet-100", hover: "hover:border-violet-200 hover:bg-violet-50/60" },
-  "Referência":   { icon: "bg-amber-50 text-amber-600 ring-amber-100",   hover: "hover:border-amber-200 hover:bg-amber-50/60" },
-  "Calculadoras": { icon: "bg-indigo-50 text-indigo-600 ring-indigo-100", hover: "hover:border-indigo-200 hover:bg-indigo-50/60" },
-  "Ferramentas":  { icon: "bg-cyan-50 text-cyan-600 ring-cyan-100",      hover: "hover:border-cyan-200 hover:bg-cyan-50/60" },
+// Cada grupo com cor de identidade — adaptada para tema dark
+const GROUP_STYLES: Record<string, { icon: string; activeIcon: string }> = {
+  "Clínica":      { icon: "bg-sky-900/40 text-sky-400",         activeIcon: "bg-sky-500/20 text-sky-300" },
+  "Pessoal":      { icon: "bg-violet-900/40 text-violet-400",   activeIcon: "bg-violet-500/20 text-violet-300" },
+  "Referência":   { icon: "bg-amber-900/40 text-amber-400",     activeIcon: "bg-amber-500/20 text-amber-300" },
+  "Calculadoras": { icon: "bg-indigo-900/40 text-indigo-400",   activeIcon: "bg-indigo-500/20 text-indigo-300" },
+  "Ferramentas":  { icon: "bg-cyan-900/40 text-cyan-400",       activeIcon: "bg-cyan-500/20 text-cyan-300" },
 };
-const DEFAULT_GROUP_STYLE = { icon: "bg-slate-100 text-ossohub-slate ring-slate-200", hover: "hover:border-slate-300 hover:bg-slate-50" };
+const DEFAULT_GROUP_STYLE = { icon: "bg-white/5 text-slate-400", activeIcon: "bg-white/10 text-slate-300" };
 
 export function Sidebar() {
   const pathname = usePathname();
   const { profile } = useUser();
 
   return (
-    <aside className="hidden md:block w-60 shrink-0 border-r border-slate-200 bg-white sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain">
+    <aside
+      className="hidden md:block w-60 shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
+      style={{
+        background: "#0A1628",
+        borderRight: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
       <nav className="py-5 px-3 space-y-5">
         {TOOL_GROUPS.map((group) => {
           const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
           return (
             <div key={group.label}>
-              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-slate/70">
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                 {group.label}
               </p>
               <div className="space-y-1">
@@ -81,18 +75,22 @@ export function Sidebar() {
                       key={slug}
                       href={href}
                       className={cn(
-                        "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
                         active
-                          ? "border-ossohub-green-dark/40 bg-ossohub-green-light/70 text-ossohub-green-dark shadow-sm"
-                          : cn("border-slate-200/80 text-ossohub-slate", style.hover)
+                          ? "text-sky-300"
+                          : "text-slate-300 hover:text-white hover:bg-white/5"
                       )}
+                      style={active ? {
+                        background: "rgba(14,165,233,0.1)",
+                        border: "1px solid rgba(14,165,233,0.25)",
+                      } : {
+                        border: "1px solid rgba(255,255,255,0.05)",
+                      }}
                     >
                       <span
                         className={cn(
-                          "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
-                          active
-                            ? "bg-ossohub-green-dark text-white ring-ossohub-green-dark"
-                            : cn(style.icon, "group-hover:ring-transparent")
+                          "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
+                          active ? style.activeIcon : style.icon
                         )}
                       >
                         <Icon className="h-3.5 w-3.5" />
@@ -106,10 +104,9 @@ export function Sidebar() {
           );
         })}
 
-        {/* Desempenho — destaque próprio, separado das ferramentas
-            clínicas (são recursos de estudo/acompanhamento, não ferramentas). */}
-        <div className="pt-4 border-t border-slate-100">
-          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-ossohub-green-dark">
+        {/* Desempenho */}
+        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-400/70">
             Desempenho
           </p>
           <div className="space-y-1">
@@ -120,18 +117,24 @@ export function Sidebar() {
                   key={href}
                   href={href}
                   className={cn(
-                    "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
+                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-semibold transition-all duration-150",
                     active
-                      ? "border-ossohub-green-dark bg-ossohub-green-dark text-white shadow-sm"
-                      : "border-ossohub-green-dark/25 bg-ossohub-green-light/50 text-ossohub-green-dark hover:border-ossohub-green-dark/50 hover:bg-ossohub-green-light"
+                      ? "text-emerald-300"
+                      : "text-emerald-400/80 hover:text-emerald-300 hover:bg-emerald-900/20"
                   )}
+                  style={active ? {
+                    background: "rgba(16,185,129,0.12)",
+                    border: "1px solid rgba(16,185,129,0.3)",
+                  } : {
+                    border: "1px solid rgba(16,185,129,0.12)",
+                  }}
                 >
                   <span
                     className={cn(
-                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
                       active
-                        ? "bg-white/15 text-white ring-white/20"
-                        : "bg-white text-ossohub-green-dark ring-ossohub-green-dark/10 shadow-sm"
+                        ? "bg-emerald-500/20 text-emerald-300"
+                        : "bg-emerald-900/40 text-emerald-400"
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -143,58 +146,48 @@ export function Sidebar() {
           </div>
         </div>
 
-        {/* Moderação e Painel de Sugestões — só visíveis pro admin. A
-            segurança de verdade continua nas regras do banco (RPC
-            moderate_post / Firestore + Firebase Auth); isto aqui é só
-            conveniência de navegação, lida do próprio perfil
-            (profiles.app_role) em vez de link escondido. */}
+        {/* Admin */}
         {profile?.app_role === "admin" && (
-          <div className="pt-4 border-t border-slate-100 space-y-1">
-            <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-red-500">
+          <div className="pt-4 space-y-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-red-400/70">
               Admin
             </p>
-            <Link
-              href="/moderacao"
-              className={cn(
-                "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
-                pathname.startsWith("/moderacao")
-                  ? "border-red-500 bg-red-500 text-white shadow-sm"
-                  : "border-red-200 bg-red-50/60 text-red-600 hover:border-red-300 hover:bg-red-50"
-              )}
-            >
-              <span
-                className={cn(
-                  "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
-                  pathname.startsWith("/moderacao")
-                    ? "bg-white/15 text-white ring-white/20"
-                    : "bg-white text-red-500 ring-red-100 shadow-sm"
-                )}
-              >
-                <ShieldCheck className="h-3.5 w-3.5" />
-              </span>
-              <span className="truncate">Moderação</span>
-            </Link>
-            <Link
-              href="/tools/admin"
-              className={cn(
-                "group flex items-center gap-2.5 rounded-xl border px-2.5 py-2 text-sm font-semibold transition-all duration-150",
-                pathname.startsWith("/tools/admin")
-                  ? "border-red-500 bg-red-500 text-white shadow-sm"
-                  : "border-red-200 bg-red-50/60 text-red-600 hover:border-red-300 hover:bg-red-50"
-              )}
-            >
-              <span
-                className={cn(
-                  "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset transition-colors",
-                  pathname.startsWith("/tools/admin")
-                    ? "bg-white/15 text-white ring-white/20"
-                    : "bg-white text-red-500 ring-red-100 shadow-sm"
-                )}
-              >
-                <Wrench className="h-3.5 w-3.5" />
-              </span>
-              <span className="truncate">Painel de Sugestões</span>
-            </Link>
+            {[
+              { href: "/moderacao", label: "Moderação", Icon: ShieldCheck },
+              { href: "/tools/admin", label: "Painel de Sugestões", Icon: Wrench },
+            ].map(({ href, label, Icon }) => {
+              const active = pathname.startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-semibold transition-all duration-150",
+                    active
+                      ? "text-red-300"
+                      : "text-red-400/80 hover:text-red-300 hover:bg-red-900/20"
+                  )}
+                  style={active ? {
+                    background: "rgba(239,68,68,0.12)",
+                    border: "1px solid rgba(239,68,68,0.3)",
+                  } : {
+                    border: "1px solid rgba(239,68,68,0.12)",
+                  }}
+                >
+                  <span
+                    className={cn(
+                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
+                      active
+                        ? "bg-red-500/20 text-red-300"
+                        : "bg-red-900/40 text-red-400"
+                    )}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="truncate">{label}</span>
+                </Link>
+              );
+            })}
           </div>
         )}
       </nav>
