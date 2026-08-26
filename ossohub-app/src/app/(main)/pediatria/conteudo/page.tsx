@@ -167,6 +167,69 @@ const CATEGORIAS: Categoria[] = [
         ],
         fontes: ["Rockwood — Fraturas em Crianças, 9ª ed.", "Tachdjian's Pediatric Orthopaedics, 5ª ed."],
       },
+      {
+        id: "antebraco-ped",
+        titulo: "Fratura do Antebraço Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças · Tachdjian's",
+        epidemiologia:
+          "Fraturas do rádio e/ou ulna são as fraturas mais comuns em crianças (~40% de todas as fraturas pediátricas). Pico: 10–14 anos. Mais frequentes no terço distal (metáfise). Fraturas completas vs. em galho verde (greenstick). Alta capacidade de remodelamento ósseo.",
+        classificacao: [
+          {
+            sistema: "Topografia",
+            itens: [
+              "Distal (metáfise — mais comum): Colles pediátrico; Salter-Harris II é o mais frequente",
+              "Diafisária: ambos os ossos ou isolada (raramente)",
+              "Proximal: Monteggia, cabeça do rádio, olécrano",
+            ],
+          },
+          {
+            sistema: "Fratura de Monteggia (Bado)",
+            itens: [
+              "Tipo I: angulação anterior ulna + luxação anterior da cabeça do rádio (75% em crianças)",
+              "Tipo II: angulação posterior + luxação posterior (mais adulto)",
+              "Tipo III: fratura proximal ulna + luxação lateral (típico <5 anos)",
+              "REGRA: toda fratura de ulna → verificar a linha radiocapitelar (deve passar pelo capítulo)",
+            ],
+          },
+          {
+            sistema: "Galho Verde vs. Completa",
+            itens: [
+              "Greenstick: cortical de um lado rompe, outro dobra — angulação sem perda de contato",
+              "Completa: ambas as corticais rompidas — mais deslocamento, mais instável",
+              "Plástica / Torus (bojo): impacção da cortical sem fratura linear",
+            ],
+          },
+        ],
+        mecanismo:
+          "Queda sobre mão estendida (FOOSH — fall on outstretched hand). Força de compressão axial + momento de dobramento. Força em pronação → fratura de Monteggia. Força de torção → fratura em espiral.",
+        tx_nao_cirurgico: [
+          "Fratura distal (torus/bojo): tala removível por 3–4 semanas — não requer gesso longo",
+          "Greenstick distal com angulação ≤20°: gesso longo (braquio-palmar) por 4–6 semanas",
+          "Fratura completa do terço distal reduzível e estável: gesso longo 6 semanas",
+          "Remodelamento espontâneo: aceitável angulação de até 15° no terço distal em criança <10 anos",
+        ],
+        tx_cirurgico: [
+          "Fratura diafisária deslocada irredutível ou instável",
+          "Angulação >15° no terço médio ou proximal",
+          "Monteggia: qualquer tipo (redução urgente da cabeça do rádio)",
+          "Fratura aberta",
+          "Politrauma",
+        ],
+        cirurgias: [
+          "Fios K intramedular flexíveis (Métaizeau/ESIN — elastic stable intramedullary nailing): padrão para diáfise",
+          "Redução fechada + gesso (terço distal, maioria dos casos estáveis)",
+          "Redução aberta + placa (raramente necessária em criança, exceto falha do ESIN)",
+          "Monteggia: redução da ulna reposiciona a cabeça do rádio — se cabeça irredutível → redução aberta",
+        ],
+        complicacoes: [
+          "Síndrome compartimental (diafisária completa, muito inchada — fasciotomia de urgência)",
+          "Lesão do nervo interósseo posterior (NIP) — Monteggia Tipo I e III",
+          "Nova angulação / perda de redução (mais comum no terço distal)",
+          "Deformidade rotacional (limitação de prono-supinação)",
+          "Consolidação viciosa e radioulnar synostosis (lesão do membrane interóssea)",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed.", "Tachdjian's Pediatric Orthopaedics, 5ª ed."],
+      },
     ],
   },
   {
@@ -292,6 +355,61 @@ const CATEGORIAS: Categoria[] = [
         ],
         fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Rockwood — Fraturas em Crianças, 9ª ed."],
       },
+      {
+        id: "ddq",
+        titulo: "Displasia do Desenvolvimento do Quadril (DDQ)",
+        subtitulo: "Tachdjian's · Campbell's cap. 30",
+        epidemiologia:
+          "Espectro de anormalidades do desenvolvimento da articulação coxofemoral: de displasia leve até luxação completa. Incidência: 1–3/1.000 nascidos vivos (luxação completa: 0,5–1/1.000). Predomínio feminino (4–7:1). Fatores de risco: apresentação pélvica, primeiro filho, oligodrâmnio, história familiar, CAVE.",
+        classificacao: [
+          {
+            sistema: "Graf (ultrassonográfica — padrão antes dos 6 meses)",
+            itens: [
+              "Tipo I: quadril maduro, normal (α ≥60°, β <55°)",
+              "Tipo IIa: imaturo fisiológico (<3 meses) — observação",
+              "Tipo IIb: imaturo patológico (>3 meses, α 50–59°) — tratamento",
+              "Tipo IIc / D: desfavorável, limítrofe com luxação parcial",
+              "Tipo III: subluxado (α <43°)",
+              "Tipo IV: luxado completo",
+            ],
+          },
+          {
+            sistema: "Tönnis (radiográfico — após ossificação da epífise)",
+            itens: [
+              "Grau 0: normal",
+              "Grau 1: discreto aumento de esclerose acetabular",
+              "Grau 2: displasia moderada",
+              "Grau 3: displasia grave com subluxação",
+            ],
+          },
+        ],
+        mecanismo:
+          "Desenvolvimento anormal da articulação coxofemoral por combinação de fatores genéticos, hormonais (relaxina) e mecânicos (posição intrauterina). O acetábulo não se desenvolve sem a cabeça femoral dentro — displasia gera displasia.",
+        tx_nao_cirurgico: [
+          "RN até 6 meses: Arnês de Pavlik (primeira linha para Graf IIb/III/IV) — correção em 95% dos diagnósticos precoces",
+          "6–18 meses: redução fechada sob anestesia + artrograma + gesso espica em posição humana",
+          "Usam-se radiografias seriadas + ultrassom (nos primeiros meses) para monitorar",
+          "Arnês de Pavlik: deve ser mantido >23h/dia; não forçar a posição (risco de NAO por flexão excessiva)",
+        ],
+        tx_cirurgico: [
+          "Falha do Arnês de Pavlik após 3–4 semanas",
+          "Diagnóstico tardio (>18 meses): redução aberta é frequentemente necessária",
+          "Displasia residual após redução: osteotomias (pélvica e/ou femoral)",
+        ],
+        cirurgias: [
+          "Redução aberta (via anterior de Smith-Petersen): remoção de obstáculos (pulvinar, transverso do acetábulo, psoas encurtado)",
+          "Osteotomia pélvica (Salter: redireciona; Pemberton: reduz volume; Dega; PAO de Ganz: adolescentes/adultos jovens)",
+          "Osteotomia femoral varizante + desrotação (para reduzir tensão e anteversão excessiva)",
+        ],
+        complicacoes: [
+          "Necrose avascular da cabeça femoral — principal complicação do tratamento; causada por pressão excessiva ou hiperflexão no Pavlik",
+          "Redução insuficiente / reluxação",
+          "Displasia residual → artrose precoce no adulto jovem",
+          "Rígidez pós-cirúrgica",
+          "Diferença de comprimento de membros",
+        ],
+        fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
+      },
     ],
   },
   {
@@ -408,6 +526,107 @@ const CATEGORIAS: Categoria[] = [
           "Discrepância de comprimento de membros (espondiloptose grave)",
         ],
         fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
+      },
+    ],
+  },
+  {
+    id: "infeccao-ossea",
+    label: "Infecção Óssea",
+    topicos: [
+      {
+        id: "osteomielite-hematogenica",
+        titulo: "Osteomielite Hematogênica Aguda",
+        subtitulo: "Tachdjian's · Campbell's cap. 35",
+        epidemiologia:
+          "Infecção óssea bacteriana por disseminação hematogênica. Pico: 2–10 anos, predomínio masculino (2:1). Localização preferencial: metáfises de ossos longos (fêmur distal, tíbia proximal, úmero proximal) — onde o fluxo vascular é mais lento e o sistema fagocitário é menos eficiente. S. aureus é o agente causal em >80% dos casos.",
+        classificacao: [
+          {
+            sistema: "Agente etiológico (por faixa etária)",
+            itens: [
+              "RN (<1 mês): S. aureus, Streptococcus grupo B, gram-negativos (ampicilina + gentamicina)",
+              "1 mês–5 anos: S. aureus (principal), H. influenzae (vacinação reduziu drasticamente), Kingella kingae",
+              "5–12 anos: S. aureus (MRSA emergindo), Streptococcus pyogenes",
+              "Adolescentes: S. aureus; considerar Neisseria gonorrhoeae em sexualmente ativos",
+              "Anemia falciforme: Salmonella spp. + S. aureus",
+            ],
+          },
+        ],
+        mecanismo:
+          "Bacteremia transitória → implantação na metáfise (rede capilar lenta + ausência de células fagocitárias locais). Pressão do pus sub-periosteal → elevação periostal (sinal radiográfico tardio). Extensão ao espaço subperiosteal → abscesso → celulite e sepse. No RN e lactente jovem: vasos atravessam a fise → artrite séptica associada frequente.",
+        tx_nao_cirurgico: [
+          "Antibioticoterapia IV imediata empírica: oxacilina/cefazolina (MSSA) ou vancomicina (suspeita de MRSA)",
+          "Transição para VO após 3–5 dias de melhora clínica e laboratorial (PCR em queda)",
+          "Duração total: 4–6 semanas (2–3 semanas IV + 2–3 semanas VO)",
+          "Imobilização da extremidade afetada para conforto",
+        ],
+        tx_cirurgico: [
+          "Falha clínica após 48–72h de antibiótico IV",
+          "Abscesso subperiosteal ou intracortical documentado por RMN ou US",
+          "Osteomielite crônica (sequestro ósseo — involucro + sequestro = indicação clássica)",
+          "Neonato: abscesso ósseo pode coexistir com artrite séptica → drenar ambos",
+        ],
+        cirurgias: [
+          "Drenagem cirúrgica aberta + curetagem do osso infectado (trepanação/janelamento cortical)",
+          "Remoção de sequestro ósseo (sequestrectomia) na osteomielite crônica",
+          "Irrigação com antibiótico local (opcional)",
+          "Cobertura de partes moles (retalhos) se exposição óssea",
+        ],
+        complicacoes: [
+          "Artrite séptica concomitante (especialmente quadril + ombro em lactentes)",
+          "Osteomielite crônica (tratamento inadequado ou tardio)",
+          "Alteração de crescimento (pontes fisárias, legstening ou shortening)",
+          "Fraturas patológicas",
+          "Sepse / choque séptico (MRSA virulento — PVL toxin)",
+        ],
+        fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
+      },
+      {
+        id: "artrite-septica-quadril",
+        titulo: "Artrite Séptica do Quadril Pediátrico",
+        subtitulo: "Emergência cirúrgica — Tachdjian's · Rockwood",
+        epidemiologia:
+          "Infecção bacteriana do espaço articular do quadril. Emergência cirúrgica absoluta. Incidência: ~5/100.000. Pico: <3 anos. S. aureus em todas as idades; Kingella kingae em <3 anos. A cápsula do quadril cobre parte da metáfise femoral proximal — explica a alta associação com osteomielite (25–30% dos casos).",
+        classificacao: [
+          {
+            sistema: "Critérios de Kocher (diagnóstico diferencial — artrite séptica vs. sinovite transitória)",
+            itens: [
+              "Febre (T >38,5°C)",
+              "Incapacidade de suportar peso",
+              "VHS >40 mm/h",
+              "Leucócitos >12.000/mm³",
+              "PCR >2 mg/dL (modificação de Caird)",
+              "Probabilidade: 0 critérios <0,2%; 4+ critérios >99%",
+            ],
+          },
+        ],
+        mecanismo:
+          "Disseminação hematogênica → pus intra-articular → pressão aumentada → oclusão vascular da cabeça femoral → necrose avascular em 8–12 horas. Enzimas bacterianas (colagenase, hialuronidase) destroem a cartilagem articular. URGÊNCIA: drenagem deve ocorrer em <6h do diagnóstico para prevenir NAO.",
+        tx_nao_cirurgico: [
+          "NÃO existe tratamento conservador definitivo para artrite séptica confirmada do quadril",
+          "Antibiótico IV imediato (empírico) enquanto se prepara cirurgia",
+          "Punção aspirativa: diagnóstico + descompressão de alívio (não substitui drenagem cirúrgica)",
+          "Análise do líquido articular: >50.000 leucócitos/mm³ + glicose baixa + Gram positivo → alta probabilidade",
+        ],
+        tx_cirurgico: [
+          "INDICAÇÃO ABSOLUTA: artrite séptica confirmada ou altamente provável (≥3–4 critérios de Kocher)",
+          "Meta: drenagem em <6 horas do diagnóstico",
+          "Artroscopia ou artrotomia aberta — não há diferença em desfecho se feita precocemente",
+        ],
+        cirurgias: [
+          "Artroscopia de quadril: lavagem + drenagem + culturas (menos invasivo, recuperação mais rápida)",
+          "Artrotomia aberta (via anterior de Watson-Jones ou lateral): acesso amplo para limpeza — preferida em lactentes <6 meses",
+          "Drenagem da osteomielite concomitante se presente",
+          "Antibiótico IV por 4–6 semanas total (2–3 IV + transição VO após melhora clínica/laboratorial)",
+        ],
+        complicacoes: [
+          "Necrose avascular da cabeça femoral (NAO) — principal complicação do diagnóstico tardio",
+          "Artrose do quadril (destruição cartilaginosa por enzimas bacterianas)",
+          "Coxa magna (alargamento da cabeça por hiperemia)",
+          "Luxação patológica (cápsula distendida + fraqueza muscular)",
+          "Retardo do crescimento (lesão fisária)",
+          "Sepse (MRSA virulento)",
+        ],
+        fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Rockwood — Fraturas em Crianças, 9ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
       },
     ],
   },
