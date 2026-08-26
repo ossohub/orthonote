@@ -7,7 +7,7 @@ import {
   Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList,
   CalendarClock, PieChart, Users2, MessagesSquare, Plus,
   Pill, FileText, StickyNote, LayoutGrid, Route, HandMetal, Calculator,
-  GitBranch, FileType, Baby, Brain,
+  GitBranch, FileType, Baby, Brain, BookOpen, BookText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -248,6 +248,67 @@ export function Navbar() {
                       )}
                       style={{ border: active ? "1px solid rgba(16,185,129,0.35)" : "1px solid rgba(16,185,129,0.15)" }}>
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-900/40 text-emerald-400">
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="truncate">{label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Referência — conteúdo didático */}
+            <div className="pt-3 mt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-amber-400/70">
+                Referência
+              </p>
+              <div className="space-y-1.5">
+                {[
+                  { href: "/referencia/ortopedia-adulto", label: "Ortopedia Adulto", Icon: BookOpen },
+                ].map(({ href, label, Icon }) => {
+                  const active = pathname.startsWith(href);
+                  return (
+                    <Link key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                        active ? "text-amber-300" : "text-slate-400 hover:bg-white/6 hover:text-white"
+                      )}
+                      style={{ border: active ? "1px solid rgba(245,158,11,0.3)" : "1px solid rgba(255,255,255,0.06)" }}>
+                      <span className={cn(
+                        "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg",
+                        active ? "bg-amber-500/20 text-amber-300" : "bg-amber-900/40 text-amber-400"
+                      )}>
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="truncate">{label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Pediatria — conteúdo didático */}
+            <div className="pt-3 mt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-indigo-400/70">
+                Pediatria
+              </p>
+              <div className="space-y-1.5">
+                {[
+                  { href: "/pediatria/classificacoes", label: "Classificações Pediátricas", Icon: LayoutGrid },
+                  { href: "/pediatria/conteudo",       label: "Conteúdo Pediatria",         Icon: BookText },
+                ].map(({ href, label, Icon }) => {
+                  const active = pathname.startsWith(href);
+                  return (
+                    <Link key={href} href={href} onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                        active ? "text-indigo-300" : "text-slate-400 hover:bg-white/6 hover:text-white"
+                      )}
+                      style={{ border: active ? "1px solid rgba(99,102,241,0.3)" : "1px solid rgba(255,255,255,0.06)" }}>
+                      <span className={cn(
+                        "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg",
+                        active ? "bg-indigo-500/20 text-indigo-300" : "bg-indigo-900/40 text-indigo-400"
+                      )}>
                         <Icon className="h-3.5 w-3.5" />
                       </span>
                       <span className="truncate">{label}</span>

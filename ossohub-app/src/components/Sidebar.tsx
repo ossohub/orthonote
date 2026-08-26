@@ -6,6 +6,7 @@ import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
   CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench, Brain,
+  BookOpen, BookText,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -103,6 +104,87 @@ export function Sidebar() {
             </div>
           );
         })}
+
+        {/* Referência — conteúdo didático */}
+        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-amber-400/70">
+            Referência
+          </p>
+          <div className="space-y-1">
+            {[
+              { href: "/referencia/ortopedia-adulto", label: "Ortopedia Adulto", Icon: BookOpen },
+            ].map(({ href, label, Icon }) => {
+              const active = pathname.startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                    active
+                      ? "text-amber-300"
+                      : "text-slate-300 hover:text-white hover:bg-white/5"
+                  )}
+                  style={active ? {
+                    background: "rgba(245,158,11,0.1)",
+                    border: "1px solid rgba(245,158,11,0.3)",
+                  } : {
+                    border: "1px solid rgba(255,255,255,0.05)",
+                  }}
+                >
+                  <span className={cn(
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
+                    active ? "bg-amber-500/20 text-amber-300" : "bg-amber-900/40 text-amber-400"
+                  )}>
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="truncate">{label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Pediatria — conteúdo didático */}
+        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-indigo-400/70">
+            Pediatria
+          </p>
+          <div className="space-y-1">
+            {[
+              { href: "/pediatria/classificacoes", label: "Classificações Pediátricas", Icon: LayoutGrid },
+              { href: "/pediatria/conteudo",       label: "Conteúdo Pediatria",         Icon: BookText },
+            ].map(({ href, label, Icon }) => {
+              const active = pathname.startsWith(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
+                    active
+                      ? "text-indigo-300"
+                      : "text-slate-300 hover:text-white hover:bg-white/5"
+                  )}
+                  style={active ? {
+                    background: "rgba(99,102,241,0.1)",
+                    border: "1px solid rgba(99,102,241,0.3)",
+                  } : {
+                    border: "1px solid rgba(255,255,255,0.05)",
+                  }}
+                >
+                  <span className={cn(
+                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
+                    active ? "bg-indigo-500/20 text-indigo-300" : "bg-indigo-900/40 text-indigo-400"
+                  )}>
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="truncate">{label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Desempenho */}
         <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
