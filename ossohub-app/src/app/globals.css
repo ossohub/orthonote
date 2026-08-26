@@ -253,6 +253,22 @@ body .hover\:text-ossohub-navy:hover { color: #CBD5E1 !important; }
 body .bg-red-50                 { background-color: rgba(239,68,68,0.1) !important; }
 body .hover\:bg-slate-100:hover { background-color: rgba(255,255,255,0.06) !important; }
 
+/* --- Fundos coloridos claros → versões escuras semitransparentes --- */
+body .bg-purple-50              { background-color: rgba(168,85,247,0.12) !important; }
+body .bg-blue-50                { background-color: rgba(59,130,246,0.12) !important; }
+body .bg-teal-50                { background-color: rgba(20,184,166,0.12) !important; }
+body .bg-amber-50               { background-color: rgba(245,158,11,0.12) !important; }
+body .bg-green-50               { background-color: rgba(16,185,129,0.12) !important; }
+
+/* --- Texto colorido escuro → versões claras legíveis --- */
+body .text-purple-700           { color: #C084FC !important; }
+body .text-blue-700             { color: #60A5FA !important; }
+body .text-teal-700             { color: #2DD4BF !important; }
+body .text-amber-700,
+body .text-amber-800            { color: #FCD34D !important; }
+body .text-amber-500            { color: #FBBF24 !important; }
+body .text-red-500              { color: #F87171 !important; }
+
 /* --- Bordas --- */
 body .border-white              { border-color: rgba(255,255,255,0.08) !important; }
 body .border-gray-100,
