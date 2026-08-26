@@ -245,9 +245,13 @@ body .text-slate-700            { color: #CBD5E1 !important; }
 body .text-gray-600,
 body .text-slate-600            { color: #94A3B8 !important; }
 body .text-gray-500,
-body .text-slate-500            { color: #64748B !important; }
+body .text-slate-500            { color: #94A3B8 !important; }
 body .text-ossohub-slate        { color: #94A3B8 !important; }
+body .text-ossohub-navy         { color: #E2E8F0 !important; }
 body .text-ossohub-green-dark   { color: #10B981 !important; }
+body .hover\:text-ossohub-navy:hover { color: #CBD5E1 !important; }
+body .bg-red-50                 { background-color: rgba(239,68,68,0.1) !important; }
+body .hover\:bg-slate-100:hover { background-color: rgba(255,255,255,0.06) !important; }
 
 /* --- Bordas --- */
 body .border-white              { border-color: rgba(255,255,255,0.08) !important; }

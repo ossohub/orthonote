@@ -241,7 +241,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
                 onKeyDown={(e) => { if (e.key === "Enter" && e.ctrlKey) handleComment(); }}
                 rows={2}
                 placeholder="Escreva um comentário construtivo... (+15 XP)"
-                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
               />
             </div>
             <Button onClick={handleComment} disabled={posting || !commentText.trim()} size="icon" className="self-end h-10 w-10 shrink-0">
