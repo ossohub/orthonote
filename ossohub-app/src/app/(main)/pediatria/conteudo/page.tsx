@@ -469,6 +469,269 @@ const CATEGORIAS: Categoria[] = [
         ],
         fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 29"],
       },
+      {
+        id: "nai-fraturas-patologicas",
+        titulo: "Fraturas Patológicas e Maus-Tratos (NAI)",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 7",
+        epidemiologia:
+          "Fraturas em osso patologicamente fragilizado ou por violência contra criança (NAI — Non-Accidental Injury). NAI: responsável por 12–25% das fraturas em < 2 anos; em < 12 meses, até 50–80% das fraturas são por maus-tratos. Fratura em osso patológico benigno: cisto ósseo simples (COS — 65% no úmero proximal), fibroma não ossificante, displasia fibrosa; maligno: Ewing, osteossarcoma.",
+        classificacao: [
+          {
+            sistema: "Indicadores de Maus-Tratos (alto índice de suspeição)",
+            itens: [
+              "Criança não ambulante (< 12 meses) com fratura espiral de osso longo",
+              "Fratura de costela posterior (ângulo) — altamente específica de NAI",
+              "Fratura de metáfise de canto ('corner fracture' / 'bucket-handle') — patognomônica de sacudida",
+              "Múltiplas fraturas em diferentes estágios de cicatrização (idades de evolução distintas)",
+              "Fratura de crânio occipital, bilateral ou cruzando suturas",
+              "Hematoma subdural + hemorragia retiniana = síndrome do bebê sacudido",
+            ],
+          },
+          {
+            sistema: "Fraturas Patológicas Benignas",
+            itens: [
+              "COS: úmero proximal 65%, fêmur proximal; 'fallen leaf sign' (fragmento no cisto)",
+              "Fibroma Não Ossificante: geralmente incidental; risco se > 50% da cortical acometida",
+              "Displasia Fibrosa: fêmur em 'shepherd's crook' (coxa vara por colapso progressivo)",
+              "Osteogênese Imperfeita (OI): múltiplas fraturas de baixa energia, escleróticas azuladas, perda auditiva — diagnóstico diferencial obrigatório com NAI",
+            ],
+          },
+        ],
+        mecanismo:
+          "NAI: sacudida violenta, impacto direto, torção forçada de membros. Fratura patológica: fragilidade óssea local (lesão) ou sistêmica (OI, Gaucher, hemofilia) → fratura com energia mínima ou espontânea.",
+        tx_nao_cirurgico: [
+          "Fratura em osso patológico estável: imobilização + vigilância da lesão subjacente",
+          "COS: injeção percutânea de corticoide, osso desmineralizado ou substituto (controverso — alto índice de recidiva)",
+          "Suspeita de NAI: estabilização da fratura + acionamento do conselho tutelar + avaliação de lesões associadas (TC crânio, fundo de olho, bone survey — RX esquelético completo)",
+        ],
+        tx_cirurgico: [
+          "COS com fratura recorrente: ESIN para estabilização + curetagem/enxerto (úmero/fêmur)",
+          "Displasia fibrosa femoral com deformidade: osteotomia corretiva + haste IM",
+          "Fratura patológica maligna: biópsia + oncologia → cirurgia conforme estadiamento",
+        ],
+        cirurgias: [
+          "ESIN (hastes elásticas) para COS com fratura recorrente do úmero proximal ou fêmur",
+          "Curetagem + enxerto ósseo (ilíaco ou substituto) para lesões benignas sintomáticas recidivantes",
+          "Bone survey completo (esqueleto todo) obrigatório em toda suspeita de NAI",
+        ],
+        complicacoes: [
+          "Deformidade residual em osso doente (coxa vara na displasia fibrosa — 'shepherd's crook')",
+          "Recorrência da fratura patológica (COS pode recrudescer durante crescimento)",
+          "Diagnóstico tardio de NAI → novas agressões, sequelas neurológicas e óbito",
+          "Neoplasia: prognóstico depende do tipo histológico e resposta à quimioterapia",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 7"],
+      },
+      {
+        id: "mao-carpo-ped",
+        titulo: "Fraturas da Mão e Carpo Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 8",
+        epidemiologia:
+          "Representam 25–30% de todas as fraturas pediátricas. Falanges e metacarpos são os mais frequentes. A epífise falângica é cartilaginosa — RX pode subestimar o deslocamento real. Fratura de Seymour (SH I da falange distal + laceração do eponíquio) é emergência ortopédica pelo risco de osteomielite. Fraturas do escafoide são raras em < 10 anos.",
+        classificacao: [
+          {
+            sistema: "Topografia",
+            itens: [
+              "Falanges distais: Seymour (SH I + laceração periungueal — emergência); esmagamento da ponta",
+              "Falanges médias e proximais: SH II mais comum; fratura condiliana (intra-articular); colo falangiano (risco de deformidade rotacional)",
+              "Metacarpos: colo do 5° (Boxer's fracture — aceitável até 40° de angulação); base do 1° MTC (equivalente de Bennett pediátrico = SH II)",
+              "Carpo: escafoide (raro < 10a; tratamento idêntico ao adulto em adolescente); demais ossos raramente fraturados",
+            ],
+          },
+          {
+            sistema: "Fratura de Seymour",
+            itens: [
+              "SH I ou II da falange distal com exposição da fise pelo eponíquio rompido",
+              "Aparência de 'mallet finger' — mas a articulação IP distal está aberta",
+              "Tratamento: exploração cirúrgica + redução + curativo + antibiótico (S. aureus)",
+              "Se não tratada: osteomielite da falange distal, deformidade ungueal permanente",
+            ],
+          },
+        ],
+        mecanismo:
+          "Esmagamento (portas, rodas), queda com torção digital, trauma direto. Mallet ósseo (avulsão do extensor terminal): golpe em dedo flexionado. Fratura condiliana da falange proximal: risco de subluxação articular se deslocada. Rotação digital deve ser avaliada sempre — dedos em flexão devem apontar todos para o escafoide.",
+        tx_nao_cirurgico: [
+          "Fratura não deslocada de falange: tala dinâmica (buddy-taping) 3–4 semanas",
+          "Fratura do colo do 5° metacarpo (Boxer): aceitável 40° de angulação sagital — imobilização funcional",
+          "Mallet ósseo: tala extensão da IFD por 6–8 semanas contínuas (sem interrupção)",
+          "Escafoide não deslocado: gesso antebraço com polegar (thumb spica) 8–12 semanas",
+        ],
+        tx_cirurgico: [
+          "Seymour: sempre exploração + desbridamento + redução + antibiótico",
+          "Fratura condiliana deslocada (intra-articular): redução + fio K",
+          "Deformidade rotacional (dedos sobrepostos) não redutível fechado",
+          "Base do 1° metacarpo irredutível (equivalente Bennett)",
+        ],
+        cirurgias: [
+          "Fio K percutâneo: falange condiliana, metacarpo base deslocado, equivalente Bennett",
+          "Exploração + lavagem + redução + fio K ou parafuso: Seymour fracture",
+          "Fio de Herbert ou parafuso canulado: escafoide deslocado em adolescente",
+        ],
+        complicacoes: [
+          "Osteomielite da falange distal (Seymour não tratado — S. aureus)",
+          "Deformidade rotacional ('dedo em saca-rolha' — fratura do colo da falange proximal)",
+          "Rigidez digital (imobilização > 3–4 semanas prejudica resultados — mobilização precoce)",
+          "Pseudo-boutonnière por lesão da placa volar da falange média não identificada",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 8"],
+      },
+      {
+        id: "colo-radio-olecrano",
+        titulo: "Fraturas do Colo do Rádio e Olécrano Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 11",
+        epidemiologia:
+          "Fraturas do colo do rádio: 5–10% das fraturas do cotovelo pediátrico; pico 9–10 anos. Frequentemente associadas a fratura do olécrano ou luxação do cotovelo (25–50%). Fratura do olécrano: rara; pode ser avulsão apofisária (tríceps) em pré-adolescente ou fratura completa em adolescente.",
+        classificacao: [
+          {
+            sistema: "Judet / O'Brien (colo do rádio — angulação)",
+            itens: [
+              "Grau I: < 30° de angulação → conservador",
+              "Grau II: 30–60° → redução percutânea (técnica de Judet)",
+              "Grau III: 60–80° → redução percutânea obrigatória",
+              "Grau IV: > 80° ou deslocamento completo → ESIN ou redução aberta se percutânea falha",
+            ],
+          },
+          {
+            sistema: "Fratura do Olécrano",
+            itens: [
+              "Avulsão apofisária (tríceps): pré-adolescente, não deslocada → conservador",
+              "Fratura completa deslocada: fio K + banda de tensão ou parafuso",
+              "Equivalente de Monteggia: fratura do olécrano + luxação da cabeça do rádio (cap. 12)",
+            ],
+          },
+        ],
+        mecanismo:
+          "Queda sobre mão estendida em valgus → força de compressão entre capítulo e colo do rádio. Fratura do olécrano: queda direta sobre cotovelo flexionado (transversa) ou avulsão por contração brusca do tríceps.",
+        tx_nao_cirurgico: [
+          "Colo do rádio Grau I: gesso longo com cotovelo a 90° por 3 semanas",
+          "Olécrano avulsão apofisária não deslocada: cotovelo a 90° por 4 semanas",
+          "Após redução percutânea Grau II–III bem reduzida: gesso 3–4 semanas",
+        ],
+        tx_cirurgico: [
+          "Colo do rádio Grau II–III: redução percutânea (técnica de Judet — fio K como alavanca no colo)",
+          "Grau IV irredutível percutâneo: redução aberta (risco de NAV — mínima dissecção)",
+          "Olécrano completo deslocado: fixação cirúrgica",
+        ],
+        cirurgias: [
+          "Técnica de Judet (fio K percutâneo como alavanca no colo do rádio): gold standard Grau II–III",
+          "ESIN intramedular do rádio (Metaizeau): alternativa para Grau III–IV — introduzido retrogradamente na diáfise",
+          "Redução aberta: apenas quando percutânea falha (maior risco de NAV da cabeça do rádio)",
+          "Parafuso ou banda de tensão: olécrano com fratura completa deslocada em adolescente",
+        ],
+        complicacoes: [
+          "Limitação de prono-supinação (complicação mais frequente — proporcional à angulação residual do colo)",
+          "Necrose avascular da cabeça do rádio (principalmente após redução aberta com dissecção extensa)",
+          "Sinostose rádio-ulnar (rara mas devastadora — evitar lesão da membrana interóssea)",
+          "Lesão do nervo interósseo posterior (ramo profundo do radial) — geralmente transitória",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 11"],
+      },
+      {
+        id: "monteggia-ped",
+        titulo: "Fratura-Luxação de Monteggia Pediátrica",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 12",
+        epidemiologia:
+          "Corresponde a 0,4–2% das fraturas do antebraço pediátrico. Pico: 4–10 anos. Diagnóstico tardio ocorre em > 30% dos casos — a luxação da cabeça do rádio passa despercebida. Monteggia crônica (> 3 semanas) é de tratamento complexo e resultados menos previsíveis. Regra básica: traçar a linha radiocapitelar em todo RX de cotovelo pediátrico.",
+        classificacao: [
+          {
+            sistema: "Bado (direção da luxação da cabeça do rádio)",
+            itens: [
+              "Tipo I (75% em crianças): fratura anterior da ulna + luxação anterior da cabeça do rádio",
+              "Tipo II: angulação posterior da ulna + luxação posterior (mais raro em crianças)",
+              "Tipo III (clássico < 5 anos): fratura proximal da ulna + luxação lateral da cabeça",
+              "Tipo IV: fratura da ulna + fratura do rádio + luxação anterior — raro",
+              "Equivalente de Monteggia: fratura fisária proximal do rádio (SH I/II) sem fratura da ulna",
+            ],
+          },
+          {
+            sistema: "Monteggia Crônica (diagnóstico tardio — manejo diferente)",
+            itens: [
+              "< 3 semanas: ainda possível redução fechada ou percutânea",
+              "3 semanas – 3 meses: redução aberta + plastia do ligamento anular + osteotomia da ulna",
+              "> 1 ano ou cabeça do rádio deformada: osteotomia de ulna + trocleoplastia do capítulo",
+            ],
+          },
+        ],
+        mecanismo:
+          "Tipo I: queda em pronação forçada → tensão no ligamento anular → luxação anterior da cabeça do rádio + fratura anterior da ulna. Tipo III: trauma em varo. Linha radiocapitelar: deve passar pelo centro do capítulo em TODAS as incidências (AP e perfil) — se não passa, há luxação.",
+        tx_nao_cirurgico: [
+          "Aguda Tipo I em criança: redução fechada sob AG (supinação + extensão + pressão sobre cabeça do rádio) — redução da ulna restaura a cabeça automaticamente",
+          "Após redução estável: gesso longo com cotovelo a 90–110° em supinação por 6 semanas",
+          "Controle RX em 1 semana para verificar manutenção da redução",
+        ],
+        tx_cirurgico: [
+          "Fratura da ulna instável irredutível ou malreduzida: ESIN para estabilização",
+          "Cabeça do rádio irredutível fechado (encarceramento do ligamento anular ou cápsula): redução aberta",
+          "Monteggia crônica > 3 semanas: osteotomia da ulna + reconstrução do ligamento anular",
+        ],
+        cirurgias: [
+          "Redução fechada (AG) + gesso: padrão para Monteggia aguda com ulna estável",
+          "ESIN da ulna: fratura instável após redução fechada",
+          "Redução aberta da cabeça do rádio: encarceramento tecidual impede redução (via lateral — Kaplan)",
+          "Monteggia crônica: osteotomia de abertura da ulna + plastia do ligamento anular (Bell-Tawse) + ESIN",
+        ],
+        complicacoes: [
+          "Lesão do nervo interósseo posterior (NIP): 10–20% — geralmente transitória em Tipo I; persistente → exploração",
+          "Não diagnóstico da luxação (erro mais comum): resulta em Monteggia crônica com limitação funcional permanente",
+          "Monteggia crônica: limitação de extensão, pronação e supinação, subluxação progressiva",
+          "Sinostose rádio-ulnar (rara — após redução aberta com lesão da membrana interóssea)",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 12"],
+      },
+      {
+        id: "ombro-umero-proximal-ped",
+        titulo: "Fraturas do Úmero Proximal e Luxação do Ombro",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 19",
+        epidemiologia:
+          "Fraturas do úmero proximal: 1–5% das fraturas pediátricas. SH I em RN (trauma obstétrico — diagnóstico diferencial com paralisia obstétrica do plexo braquial e osteomielite neonatal); SH II em pré-adolescentes; SH III/IV raros. Potencial de remodelamento extraordinário: até 70° de angulação podem corrigir em crianças < 8 anos. Luxação do ombro: rara antes dos 12 anos; adolescentes com frouxidão têm recidiva em 70–90%.",
+        classificacao: [
+          {
+            sistema: "Neer-Horwitz (úmero proximal — grau de deslocamento)",
+            itens: [
+              "Grau I: < 5 mm de deslocamento → imobilização simples",
+              "Grau II: até 1/3 do diâmetro diafisário → conservador ou redução em > 8 anos",
+              "Grau III: até 2/3 → redução em adolescente; conservador em < 6 anos",
+              "Grau IV: deslocamento completo → redução + fixação em adolescente se instável",
+            ],
+          },
+          {
+            sistema: "Luxação do Ombro Pediátrico",
+            itens: [
+              "Anterior (subcoracoide): mais comum; lesão de Bankart em adolescentes",
+              "Taxa de recidiva: < 20 anos → 70–90% após 1° episódio (principal argumento para cirurgia precoce)",
+              "Hill-Sachs e Bankart ósseo podem ocorrer mesmo na 1ª luxação em adolescente ativo",
+              "Instabilidade multidirecional (MDI): frouxidão generalizada — responde melhor à fisioterapia antes da cirurgia",
+            ],
+          },
+        ],
+        mecanismo:
+          "Fratura: trauma obstétrico (rotação forçada), FOOSH, queda direta sobre ombro. Pseudoparalisia em RN = diagnóstico diferencial entre fratura SH I e paralisia obstétrica do plexo. Luxação: rotação externa + abdução forçada em queda sobre mão estendida.",
+        tx_nao_cirurgico: [
+          "RN com SH I: tipoia + cuidado no manuseio 3–4 semanas; remodelamento garantido",
+          "Crianças < 8 anos: até 70° de angulação e deslocamento completo aceitáveis (remodelamento excelente)",
+          "8–12 anos: < 30–40° de angulação com gesso pendente ou tipoia; redução para > 30–40°",
+          "Luxação 1° episódio: redução fechada (Cunningham, Milch, Stimson, tração-contratração) + tipoia 2–3 semanas",
+        ],
+        tx_cirurgico: [
+          "Adolescente (> 12 anos) Neer IV irredutível ou instável pós-redução",
+          "Luxação recorrente em adolescente (≥ 2 episódios ou atleta com 1° episódio e Bankart confirmado)",
+          "Instabilidade multidirecional refratária ao conservador > 6 meses",
+          "Fratura-luxação com fragmento cefálico grande",
+        ],
+        cirurgias: [
+          "Redução fechada + fios K percutâneos: adolescente com Neer IV instável",
+          "Reparo de Bankart artroscópico: reinserção do lábio anterior + LGHU (gold standard para instabilidade anterior recorrente)",
+          "Cirurgia de Latarjet: déficit ósseo da glenóide > 20% ou falha do Bankart artroscópico",
+          "Capsulorrafia/plica posterior: instabilidade multidirecional refratária",
+        ],
+        complicacoes: [
+          "Retardo de crescimento (raro — úmero proximal tem enorme potencial de remodelamento)",
+          "Lesão do nervo axilar (luxação anterior — parestesia na face lateral do deltoide)",
+          "Instabilidade recorrente (adolescentes: 70–90% de recidiva — considerar cirurgia após 2° episódio)",
+          "Osteomielite epifisária em RN (simula SH I — RMN distingue: edema/pus vs. fratura)",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 19"],
+      },
     ],
   },
   {
@@ -648,6 +911,59 @@ const CATEGORIAS: Categoria[] = [
           "Diferença de comprimento de membros",
         ],
         fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
+      },
+      {
+        id: "luxacao-quadril-ped",
+        titulo: "Luxação Traumática do Quadril Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 24",
+        epidemiologia:
+          "Rara em crianças; distribuição bimodal: < 5 anos (baixa energia, frouxidão ligamentar) e adolescentes (alta energia). Posterior: 80–90% dos casos. Pode associar-se a fratura da parede acetabular, da cabeça femoral ou do colo femoral. Urgência absoluta: redução em < 6 horas para prevenir necrose avascular (NAO) — o risco de NAO aumenta exponencialmente após 6 horas sem redução.",
+        classificacao: [
+          {
+            sistema: "Thompson-Epstein (luxação posterior)",
+            itens: [
+              "Tipo I: sem fratura associada → redução fechada sob AG",
+              "Tipo II: fragmento pequeno da parede posterior → redução fechada; RAFI se irredutível",
+              "Tipo III: fragmento grande da parede posterior → cirurgia",
+              "Tipo IV: fratura do acetábulo → cirurgia",
+              "Tipo V: fratura da cabeça femoral (Pipkin) → cirurgia",
+            ],
+          },
+          {
+            sistema: "Direção da luxação",
+            itens: [
+              "Posterior (80–90%): hiperflexão + adução + RI; membro em flexão, aduzido, em RI",
+              "Anterior (< 10%): hiperextensão + abdução; membro em extensão, abduzido, em RE",
+            ],
+          },
+        ],
+        mecanismo:
+          "< 5 anos: frouxidão capsular → luxação com energia mínima (queda simples, brincadeira). Adolescente: alta energia (colisão frontal — dashboard injury, queda de moto, esporte de impacto). A cabeça femoral posterioriza e comprime as artérias circunflexas → isquemia da cabeça → NAO se não reduzida em tempo.",
+        tx_nao_cirurgico: [
+          "Thompson-Epstein I: redução fechada sob AG em < 6h (manobra de Allis ou Stimson) + tração cutânea ou gesso espica 4–6 semanas (criança)",
+          "Adolescente: repouso em leito com carga parcial 6 semanas após redução",
+          "TC obrigatória após redução para verificar centralização e fragmentos intra-articulares",
+          "Seguimento clínico-radiológico 18–24 meses para detecção precoce de NAO (RMN se dúvida clínica)",
+        ],
+        tx_cirurgico: [
+          "Thompson-Epstein III–V: redução aberta + RAFI do fragmento",
+          "Fragmento intra-articular identificado na TC pós-redução",
+          "Redução fechada falha (encarceramento do lábio acetabular ou cápsula)",
+          "NAO estabelecida: osteotomia em criança; artroplastia em adolescente tardio",
+        ],
+        cirurgias: [
+          "Redução aberta via Kocher-Langenbeck (posterior): fratura da parede posterior + RAFI com parafusos",
+          "Via anterior (Smith-Petersen): fratura da cabeça femoral Pipkin III–IV",
+          "Artroscopia do quadril: remoção de fragmentos intra-articulares em adolescente",
+        ],
+        complicacoes: [
+          "Necrose avascular (NAO): 10–20% global; < 1% se reduzido em < 6h; aumenta drasticamente com demora",
+          "Lesão do nervo ciático (10–15% nas posteriores — neurapraxia geralmente; resolução em 3–6 meses)",
+          "Artrose precoce do quadril",
+          "Ossificação heterotópica (pós redução aberta)",
+          "Coxa magna e incongruência articular residual",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 24"],
       },
     ],
   },
@@ -1030,6 +1346,120 @@ const CATEGORIAS: Categoria[] = [
           "Rigidez residual",
         ],
         fontes: ["Tachdjian's Pediatric Orthopaedics, 5ª ed.", "Campbell's Operative Orthopaedics, 14ª ed."],
+      },
+      {
+        id: "tornozelo-ped",
+        titulo: "Fraturas do Tornozelo Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 30",
+        epidemiologia:
+          "Fraturas fisárias do tornozelo: 25–38% de todas as fraturas fisárias. SH II da tíbia distal é a mais frequente. Tillaux e Triplane são exclusivas de adolescentes em fechamento fisário (12–15 anos) — representam 3–7% das fraturas do tornozelo pediátrico. A fise tibial distal fecha centrifugamente: central primeiro → ântero-lateral por último (daí o Tillaux).",
+        classificacao: [
+          {
+            sistema: "Salter-Harris (tíbia distal — geral)",
+            itens: [
+              "Tipo I: avulsão fisária pura (criança jovem, mecanismo inversão)",
+              "Tipo II: mais comum; fragmento de Thurston-Holland posteromedial ou posterolateral",
+              "Tipo III (Tillaux juvenil): avulsão SH III da ântero-lateral da epífise pelo ligamento talofibular anterior (LTFA) — intra-articular",
+              "Tipo IV: raro; traço atravessa metáfise + fise + epífise",
+            ],
+          },
+          {
+            sistema: "Fratura Triplane (SH IV em 3 planos)",
+            itens: [
+              "Fratura em 3 planos simultâneos: sagital (epifisária), horizontal (fisária), coronal (metafisária)",
+              "Triplane 2 fragmentos: epífise anterior + metáfise-epífise-fise posterior",
+              "Triplane 3 fragmentos: geralmente mais deslocado — TC obrigatória",
+              "Mecanismo: rotação externa do pé com fise em fechamento parcial assimétrico",
+            ],
+          },
+        ],
+        mecanismo:
+          "Tillaux: rotação externa → LTFA avulsiona ântero-lateral da epífise (último fragmento a fechar). Triplane: rotação externa com fechamento fisário assimétrico → forças de cisalhamento nos 3 planos. SH I/II: inversão ou eversão em criança com fise aberta (ligamento mais forte que a fise).",
+        tx_nao_cirurgico: [
+          "SH I e SH II com deslocamento < 2 mm: gesso bota curta ou longa 4–6 semanas",
+          "SH II deslocado: redução fechada (rotação interna + dorsiflexão) + gesso 6 semanas",
+          "Tillaux e Triplane com passo articular < 2 mm: gesso longo + sem carga 6 semanas",
+        ],
+        tx_cirurgico: [
+          "Tillaux ou Triplane com passo articular ≥ 2 mm: redução + fixação (passo articular > 2 mm prediz artrose)",
+          "SH III–IV irredutível fechado",
+          "Fratura aberta",
+        ],
+        cirurgias: [
+          "Redução fechada (intensificador) + parafusos canulados epifisários paralelos à fise (NUNCA cruzar a fise em crescimento)",
+          "Redução artroscópica + fixação: visualização direta do passo articular (Tillaux, Triplane de 3 fragmentos)",
+          "Redução aberta (incisão anterolateral): quando fechada é insuficiente",
+        ],
+        complicacoes: [
+          "Distúrbio de crescimento (mínimo — fise em fechamento nos Tillaux/Triplane; pouco impacto clínico real)",
+          "Artrose da articulação tibiotársica (passo articular ≥ 2 mm não reduzido anatomicamente)",
+          "Consolidação viciosa em rotação (SH II com redução inadequada mantida)",
+          "Dor crônica do tornozelo e limitação funcional",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 30"],
+      },
+      {
+        id: "pe-ped",
+        titulo: "Fraturas do Pé Pediátrico",
+        subtitulo: "Rockwood — Fraturas em Crianças, cap. 31",
+        epidemiologia:
+          "Comuns em crianças; geralmente de baixa gravidade. Metatarsos e falanges são os mais afetados. Diagnóstico diferencial crítico: Fratura de Jones (zona hipovascular — risco de não-união) vs. Pseudo-Jones (avulsão apofisária — bom prognóstico). Fraturas do tálus e calcâneo são raras mas potencialmente graves (NAO, artrose).",
+        classificacao: [
+          {
+            sistema: "5° Metatarso Base — diagnóstico diferencial obrigatório",
+            itens: [
+              "Pseudo-Jones (avulsão apofisária da tuberosidade — Zona I): linha de fratura perpendicular ao eixo do 5° metatarso; bota de andada 4 semanas; consolidação garantida",
+              "Fratura de Jones (zona metadiafisária — Zona II): linha paralela ao eixo; zona hipovascular; gesso sem carga 6–8 semanas; risco de não-união",
+              "Fratura de stress diafisária (Zona III): atletas; parafuso intramedular se atleta de alta demanda",
+            ],
+          },
+          {
+            sistema: "Tálus — Hawkins (colo do tálus)",
+            itens: [
+              "Tipo I: sem deslocamento → sem carga 8–12 semanas; NAO < 15%",
+              "Tipo II: deslocamento + luxação subtalar → redução + cirurgia; NAO 20–40%",
+              "Tipo III: deslocamento + luxação subtalar + tibiotalar → urgência cirúrgica; NAO 40–80%",
+              "Tipo IV (Canale-Kelly): + luxação talonavicular → NAO > 80%",
+              "Sinal de Hawkins: osteopenia subcondral em 6–8 semanas = perfusão preservada (bom prognóstico)",
+            ],
+          },
+          {
+            sistema: "Calcâneo",
+            itens: [
+              "Crianças: geralmente extra-articular (bom prognóstico) — ângulo de Böhler preservado",
+              "Adolescentes: intra-articular (avaliar com TC, ângulo de Böhler reduzido)",
+              "Síndrome de compartimento do pé: urgência na fratura de alta energia",
+            ],
+          },
+        ],
+        mecanismo:
+          "Metatarsos/falanges: esmagamento, torção, objeto pesado. Tálus: força axial em dorsiflexão forçada (queda de altura, prancha de surf). Calcâneo: queda de altura em bipodalismo — associar com fratura de coluna lombar (> 10% dos casos, solicitar RX de coluna).",
+        tx_nao_cirurgico: [
+          "Falanges: curativo compressivo + bota de andada 3–4 semanas (buddy-taping)",
+          "Metatarsos 2°–4° deslocados: gesso bota curta 4–6 semanas; aceitar < 10° angulação e < 3 mm deslocamento",
+          "Pseudo-Jones: bota de andada 4 semanas; carga conforme tolerância",
+          "Fratura de Jones: gesso sem carga 6–8 semanas; se sem consolidação em 8 semanas → parafuso",
+          "Hawkins I: sem carga 8–12 semanas + seguimento com RMN para NAO",
+        ],
+        tx_cirurgico: [
+          "Hawkins II–IV: redução anatômica urgente + fixação (parafusos canulados)",
+          "Calcâneo intra-articular com Böhler < 0° ou deformidade grave em adolescente: RAFI",
+          "Lisfranc deslocado: RAFI (crianças) ou artrodese (adolescente)",
+          "Jones com não-união > 8 semanas ou atleta de alta demanda: parafuso intramedular",
+        ],
+        cirurgias: [
+          "RAFI do tálus: parafusos canulados anteroposterior (acesso anterior e anteromedial)",
+          "RAFI do calcâneo: placa em L lateral (adolescente com fratura intra-articular grave)",
+          "Parafuso intramedular 4,5 mm no 5° metatarso (Jones refratário — acesso mínimo)",
+          "RAFI de Lisfranc: parafusos transarticulares + fios K; artrodese em lesões graves",
+        ],
+        complicacoes: [
+          "NAO do tálus (Hawkins III–IV: 40–80% — verificar sinal de Hawkins em 6–8 semanas)",
+          "Artrose pós-traumática (Lisfranc, calcâneo intra-articular, Hawkins com redução inadequada)",
+          "Não-união da fratura de Jones (zona hipovascular — TC se sem calo em 8 semanas)",
+          "Síndrome compartimental do pé (calcâneo de alta energia — fasciotomia de urgência)",
+        ],
+        fontes: ["Rockwood — Fraturas em Crianças, 9ª ed., cap. 31"],
       },
     ],
   },
