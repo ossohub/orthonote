@@ -2614,6 +2614,371 @@ const REGIOES: Regiao[] = [
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
       },
+      {
+        id: "biomecanica-fraturas",
+        titulo: "Biomecânica das Fraturas e Fixação",
+        subtitulo: "Cap. 1 — Princípios Gerais",
+        epidemiologia:
+          "A fixação de fraturas é uma corrida entre a cicatrização óssea e a falha do implante. O paradoxo da fixação interna — rigidez suficiente para restaurar função vs flexibilidade necessária para estimular calo — guia todas as decisões de fixação. Propriedades do material (módulo de elasticidade) e propriedades estruturais (geometria, comprimento de trabalho) determinam a competência mecânica de ossos e implantes.",
+        classificacao: [
+          {
+            sistema: "Modo de Cicatrização Óssea",
+            itens: [
+              "Primária (direta): estabilidade absoluta → contato interfragmentário direto → remodelação haversiana sem calo macroscópico",
+              "Secundária (indireta/natural): estabilidade relativa → formação de calo periosteal e endosteal → via clínica mais frequente",
+              "Não-união: desequilíbrio mecânico (rigidez excessiva ou insuficiente) + falha biológica → ausência de consolidação",
+            ],
+          },
+          {
+            sistema: "Estratégias de Fixação por Objetivo",
+            itens: [
+              "Fixação absoluta (compressão): placa DCP, parafusos de tração, parafuso de posição → cicatrização primária — fraturas simples articulares",
+              "Fixação relativa (splintagem biológica): haste intramedular, placa em ponte, fixador externo → cicatrização secundária com calo",
+              "Dinamização axial controlada: micromovimentos axiais estimulam calo sem comprometer estabilidade rotacional",
+            ],
+          },
+        ],
+        mecanismo:
+          "Cargas traumáticas (compressão, tração, torção, cisalhamento, impacto) superam a resistência óssea determinada pelas propriedades do material e estrutura. Osteoporose reduz densidade mineral → fratura com energia menor. Fraturas por estresse concentrado (periprostéticas, entre implantes) resultam de redistribuição de carga em osso enfraquecido adjacente a implantes rígidos.",
+        tx_cirurgico: [
+          "Escolher modo de cicatrização conforme padrão da fratura: primária (compressão) para fragmentos anatômicos; secundária (ponte biológica) para fraturas cominutas, osteoporóticas ou com defeito ósseo",
+          "Haste intramedular bloqueada: rigidez axial variável conforme diâmetro e comprimento de trabalho; travamento distal controla rotação — padrão-ouro para diáfises",
+          "Placa de compressão (DCP/LCP): neutralização + compressão em fraturas simples; placa em ponte nas cominutas — respeitar comprimento de trabalho adequado",
+          "Fixador externo: rigidez ajustável; útil em controle de dano e fraturas expostas — pode ser sequenciado para fixação definitiva",
+          "Construto durável: distribuir parafusos longe da fratura, evitar stress-risers distais ao implante, sobrepor implantes em fraturas periprostéticas",
+        ],
+        tx_nao_cirurgico: [
+          "Imobilização gessada ou órtese funcional: fraturas sem indicação cirúrgica com bom alinhamento — ex: brace tibial de Sarmiento para fraturas diafisárias estáveis",
+          "Carga progressiva (weight bearing as tolerated): quando a fixação permite — reduz atrofia e promove estímulo mecânico para cicatrização",
+          "Monitorização biomecânica: avaliação radiológica seriada para identificar perda de redução ou falha de implante precoce",
+        ],
+        cirurgias: [
+          "Haste intramedular bloqueada: padrão-ouro para diáfise femoral, tibial e umeral",
+          "Placa em ponte (MIPO): minimamente invasiva, preserva periósteo — indicada em fraturas cominutas e osteoporóticas periarticulares",
+          "Placa de ângulo fixo (LCP, DHS): fraturas periarticulares osteoporóticas — parafusos travados evitam pull-out e cut-out",
+          "Fixação percutânea (parafusos canulados): fraturas articulares pouco deslocadas — ex: platô tibial Schatzker I, escafoide",
+          "Reconstrução com enxerto e fixação: defeitos críticos — técnica de Masquelet ou transporte ósseo",
+        ],
+        complicacoes: [
+          "Falha do implante por fadiga: working length inadequado ou osteoporose grave → fratura do implante antes da consolidação",
+          "Não-união mecânica: instabilidade (rigidez insuficiente) ou compressão excessiva (rigidez excessiva bloqueando calo)",
+          "Fratura periprostética: stress-riser na extremidade do implante — prevenção com sobreposição ou cerclagem preventiva",
+          "Infecção periimplante: contaminação intraoperatória, maior risco em haste fresada em fratura exposta",
+          "Consolidação viciosa: perda de redução não detectada → deformidade angular ou rotacional",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "cicatrizacao-ossea",
+        titulo: "Cicatrização Óssea, Cartilaginosa e Tendínea",
+        subtitulo: "Cap. 2 — Princípios Gerais",
+        epidemiologia:
+          "O osso é um dos únicos tecidos que cicatriza sem formação de cicatriz fibrosa. Estimativas atuais apontam que 2,5% das fraturas na população Medicare evoluem para não-união; até 10% não cicatrizam normalmente. A cartilagem articular tem capacidade regenerativa extremamente limitada (condrócitos avasculares, sem progenitores). Os tendões cicatrizam por fibrose com resistência mecânica inferior ao tecido original.",
+        classificacao: [
+          {
+            sistema: "Fases da Cicatrização Óssea",
+            itens: [
+              "Inflamatória (0–7 dias): hematoma → macrófagos, IL-1β, IL-6, IL-8, TNF-α → recrutamento de células progenitoras; T e B-células se concentram no hematoma (exclusivo da fratura óssea)",
+              "Reparação — calo mole (1–3 semanas): fibroblastos e condroblastos formam fibrocartilagem → calo mole que estabiliza provisoriamente a fratura",
+              "Reparação — calo duro (3–12 semanas): ossificação endocondral do calo mole → osso imaturo (woven bone); ponte callosa radiologicamente visível",
+              "Remodelação (meses a anos): substituição de woven bone por osso lamelar; restauração da arquitetura cortical (canais de Havers)",
+            ],
+          },
+          {
+            sistema: "Fontes de Células Progenitoras para Cicatrização",
+            itens: [
+              "Periósteo (camada cambial interna): principal fonte de osteoblastos precoces e MSCs — lesão periosteal associada a não-união",
+              "Endósteo: monocamada de osteoblastos ativados pelo trauma com acesso direto ao hematoma",
+              "MSCs da medula óssea: diferenciação condrogênica ou osteogênica conforme ambiente mecânico",
+              "Pericitos perivasculares: possíveis progenitores locais de função análoga às MSCs",
+              "Músculo e sangue periférico: fontes secundárias de menor relevância clínica comprovada",
+            ],
+          },
+        ],
+        mecanismo:
+          "A cicatrização óssea recapitula o desenvolvimento embrionário. O microambiente mecânico determina a via: estabilidade absoluta → ossificação intramembranosa direta; estabilidade relativa → ossificação endocondral com calo. A lesão periosteal, isquemia tecidual e inflamação descontrolada são os principais fatores de falha biológica.",
+        tx_cirurgico: [
+          "Preservação do periósteo e partes moles (MIPO): protege vascularização e células progenitoras periostais — reduz risco de não-união",
+          "Desbridamento e estabilização precoce: reduz inflamação excessiva e cria ambiente favorável para progenitores",
+          "Enxerto ósseo autólogo (crista ilíaca, RIA): osteoindutor + osteocondutivo + osteogênico — padrão-ouro para defeitos biológicos",
+          "BMP-2 (Infuse) ou BMP-7 (OP-1): osteoindutor — indicação em não-uniões tibiais e defeitos segmentares; risco de edema e ossificação heterotópica",
+          "Aspirado de medula óssea (BMAC): concentrado de MSCs — adjunto em não-uniões de baixo risco",
+          "Reparo cartilaginoso: microfraturas (fibrocartilagem); mosaicoplastia; ACI (implante de condrócitos autólogos) para defeitos focais ≥2 cm²",
+        ],
+        tx_nao_cirurgico: [
+          "LIPUS (ultrassom pulsado de baixa intensidade): aprovado pelo FDA — estimula fase inflamatória e condrogênica do calo; indicado em fraturas recentes de escafoide e retardo de consolidação",
+          "PEMF (campo eletromagnético pulsado): estimula diferenciação osteoblástica — opção em não-uniões de baixo risco sem indicação cirúrgica",
+          "Controle de fatores sistêmicos: suspensão de tabagismo, corticoides e AINHs; controle glicêmico (HbA1c <7%); vitamina D e cálcio",
+          "Teriparatida (PTH 1-34): evidência emergente de aceleração da cicatrização em osteoporóticos — uso off-label para fratura",
+        ],
+        cirurgias: [
+          "Reparo tendinoso primário (Kessler ou Bunnell): dentro de 3 semanas para flexores da mão, Aquiles e manguito rotador — maior resistência à ruptura com pontos periféricos suplementares",
+          "Reconstrução tendínea: enxerto de tendão palmaris longo, gracilis ou plantar — tendões sem reparo direto possível",
+          "Desbridamento tendíneo + PRP: tendinopatia calcificante crônica resistente a tratamento conservador",
+          "Microperfurações de cartilagem (microfracturas): lesões condrais focais <2 cm² em paciente jovem sem artrose estabelecida",
+        ],
+        complicacoes: [
+          "Não-união biológica: isquemia, infecção, tabagismo, DM, corticoides, AINHs — fatores modificáveis que impedem resposta celular adequada",
+          "Necrose avascular: interrupção do suprimento vascular intraósseo — cabeça femoral, escafoide, tálus e úmero proximal mais vulneráveis",
+          "Artrose pós-traumática: cicatrização cartilaginosa incompleta (fibrocartilagem em lugar de cartilagem hialina) → degeneração articular progressiva",
+          "Rotura do reparo tendinoso: falha precoce por tensão excessiva ou reabilitação inadequada — re-ruptura do Aquiles em 3–5%",
+          "Rigidez articular: imobilização prolongada → aderências capsulares e encurtamento miofascial",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "tecnologias-biologicas",
+        titulo: "Tecnologias Biológicas e Biofísicas para Consolidação",
+        subtitulo: "Cap. 3 — Princípios Gerais",
+        epidemiologia:
+          "A maioria das fraturas consolida com tratamento adequado. Uma minoria significativa evolui para não-união ou retardo de consolidação (5–10%, dependendo da localização e comorbidades). Nesses casos, tecnologias de augmentação biológica suprem o componente deficiente: células progenitoras, fatores de crescimento, arcabouço ou estímulo mecânico/elétrico.",
+        classificacao: [
+          {
+            sistema: "Mecanismos de Ação dos Substitutos Ósseos",
+            itens: [
+              "Osteogênese: formação direta de novo osso pelo material — exclusividade do autoenxerto (células vivas + fatores + matriz)",
+              "Osteoinduçao: recrutamento e diferenciação de MSCs do hospedeiro em osteoblastos — BMPs, PDGF, FGF, TGF-β, VEGF",
+              "Osteocondução: arcabouço passivo que hospeda células do receptor — aloenxerto, fosfato de cálcio (CaP), sulfato de cálcio, TCP",
+            ],
+          },
+          {
+            sistema: "Substitutos Ósseos Disponíveis",
+            itens: [
+              "Autoenxerto: osteogênico + osteoindutor + osteocondutivo — padrão-ouro; volume limitado (19–26 cc ilíaca anterior); morbidade doadora ~20%",
+              "Aloenxerto: ausência de morbidade doadora; sem células vivas; risco mínimo de transmissão viral com processamento adequado",
+              "BMP-2 (Infuse®): FDA-aprovado para fusão lombar (ALIF) e fratura tibial aberta Gustilo IIIA/IIIB — risco de edema, ossificação heterotópica e osteólise inicial",
+              "BMP-7 (OP-1®): FDA-aprovado (HDE) para não-uniões tibiais refratárias",
+              "Fosfato de cálcio (CaP, TCP): osteocondutivo, reabsorvível — complementa autoenxerto em defeitos contidos; déficit em resistência à tensão",
+              "PRP (plasma rico em plaquetas): concentrado de PDGF, TGF-β, VEGF — evidência mista; potencial adjunto em reparo tendinoso",
+            ],
+          },
+        ],
+        mecanismo:
+          "A falha de consolidação resulta da ausência de um ou mais componentes essenciais: células progenitoras viáveis, vascularização adequada, fatores de crescimento e estabilidade mecânica. Cada tecnologia de augmentação supre o componente deficiente: autoenxerto supre todos; BMP supre osteoinduçao; CaP supre arcabouço; LIPUS e PEMF modulam o ambiente mecânico/elétrico.",
+        tx_cirurgico: [
+          "Autoenxerto esponjoso (crista ilíaca anterior/posterior): padrão-ouro — não-uniões atróficas, defeitos <5 cm, cirurgias de fusão",
+          "RIA (Reamer-Irrigator-Aspirator): coleta de enxerto esponjoso intrafemoral (30–90 cc) com baixa morbidade do sítio doador",
+          "Aloenxerto estrutural: grande defeito segmentar — reconstrução tumoral, pseudartrose congênita; risco de falha tardia e infecção",
+          "BMP-2 em esponja de colágeno: não-união tibial aberta e fusão lombar ALIF — evitar em localização anterior ao pescoço (risco de edema de vias aéreas)",
+          "Aspirado de medula óssea (BMAC): concentrado de MSCs — augmento de autoenxerto em não-uniões de risco intermediário",
+          "Enxerto vascularizado de fíbula: defeitos 6–25 cm em osso comprometido ou irradiado — requer microcirurgia; alta taxa de consolidação",
+        ],
+        tx_nao_cirurgico: [
+          "LIPUS (Exogen®): 20 min/dia por 12–24 semanas — retardo de consolidação (<6 meses), fratura recente de escafoide; FDA-aprovado",
+          "PEMF (Biomet EBI®): estimulação elétrica não invasiva — não-uniões de costela, tíbia e coluna sem indicação cirúrgica",
+          "Ondas de choque extracorpóreas (ESWT): não-uniões de diáfise tibial resistentes — alternativa antes da cirurgia aberta",
+          "LMHFV (vibração de baixa magnitude e alta frequência): aumenta densidade mineral em osteoporose — uso preventivo",
+          "Teriparatida: acelera consolidação em osteoporóticos — evidência crescente para fratura vertebral e de quadril",
+        ],
+        cirurgias: [
+          "Técnica de Masquelet (2 tempos): espaçador de PMMA + antibiótico → membrana induzida → remoção + enxerto autólogo após 6–8 semanas — defeitos 2–5 cm",
+          "Transporte ósseo (Ilizarov/TSF): defeitos >5 cm — único método que regenera osso e corrige comprimento simultaneamente",
+          "Combinação aloenxerto + BMAC: alternativa ao autoenxerto em pacientes com sítio doador limitado ou reoperados",
+          "Desbridamento radical + cimento com antibiótico: não-união séptica — controle da infecção como pré-requisito para reconstrução definitiva",
+        ],
+        complicacoes: [
+          "Ossificação heterotópica pelo BMP-2: localização anterior cervical → disfagia, dispneia — contraindicado nessa posição sem proteção",
+          "Morbidade do sítio doador de autoenxerto: hematoma, dor crônica, lesão do nervo cutâneo femoral lateral, fratura da crista ilíaca (~0,5%)",
+          "Osteólise inicial com BMP: reabsorção transitória ao redor do implante — pode confundir com infecção no pós-operatório imediato",
+          "Falha de incorporação do aloenxerto: rejeição imune subclínica, necrose avascular do enxerto, infecção tardia",
+          "Recorrência de não-união após augmentação biofísica: fatores sistêmicos não corrigidos (tabagismo, diabetes, desnutrição) → nova falha",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "osteoporose",
+        titulo: "Osteoporose e Doenças Ósseas Metabólicas",
+        subtitulo: "Cap. 4 — Princípios Gerais",
+        epidemiologia:
+          "A osteoporose afeta ~200 milhões de pessoas globalmente; risco de fratura ao longo da vida de 50% nas mulheres e 20–25% nos homens após os 50 anos. Fraturas de quadril associam-se a mortalidade de 20–30% no primeiro ano. Doença de Paget acomete 3–5% dos adultos >55 anos na Europa Ocidental. Osteomalácia ocorre em 1–4% da população geral em países com baixa exposição solar.",
+        classificacao: [
+          {
+            sistema: "Critério Diagnóstico OMS — DXA (T-score)",
+            itens: [
+              "Normal: T-score > -1,0",
+              "Osteopenia: T-score entre -1,0 e -2,5",
+              "Osteoporose: T-score ≤ -2,5",
+              "Osteoporose grave: T-score ≤ -2,5 + fratura por fragilidade prévia",
+            ],
+          },
+          {
+            sistema: "Causas de Osteoporose Secundária",
+            itens: [
+              "Corticoterapia sistêmica (>5 mg/dia de prednisona por >3 meses): causa mais comum de osteoporose secundária",
+              "Hipogonadismo masculino: deficiência de testosterona → perda óssea acelerada",
+              "Hiperparatireoidismo primário: hipercalcemia + osteíte fibrosa cística",
+              "Doença celíaca/má absorção: déficit de Ca²⁺ e vitamina D",
+              "Insuficiência renal crônica (CKD-MBD): hiperparatireoidismo secundário + osteomalácia",
+              "Hipertireoidismo: turnover ósseo acelerado",
+            ],
+          },
+          {
+            sistema: "Outras Doenças Ósseas Metabólicas",
+            itens: [
+              "Doença de Paget: remodelação óssea caótica acelerada → dor, deformidade, sarcoma (1%); bisfosfonato IV é tratamento padrão",
+              "Osteomalácia/Raquitismo: mineralização deficiente (déficit de vitamina D ou fósforo) → zonas de Looser, dor óssea difusa",
+              "Osteogenesis Imperfecta: defeito no colágeno tipo I → múltiplas fraturas, esclerótica azul, perda auditiva; bisfosfonatos reduzem fraturas",
+              "Osteopetrose: defeito na reabsorção osteoclástica → osso denso e frágil, canal medular estreito, pancitopenia",
+            ],
+          },
+        ],
+        mecanismo:
+          "Osteoporose resulta de desequilíbrio entre reabsorção osteoclástica e formação osteoblástica. O eixo RANK/RANKL/OPG regula a osteoclastogênese: estrogênio e PTH modulam esse eixo. Na pós-menopausa, queda de estrogênio → aumento de RANKL → ativação de osteoclastos → perda líquida de massa óssea. Corticoides inibem a osteoblastogênese e reduzem absorção intestinal de cálcio.",
+        tx_cirurgico: [
+          "Vertebroplastia/cifoplastia: fratura vertebral por compressão sintomática refratária ao tratamento conservador — cimento PMMA para estabilização e analgesia",
+          "Fixação de fratura osteoporótica: parafusos de ângulo fixo (LCP), augmentação com cimento, placa longa ultrapassando zona de baixa densidade mineral",
+          "Artroplastia total do quadril: fratura de colo femoral em idosos osteoporóticos — prótese parcial cimentada (Austin-Moore/bipolar) ou total com acetábulo cimentado",
+          "Haste longa cefalomedular (PFN, TFN-Advanced): fratura intertrocantérica/subtrocantérica osteoporótica — padrão-ouro",
+          "Bisfosfonato IV perioperatório: ácido zoledrônico 5 mg IV — reduz nova fratura vertebral em 35% e mortalidade pós-fratura de quadril",
+        ],
+        tx_nao_cirurgico: [
+          "Bisfosfonatos orais: alendronato 70 mg/semana ou risedronato 35 mg/semana — primeira linha; reduzem fraturas vertebrais em 50–70%",
+          "Ácido zoledrônico IV: 5 mg/ano — preferência em má aderência oral ou intolerância gástrica",
+          "Denosumabe (Prolia): anti-RANKL 60 mg SC a cada 6 meses — segunda linha ou osteoporose grave em idosos; atenção ao rebote na suspensão",
+          "Teriparatida (PTH 1-34): anabólico ósseo 20 µg SC/dia por 24 meses — osteoporose grave com múltiplas fraturas vertebrais",
+          "Romosozumabe (Evenity): anti-esclerostina 210 mg/mês por 12 meses — pós-menopausa de alto risco; seguido de bisfosfonato",
+          "Ca²⁺ (1000–1200 mg/dia) + Vitamina D (800–1000 UI/dia): base de todo tratamento farmacológico",
+          "FRAX: avaliação de risco de fratura a 10 anos — iniciar tratamento quando risco de fratura maior ≥20% ou quadril ≥3%",
+          "Prevenção de quedas: exercício de resistência, equilíbrio, avaliação ambiental domiciliar",
+        ],
+        cirurgias: [
+          "Cifoplastia por balão: fratura vertebral por compressão — restaura parcialmente a altura vertebral e estabiliza o fragmento antes da injeção de cimento",
+          "Haste femoral longa: fratura atípica de fêmur por bisfosfonato — atenção ao ângulo cefálico da haste para acomodar deformidade em varo",
+          "Fixação percutânea com parafusos canulados cimentados: osteoporose grave com risco elevado de falha por pull-out",
+          "Osteotomia corretiva: deformidade por consolidação viciosa de fratura vertebral osteoporótica com déficit neurológico",
+        ],
+        complicacoes: [
+          "Fratura atípica de fêmur: uso prolongado (>5 anos) de bisfosfonatos — subtrocantérica, traço transverso, cortical lateral espessada (cortical beaking); tratar com haste longa",
+          "Osteonecrose da mandíbula (ONJ): bisfosfonatos IV em doses oncológicas + procedimento dentário invasivo",
+          "Rebote após suspensão de denosumabe: aumento abrupto de remodelação → múltiplas novas fraturas vertebrais — sempre seguir com bisfosfonato",
+          "Falha de implante por osteoporose grave: pull-out de parafusos, cut-through de lâmina/parafuso cefálico — prevenção com LCP e augmentação com cimento",
+          "Fratura patológica de Paget: osso deformado com menor resistência mecânica — fratura em galho verde na convexidade; fixação seguida de bisfosfonato IV",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "classificacao-fraturas",
+        titulo: "Classificação das Fraturas",
+        subtitulo: "Cap. 5 — Princípios Gerais",
+        epidemiologia:
+          "Os sistemas de classificação evoluíram de epônimos históricos (Colles 1814, Garden 1961, Schatzker 1979, Sanders 1993) para o sistema alfanumérico universal OTA/AO 2018 Fracture Compendium. A padronização internacional é essencial para pesquisa multicêntrica, comunicação e análise por inteligência artificial.",
+        classificacao: [
+          {
+            sistema: "Sistema OTA/AO 2018 — Estrutura Alfanumérica",
+            itens: [
+              "Osso (1–9): 1=úmero, 2=rádio/ulna, 3=fêmur, 4=tíbia/fíbula, 5=coluna, 6=pelve/acetábulo, 7=mão, 8=pé, 9=maxilofacial",
+              "Segmento: 1=proximal, 2=diáfise, 3=distal; articulações: 4=proximal, 5=distal",
+              "Tipo: A = simples (2 fragmentos); B = cunha/parcialmente articular; C = complexo/articular completo",
+              "Grupo (1–3) e subgrupo (.1–.3): gravidade crescente dentro de cada tipo",
+              "Exemplo: 32-B2.1 = diáfise femoral, fratura em cunha de torção, subgrupo 1",
+            ],
+          },
+          {
+            sistema: "Fraturas Expostas — Gustilo-Anderson",
+            itens: [
+              "Tipo I: ferida <1 cm, limpa, fratura simples — risco de infecção <2%",
+              "Tipo II: ferida 1–10 cm, contaminação moderada, cominuição leve — risco 5–10%",
+              "Tipo IIIA: ferida >10 cm, cobertura óssea possível, cominuição grave — risco 10–25%",
+              "Tipo IIIB: perda de partes moles, exposição óssea, necessita retalho — risco 10–50%",
+              "Tipo IIIC: lesão vascular com necessidade de reparo — risco de amputação e infecção >50%",
+            ],
+          },
+          {
+            sistema: "Classificações Específicas de Uso Corrente",
+            itens: [
+              "Garden (colo femoral): I–IV; Garden III/IV = deslocada → artroplastia em idosos",
+              "Schatzker (platô tibial): I–VI; tipos IV–VI = instáveis → cirurgia",
+              "Neer (úmero proximal): 1–4 partes; ≥3 partes com deslocamento → fixação ou artroplastia",
+              "Sanders (calcâneo por TC): I–IV; tipos III/IV cominutas → RAFI ou artroplastia subtalar",
+              "Lauge-Hansen (tornozelo): mecanismo de lesão + sequência de dano ligamentar-ósseo",
+            ],
+          },
+        ],
+        mecanismo:
+          "A classificação identifica o mecanismo implícito no padrão da fratura: compressão axial → cominuição (OTA tipo C); torção → espiral (A3); flexão + impacto → cunha (B); avulsão → transverso. O padrão orienta a estratégia de fixação e a busca ativa por lesões associadas previsíveis.",
+        tx_cirurgico: [
+          "Fraturas OTA tipo C articulares: RAFI com redução anatômica da superfície articular — meta: step-off <2 mm e gap <1 mm",
+          "Fraturas Gustilo IIIB/IIIC: desbridamento emergencial, fixação provisória com fixador externo, cobertura de partes moles em 48–72h, reparo vascular se tipo IIIC",
+          "Fraturas de alta energia (OTA tipo B/C): MIPO com placa em ponte para preservar biologia periosteal",
+          "Fraturas articulares com depressão: RAFI + enxerto ósseo sub-articular para suporte do planalto reduzido",
+        ],
+        tx_nao_cirurgico: [
+          "Fraturas OTA tipo A alinhadas: imobilização gessada ou órtese funcional com carga progressiva conforme tolerância",
+          "Fraturas Gustilo tipo I/II estáveis: fixação definitiva precoce (dentro de 24h) após irrigação + profilaxia com cefalosporina de 1ª geração",
+          "Monitorização radiológica: semanas 2, 6, 12 pós-tratamento — identificação precoce de perda de redução",
+        ],
+        cirurgias: [
+          "RAFI (Redução Aberta e Fixação Interna): padrão para fraturas articulares deslocadas — restauração da congruência articular",
+          "MIPO (Minimally Invasive Plate Osteosynthesis): fraturas periarticulares e diafisárias cominutas — placa submuscular via percutânea",
+          "Fixação externa temporária (damage control): politrauma, fraturas expostas Gustilo IIIB/C, instabilidade hemodinâmica",
+          "Fixação percutânea com parafusos canulados: fraturas articulares minimamente deslocadas — platô tibial Schatzker I, tálus, colo femoral Garden I/II",
+        ],
+        complicacoes: [
+          "Classificação incorreta → tratamento inadequado: ex: Garden III/IV tratada conservadoramente → necrose avascular da cabeça femoral",
+          "Confiabilidade interobservador limitada: kappa <0,6 em muitos sistemas — risco de decisões discordantes entre cirurgiões",
+          "Lesão associada não identificada: ex: parede posterior do acetábulo em fratura de colo femoral → instabilidade não tratada",
+          "Artrose pós-traumática: step-off articular residual >2 mm — mesmo após classificação e fixação adequadas",
+          "Síndrome compartimental: fraturas tipo C de alta energia — monitorar pressão intracompartimental nas primeiras 24–48h",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "imagem-trauma",
+        titulo: "Imagem no Trauma Ortopédico",
+        subtitulo: "Cap. 7 — Princípios Gerais",
+        epidemiologia:
+          "A imagem médica é integral ao manejo agudo e crônico do trauma musculoesquelético. A radiografia convencional permanece o pilar inicial com ~90% de sensibilidade para fratura de quadril. A TC com reconstrução 3D revolucionou fraturas articulares e do esqueleto axial. A RM tem sensibilidade ~100% para fraturas ocultas. Os Critérios de Adequação do ACR (American College of Radiology) fornecem diretrizes baseadas em evidências para seleção do exame correto.",
+        classificacao: [
+          {
+            sistema: "Modalidades de Imagem e Indicações Principais",
+            itens: [
+              "Radiografia convencional (Rx): triagem inicial de todas as fraturas — dois planos ortogonais mínimos; 90% de sensibilidade para fratura de quadril",
+              "Fluoroscopia intraoperatória: guia em tempo real para redução e posicionamento de implantes — obrigatória em hastes de fêmur, tíbia e fixação pélvica",
+              "TC (Tomografia Computadorizada): fraturas articulares (acetábulo, planalto tibial, pilão, calcâneo), pelve e coluna; reconstrução 3D para planejamento; sensibilidade 69–87% para fraturas ocultas do quadril",
+              "RM (Ressonância Magnética): padrão-ouro para fraturas ocultas (sensibilidade ~100%); partes moles, ligamentos, medula óssea, lesões medulares, fraturas por estresse",
+              "Ultrassonografia: lesões de tendões e músculos, efusões, fraturas de metacarpos/metatarsos; coleções periimplante; bedside em emergência",
+              "Medicina Nuclear: fraturas por estresse quando RM indisponível; suspeita de infecção periimplante (leucócitos marcados com In-111)",
+              "Angiografia: lesão vascular associada (fratura pélvica instável, fratura supracondilar pediátrica) — diagnóstica e terapêutica (embolização)",
+            ],
+          },
+          {
+            sistema: "Critérios ACR — Algoritmos Clínicos Selecionados",
+            itens: [
+              "Dor aguda no quadril com Rx negativo: RM (1ª escolha) → TC sem contraste (2ª) → cintilografia (apenas se RM/TC indisponíveis)",
+              "Avaliação de fratura do planalto tibial: Rx + TC com reconstrução 3D — quantifica depressão articular e orienta implante",
+              "Trauma de coluna: Rx + TC — RM obrigatória se déficit neurológico ou suspeita de lesão ligamentar posterior",
+              "Pelve instável: Rx AP + TC de abdome/pelve com contraste — angiografia + embolização se contrast blush (sangramento arterial ativo)",
+            ],
+          },
+        ],
+        mecanismo:
+          "A imagem complementa o exame clínico na confirmação ou exclusão de diagnósticos sugeridos pelo mecanismo de trauma e exame físico. A seleção da modalidade depende de: disponibilidade, resolução espacial, exposição à radiação, invasividade, custo-efetividade e perfil de risco do paciente. Pacientes politraumatizados requerem protocolo sequencial coordenado pelo ATLS.",
+        tx_cirurgico: [
+          "Planejamento pré-operatório com TC 3D: fraturas articulares complexas (acetábulo, planalto tibial, pilão) — reduz tempo cirúrgico e melhora precisão da fixação",
+          "Angiografia + embolização: sangramento pélvico arterial ativo (contrast blush na TC) — embolização superseletiva como controle de dano vascular",
+          "Fluoroscopia intraoperatória obrigatória: confirmação de redução em tempo real e posicionamento de hastes e parafusos",
+          "Navegação cirúrgica baseada em imagem (TC intraoperatória): parafusos sacroilíacos, pediculares — reduz violação de estruturas nobres",
+        ],
+        tx_nao_cirurgico: [
+          "Rx seriado (2, 6, 12 semanas): monitorização de consolidação em fraturas tratadas conservadoramente — identificar perda de redução precoce",
+          "RM imediata em idoso com dor pós-queda e Rx negativo: fratura oculta do quadril — evitar atraso diagnóstico que piora prognóstico",
+          "TC para planejar redução fechada: fraturas articulares parcialmente deslocadas — quantifica deslocamento real antes da decisão conservadora",
+          "Ultrassom à beira do leito: confirmação de efusão e fratura em emergência ou baixa disponibilidade de TC",
+        ],
+        cirurgias: [
+          "Arteriografia e embolização pélvica: fratura pélvica instável com contrast blush — antes da fixação definitiva do anel pélvico",
+          "Fluoroscopia em RAFI e hastes: confirmação de redução, comprimento e rotação — obrigatória para hastes de fêmur e tíbia",
+          "TC intraoperatória (cone beam): acetábulo e coluna — detecção imediata de parafuso intraarticular ou malpositioning",
+        ],
+        complicacoes: [
+          "Diagnóstico tardio por imagem inicial inadequada: fratura oculta do quadril → colapso e necrose avascular por deambulação sem diagnóstico",
+          "Exposição à radiação acumulada: politraumatizados jovens com múltiplas TC — preferência por RM em fraturas suspeitas de quadril e coluna em jovens",
+          "Artefato metálico em TC/RM: compromete avaliação periimplante — protocolos MAR (metal artifact reduction) ou ultrassom como alternativa",
+          "Nefropatia por contraste iodado: TC com contraste em pacientes com DRC ou desidratados — hidratação prévia e minimizar volume",
+          "Falso-negativo angiográfico: sangramento venoso pélvico não detectado — monitorização hemodinâmica contínua mesmo após embolização arterial",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
     ],
   },
 ];
