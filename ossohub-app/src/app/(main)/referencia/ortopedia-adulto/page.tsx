@@ -75,7 +75,7 @@ const REGIOES: Regiao[] = [
         ],
         tx_cirurgico: [
           "Encurtamento ≥2 cm no raio X (correlaciona com pior função)",
-          "Fratura aberta ou iminente perfuração cutânea",
+          "Fratura exposta ou iminente perfuração cutânea",
           "Cominutividade marcada / ângulo em baioneta (Robinson 2B2)",
           "Tipo IIB lateral (CC rompidos + instabilidade do ombro)",
           "Politraumatizado necessitando apoio precoce (carga no braço)",
@@ -155,7 +155,7 @@ const REGIOES: Regiao[] = [
           "Fraturas 3–4 partes em paciente jovem (<65 anos) com boa qualidade óssea",
           "Luxo-fraturas (qualquer classificação — instabilidade glenoumeral)",
           "Fratura em varo/angulação >45° (AO A3/B2)",
-          "Fratura aberta",
+          "Fratura exposta",
           "Lesão neurovascular associada",
         ],
         cirurgias: [
@@ -222,7 +222,7 @@ const REGIOES: Regiao[] = [
           "Praticamente todas as fraturas articulares completas (AO C) — cirurgia definitiva",
           "Fratura do capitelo deslocada (Tipo I, II Bryan & Morrey) — excisão ou RAFI",
           "Fratura supracondilar deslocada (AO A2/A3)",
-          "Fraturas abertas ou com lesão neurovascular",
+          "Fraturas expostas ou com lesão neurovascular",
         ],
         cirurgias: [
           "RAFI via olécrano osteotomia (campânula) — melhor visualização articular para AO C",
@@ -355,7 +355,7 @@ const REGIOES: Regiao[] = [
           "Comminuição dorsal significativa (prever instabilidade)",
           "Fratura de Barton (qualquer) — instabilidade carpo-radial",
           "Jovens ativos com qualquer deslocamento significativo",
-          "Fratura aberta ou lesão neurovascular",
+          "Fratura exposta ou lesão neurovascular",
         ],
         cirurgias: [
           "Placa volar de ângulo fixo (Synthes DVR, Aptus, Acu-Loc) — padrão atual, maioria das AO A/B/C1–C2",
@@ -467,7 +467,7 @@ const REGIOES: Regiao[] = [
           "Sinostose rádio-ulnar (principal — 2–9%): evitar contaminar ambos os compartimentos operatórios, abordar em sessões separadas se necessário",
           "Não-união: risco maior no terço médio da ulna (hipovascular); usar enxerto ósseo se gap",
           "Perda de prono-supinação: meta funcional mínima = 50° em cada direção",
-          "Síndrome compartimental: monitorar pós-operatório, especialmente fraturas abertas",
+          "Síndrome compartimental: monitorar pós-operatório, especialmente fraturas expostas",
           "Instabilidade do DRUJ residual: indica reparo do TFCC ou reconstrução tardia",
           "Lesão do nervo interósseo posterior (ramo motor do radial): risco na abordagem posterior — monitorar extensão dos dedos",
         ],
@@ -545,7 +545,7 @@ const REGIOES: Regiao[] = [
         ],
         mecanismo: "Impacto direto sobre o dorso da mão (Boxer's); queda com polegar em abdução (esquiador — Stener/UCL); torção (espiral de falange — rotação clinicamente identificada); esmagamento (falange distal).",
         tx_nao_cirurgico: ["Boxer's: aceitável até 40° de angulação volar no 5° metacarpo, 30° no 4° (sem deformidade rotacional clínica); buddy taping + mobilização precoce. Bennett sem deslocamento: gesso espica do polegar. Falanges não deslocadas e sem rotação: tala e buddy taping. Lesão de UCL sem Stener: tala 4–6 semanas."],
-        tx_cirurgico: ["Qualquer rotação de metacarpo/falange (exame clínico — polpas dos dedos devem apontar ao escafoide quando fletidos). Bennett deslocada (>3 mm). Rolando cominutiva. Fratura intra-articular de IFP com degrau >1 mm. Lesão de Stener (UCL polegar com interposição). Fratura aberta."],
+        tx_cirurgico: ["Qualquer rotação de metacarpo/falange (exame clínico — polpas dos dedos devem apontar ao escafoide quando fletidos). Bennett deslocada (>3 mm). Rolando cominutiva. Fratura intra-articular de IFP com degrau >1 mm. Lesão de Stener (UCL polegar com interposição). Fratura exposta."],
         cirurgias: [
           "Fios de Kirschner percutâneos: Boxer's deslocada, Bennett (1 fio transfixando a base ao trapézio + 1 fio fixando o 1° ao 2° metacarpo), falanges simples",
           "Parafuso de Herbert mini (1.5–2.0 mm): fratura espiral/oblíqua de falange (técnica lag para compressão)",
@@ -650,22 +650,22 @@ const REGIOES: Regiao[] = [
         mecanismo: "Direto: trauma direto sobre o braço (taco, projétil) — fratura transversa ou cominutiva. Indireto: torção (arremesso, queda sobre mão) — fratura espiral. Queda de baixa energia em idosos osteoporóticos — avaliar fratura patológica (metástases, mieloma).",
         tx_cirurgico: [
           "Lesão neurovascular associada (radial, braquial)",
-          "Fratura aberta (Gustilo II, III)",
+          "Fratura exposta (Gustilo II, III)",
           "Fratura bilateral de úmero ou politrauma com necessidade de carga precoce",
           "Cotovelo flutuante (floating elbow) — fratura ipsilateral úmero + antebraço",
-          "Falha conservadora: angulação >30° sagital ou >20° coronal, shortening >3 cm após 6–8 semanas",
+          "Falha conservadora: angulação >30° sagital ou >20° coronal, encurtamento >3 cm após 6–8 semanas",
           "Não-união sintomática aos 3 meses",
         ],
         tx_nao_cirurgico: [
           "90–95% das fraturas fechadas diafisárias → resultado excelente com brace de Sarmiento",
           "Protocolo: tala coaptação aguda → brace funcional (Sarmiento) em 7–14 dias → mobilização ativa do ombro e cotovelo",
-          "Aceitar: angulação até 20° frontal, 30° sagital, rotação até 15°, shortening até 3 cm",
+          "Aceitar: angulação até 20° frontal, 30° sagital, rotação até 15°, encurtamento até 3 cm",
           "Paresia radial não é indicação cirúrgica de urgência: observar 3 meses (recuperação espontânea em 70–80%)",
         ],
         cirurgias: [
           "Haste intramedular anterógrada: início no supra-espinhal; indicada em múltiplos traumatismos",
           "Haste intramedular retrógrada: fratura distal, cotovelo flutuante; evita lesão de manguito",
-          "Placa de compressão (ORIF): padrão-ouro para exploração do nervo radial, fratura articular, não-união",
+          "Placa de compressão (RAFI): padrão-ouro para exploração do nervo radial, fratura articular, não-união",
           "Fixação externa: contaminação grave, lesão vascular associada — provisório",
         ],
         complicacoes: [
@@ -703,19 +703,19 @@ const REGIOES: Regiao[] = [
         mecanismo: "Queda de baixa energia sobre mão ou cotovelo → transmissão de carga ao úmero enfraquecido ao redor do implante. Enfraquecimento cortical pelo stress-shielding ao redor do cabo. Fraturas escapulares em RSA: microfratura por fadiga da espinha.",
         tx_cirurgico: [
           "Wright-Cofield B2 (deslocada + implante solto): revisão do implante obrigatória",
-          "Wright-Cofield B1 deslocada com instabilidade: ORIF com placa de contorno",
-          "Tipo C deslocada: ORIF como fratura diafisária convencional",
-          "Fratura de acrômio (RSA) com fragmento grande e deslocado: ORIF",
+          "Wright-Cofield B1 deslocada com instabilidade: RAFI com placa de contorno",
+          "Tipo C deslocada: RAFI como fratura diafisária convencional",
+          "Fratura de acrômio (RSA) com fragmento grande e deslocado: RAFI",
         ],
         tx_nao_cirurgico: [
-          "Wright-Cofield A não deslocada: sling + mobilização precoce; risco mínimo de deslocamento",
+          "Wright-Cofield A não deslocada: tipoia + mobilização precoce; risco mínimo de deslocamento",
           "Wright-Cofield B1 não deslocada (implante estável): brace funcional — acompanhamento semanal com Rx",
           "Wright-Cofield C não deslocada: brace de Sarmiento → mobilização ativa em 6–8 semanas",
-          "Fratura de acrômio leve (RSA): sling 6 semanas; evitar carga do ombro",
+          "Fratura de acrômio leve (RSA): tipoia por 6 semanas; evitar carga do ombro",
           "Taxa de não-união no tipo B conservador: ~50% — acompanhamento rigoroso",
         ],
         cirurgias: [
-          "ORIF com placa de contorno (DCP ou bloqueada): Wright-Cofield B1 deslocada com implante estável",
+          "RAFI com placa de contorno (DCP ou bloqueada): Wright-Cofield B1 deslocada com implante estável",
           "Revisão para RSA (ombro reverso): implante solto + osso ruim; melhor biologia e estabilidade",
           "Revisão para hemiarthroplasty: casos selecionados com stock ósseo preservado",
           "Fixação percutânea (fios K): avulsões de tubérculo menor não deslocadas",
@@ -776,9 +776,9 @@ const REGIOES: Regiao[] = [
           "Protocolo ativo: cotovelo ao lado do corpo, antebraço pronado (estabiliza PLRI dinamicamente)",
         ],
         cirurgias: [
-          "ORIF da cabeça do rádio (Mason II/III): parafusos de compressão 2.0 mm ou placa",
+          "RAFI da cabeça do rádio (Mason II/III): parafusos de compressão 2.0 mm ou placa",
           "Substituição da cabeça do rádio (prótese metálica): cominução irreconstruível — preserva valgo",
-          "ORIF do coronoide: parafuso anterior ou sutura trans-óssea (tipo I/II) ou placa (tipo III)",
+          "RAFI do coronoide: parafuso anterior ou sutura trans-óssea (tipo I/II) ou placa (tipo III)",
           "Reparo/reconstrução do LCL lateral: âncoras ou fio trans-ósseo sobre epicôndilo lateral",
           "Articulador articulado externo: instabilidade grave irreconstruível — permite mobilização protegida",
         ],
@@ -801,7 +801,7 @@ const REGIOES: Regiao[] = [
             sistema: "Mayo (Olécrano)",
             itens: [
               "Tipo I (Não deslocada): imobilização conservadora",
-              "Tipo IIA (Deslocada estável — fragmento único): ORIF com banda de tensão ou placa",
+              "Tipo IIA (Deslocada estável — fragmento único): RAFI com banda de tensão ou placa",
               "Tipo IIB (Deslocada instável — cominutiva): placa de contorno posterior",
               "Tipo IIIA (Instável + sem cominução): ressecção + avanço do tríceps (idosos sem demanda)",
               "Tipo IIIB (Instável + cominução): placa longa com enxerto ósseo",
@@ -811,7 +811,7 @@ const REGIOES: Regiao[] = [
             sistema: "Mason (Cabeça do Rádio)",
             itens: [
               "Tipo I: não deslocada (<2 mm) — conservador",
-              "Tipo II: deslocada (>2 mm) ou inclinada — ORIF possível",
+              "Tipo II: deslocada (>2 mm) ou inclinada — RAFI possível",
               "Tipo III: cominuída irreconstruível — substituição ou ressecção",
               "Tipo IV: Mason III + luxação do cotovelo (Terrible Triad)",
             ],
@@ -822,18 +822,18 @@ const REGIOES: Regiao[] = [
           "Olécrano deslocado ≥2–3 mm ou perda de extensão ativa (Mayo II e III)",
           "Cabeça do rádio Mason II com >2 mm de deslocamento ou bloqueio de mobilidade",
           "Cabeça do rádio Mason III: substituição protética ou ressecção",
-          "Monteggia: sempre cirúrgico — ORIF do cúbito + redução obrigatória da cabeça radial",
+          "Monteggia: sempre cirúrgico — RAFI do cúbito + redução obrigatória da cabeça radial",
         ],
         tx_nao_cirurgico: [
           "Olécrano não deslocado (Mayo I): imobilização em 90° por 3–4 semanas, seguida de mobilização ativa",
-          "Cabeça do rádio Mason I (<2 mm, sem bloqueio): sling 5–7 dias + mobilização precoce",
+          "Cabeça do rádio Mason I (<2 mm, sem bloqueio): tipoia por 5–7 dias + mobilização precoce",
           "Idosos com baixa demanda (Mayo IIIA): ressecção do fragmento + avanço do tríceps — evita fixação complexa",
         ],
         cirurgias: [
           "Banda de tensão (fio K + cerclagem): Mayo IIA — simples transversas/oblíquas; alta taxa de hardware proeminente",
           "Placa posterior de baixo perfil (contorno): Mayo IIB e IIIB — maior estabilidade, menos proeminência",
           "Parafuso intramedular (single screw): fraturas simples selecionadas em idosos",
-          "ORIF da cabeça do rádio: parafusos sem cabeça (2.0 mm) ou mini-placa; acesso Kocher ou Kaplan",
+          "RAFI da cabeça do rádio: parafusos sem cabeça (2.0 mm) ou mini-placa; acesso Kocher ou Kaplan",
           "Substituição da cabeça do rádio (prótese metálica): Mason III irreconstruível; preserva estabilidade em valgo",
           "Ressecção da cabeça do rádio: isolada apenas se LCM intacto; contraindicado no Terrible Triad",
         ],
@@ -842,7 +842,7 @@ const REGIOES: Regiao[] = [
           "Falha do implante / perda de redução: bandas de tensão em fraturas cominutivas",
           "Não-união do olécrano: infrequente com fixação adequada; mais comum em fraturas cominutivas",
           "Rigidez do cotovelo: imobilização prolongada — mobilização <3 semanas reduz risco",
-          "Lesão do nervo interósseo posterior (PIN): ORIF da cabeça do rádio — pronação do antebraço durante acesso",
+          "Lesão do nervo interósseo posterior (PIN): RAFI da cabeça do rádio — pronação do antebraço durante acesso",
           "Artrose radiocapitelar tardia: após Mason III mal tratado ou ressecção em paciente jovem",
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
@@ -1446,7 +1446,7 @@ const REGIOES: Regiao[] = [
         ],
         mecanismo: "Direto: queda sobre joelho fletido, trauma de painel — fratura estrelada/cominutiva. Indireto: contração violenta do quadríceps com joelho semifletido (esporte) — fratura transversa com separação.",
         tx_nao_cirurgico: ["Fratura sem deslocamento (<3 mm articular, <3 mm de abertura da fratura) com mecanismo extensor intacto (capacidade de extensão ativa contra gravidade). Imobilização em extensão 4–6 semanas + elevação/carga precoce com joelho em extensão."],
-        tx_cirurgico: ["Deslocamento >3 mm ou degrau articular >2 mm. Mecanismo extensor insuficiente (incapaz de extensão ativa). Fratura aberta. Polo superior/inferior irrecuperável."],
+        tx_cirurgico: ["Deslocamento >3 mm ou degrau articular >2 mm. Mecanismo extensor insuficiente (incapaz de extensão ativa). Fratura exposta. Polo superior/inferior irrecuperável."],
         cirurgias: [
           "Cerclagem em banda de tensão (tension band wiring — técnica de Weber/AO): padrão para fratura transversa simples — 2 fios de K longitudinais + cerclagem em arame em figura de 8; converte forças de tensão em compressão na articulação",
           "Parafusos canulados 4.0 mm + cerclagem em 8: alternativa para fratura transversa — perfil menor, menor irritação cutânea",
@@ -1461,7 +1461,7 @@ const REGIOES: Regiao[] = [
           "Artrose patelofemoral: proporcional à qualidade da redução articular",
           "Não-união: fios K soltos ou pós-patelectomia parcial com pouco fragmento remanescente",
           "Fraqueza permanente do quadríceps: inevitável após patelectomia total; evitar sempre que possível",
-          "Infecção: maior risco em fraturas abertas; protocolo antibiótico e cobertura adequada",
+          "Infecção: maior risco em fraturas expostas; protocolo antibiótico e cobertura adequada",
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
       },
@@ -1515,7 +1515,7 @@ const REGIOES: Regiao[] = [
         id: "tibia-diafise",
         titulo: "Fraturas Diafisárias de Tíbia e Fíbula",
         subtitulo: "Rockwood & Green cap. 63 · Campbell cap. 54",
-        epidemiologia: "Osso longo com maior incidência de fratura (~26/100.000/ano); predominância masculina jovem. 40% são abertas (maior taxa entre os ossos longos — subcutânea, pouca cobertura muscular). Localização mais comum: terço distal (hipovascular — maior risco de não-união). Bimodal: esporte/torção (baixa energia, fratura espiral distal) e trauma veicular (alta energia, cominuição).",
+        epidemiologia: "Osso longo com maior incidência de fratura (~26/100.000/ano); predominância masculina jovem. 40% são expostas (maior taxa entre os ossos longos — subcutânea, pouca cobertura muscular). Localização mais comum: terço distal (hipovascular — maior risco de não-união). Bimodal: esporte/torção (baixa energia, fratura espiral distal) e trauma veicular (alta energia, cominuição).",
         classificacao: [
           {
             sistema: "AO/OTA",
@@ -1526,7 +1526,7 @@ const REGIOES: Regiao[] = [
             ],
           },
           {
-            sistema: "Gustilo-Anderson (fraturas abertas)",
+            sistema: "Gustilo-Anderson (fraturas expostas)",
             itens: [
               "I: ferida <1 cm, limpa, sem contaminação significativa",
               "II: ferida >1 cm sem perda tecidual extensa, lesão moderada de partes moles",
@@ -1537,10 +1537,10 @@ const REGIOES: Regiao[] = [
           },
         ],
         mecanismo: "Torção de baixa energia (esporte — fratura espiral no terço distal); impacto direto de alta energia (cominuição metafisária); fratura por estresse (corredores — terço médio/distal, gradual).",
-        tx_nao_cirurgico: ["Critérios de aceitabilidade para tratamento conservador: <5° varo/valgo, <10° AP angulation, <1 cm encurtamento, <10° rotação, sem fratura aberta. Gesso longo (com joelho fletido 10°) → bota funcional Sarmiento (removível) com carga parcial em 2–4 semanas."],
-        tx_cirurgico: ["Deslocamento além dos critérios. Toda fratura aberta. Politraumatizado. Síndrome compartimental. Impossibilidade de manter redução."],
+        tx_nao_cirurgico: ["Critérios de aceitabilidade para tratamento conservador: <5° varo/valgo, <10° AP angulation, <1 cm encurtamento, <10° rotação, sem fratura exposta. Gesso longo (com joelho fletido 10°) → bota funcional Sarmiento (removível) com carga parcial em 2–4 semanas."],
+        tx_cirurgico: ["Deslocamento além dos critérios. Toda fratura exposta. Politraumatizado. Síndrome compartimental. Impossibilidade de manter redução."],
         cirurgias: [
-          "Haste intramedular bloqueada (IMN tibial): padrão gold para fraturas diafisárias fechadas e abertas Gustilo I–IIIA; inserção infrapatelar (clássica) ou suprapatelar (menor taxa de malangulamento em valgo — menor dor anterior de joelho)",
+          "Haste intramedular bloqueada (IMN tibial): padrão gold para fraturas diafisárias fechadas e expostas Gustilo I–IIIA; inserção infrapatelar (clássica) ou suprapatelar (menor taxa de malangulamento em valgo — menor dor anterior de joelho)",
           "Técnica suprapatelar semi-extendida: paciente em posição supina, joelho em extensão — melhor controle rotacional e redução, menor lesão do tendão patelar",
           "Fixador externo: temporização em Gustilo IIIB/C (damage control) antes da cobertura cirúrgica; manter ≤2 semanas para evitar colonização dos pinos",
           "Placa minimamente invasiva (MIPO): metáfise proximal e distal onde o canal é largo demais para haste; abordagem percutânea + placa submuscular",
@@ -1548,7 +1548,7 @@ const REGIOES: Regiao[] = [
         complicacoes: [
           "Síndrome compartimental: urgência — pressão >30 mmHg ou dentro de 30 mmHg da pressão diastólica → fasciotomia 4 compartimentos (padrão: 2 incisões — lateral + medial)",
           "Não-união: mais comum que fêmur ou úmero (terço distal hipovascular); taxa ~5% com IMN; tratamento: fresagem + nova haste ou placa + enxerto",
-          "Infecção (osteomielite): fratura aberta Gustilo IIIB/C — antibióticos IV prolongados, desbridamento seriado, cobertura com retalho muscular",
+          "Infecção (osteomielite): fratura exposta Gustilo IIIB/C — antibióticos IV prolongados, desbridamento seriado, cobertura com retalho muscular",
           "Mal-alinhamento: valgo (IMN infrapatelar) ou varo (fraturas proximais) — considerar bloqueios adicionais ou técnica suprapatelar",
           "Rigidez do tornozelo: fraturas distais ou imobilização prolongada; fisioterapia intensiva",
           "Pé caído: lesão do nervo fibular na fíbula proximal — monitorar extensão dos artelhos",
@@ -1622,7 +1622,7 @@ const REGIOES: Regiao[] = [
         ],
         mecanismo: "Lisfranc: carga axial em antepé plantifletido (acidente de moto, atleta em pivô — 'cleat entrapment'), queda de altura. Jones: adução forçada do antepé + carga axial (conversão súbita de direção). Metatarsos: impacto direto (esmagamento) ou torção (fratura espiral); fratura por estresse (corrida, marcha).",
         tx_nao_cirurgico: ["Lisfranc sem deslocamento (<2 mm): gesso sem carga 6–8 semanas (controverso — muitos cirurgiões preferem RAFI mesmo sem deslocamento em ativos). Jones (zona II) sem deslocamento em paciente sedentário: gesso sem carga 6–8 semanas (alta taxa de retardo de união). Metatarsos (2°–4°) não deslocados: bota rígida 4–6 semanas. Pseudo-Jones: bota rígida ou tala 3–4 semanas."],
-        tx_cirurgico: ["Lisfranc deslocado >2 mm. Jones em atleta de alta demanda (cirurgia primária = retorno mais rápido). Jones com retardo de união ou não-união (>10–12 semanas sem consolidação). Metatarso deslocado >10° angulação ou rotação. Toda fratura aberta."],
+        tx_cirurgico: ["Lisfranc deslocado >2 mm. Jones em atleta de alta demanda (cirurgia primária = retorno mais rápido). Jones com retardo de união ou não-união (>10–12 semanas sem consolidação). Metatarso deslocado >10° angulação ou rotação. Toda fratura exposta."],
         cirurgias: [
           "Lisfranc RAFI: parafusos transarticulares 3.5 mm (Lisfranc screw = 1° cuneiforme → base 2° MTT) + parafusos ou fios K para raios laterais; comparar estabilidade pós-fixação aos 4°/5° raios",
           "Artrodese tarsometatarsal primária (1°–2°–3° TMT): metanálise mostra resultados equivalentes ou superiores à RAFI para Lisfranc ligamentoso puro e cominutivo — reduz artrose secundária",
@@ -1669,8 +1669,8 @@ const REGIOES: Regiao[] = [
         mecanismo: "Posterior (dashboard injury): quadril em flexão + adução + RI → força axial sobre o joelho → cabeça femoral empurrada para trás da cavidade acetabular. Anterior (raro): ABER forçado (acidente em moto, impacto lateral). Posição do quadril no momento do impacto determina o padrão.",
         tx_cirurgico: [
           "Pipkin II (fragmento suprafoveal >1/3 da cabeça): redução aberta e fixação",
-          "Pipkin III (fratura do colo femoral associada): urgência — artroplastia ou ORIF urgente",
-          "Pipkin IV: ORIF do acetábulo + tratamento do fragmento cefálico",
+          "Pipkin III (fratura do colo femoral associada): urgência — artroplastia ou RAFI urgente",
+          "Pipkin IV: RAFI do acetábulo + tratamento do fragmento cefálico",
           "Irredutível fechado (interposição muscular, fragmento ósseo intra-articular)",
           "Instabilidade pós-redução do quadril",
           "Fragmento intra-articular (>1 mm na TC pós-redução)",
@@ -1683,16 +1683,16 @@ const REGIOES: Regiao[] = [
         ],
         cirurgias: [
           "Redução fechada urgente sob sedação ou anestesia geral (meta <6 horas)",
-          "ORIF via Kocher-Langenbeck (posterior): acesso para fragmento posterior e cabeça femoral tipo Pipkin II",
-          "ORIF via Smith-Petersen (anterior): para fragmento anterior suprafoveal (Pipkin II anterior)",
+          "RAFI via Kocher-Langenbeck (posterior): acesso para fragmento posterior e cabeça femoral tipo Pipkin II",
+          "RAFI via Smith-Petersen (anterior): para fragmento anterior suprafoveal (Pipkin II anterior)",
           "Artroplastia total: Pipkin III em idosos, artrose prévia, necrose avascular avançada",
-          "ORIF do acetábulo: Pipkin IV — planejar abordagem combinada",
+          "RAFI do acetábulo: Pipkin IV — planejar abordagem combinada",
         ],
         complicacoes: [
           "Necrose avascular da cabeça femoral (10–40%): principal — risco aumenta com tempo de luxação >6 h e energia do trauma",
           "Artrose pós-traumática: sequela tardia de dano cartilaginoso e necrose",
           "Lesão nervo ciático (10–20%): mais comum nas posteriores; maioria neuropraxia — observar 3 meses",
-          "Heterotopic ossification (HO): comum após ORIF — profilaxia com indometacina ou radioterapia",
+          "Heterotopic ossification (HO): comum após RAFI — profilaxia com indometacina ou radioterapia",
           "Lesão arterial (rara): lesão da artéria femoral nas luxações anteriores — avaliar pulso",
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
@@ -1838,8 +1838,8 @@ const REGIOES: Regiao[] = [
         cirurgias: [
           "Haste intramedular anterógrada (gold standard): início trocantérico ou piriforme; fresagem prévia → melhor encaixe e estabilidade",
           "Haste intramedular retrógrada: gestante, obesidade mórbida, fratura distal, fratura ipsilateral do colo femoral",
-          "Placa (ORIF): fratura periprostética, falha de haste, fratura segmentar selecionada",
-          "Fixador externo: damage control, fratura aberta contaminada — temporário até conversão para definitivo",
+          "Placa (RAFI): fratura periprostética, falha de haste, fratura segmentar selecionada",
+          "Fixador externo: damage control, fratura exposta contaminada — temporário até conversão para definitivo",
         ],
         complicacoes: [
           "Deformidade rotacional: mais comum — erro de redução; avaliar arco de rotação comparativo no pós-op imediato",
@@ -2102,7 +2102,7 @@ const REGIOES: Regiao[] = [
         tx_nao_cirurgico: ["Maioria: analgesia multimodal adequada (bloqueio intercostal guiado por USG, cateter epidural torácico = padrão gold para múltiplas costelas) + fisioterapia respiratória + incentivador de fluxo. Evitar imobilização torácica (restringe expansão — causa atelectasia e pneumonia). Drenagem de pneumotórax (28–32 Fr) e/ou hemotórax (32–36 Fr)."],
         tx_cirurgico: ["Tórax instável com insuficiência respiratória (ventilação mecânica >48 h sem resolução). Hemotórax coagulado (VATS em 72 h). Fratura de esterno com deslocamento grave."],
         cirurgias: [
-          "Fixação cirúrgica de costelas (ORIF rib — placas MatrixRIB, STRATOS ou similares): tórax instável com ventilação mecânica prolongada; reduz duração de VM, pneumonia e dor crônica vs ventilação isolada",
+          "Fixação cirúrgica de costelas (RAFI rib — placas MatrixRIB, STRATOS ou similares): tórax instável com ventilação mecânica prolongada; reduz duração de VM, pneumonia e dor crônica vs ventilação isolada",
           "Videotoracoscopia (VATS): hemotórax coagulado não drenado pelo dreno (48–72 h após o trauma); evita toracotomia aberta",
           "Toracotomia de emergência ('clam shell'): tamponamento cardíaco ou lesão de grandes vasos — ressuscitativa",
           "Reparo de esterno: placa de ângulo fixo ou fio de aço em fraturas com instabilidade do esterno",
@@ -2174,7 +2174,7 @@ const REGIOES: Regiao[] = [
           "Ilioinguinal (anterior): padrões com coluna anterior, parede anterior, ambas as colunas",
           "Stoppa modificada (anterior interno / quadrilátero): alternativa ao ilioinguinal para quadrilátero e coluna posterior via anterior",
           "Via combinada (simultânea ou sequencial): padrões complexos (T-shape, ambas as colunas, transversa + parede posterior)",
-          "ORIF percutânea (coluna anterior percutânea): idosos de alto risco com padrão simples deslocado",
+          "RAFI percutânea (coluna anterior percutânea): idosos de alto risco com padrão simples deslocado",
           "Artroplastia total primária: idosos com artrose prévia ou fratura de baixa energia",
           "Profilaxia de HO: indometacina 25 mg 3×/dia × 6 semanas OU radioterapia 700 cGy dose única",
         ],
@@ -2197,10 +2197,10 @@ const REGIOES: Regiao[] = [
     topicos: [
       {
         id: "fraturas-abertas",
-        titulo: "Fraturas Abertas",
+        titulo: "Fraturas Expostas",
         subtitulo: "Rockwood & Green cap. 16",
         epidemiologia:
-          "~11% das fraturas do membro inferior em trauma de alta energia. Tíbia = osso mais acometido pela fratura aberta; maior incidência de Grau III. Infecção é a complicação mais temida e determinante de prognóstico.",
+          "~11% das fraturas do membro inferior em trauma de alta energia. Tíbia = osso mais acometido pela fratura exposta; maior incidência de Grau III. Infecção é a complicação mais temida e determinante de prognóstico.",
         classificacao: [
           {
             sistema: "Gustilo-Anderson",
@@ -2216,14 +2216,14 @@ const REGIOES: Regiao[] = [
         mecanismo:
           "Trauma de alta energia (colisão veicular, esmagamento, projétil) com penetração da pele por fragmento ósseo ou objeto externo. Contaminação bacteriana imediata — principal diferença biológica em relação às fraturas fechadas.",
         tx_cirurgico: [
-          "Todas as fraturas abertas requerem desbridamento cirúrgico urgente, independentemente do grau",
+          "Todas as fraturas expostas requerem desbridamento cirúrgico urgente, independentemente do grau",
           "Grau IIIB/C → fixador externo como estabilização temporária (damage control ortopédico)",
           "Grau II e IIIA tibial → haste intramedular bloqueada como fixação definitiva após desbridamento",
           "Membro superior → placa como fixação preferencial",
           "Grau IIIC → reparo vascular emergencial (com cirurgia vascular); fasciotomia profilática obrigatória",
         ],
         tx_nao_cirurgico: [
-          "Não existe tratamento conservador definitivo — toda fratura aberta exige desbridamento cirúrgico",
+          "Não existe tratamento conservador definitivo — toda fratura exposta exige desbridamento cirúrgico",
           "Antibioticoterapia IV profilática ≤1h do trauma (idealmente pré-hospitalar): Grau I/II → cefalosporina 1ª geração; Grau III → adicionar aminoglicosídeo; contaminação por solo/fazenda → adicionar penicilina G",
           "Tipoia/tala como imobilização provisória no campo — não substitui cirurgia",
           "NPWT (curativo a vácuo) como ponte para fechamento tardio — não como tratamento definitivo de partes moles",
@@ -2507,7 +2507,7 @@ const REGIOES: Regiao[] = [
         titulo: "Osteomielite e Infecções Ortopédicas",
         subtitulo: "Rockwood & Green cap. 29",
         epidemiologia:
-          "Nativa: 4–10/100.000/ano (países ocidentais). FRI pós-traumática: 1% em fraturas simples a >30% em fraturas abertas graves da tíbia. S. aureus = patógeno mais frequente (incluindo MRSA ~30–40%). Biofilme = principal mecanismo de resistência e persistência.",
+          "Nativa: 4–10/100.000/ano (países ocidentais). FRI pós-traumática: 1% em fraturas simples a >30% em fraturas expostas graves da tíbia. S. aureus = patógeno mais frequente (incluindo MRSA ~30–40%). Biofilme = principal mecanismo de resistência e persistência.",
         classificacao: [
           {
             sistema: "Cierny-Mader (estágio anatômico)",
@@ -2649,7 +2649,7 @@ const REGIOES: Regiao[] = [
         ],
         tx_nao_cirurgico: [
           "Imobilização gessada ou órtese funcional: fraturas sem indicação cirúrgica com bom alinhamento — ex: brace tibial de Sarmiento para fraturas diafisárias estáveis",
-          "Carga progressiva (weight bearing as tolerated): quando a fixação permite — reduz atrofia e promove estímulo mecânico para cicatrização",
+          "Carga progressiva conforme tolerado: quando a fixação permite — reduz atrofia e promove estímulo mecânico para cicatrização",
           "Monitorização biomecânica: avaliação radiológica seriada para identificar perda de redução ou falha de implante precoce",
         ],
         cirurgias: [
@@ -2746,7 +2746,7 @@ const REGIOES: Regiao[] = [
             itens: [
               "Autoenxerto: osteogênico + osteoindutor + osteocondutivo — padrão-ouro; volume limitado (19–26 cc ilíaca anterior); morbidade doadora ~20%",
               "Aloenxerto: ausência de morbidade doadora; sem células vivas; risco mínimo de transmissão viral com processamento adequado",
-              "BMP-2 (Infuse®): FDA-aprovado para fusão lombar (ALIF) e fratura tibial aberta Gustilo IIIA/IIIB — risco de edema, ossificação heterotópica e osteólise inicial",
+              "BMP-2 (Infuse®): FDA-aprovado para fusão lombar (ALIF) e fratura tibial exposta Gustilo IIIA/IIIB — risco de edema, ossificação heterotópica e osteólise inicial",
               "BMP-7 (OP-1®): FDA-aprovado (HDE) para não-uniões tibiais refratárias",
               "Fosfato de cálcio (CaP, TCP): osteocondutivo, reabsorvível — complementa autoenxerto em defeitos contidos; déficit em resistência à tensão",
               "PRP (plasma rico em plaquetas): concentrado de PDGF, TGF-β, VEGF — evidência mista; potencial adjunto em reparo tendinoso",
@@ -2759,7 +2759,7 @@ const REGIOES: Regiao[] = [
           "Autoenxerto esponjoso (crista ilíaca anterior/posterior): padrão-ouro — não-uniões atróficas, defeitos <5 cm, cirurgias de fusão",
           "RIA (Reamer-Irrigator-Aspirator): coleta de enxerto esponjoso intrafemoral (30–90 cc) com baixa morbidade do sítio doador",
           "Aloenxerto estrutural: grande defeito segmentar — reconstrução tumoral, pseudartrose congênita; risco de falha tardia e infecção",
-          "BMP-2 em esponja de colágeno: não-união tibial aberta e fusão lombar ALIF — evitar em localização anterior ao pescoço (risco de edema de vias aéreas)",
+          "BMP-2 em esponja de colágeno: não-união tibial exposta e fusão lombar ALIF — evitar em localização anterior ao pescoço (risco de edema de vias aéreas)",
           "Aspirado de medula óssea (BMAC): concentrado de MSCs — augmento de autoenxerto em não-uniões de risco intermediário",
           "Enxerto vascularizado de fíbula: defeitos 6–25 cm em osso comprometido ou irradiado — requer microcirurgia; alta taxa de consolidação",
         ],
