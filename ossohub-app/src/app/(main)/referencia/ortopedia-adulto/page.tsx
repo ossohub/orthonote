@@ -847,6 +847,122 @@ const REGIOES: Regiao[] = [
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
       },
+      {
+        id: "acromio-esternoclavicular",
+        titulo: "Lesões da Articulação Acromioclavicular e Esternoclavicular",
+        subtitulo: "Rockwood & Green cap. 32",
+        epidemiologia:
+          "Lesões AC: ~12% das fraturas do cinturão escapular; predominam em homens jovens e atletas de esportes de contato. Lesões EC: raras (<1% de todas as luxações); luxação posterior = emergência pela proximidade de estruturas mediastinais.",
+        classificacao: [
+          {
+            sistema: "Rockwood (articulação AC)",
+            itens: [
+              "Tipo I – Contusão; ligamentos AC e CC íntegros",
+              "Tipo II – Rotura do ligamento AC; CC intacto; leve elevação",
+              "Tipo III – Rotura AC + CC; clavícula ≥25% elevada (tratamento controverso)",
+              "Tipo IV – Clavícula deslocada posteriormente no trapézio",
+              "Tipo V – Clavícula 25–100% acima do acrômio",
+              "Tipo VI – Clavícula subcoracoide ou subacromilal (raridade)",
+            ],
+          },
+          {
+            sistema: "Articulação esternoclavicular (EC)",
+            itens: [
+              "Anterior – Mais comum; dor local, sem risco imediato de estruturas vitais",
+              "Posterior – Emergência; pode comprimir traqueia, esôfago e vasos subclávios",
+            ],
+          },
+        ],
+        mecanismo:
+          "AC: queda sobre ombro aduzido com carga axial → força dirige acrômio abaixo da clavícula. EC: força de compressão lateral no ombro com rotação → anterior (ombro para frente) ou posterior (ombro para trás). Veículos automotores = principal causa de lesão EC grave.",
+        tx_cirurgico: [
+          "Rockwood IV/V/VI → redução aberta + reconstrução CC com duplo botão cortical (TightRope/DogBone)",
+          "Rockwood III com instabilidade horizontal sintomática >3 meses ou atleta profissional → cirurgia",
+          "EC posterior sintomático → redução urgente sob anestesia geral com equipe de cirurgia torácica em standby",
+          "EC posterior irredutível → redução aberta e fixação (Balser ou placa de gancho bilateral)",
+        ],
+        tx_nao_cirurgico: [
+          "Rockwood I e II → tipoia 2–3 semanas + fisioterapia precoce",
+          "Rockwood III → conservador na maioria (especialmente não atletas); reavaliação se dor persistir >3 meses",
+          "EC anterior → tipoia + analgesia; redução raramente necessária e benefício limitado",
+          "EC posterior assintomático ou estável → observação",
+        ],
+        cirurgias: [
+          "Duplo botão cortical (TightRope, DogBone): reconstrução CC anatômica para Rockwood III–VI",
+          "Ressecção do terço distal da clavícula (Mumford): artrose AC sintomática ou falha do conservador grau III",
+          "Redução fechada EC posterior sob anestesia geral (posição supina, tração + alavanca anterior com pinça de campo)",
+          "Redução aberta EC + placa de gancho bilateral (Balser) para casos irredutíveis",
+        ],
+        complicacoes: [
+          "Artrose AC: sequela comum de graus I/II; tratada com ressecção distal da clavícula",
+          "Instabilidade horizontal residual: grau III não cirúrgico com ruptura completa do disco fibrocartilagíneo",
+          "Migração de implante (pino liso): contraindicado em AC por risco de migração fatal para mediastino",
+          "Ossificação CC: comum após graus III/IV; raramente sintomática",
+          "Lesão neurovascular (EC posterior): compressão de traqueia, esôfago, vasos subclávios — redução urgente",
+          "Recorrência de instabilidade EC: tecido frouxo em jovens skeletalmente imaturos",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "fratura-escapula",
+        titulo: "Fraturas da Escápula",
+        subtitulo: "Rockwood & Green cap. 33",
+        epidemiologia:
+          "< 1% de todas as fraturas; 3–5% das fraturas do ombro. Alta energia em 90% dos casos (colisão veicular, pedestre atropelado, queda de altura). Pico em homens de 35–45 anos. 80–90% apresentam lesões associadas: costelas (54%), pneumotórax (38%), plexo braquial (5–10%), lesão vascular subclávia.",
+        classificacao: [
+          {
+            sistema: "Por localização (Euler & Rüedi)",
+            itens: [
+              "Corpo da escápula – Mais comum; frequentemente sem desvio significativo",
+              "Espinha da escápula",
+              "Glenóide (intra-articular) – Classificação de Ideberg",
+              "Colo da escápula – Avaliado pelo GPA (glenopolar angle)",
+              "Acrômio – Ogawa (I: póstero-lateral; II: ântero-medial; III: acrômio+espinha)",
+              "Coracoide – Ogawa (I: anterior à ligamentação CC; II: posterior)",
+            ],
+          },
+          {
+            sistema: "Ideberg (glenóide)",
+            itens: [
+              "Tipo I – Avulsão da borda anterior (mais comum, associada a luxação)",
+              "Tipo II – Linha oblíqua ínfero-medial",
+              "Tipo III – Superior envolvendo a base do coracoide",
+              "Tipo IV – Linha horizontal completa",
+              "Tipo V – Combinações (II+III, II+IV, III+IV)",
+            ],
+          },
+        ],
+        mecanismo:
+          "Alta energia direta ao dorso (impacto, esmagamento) → fratura do corpo. Translação da cabeça umeral contra a glenóide → fratura da borda (associada a luxação). Contração muscular violenta (convulsão elétrica, epilepsia) → fratura do corpo ou avulsão. Floating shoulder = fratura de colo da escápula + clavícula ipsilateral.",
+        tx_cirurgico: [
+          "Corpo: desvio mediolateral ≥2 cm ou GPA ≤22–30° → RAFI via acesso de Judet (posterior)",
+          "Glenóide intra-articular: passo articular ≥2 mm + >25% da superfície ou instabilidade glenoumeral",
+          "Colo da escápula com floating shoulder: fixação da clavícula estabiliza indiretamente a escápula",
+          "Fratura do coracoide com instabilidade AC associada → fixação percutânea ou aberta",
+          "Acrômio com compressão do manguito rotador → fixação ou ressecção do fragmento",
+        ],
+        tx_nao_cirurgico: [
+          "Maioria das fraturas do corpo sem desvio significativo → tipoia + mobilização precoce (10–14 dias)",
+          "Fraturas de acrômio sem compressão → tipoia 4–6 semanas",
+          "Floating shoulder assintomático com parâmetros dentro do limiar → conservador com vigilância",
+          "Fisioterapia progressiva para evitar rigidez (principal complicação do tratamento conservador)",
+        ],
+        cirurgias: [
+          "Acesso de Judet (posterior): exposição do corpo e colo da escápula",
+          "Acesso deltopeitoral: glenóide anterior (Ideberg I e II anteriores)",
+          "Duplo acesso (anterior + posterior): fraturas glenóideas complexas",
+          "Fixação da clavícula ipsilateral: estabiliza floating shoulder indiretamente",
+        ],
+        complicacoes: [
+          "Rigidez do ombro: principal sequela do tratamento conservador — mobilização precoce é essencial",
+          "Lesão do nervo supraescapular: no acesso posterior (notch supraescapular) — avaliar com EMG",
+          "Escápula alada: lesão do nervo torácico longo associada ao trauma inicial",
+          "Plexopatia braquial: lesão associada em 5–10% — determina prognóstico funcional",
+          "Pseudoartrose do corpo: rara; mais comum em fraturas cominutivas não tratadas cirurgicamente",
+          "Artrose glenoumeral tardia: fraturas intra-articulares da glenóide com passo residual",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
     ],
   },
   {
@@ -2070,6 +2186,431 @@ const REGIOES: Regiao[] = [
           "TEP/TVP: anticoagulação profilática obrigatória — risco elevado por imobilização + trauma pélvico",
           "Infecção profunda (2–5%): grave — lavagem + remoção do material se necessário",
           "Falha do implante: mal-redução + cominutiva → conversão para ATQ",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+    ],
+  },
+  {
+    id: "principios-gerais",
+    label: "Princípios Gerais e Complicações",
+    topicos: [
+      {
+        id: "fraturas-abertas",
+        titulo: "Fraturas Abertas",
+        subtitulo: "Rockwood & Green cap. 16",
+        epidemiologia:
+          "~11% das fraturas do membro inferior em trauma de alta energia. Tíbia = osso mais acometido pela fratura aberta; maior incidência de Grau III. Infecção é a complicação mais temida e determinante de prognóstico.",
+        classificacao: [
+          {
+            sistema: "Gustilo-Anderson",
+            itens: [
+              "Grau I – Ferida <1 cm, limpa, baixa energia; contaminação mínima",
+              "Grau II – Ferida 1–10 cm, contaminação moderada, sem dano extenso de partes moles",
+              "Grau IIIA – Ferida >10 cm, alta energia; cobertura óssea adequada de partes moles",
+              "Grau IIIB – Desnudamento periostal com necessidade de retalho para cobertura",
+              "Grau IIIC – Lesão vascular associada que requer reparo arterial para preservar o membro",
+            ],
+          },
+        ],
+        mecanismo:
+          "Trauma de alta energia (colisão veicular, esmagamento, projétil) com penetração da pele por fragmento ósseo ou objeto externo. Contaminação bacteriana imediata — principal diferença biológica em relação às fraturas fechadas.",
+        tx_cirurgico: [
+          "Todas as fraturas abertas requerem desbridamento cirúrgico urgente, independentemente do grau",
+          "Grau IIIB/C → fixador externo como estabilização temporária (damage control ortopédico)",
+          "Grau II e IIIA tibial → haste intramedular bloqueada como fixação definitiva após desbridamento",
+          "Membro superior → placa como fixação preferencial",
+          "Grau IIIC → reparo vascular emergencial (com cirurgia vascular); fasciotomia profilática obrigatória",
+        ],
+        tx_nao_cirurgico: [
+          "Não existe tratamento conservador definitivo — toda fratura aberta exige desbridamento cirúrgico",
+          "Antibioticoterapia IV profilática ≤1h do trauma (idealmente pré-hospitalar): Grau I/II → cefalosporina 1ª geração; Grau III → adicionar aminoglicosídeo; contaminação por solo/fazenda → adicionar penicilina G",
+          "Tipoia/tala como imobilização provisória no campo — não substitui cirurgia",
+          "NPWT (curativo a vácuo) como ponte para fechamento tardio — não como tratamento definitivo de partes moles",
+        ],
+        cirurgias: [
+          "Desbridamento radical: remoção de todos tecidos necróticos/contaminados — viabilidade muscular pelos 4 Cs (cor, contratilidade, consistência, capacidade de sangramento)",
+          "Fechamento primário tardio (24–72h): preferido ao fechamento primário imediato na maioria dos casos",
+          "Retalho miocutâneo local ou livre (microcirurgia): cobertura definitiva no Grau IIIB",
+          "Haste intramedular bloqueada: padrão-ouro para diáfise tibial Grau II/IIIA",
+          "Fixador externo: controle de dano em Grau IIIB/C — conversão para fixação definitiva em 7–14 dias",
+        ],
+        complicacoes: [
+          "Infecção profunda/osteomielite: Grau I ~1%, II ~2%, IIIA 5–10%, IIIB 10–50%, IIIC >50%",
+          "Não-união: frequente em Grau III por perda de vascularização óssea",
+          "Síndrome compartimental aguda: frequente nas fraturas tibiais de alta energia — fasciotomia profilática a critério",
+          "Perda de membro: Grau IIIC com isquemia prolongada ou falha do reparo vascular",
+          "Retardo de fechamento: infecção da ferida, déficit nutricional, tabagismo",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "sindrome-compartimental",
+        titulo: "Síndrome Compartimental Aguda",
+        subtitulo: "Rockwood & Green cap. 17",
+        epidemiologia:
+          "Incidência: 7,3/100.000/ano. Diáfise tibial = causa mais frequente (seguida de trauma de partes moles e antebraço). Predomina em homens jovens. Risco elevado em: fratura tibial de alta energia, fratura femoral, politrauma, anestesia regional (mascara dor — diagnóstico tardio).",
+        classificacao: [
+          {
+            sistema: "Por temporalidade",
+            itens: [
+              "Aguda – Emergência cirúrgica; irreversível após 6–8h sem tratamento",
+              "Crônica de esforço – Atletas; dor durante exercício que cessa com repouso; fasciotomia eletiva",
+              "Síndrome de Volkmann – Sequela de SCA não tratada: contratura fibrótica músculo-nervosa",
+            ],
+          },
+        ],
+        mecanismo:
+          "Aumento de pressão no compartimento fascial fechado → colapso de capilares → isquemia neuromuscular. ΔP = Pressão diastólica − Pressão compartmental. Causas: fratura, esmagamento, queimadura, curativo compressivo excessivo, rabdomiólise, reperfusão.",
+        tx_cirurgico: [
+          "Fasciotomia de urgência: pressão compartmental >30 mmHg OU ΔP <30 mmHg (Whitesides)",
+          "Perna: 2 incisões longitudinais (lateral longa + medial) com descompressão de todos os 4 compartimentos",
+          "Antebraço: fasciotomia volar de Henry (compartimento volar) + dorsal de Thompson (compartimento dorsal)",
+          "Mão: fasciotomias dorsais (entre metacarpais) + liberação do canal do carpo se necessário",
+          "Fechamento tardio das feridas 48–72h após resolução do edema ± enxerto de pele",
+        ],
+        tx_nao_cirurgico: [
+          "Diagnóstico confirmado → fasciotomia imediata; não há tratamento conservador eficaz",
+          "Remoção imediata de todos os curativos compressivos, gessos ou ataduras circulares",
+          "Posicionamento do membro em posição neutra (não elevar acima do coração — reduz perfusão)",
+          "Monitorização contínua da pressão compartmental nas primeiras 24–48h após trauma de alto risco",
+        ],
+        cirurgias: [
+          "Fasciotomia 4 compartimentos da perna: incisão lateral (anterior + lateral) + incisão medial (posterior superficial + profundo)",
+          "Fechamento primário tardio ou enxerto de pele parcial das feridas de fasciotomia",
+          "Liberação de Volkmann (fibrose estabelecida): ressecção de músculo inviável + neurólise do mediano",
+        ],
+        complicacoes: [
+          "Contratura de Volkmann: necrose muscular com fibrose → deformidade em garra de mão/pé (diagnóstico tardio)",
+          "Neuropatia permanente: nervo fibular (déficit dorsiflexão) e mediano/ulnar no antebraço",
+          "Síndrome de reperfusão pós-fasciotomia: hipercalemia, rabdomiólise, insuficiência renal aguda",
+          "Infecção das feridas de fasciotomia: exposição prolongada — requer cobertura precoce",
+          "Falso-negativo clínico: anestesia regional ou sedação mascaram a dor — monitorização da pressão é mandatória",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "fraturas-estresse",
+        titulo: "Fraturas por Estresse",
+        subtitulo: "Rockwood & Green cap. 24",
+        epidemiologia:
+          "~10% das lesões esportivas. Predominam em militares de infantaria (marcha), corredoras de longa distância e ginastas. Tríade da Atleta Feminina (baixa disponibilidade energética + disfunção menstrual + baixa DMO) aumenta o risco 3–5×.",
+        classificacao: [
+          {
+            sistema: "Por risco de complicação",
+            itens: [
+              "Alto risco (cirurgia se deslocada ou falha conservadora): colo femoral face de tensão/superior, córtex anterior da tíbia ('dreaded black line'), navicular, 5ª metatarso base (Jones), maléolo medial, patela, sesamoides do hálux",
+              "Baixo risco (conservador): face posteromedial da tíbia, fíbula, metatarsos 2–4, calcâneo, costelas",
+            ],
+          },
+          {
+            sistema: "Imagem (MRI — graus de Fredericson)",
+            itens: [
+              "Grau I – Edema periosteal em STIR; sem linha fratura",
+              "Grau II – Edema cortical",
+              "Grau III – Edema medular",
+              "Grau IV – Linha de fratura visível na T2",
+            ],
+          },
+        ],
+        mecanismo:
+          "Sobrecarga cíclica repetitiva sem recuperação adequada → microfraturas acumuladas com falha da remodelação óssea. Rx normal nos primeiros 2–6 semanas → cintilografia (sensível) → RNM (padrão-ouro para gradeamento).",
+        tx_cirurgico: [
+          "Alto risco com deslocamento ou falha do conservador após 6–8 semanas",
+          "Colo femoral face de tensão deslocada → RAFI urgente (parafusos DHS ou haste cefalomedular)",
+          "Córtex anterior da tíbia → haste intramedular bloqueada",
+          "Navicular → parafuso de compressão percutâneo ± enxerto",
+          "Jones (zona II-III do 5º metatarso) → parafuso intramedular + enxerto ósseo (alta taxa de não-união sem cirurgia)",
+        ],
+        tx_nao_cirurgico: [
+          "Baixo risco → repouso relativo + descarga protegida 6–8 semanas + modificação de atividade",
+          "Alto risco não deslocado → imobilização rígida + sem carga por 6–8 semanas + reavaliação com RNM",
+          "Suplementação de cálcio e vitamina D + avaliação endocrinológica na Tríade da Atleta Feminina",
+          "Retorno ao esporte gradual somente após resolução clínica e radiológica (>50% de calo indica cura)",
+        ],
+        cirurgias: [
+          "Haste intramedular bloqueada tibial: córtex anterior (IM nail resolve instabilidade cíclica)",
+          "Parafuso percutâneo navicular: fixação de compressão + imobilização 6 semanas",
+          "Parafuso intramedular Jones (5° metatarso): parafuso sólido 4,5mm + enxerto autólogo (alta reincidência sem enxerto)",
+          "Parafusos de compressão (colo femoral não deslocado, face de tensão): 2–3 parafusos ântero-superiores",
+        ],
+        complicacoes: [
+          "Fratura completa deslocada: principal risco do tratamento tardio nas lesões de alto risco",
+          "Não-união: navicular e Jones — vascularização limítrofe; enxerto ósseo geralmente necessário",
+          "Necrose avascular: navicular (NTA) e colo femoral (NCF) em fraturas não diagnosticadas",
+          "Recidiva: por não correção dos fatores de risco (treino excessivo, Tríade, baixa DMO)",
+          "Síndrome compartimental crônica: confundida clinicamente com fratura por estresse tibial",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "fraturas-patologicas",
+        titulo: "Fraturas Patológicas",
+        subtitulo: "Rockwood & Green cap. 25",
+        epidemiologia:
+          "~300.000 fraturas patológicas/ano nos EUA. Metástases ósseas superam tumores primários em frequência. Câncer de mama (lítico/blástico), próstata (blástico), pulmão (lítico) e renal (lítico, hipervascular) = principais primários. Coluna > pelve > fêmur proximal > úmero proximal.",
+        classificacao: [
+          {
+            sistema: "Escore de Mirels (fratura iminente do membro)",
+            itens: [
+              "Variáveis: localização (MS/MI/peritroc) + natureza da lesão (blástica/mista/lítica) + tamanho (<1/3, 1/3–2/3, >2/3 da cortical) + dor (leve/moderada/funcional)",
+              "Score ≥9 → fixação profilática indicada",
+              "Score 7–8 → individualizar conforme prognóstico e performance status",
+              "Score ≤6 → tratamento conservador (RT isolada ou sistêmico)",
+            ],
+          },
+          {
+            sistema: "Critérios de fratura iminente",
+            itens: [
+              "Destruição cortical >50%",
+              "Lesão lítica >2,5 cm no fêmur proximal",
+              "Dor funcional persistente após RT",
+              "Avulsão do trocânter menor (patognomônico de metástase)",
+            ],
+          },
+        ],
+        mecanismo:
+          "Fragilização óssea por destruição cortical lítica (metástases) ou invasão medular → falha por carga fisiológica normal. Lesões hipervascularizadas (carcinoma de células renais) → sangramento maciço intraoperatório sem embolização prévia.",
+        tx_cirurgico: [
+          "Mirels ≥9 ou destruição cortical >50% ou dor funcional persistente → fixação profilática antes da fratura",
+          "Diáfise → haste intramedular de toda a diáfise (não apenas no segmento acometido)",
+          "Periarticular → artroplastia (ATQ ou ATU com haste longa cimentada) + cimento para preenchimento de cavidades",
+          "Vertebral → cimentoplastia percutânea (cifoplastia), fixação transpedicular + adjuvante RT 30 Gy",
+          "Metástases hipervasculares (renal, tireoide) → embolização angiográfica 24–48h pré-op",
+        ],
+        tx_nao_cirurgico: [
+          "Mirels ≤6 → RT local (30 Gy em 10 frações) para controle da dor e prevenção de progressão",
+          "Bifosfonatos (ácido zoledrônico) ou denosumab → reduzem eventos esqueléticos",
+          "Lesões blásticas pequenas sem fratura iminente → tratamento sistêmico oncológico",
+          "Colar cervical ou colete para lesões vertebrais estáveis sem déficit neurológico",
+        ],
+        cirurgias: [
+          "Haste anterógrada de fêmur total cimentada: fratura patológica diafisária (toda a haste para proteger o fêmur inteiro)",
+          "ATQ com haste longa cimentada: fratura pertrocantérica ou colo femoral patológico",
+          "Artroplastia proximal de úmero: fratura patológica do úmero proximal irreconstruível",
+          "Cimentação cavitária com placa: lesão lítica isolada com osso residual suficiente",
+        ],
+        complicacoes: [
+          "Falha do implante por progressão tumoral: haste ou placa insuficiente sem cimentação adequada",
+          "Sangramento maciço intraoperatório: metástases de carcinoma renal — embolização pré-op obrigatória",
+          "Infecção: imunossupressão por quimioterapia e radioterapia prévia",
+          "TEP/TVP: estado pró-trombótico oncológico + imobilização",
+          "Recidiva local: RT pós-op (30 Gy) reduz recorrência local mesmo após fixação",
+          "Avulsão do trocânter menor: sinal de alerta de fratura iminente — encaminhar urgente para oncologia ortopédica",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "tev-trauma",
+        titulo: "Tromboembolismo Venoso no Trauma",
+        subtitulo: "Rockwood & Green cap. 26",
+        epidemiologia:
+          "TVP ocorre em 40–80% dos pacientes com trauma maior sem profilaxia. EP fatal em ~0,5% do trauma grave. Risco máximo nas primeiras 2 semanas; persiste por 2–3 meses. Fratura pélvica, fratura de fêmur e lesão raquimedular = fatores de maior risco. 37% dos EP sintomáticos ocorrem nos primeiros 4 dias.",
+        classificacao: [
+          {
+            sistema: "Tríade de Virchow (fisiopatologia)",
+            itens: [
+              "Estase venosa – Imobilização por fratura ou cirurgia",
+              "Lesão endotelial – Trauma direto + inflamação sistêmica",
+              "Hipercoagulabilidade – PAI-1 elevado (reduz fibrinólise), ATIII reduzida, estado pró-trombótico pós-trauma",
+            ],
+          },
+          {
+            sistema: "Profilaxia farmacológica",
+            itens: [
+              "HBPM (enoxaparina) – Preferida no trauma ortopédico; iniciar <24h se hemostasia adequada",
+              "Rivaroxabana – Alternativa oral (especialmente pós-hospitalar)",
+              "HNF – Usada quando anticoagulação precisa ser revertida rapidamente",
+              "Fondaparinux – Opção em pacientes com TIH",
+            ],
+          },
+        ],
+        mecanismo:
+          "Estado pró-trombótico pós-trauma sistêmico: lesão endotelial, PAI-1 elevado (↓ fibrinólise), ATIII reduzida (↑ trombose). Trauma → resposta inflamatória → coagulopatia paradoxal (inicialmente hipocoagulável nas primeiras horas → depois hipercoagulável).",
+        tx_cirurgico: [
+          "Filtro de veia cava inferior (VCI) recuperável: contraindicação à anticoagulação (hemorragia intracraniana ativa, trauma hepático/esplênico grave) + alto risco de EP",
+          "Remover filtro VCI tão logo a contraindicação seja resolvida (filtros permanentes aumentam risco de trombose em longo prazo)",
+          "Trombectomia ou trombolítico cateter-directed: EP maciço com instabilidade hemodinâmica refratária",
+        ],
+        tx_nao_cirurgico: [
+          "HBPM = primeira linha para trauma ortopédico; iniciar <24h do trauma se hemostasia adequada",
+          "Compressão pneumática intermitente (CPI): quando anticoagulação é contraindicada; iniciar imediatamente",
+          "Manter anticoagulação por mínimo 35 dias em fratura de fêmur proximal/artroplastia (ACCP 2012/AHA)",
+          "Mobilização precoce e deambulação como complemento farmacológico — não substitui anticoagulante",
+          "Screening de TVP com eco Doppler: apenas em pacientes de altíssimo risco sem profilaxia adequada",
+        ],
+        cirurgias: [
+          "Inserção percutânea de filtro VCI recuperável: preferir jugular interna ou femoral contralateral",
+          "Trombectomia cirúrgica aberta: rara; EP maciço com falha da terapia trombolítica",
+        ],
+        complicacoes: [
+          "EP fatal: principal causa de morte evitável no trauma ortopédico",
+          "Síndrome pós-trombótica: dor crônica, edema e úlceras venosas após TVP extensa",
+          "Sangramento por anticoagulação: risco-benefício deve ser reavaliado diariamente no trauma agudo",
+          "Trombose do filtro VCI: filtros permanentes aumentam risco de TVP em longo prazo",
+          "Hipertensão pulmonar tromboembólica crônica (HTPTEC): sequela de EP não resolvido",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "srdc",
+        titulo: "Síndrome Regional Complexa de Dor (SRDC / CRPS)",
+        subtitulo: "Rockwood & Green cap. 27",
+        epidemiologia:
+          "Incidência: 5–26/100.000/ano (variação por critérios diagnósticos). Mulheres > homens (3:1). Pico na 5ª–6ª década. Principal desencadeante no trauma ortopédico: fratura do rádio distal, seguida de fratura de tornozelo e procedimentos cirúrgicos.",
+        classificacao: [
+          {
+            sistema: "IASP (tipo)",
+            itens: [
+              "CRPS Tipo I – Sem lesão nervosa identificável (antigo: distrofia simpático-reflexa)",
+              "CRPS Tipo II – Com lesão nervosa identificável (antigo: causalgia)",
+            ],
+          },
+          {
+            sistema: "Critérios de Budapeste (diagnóstico clínico positivo)",
+            itens: [
+              "≥1 sintoma em ≥3 das 4 categorias: sensorial (alodinia/hiperalgesia), vasomotor (diferença de temperatura/cor), sudomotor/edema, motor/trófico",
+              "≥1 sinal ao exame em ≥2 categorias",
+              "Sem outro diagnóstico que explique melhor os sintomas",
+            ],
+          },
+        ],
+        mecanismo:
+          "Sensibilização central e periférica desproporcional ao estímulo inicial. Inflamação neurogênica (neuropeptídeos), disfunção autonômica, e imobilização/disuse como perpetuadores. Não é diagnóstico de exclusão — é diagnóstico clínico positivo pelos critérios de Budapeste.",
+        tx_cirurgico: [
+          "Raramente indicado — cirurgia pode perpetuar ou agravar a SRDC",
+          "Amputação: último recurso em casos refratários com dor absolutamente incapacitante após avaliação multidisciplinar rigorosa (resultados imprevisíveis — pode manter ou piorar a síndrome)",
+          "Neuroestimulação medular (NEM): indicada em SRDC refratária de Tipo I; reduz dor e melhora qualidade de vida",
+        ],
+        tx_nao_cirurgico: [
+          "Fisioterapia orientada ao movimento progressivo (PEPT — Pain Exposure Physical Therapy) = tratamento de primeira linha",
+          "Analgesia multimodal: AINEs, gabapentina/pregabalina, amitriptilina, opioides com cautela",
+          "Bifosfonatos IV (pamidronato, clodronato): reduzem edema e dor — evidência de qualidade moderada",
+          "Bloqueio simpático (gânglio estrelado, cadeia lombar): evidência limitada; não deve ser repetido sem resposta",
+          "Abordagem multidisciplinar obrigatória: fisiatria, psicologia, anestesiologia da dor, ortopedia",
+        ],
+        cirurgias: [
+          "Neuroestimulação medular percutânea: eletrodo epidural cervical (MS) ou lombar (MI); aprovada como 2ª linha",
+          "Simpatectomia (raramente): benefício controverso; indicação cada vez mais restrita",
+        ],
+        complicacoes: [
+          "Dor crônica incapacitante: principal sequela; impacto grave na qualidade de vida e capacidade laboral",
+          "Rigidez articular e atrofia muscular progressiva: por imobilidade e disuse",
+          "Osteoporose regional (Sudeck): desmineralização focal por desuso — fraturas por fragilidade",
+          "Impacto psicossocial grave: ansiedade, depressão, isolamento social, afastamento laboral",
+          "Amputação com persistência da síndrome: risco de dor no membro fantasma e SRDC recorrente no coto",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "osteomielite",
+        titulo: "Osteomielite e Infecções Ortopédicas",
+        subtitulo: "Rockwood & Green cap. 29",
+        epidemiologia:
+          "Nativa: 4–10/100.000/ano (países ocidentais). FRI pós-traumática: 1% em fraturas simples a >30% em fraturas abertas graves da tíbia. S. aureus = patógeno mais frequente (incluindo MRSA ~30–40%). Biofilme = principal mecanismo de resistência e persistência.",
+        classificacao: [
+          {
+            sistema: "Cierny-Mader (estágio anatômico)",
+            itens: [
+              "Estágio I – Medular (hematogênica; foco endomedular)",
+              "Estágio II – Superficial (contiguidade; córtex exposto)",
+              "Estágio III – Localizado (córtex + medular segmento estável)",
+              "Estágio IV – Difuso (instável; requer ressecção e reconstrução)",
+            ],
+          },
+          {
+            sistema: "Cierny-Mader (hospedeiro)",
+            itens: [
+              "Hospedeiro A – Normal; boa capacidade de cura",
+              "Hospedeiro B – Comprometido: local (BL: isquemia, cicatriz) ou sistêmico (BS: DM, imunossupressão, tabagismo)",
+              "Hospedeiro C – Cirurgia de risco maior que a doença; tratamento supressivo preferido",
+            ],
+          },
+        ],
+        mecanismo:
+          "Hematogênica (crianças: metáfise com loops capilares lentos; adultos: vértebras e pacientes imunossuprimidos). Pós-traumática/iatrogênica (FRI: inoculação direta intraoperatória). Por contiguidade (úlcera diabética, isquemia). Biofilme: matriz extracelular protetora impede antibióticos e fagocitose.",
+        tx_cirurgico: [
+          "Desbridamento cirúrgico: ressecção completa de sequestros, tecido necrótico e biofilme — pilar do tratamento",
+          "Antibiótico local: cimento PMMA com vancomicina/gentamicina (espaçador) ou sulfato de cálcio biodegradável",
+          "Técnica de Masquelet (2 tempos): 1° implante de cimento → membrana induzida; 2° enxerto de crista ilíaca dentro da membrana",
+          "Transporte ósseo (Ilizarov/Taylor Spatial Frame): defeitos ósseos >2–3 cm após ressecção",
+          "Artrodese: osteomielite difusa irreconstruível em articulação comprometida",
+        ],
+        tx_nao_cirurgico: [
+          "Antibioticoterapia sistêmica IV 4–6 semanas: S. aureus sensível → oxacilina/cefazolina; MRSA → vancomicina ou daptomicina",
+          "Rifampicina: sempre associada para biofilme de S. aureus (nunca em monoterapia)",
+          "Raramente suficiente como único tratamento — quase sempre associada ao desbridamento cirúrgico",
+          "Hospedeiro C (cirurgia de risco proibitivo): antibioticoterapia supressiva oral crônica (baixa dose) para controle sintomático",
+        ],
+        cirurgias: [
+          "Técnica de Masquelet: padrão para reconstrução de defeitos ósseos após ressecção de foco infeccioso",
+          "Transporte ósseo por fixador externo (Ilizarov): defeitos grandes (>5 cm) — corticotomia + distração lenta 1 mm/dia",
+          "Cimento PMMA com antibiótico local: espaçador temporário + concentração local 100× superior ao sistêmico",
+          "Retalho muscular vascularizado: preenchimento de espaço morto após desbridamento — gastrocnêmio, sóleo, latíssimo",
+        ],
+        complicacoes: [
+          "Recorrência: principal falha do tratamento — biofilme residual; associada a desbridamento incompleto",
+          "Fratura patológica: enfraquecimento ósseo por osteólise ou após ressecção de sequestro",
+          "Não-união séptica: infecção ativa impede consolidação — tratamento em 2 tempos (desbridamento → reconstrução)",
+          "Amputação: osteomielite difusa (Cierny-Mader IV) em hospedeiro C refratário",
+          "Toxicidade antibiótica: nefrotoxicidade (vancomicina), ototoxicidade (aminoglicosídeos) — monitorizar níveis séricos",
+          "Deformidade pós-Ilizarov: angulação, discrepância de comprimento, fratura após remoção do anel",
+        ],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+      },
+      {
+        id: "nao-uniao",
+        titulo: "Não-União e Defeitos Ósseos",
+        subtitulo: "Rockwood & Green cap. 30",
+        epidemiologia:
+          "Definição: falha de consolidação após tempo esperado (>6–8 meses) sem potencial de cura espontânea. Incidência varia por localização: tíbia diafisária 2–5%, escafoide 5–15%, colo femoral sem fixação adequada até 30%. Principais fatores: tabagismo (↑ risco 2×), DM, infecção, má-redução, instabilidade do implante.",
+        classificacao: [
+          {
+            sistema: "Por atividade biológica (Weber & Cech)",
+            itens: [
+              "Hipertrófica ('pata de elefante'): calo exuberante sem ponte → instabilidade mecânica; boa biologia",
+              "Oligotrófica: calo mínimo → instabilidade + biologia intermediária",
+              "Atrófica/avascular: ausência de calo → biologia ruim (diabetes, RT prévia, tabagismo, necrose óssea)",
+              "Pseudoartrose: neoarticulação com cápsula fibrosa; mobilidade anormal no foco",
+            ],
+          },
+          {
+            sistema: "Por infecção",
+            itens: [
+              "Asséptica – Sem infecção ativa",
+              "Séptica – Com infecção ativa: tratamento prioritário antes da reconstrução",
+            ],
+          },
+        ],
+        mecanismo:
+          "Instabilidade mecânica (principal causa: implante inadequado, carga precoce), biologia deficiente (vascularização, fatores sistêmicos), infecção ativa, interposição de partes moles no foco, espaço interfragmentário excessivo. Tabagismo inibe angiogênese e diferenciação celular via nicotina.",
+        tx_cirurgico: [
+          "Hipertrófica → estabilização rígida com placa de compressão ± troca de haste (sem necessidade de enxerto na maioria)",
+          "Atrófica → desbridamento dos topos ósseos + enxerto autólogo (crista ilíaca = padrão-ouro) + BMP-2 (rhBMP-2) + fixação estável",
+          "Séptica → desbridamento radical + cimento com antibiótico → reconstrução em 2° tempo após erradicação da infecção",
+          "Técnica de Masquelet (2 tempos): defeitos ≥2–3 cm após ressecção",
+          "Transporte ósseo (Ilizarov): defeitos grandes (>5 cm) com encurtamento",
+        ],
+        tx_nao_cirurgico: [
+          "LIPUS (ultrassom pulsado de baixa intensidade): evidência moderada para não-uniões de baixo risco e esforço",
+          "Estimulação elétrica (PEMF): opção não invasiva — evidência limitada para fraturas de alto risco",
+          "Correção obrigatória de fatores modificáveis: suspensão do tabagismo, controle glicêmico (HbA1c <7%), suspensão de AINHs e corticoides",
+          "Suplementação de vitamina D e cálcio em pacientes deficientes",
+        ],
+        cirurgias: [
+          "Troca de haste (exchange nailing): diáfise tibial ou femoral — remove haste atual e substitui por maior diâmetro + decorticação",
+          "Decorticação de Judet + placa de compressão: não-uniões atróficas de ossos de médio porte",
+          "Técnica de Masquelet: 2 tempos (espaçador PMMA → membrana → enxerto ósseo autólogo)",
+          "Transporte ósseo por fixador externo: único método que regenera osso e corrige encurtamento simultaneamente",
+          "Osteotomia de correção: não-uniões com deformidade angular significativa (malunião-não-união)",
+        ],
+        complicacoes: [
+          "Falha do implante de revisão: especialmente em atrófica/séptica — requerer múltiplas intervenções",
+          "Recorrência de não-união: fatores não corrigidos (tabagismo, diabetes, infecção) → nova falha",
+          "Discrepância de comprimento: após transporte ósseo ou ressecção de sequestro",
+          "Infecção da ferida operatória: dehiscência em hospedeiro comprometido (diabético, irradiado)",
+          "Morbidade do sítio doador: dor crônica, hematoma e lesão nervosa no sítio da crista ilíaca (~25% em séries)",
+          "Rigidez articular e atrofia muscular: imobilização prolongada em não-uniões de longa evolução",
         ],
         fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
       },
