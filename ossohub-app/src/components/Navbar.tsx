@@ -7,7 +7,7 @@ import {
   Home, Compass, Users, Bell, User, Menu, X, LogOut, Pencil, ClipboardList,
   CalendarClock, PieChart, Users2, MessagesSquare, Plus,
   Pill, FileText, StickyNote, LayoutGrid, Route, HandMetal, Calculator,
-  GitBranch, FileType, Baby, Brain, BookOpen, BookText,
+  GitBranch, FileType, Baby, Brain, BookOpen, BookText, Bone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -265,6 +265,7 @@ export function Navbar() {
               <div className="space-y-1.5">
                 {[
                   { href: "/referencia/ortopedia-adulto", label: "Ortopedia Adulto", Icon: BookOpen },
+                  { href: "/visualizador-3d.html", label: "Anatomia 3D", Icon: Bone },
                 ].map(({ href, label, Icon }) => {
                   const active = pathname.startsWith(href);
                   return (

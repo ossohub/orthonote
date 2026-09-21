@@ -6,7 +6,7 @@ import {
   Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
   HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
   CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench, Brain,
-  BookOpen, BookText,
+  BookOpen, BookText, Bone,
 } from "lucide-react";
 import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
 import { cn } from "@/lib/utils";
@@ -113,6 +113,7 @@ export function Sidebar() {
           <div className="space-y-1">
             {[
               { href: "/referencia/ortopedia-adulto", label: "Ortopedia Adulto", Icon: BookOpen },
+              { href: "/visualizador-3d.html", label: "Anatomia 3D", Icon: Bone },
             ].map(({ href, label, Icon }) => {
               const active = pathname.startsWith(href);
               return (
