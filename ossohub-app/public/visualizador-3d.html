@@ -81,6 +81,10 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
 .cls-item details[open] summary::after{transform:rotate(90deg)}
 .cls-item ul{margin:0;padding:4px 12px 10px 22px;list-style:disc;display:flex;flex-direction:column;gap:4px}
 .cls-item li{font-size:12px;line-height:1.45;color:var(--ink)}
+.regions{display:flex;flex-wrap:wrap;gap:6px}
+.regions button{font:500 13px var(--body);color:var(--accent);background:none;border:1px solid var(--accent);border-radius:999px;padding:5px 13px;cursor:pointer}
+.regions button:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.regions button.on{background:var(--accent);color:var(--accent-ink)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips span{font-size:12.5px;font-weight:500;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:3px 10px}
 .credit{font-size:12px;color:var(--muted);margin:0;max-width:80ch}
@@ -116,6 +120,10 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
       <section>
         <p class="label">Ossos · comprimento medido na malha</p>
         <ul class="bones" id="bones"></ul>
+      </section>
+      <section>
+        <p class="label">Outras regiões · classificações</p>
+        <div class="regions" id="regions"></div>
       </section>
       <section class="card" id="card" aria-live="polite"></section>
     </div>
@@ -157,9 +165,43 @@ const INFO={
     {sistema:"Lauge-Hansen (mecanismo + sequência de lesão)",itens:["SA (Supinação-Adução): E1 fratura transversa maléolo lateral; E2 + fratura vertical maléolo medial","SE (Supinação-Eversão): mais comum (40–75%); E1 ligamento anterior; E2 fratura oblíqua fíbula (= Weber B); E3 ligamento posterior; E4 maléolo medial","PA (Pronação-Abdução): E1 maléolo medial; E2 ligamentos posteriores; E3 fratura transversa / cominutiva fíbula acima da sindesmose","PE (Pronação-Eversão / Maisonneuve): E1 maléolo medial; E2 ligamentos posteriores; E3 fratura espiral alta da fíbula — proximal (Maisonneuve)"]},
     {sistema:"AO/OTA (44 — tornozelo)",itens:["44-A: fratura infrassindesmal (= Weber A)","44-B: transsindesmal (= Weber B)","44-C: suprassindesmal (= Weber C)","Sufixo 1/2/3: uni, bi ou trimaleolar"]}
   ]}
+,
+  coluna:{nome:"Coluna Vertebral",lat:"Columna vertebralis · C1–L5",txt:"Trinta e três vértebras organizadas em segmentos cervical, torácico, lombar, sacral e coccígeo. Suporte axial do corpo, proteção da medula espinhal e transmissão de carga aos membros inferiores.",cls:[
+    {sistema:"Fraturas Cervicais por Nível (C1–C7)",itens:["Jefferson (C1): burst do atlas — Regra de Spence: deslocamento bilateral >7 mm = lesão do ligamento transverso","Odontóide (C2) Anderson & D'Alonzo: Tipo I (ápice — estável), Tipo II (base do colo — maior risco de não-união), Tipo III (corpo do áxis)","Hangman (C2) Effendi: Tipo I (não deslocada), Tipo II (angulada >3 mm), Tipo IIa (angulada sem deslocamento anterior), Tipo III (luxação facetária bilateral)","C3–C7 burst: compressão axial + retropulsão — risco neurológico direto","Fratura-luxação teardrop: fragmento anteroinferior + lesão ligamentar grave, alto risco de lesão medular"]},
+    {sistema:"AOSpine Cervical (2015)",itens:["A: compressão (A0 contusão a A4 burst completo)","B: distração com falha das bandas de tensão (B1 ósseo posterior, B2 ligamentar posterior, B3 anterior pelo disco)","C: translação/rotação em qualquer plano — maior instabilidade","Grau neurológico N0–N4 + M1 (discoligamentoso), M2 (espondilose), M3 (densidade óssea)"]},
+    {sistema:"AO Magerl — Toracolombar (histórica)",itens:["Tipo A (compressão): A1 cunha, A2 separação, A3 burst — padrão mais frequente","Tipo B (distração): B1 ligamentar posterior, B2 óssea posterior (Fratura de Chance), B3 anterior pelo disco","Tipo C (translação/rotação): alto risco neurológico, maior instabilidade do sistema"]},
+    {sistema:"TLICS — Escala de Classificação e Gravidade Toracolombar",itens:["Morfologia: compressão +1 / burst +2 / translação-rotação +3 / distração +4","Complexo ligamentar posterior (PLC): intacto 0 / suspeito +2 / roto +3","Neurológico: intacto 0 / radiculopatia +2 / medular incompleto ou cauda equina +3 / completo +2","Decisão: ≤3 → conservador; 4 → individualizado; ≥5 → cirurgia"]}
+  ]},
+  ms:{nome:"Membro Superior",lat:"Membrum superius · ombro, braço, antebraço",txt:"Complexo funcional que une escápula, úmero, rádio, ulna e mão. Permite amplitude máxima de movimento para preensão e manipulação. As fraturas do segmento proximal, articular e distal são as mais frequentes.",cls:[
+    {sistema:"Neer — Úmero Proximal (4 partes)",itens:["Tipo I: não deslocada (<1 cm / <45°) — 80% das fraturas, tratamento conservador","Tipo II: 2 partes (colo anatômico, cirúrgico, troquíter ou troquim isolado)","Tipo III: 3 partes com colo cirúrgico mais fragmento deslocado","Tipo IV: 4 partes — risco de necrose avascular 10–34%; artroplastia em idosos","Fratura-luxação: fragmento articular deslocado do arco coracoidal"]},
+    {sistema:"Mason — Cabeça do Rádio",itens:["Tipo I: não deslocada (<2 mm), sem bloqueio — tratamento conservador","Tipo II: fratura parcial deslocada (≥2 mm) — RAFI se >30% superfície articular","Tipo III: cominutiva completa — excisão ou artroplastia da cabeça radial","Tipo IV (Johnston): qualquer Tipo + luxação do cotovelo (Terrible Triad)"]},
+    {sistema:"Regan-Morrey — Coronóide",itens:["Tipo I: ponta da coronóide (<25% da altura) — instabilidade moderada","Tipo II: ≤50% da altura da coronóide — reparo recomendado","Tipo III: >50% — instabilidade grave, reparo obrigatório"]},
+    {sistema:"AO/OTA 23 — Rádio Distal",itens:["23-A: extra-articular (A1 ulnar isolada, A2 rádio simples, A3 rádio cominutiva)","23-B: intra-articular parcial (B1 sagital, B2 dorsal — Barton, B3 volar — Barton volar / Die-punch)","23-C: intra-articular completa (C1 simples/simples, C2 simples/multi, C3 multi/multi)","Instabilidade: desvio dorsal >20°, encurtamento >3 mm, cominuição dorsal, lesão ulnar associada"]}
+  ]},
+  mao:{nome:"Mão",lat:"Manus · metacarpos e falanges",txt:"Vinte e sete ossos — 8 cárpicos, 5 metacarpais e 14 falanges — que permitem preensão fina e de força. Lesões traumáticas requerem avaliação de alinhamento rotacional e estabilidade articular.",cls:[
+    {sistema:"Fraturas dos Metacarpais",itens:["Boxer's fracture (5º metacarpal): fratura do colo com angulação palmar — aceita até 40° no 5º, 30° no 4º","Bennett (AO 2-B1): intra-articular do 1º metacarpal — fragmento volar fixo + subluxação radial pelo abdutor longo polegar","Rolando (AO 2-C): cominutiva intra-articular do 1º metacarpal — pior prognóstico, RAFI ou tração","Diafisária espiral: risco de rotação — avaliar alinhamento ungueal com dedos fletidos a 90°"]},
+    {sistema:"Fraturas das Falanges",itens:["Falange proximal espiral: risco de rotação e sobreposição digital — tração axial ± RAFI","IFP (falange média): fratura-luxação volar — instabilidade se >30–40% da superfície articular posterior","Lesão de Stener (polegar — LCU): avulsão do ligamento colateral ulnar com interposição do adutor — cirurgia obrigatória","Falange distal crush: tratamento conservador; reparo do leito ungueal se laceração presente"]},
+    {sistema:"Escafoide — Herbert / Russe",itens:["Herbert A1/A2 estáveis (tubérculo e fratura de colo não deslocada) — imobilização","Herbert B1–B4 instáveis: oblíqua distal, transversa do colo (70%), proximal, fratura-luxação trans-escafoperilunada","Russe: horizontal oblíqua (estável), transversal, vertical oblíqua (instável — maior risco de AVN)","AVN do polo proximal: risco >30% nas fraturas proximais; RNM para diagnóstico precoce"]}
+  ]},
+  pe:{nome:"Pé",lat:"Pes · tálus, calcâneo, tarso, metatarsos",txt:"O pé transmite carga e absorve impacto através de 26 ossos organizados em arcos longitudinal e transverso. Fraturas do calcâneo, tálus e Lisfranc têm o maior impacto funcional a longo prazo.",cls:[
+    {sistema:"Essex-Lopresti — Calcâneo (1952)",itens:["Língua (tongue-type): extensão linear posterior à tuberosidade — prognóstico cirúrgico mais favorável","Afundamento do tálamo (joint-depression): fragmento articular central deprimido — padrão mais comum (75%)","Ângulo de Böhler: normal 25–40°; <20° sugere envolvimento articular subtalar","Extra-articular (25%): tubérculo, apófise anterior, sustentáculo do tálus — geralmente conservador"]},
+    {sistema:"Sanders TC — Calcâneo",itens:["Tipo I: não deslocada (qualquer número de fragmentos) — tratamento conservador","Tipo II: 2 fragmentos da faceta posterior (IIA lateral, IIB central, IIC medial) — RAFI","Tipo III: 3 fragmentos com afundamento central (IIIAB, IIIAC, IIIBC) — RAFI","Tipo IV: cominutiva (≥4 fragmentos) — RAFI complexa ou artrodese subtalar primária"]},
+    {sistema:"Hawkins — Colo do Tálus",itens:["Tipo I: não deslocada — AVN <10%; imobilização sem carga","Tipo II: subluxação subtalar — AVN 20–50%; RAFI urgente","Tipo III: luxação subtalar + tíbio-talar — AVN 20–100%; emergência cirúrgica","Tipo IV (Canale & Kelly): + luxação talonavicular — AVN quase universal","Sinal de Hawkins (6ª semana): banda subcondral de reabsorção = vascularização preservada (bom prognóstico)"]},
+    {sistema:"Lisfranc — Articulação Tarso-Metatársica",itens:["Homolateral: todos os raios deslocam no mesmo sentido (frequentemente lateral)","Divergente: 1º raio medial + 2–5 laterais — alta instabilidade, lesão ligamentar grave","Isolada: 1 ou 2 raios — mais fácil de passar despercebida","Critério cirúrgico: diástase ≥2 mm entre base 1º–2º metatarsal em carga — RAFI ou artrodese primária"]}
+  ]}
 };
 
 const ORDER=["quadril","femur","patela","tibia","fibula"];
+const REGIONS=["coluna","ms","mao","pe"];
+const RLABELS={coluna:"Coluna vertebral",ms:"Membro superior",mao:"Mão",pe:"Pé"};
+function renderRegions(){
+  const re=$("#regions");if(!re)return;re.innerHTML="";
+  REGIONS.forEach(k=>{
+    const b=document.createElement("button");b.type="button";b.textContent=RLABELS[k];
+    if(k===selected)b.className="on";
+    b.onclick=()=>select(k===selected?null:k);re.appendChild(b);
+  });
+}
 const $=s=>document.querySelector(s);
 const stage=$("#stage"), list=$("#bones"), card=$("#card");
 let selected=null, isolate=false;
@@ -172,10 +214,11 @@ function renderCard(){
     card.innerHTML='<h2>Toque em um osso</h2><p>Cada osso abre um cartão com a descrição anatômica e os principais sistemas de classificação de fraturas. No site, cada sistema leva à página completa de referência.</p>';
     $("#hudName").textContent="—";return;
   }
-  const i=INFO[selected],e=DATA.bones[selected].ext;
+  const i=INFO[selected];
   const clsHtml=i.cls.map(c=>'<div class="cls-item"><details><summary>'+c.sistema+'</summary><ul>'+c.itens.map(it=>'<li>'+it+'</li>').join("")+'</ul></details></div>').join("");
-  card.innerHTML='<div><h2>'+i.nome+'</h2><span class="lat">'+i.lat+'</span></div><p>'+i.txt+'</p>'+
-    '<dl class="dl"><dt>Altura</dt><dd>'+e[1]+' mm</dd><dt>Largura × prof.</dt><dd>'+e[0]+' × '+e[2]+' mm</dd><dt>Malha</dt><dd>'+(meshes[selected].geometry.index.count/3).toLocaleString("pt-BR")+' triângulos</dd></dl>'+
+  const _b=DATA.bones[selected];
+  const _m=_b?'<dl class="dl"><dt>Altura</dt><dd>'+_b.ext[1]+' mm</dd><dt>Largura × prof.</dt><dd>'+_b.ext[0]+' × '+_b.ext[2]+' mm</dd><dt>Malha</dt><dd>'+(meshes[selected].geometry.index.count/3).toLocaleString("pt-BR")+' triângulos</dd></dl>':'';
+  card.innerHTML='<div><h2>'+i.nome+'</h2><span class="lat">'+i.lat+'</span></div><p>'+i.txt+'</p>'+_m+
     '<div><p class="label">Classificações</p><div class="cls-list">'+clsHtml+'</div></div>';
   $("#hudName").textContent=i.nome;
 }
@@ -209,7 +252,7 @@ function apply(){
     m.renderOrder=sel?0:1;
   });
   $("#b-iso").setAttribute("aria-pressed",isolate);
-  renderList();renderCard();needs=true;
+  renderList();renderRegions();renderCard();needs=true;
 }
 function select(k){
   selected=k;
