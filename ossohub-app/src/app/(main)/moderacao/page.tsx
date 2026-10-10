@@ -1,5 +1,7 @@
 "use client";
 
+import { PostImage } from "@/components/PostImage";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Loader2, ShieldCheck, Check, X, Stethoscope, BookOpen, MessageCircle, HelpCircle } from "lucide-react";
@@ -126,8 +128,7 @@ export default function ModeracaoPage() {
                   {post.image_urls.length > 0 && (
                     <div className={`grid gap-2 rounded-xl overflow-hidden mb-3 ${post.image_urls.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
                       {post.image_urls.map((url, i) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img key={i} src={url} alt={`Imagem ${i + 1}`} className="w-full h-auto max-h-72 object-cover rounded-xl" />
+                        <PostImage key={i} src={url} alt={`Imagem ${i + 1}`} className="w-full h-auto max-h-72 object-cover rounded-xl" />
                       ))}
                     </div>
                   )}

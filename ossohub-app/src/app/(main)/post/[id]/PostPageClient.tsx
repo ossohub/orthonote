@@ -1,5 +1,7 @@
 "use client";
 
+import { PostImage } from "@/components/PostImage";
+
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Hammer, MessageSquare, Share2, ArrowLeft, Send, Loader2 } from "lucide-react";
@@ -187,8 +189,7 @@ export function PostPageClient({ post, initialComments, currentUserId }: Props) 
           {post.image_urls.length > 0 && (
             <div className={`grid gap-2 rounded-xl overflow-hidden mb-4 ${post.image_urls.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
               {post.image_urls.map((url, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={i} src={url} alt={`Imagem ${i + 1}`} className="w-full h-auto object-cover rounded-xl" />
+                <PostImage key={i} src={url} alt={`Imagem ${i + 1}`} className="w-full h-auto object-cover rounded-xl" />
               ))}
             </div>
           )}

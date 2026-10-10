@@ -1,5 +1,7 @@
 "use client";
 
+import { PostImage } from "@/components/PostImage";
+
 import Link from "next/link";
 import { useState } from "react";
 import { Hammer, MessageSquare, Share2, Stethoscope, BookOpen, MessageCircle, HelpCircle } from "lucide-react";
@@ -127,8 +129,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
           <div className={`grid gap-2 rounded-xl overflow-hidden ${post.image_urls.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
             {post.image_urls.slice(0, 4).map((url, i) => (
               <div key={i} className="relative aspect-video" style={{ background: "#0A1628" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={url} alt="" className="w-full h-full object-cover" />
+                <PostImage src={url} className="w-full h-full object-cover" />
                 {i === 3 && post.image_urls.length > 4 && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-lg">
                     +{post.image_urls.length - 4}
