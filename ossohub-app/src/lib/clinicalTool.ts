@@ -56,7 +56,7 @@ export const TOOL_GROUPS: ToolGroup[] = [
     label: "Clínica",
     items: [
       { slug: "anamnese",   label: "Anamnese" },
-      { slug: "medicamentos", label: "Medicamentos" },
+      { slug: "medicamentos", label: "Prescrição Pediátrica" },
       { slug: "documentos", label: "Documentos Médicos" },
     ],
   },

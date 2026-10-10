@@ -813,7 +813,7 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
         </button>
         <button class="nav-btn" id="nb-med" onclick="showTab('med')">
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-pill"/></svg></span>
-          Medicamentos
+          Prescrição Pediátrica
         </button>
         <button class="nav-btn" id="nb-doc" onclick="showTab('doc')">
           <span class="nav-ico"><svg width="15" height="15"><use href="#i-rx"/></svg></span>
@@ -971,8 +971,15 @@ footer.app-footer{text-align:center;padding:1rem 1rem calc(1rem + env(safe-area-
       </div>
 
       <!-- ══ TAB: MEDICAMENTOS ══ -->
-      <div id="tab-med" class="tab-content">
-      <div class="container-inner">
+      <div id="tab-med" class="tab-content tab-pdf-full">
+        <iframe id="med-iframe" src="/prescricao-pediatrica.html"
+          style="width:100%;height:100%;border:none;display:block"
+          title="Prescrição Pediátrica"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
+          allow="clipboard-write">
+        </iframe>
+      <!-- Calculadora antiga mantida oculta (o JS legado ainda referencia estes elementos) -->
+      <div class="container-inner" style="display:none">
         <div class="card" style="background:linear-gradient(135deg,#E7F9F1,#EAF3FF);border-color:#CBD5E1;margin-bottom:1rem">
           <button class="sug-btn" onclick="abrirModal('Medicamentos')" title="Enviar sugestão sobre Medicamentos">!</button>
           <div class="s-tit" style="color:var(--og)">
@@ -2354,10 +2361,10 @@ function showTab(tab) {
   if (tab === 'admin' && currentRoom === ADMIN_ROOM && !todasSugestoes.length) carregarSugestoes();
   // PDF tab: overflow hidden na main para iframe preencher tudo
   const main = document.querySelector('.app-main');
-  if (main) main.style.overflow = (tab === 'pdf' || tab === 'algoritmos') ? 'hidden' : '';
+  if (main) main.style.overflow = (tab === 'pdf' || tab === 'algoritmos' || tab === 'med') ? 'hidden' : '';
   // Ferramentas em iframe (Algoritmos/PDF) ocupam a tela toda e podem capturar
   // o scroll/toque — mostra um botão flutuante fixo para sempre ser possível voltar ao menu.
-  const ferramentaFull = (tab === 'algoritmos' || tab === 'pdf');
+  const ferramentaFull = (tab === 'algoritmos' || tab === 'pdf' || tab === 'med');
   const backBtn = document.getElementById('floating-back-btn');
   if (backBtn) backBtn.style.display = ferramentaFull ? 'flex' : 'none';
   // Trava o scroll do body enquanto a ferramenta em tela cheia estiver ativa (evita
