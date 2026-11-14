@@ -3011,7 +3011,7 @@ function CardTopico({ topico, aberto, onToggle }: { topico: Topico; aberto: bool
   return (
     <div
       className="rounded-xl overflow-hidden transition-all"
-      style={{ background: "#0A1628", border: "1px solid rgba(245,158,11,0.15)" }}
+      style={{ background: "#0D192C", border: "1px solid rgba(245,158,11,0.15)" }}
     >
       <button
         onClick={onToggle}
@@ -3112,7 +3112,7 @@ export default function OrtopediaAdultoPage() {
       </div>
 
       {/* Tabs de região */}
-      <div className="flex gap-1 mb-5 rounded-xl p-1" style={{ background: "#060F1E" }}>
+      <div className="flex gap-1 mb-5 rounded-xl p-1" style={{ background: "#050A14" }}>
         {REGIOES.map((r) => (
           <button
             key={r.id}

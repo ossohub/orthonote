@@ -7,6 +7,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -46,15 +47,17 @@ const config: Config = {
         },
         // OssoHub brand colors
         ossohub: {
-          navy: "#0F172A",
-          "navy-deep": "#060F1E",
-          "navy-card": "#0A1628",
-          teal: "#0EA5E9",
+          navy: "#08111F",
+          "navy-deep": "#050A14",
+          "navy-card": "#0D192C",
+          teal: "#38D5E0",
+          glow: "#38D5E0",
+          bone: "#EADFC8",
           green: "#10B981",
           "green-dark": "#10B981",   /* brightened — era #059669, ilegível no fundo dark */
           "green-light": "rgba(16,185,129,0.15)", /* era #D1FAE5, muito claro */
-          slate: "#94A3B8",          /* era #475569, ilegível no fundo dark */
-          "bg-light": "#0A1628",     /* era #F8FAFC — invertido para dark */
+          slate: "#A3B1C6",          /* texto secundário legível (≈8:1) */
+          "bg-light": "#0D192C",     /* era #F8FAFC — invertido para dark */
         },
       },
       borderRadius: {
@@ -63,7 +66,9 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

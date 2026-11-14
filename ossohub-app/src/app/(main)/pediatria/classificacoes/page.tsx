@@ -318,7 +318,7 @@ function CardClassificacao({
   return (
     <div
       className="rounded-xl overflow-hidden transition-all"
-      style={{ background: "#0A1628", border: "1px solid rgba(99,102,241,0.15)" }}
+      style={{ background: "#0D192C", border: "1px solid rgba(99,102,241,0.15)" }}
     >
       <button
         onClick={onToggle}
@@ -408,7 +408,7 @@ export default function ClassificacoesPediatricasPage() {
       </div>
 
       {/* Tabs de categoria */}
-      <div className="flex flex-wrap gap-1 mb-5 rounded-xl p-1" style={{ background: "#060F1E" }}>
+      <div className="flex flex-wrap gap-1 mb-5 rounded-xl p-1" style={{ background: "#050A14" }}>
         {CATEGORIAS.map((c) => (
           <button
             key={c.id}

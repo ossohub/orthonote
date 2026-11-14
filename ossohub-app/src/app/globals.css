@@ -1,198 +1,279 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =====================================================================
+   OssoHub — tema "Negatoscópio"
+   Filme de raio-X sobre a caixa de luz: fundo azul-noite profundo, texto
+   cor de osso, brilho ciano da luz do negatoscópio e marcadores em fonte
+   mono (como as letras L/R impressas no filme).
+   Contraste: texto principal ≥ 12:1, secundário ≥ 7:1 (WCAG AA/AAA).
+   ===================================================================== */
 @layer base {
   :root {
-    /* OssoHub Design Tokens — Dark Premium */
-    --background: 222 47% 4%;        /* #060F1E deep navy */
-    --foreground: 210 40% 96%;       /* #F1F5F9 off-white */
+    --film-0: #050A14;   /* fundo da página */
+    --film-1: #08111F;   /* cabeçalho / barra lateral */
+    --film-2: #0D192C;   /* cartões */
+    --film-3: #132239;   /* campos / elevação */
+    --bone:   #EADFC8;   /* osso — títulos de destaque */
+    --ink:    #E6EBF2;   /* texto principal */
+    --ink-2:  #A3B1C6;   /* texto secundário */
+    --ink-3:  #8C9AB0;   /* rótulos discretos */
+    --glow:   #38D5E0;   /* luz ciano do negatoscópio */
+    --glow-2: #7FE7EE;
+    --line:   rgba(148, 180, 220, 0.11);
 
-    --card: 222 47% 8%;              /* #0A1628 card navy */
-    --card-foreground: 210 40% 96%;
-
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 160 84% 39%;          /* #10B981 green */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 222 47% 12%;
-    --secondary-foreground: 210 40% 96%;
-
-    --muted: 222 47% 12%;
-    --muted-foreground: 215 20% 55%; /* muted text */
-
-    --accent: 199 89% 48%;           /* #0EA5E9 teal */
-    --accent-foreground: 0 0% 100%;
-
+    --background: 220 60% 5%;
+    --foreground: 214 33% 93%;
+    --card: 217 54% 11%;
+    --card-foreground: 214 33% 93%;
+    --popover: 217 54% 11%;
+    --popover-foreground: 214 33% 95%;
+    --primary: 160 84% 39%;            /* verde OssoHub */
+    --primary-foreground: 160 70% 6%;  /* tinta escura sobre o verde: 8:1 */
+    --secondary: 216 50% 15%;
+    --secondary-foreground: 214 33% 93%;
+    --muted: 216 50% 15%;
+    --muted-foreground: 215 23% 71%;
+    --accent: 184 73% 55%;             /* ciano da luz */
+    --accent-foreground: 190 70% 6%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 222 47% 16%;           /* subtle border */
-    --input: 222 47% 14%;
-    --ring: 160 84% 39%;
-
+    --border: 215 40% 18%;
+    --input: 216 45% 16%;
+    --ring: 184 73% 55%;
     --radius: 0.75rem;
+
+    --tabbar-h: 4rem;
+    color-scheme: dark;
   }
 
-  /* Dark class kept for compatibility */
-  .dark {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 96%;
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 96%;
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 222 47% 12%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 222 47% 12%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 199 89% 48%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62% 40%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 222 47% 16%;
-    --input: 222 47% 14%;
-    --ring: 160 84% 39%;
-  }
+  .dark { color-scheme: dark; }
 
-  * {
-    @apply border-border;
+  * { @apply border-border; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--film-0);
   }
 
   body {
     @apply text-foreground font-sans antialiased;
-    background-color: #060F1E;
-    background-image: radial-gradient(circle at 1px 1px, rgba(14,165,233,0.05) 1px, transparent 0);
-    background-size: 28px 28px;
+    background-color: var(--film-0);
+    /* luz da caixa do negatoscópio vazando do topo + grade fina de filme */
+    background-image:
+      radial-gradient(1100px 420px at 50% -120px, rgba(56, 213, 224, 0.10), transparent 70%),
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 100% 600px, 64px 64px, 64px 64px;
+    background-repeat: no-repeat, repeat, repeat;
+    text-rendering: optimizeLegibility;
   }
 
-  html {
-    scroll-behavior: smooth;
+  ::selection { background: rgba(56, 213, 224, 0.28); color: #fff; }
+
+  :focus-visible {
+    outline: 2px solid var(--glow);
+    outline-offset: 2px;
+    border-radius: 6px;
   }
 
-  /* Custom scrollbar — dark */
-  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(14,165,233,0.25); border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(14,165,233,0.45); }
+  ::-webkit-scrollbar-thumb { background: rgba(127, 231, 238, 0.18); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(127, 231, 238, 0.35); }
 
-  /* Headings use Space Grotesk for premium feel */
   h1, h2, h3 {
-    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: var(--font-display), var(--font-inter), system-ui, sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  /* Celular: reserva espaço para a barra inferior fixa */
+  @media (max-width: 767px) {
+    body.oh-has-tabbar {
+      padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+    }
   }
 }
 
 @layer components {
-  /* OssoHub utility classes */
-  .ossohub-container {
-    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  .ossohub-container { @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .ossohub-shell     { @apply max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8; }
+  .ossohub-section   { @apply py-16 sm:py-24; }
+
+  .oh-mono {
+    font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-feature-settings: "zero" 1;
   }
 
-  .ossohub-shell {
-    @apply max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Premium dark card */
+  /* Cartão "filme" — leve, sem desfoque (mais rápido no celular) */
   .ossohub-card {
-    background: rgba(10, 22, 40, 0.85);
-    border: 1px solid rgba(14,165,233,0.12);
-    @apply rounded-2xl transition-all duration-300;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -8px rgba(0,0,0,0.5);
-    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(19, 34, 57, 0.72), rgba(13, 25, 44, 0.92));
+    border: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035), 0 10px 28px -14px rgba(0, 0, 0, 0.7);
+    @apply rounded-2xl transition-[border-color,box-shadow] duration-200;
   }
   .ossohub-card:hover {
-    border-color: rgba(14,165,233,0.28);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 16px 36px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(14,165,233,0.1);
-    transform: translateY(-1px);
+    border-color: rgba(56, 213, 224, 0.26);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 14px 34px -16px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 213, 224, 0.06);
   }
+  .ossohub-card-premium { @apply ossohub-card; }
 
-  .ossohub-section {
-    @apply py-16 sm:py-24;
-  }
+  .ossohub-canvas { background-color: transparent; }
 
-  /* Alias maintained for compatibility */
-  .ossohub-card-premium {
-    @apply ossohub-card;
-  }
-
-  /* Canvas — dark dot grid */
-  .ossohub-canvas {
-    background-color: #060F1E;
-    background-image: radial-gradient(circle at 1px 1px, rgba(14,165,233,0.05) 1px, transparent 0);
-    background-size: 28px 28px;
-  }
-
-  /* Input padronizado — dark */
   .ossohub-input {
-    @apply w-full rounded-xl border bg-card px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-all duration-200;
+    @apply w-full rounded-xl border bg-[var(--film-3)] px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-all duration-200;
     border-color: hsl(var(--border));
   }
   .ossohub-input:focus {
-    border-color: #10B981;
-    box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+    border-color: var(--glow);
+    box-shadow: 0 0 0 3px rgba(56, 213, 224, 0.14);
   }
 
-  /* Gradient text utility */
   .text-gradient {
-    background: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+    background: linear-gradient(120deg, var(--bone) 0%, var(--glow-2) 55%, #6EE7B7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Glassmorphism card */
   .glass-card {
-    background: rgba(10, 22, 40, 0.7);
-    border: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(16px);
+    background: rgba(13, 25, 44, 0.85);
+    border: 1px solid var(--line);
     @apply rounded-2xl;
   }
 
-  /* Teal glow button */
   .btn-teal {
-    background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
-    @apply text-white font-semibold rounded-xl px-6 py-3 text-sm transition-all duration-200;
-    box-shadow: 0 4px 14px rgba(14,165,233,0.3);
+    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    color: #04140D !important;
+    @apply font-semibold rounded-xl px-6 py-3 text-sm transition-all duration-200;
+    box-shadow: 0 6px 18px -6px rgba(16, 185, 129, 0.55);
   }
-  .btn-teal:hover {
-    box-shadow: 0 6px 20px rgba(14,165,233,0.45);
-    transform: translateY(-1px);
+  .btn-teal:hover { box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.7); filter: brightness(1.05); }
+
+  /* Marcador de filme (ex.: "AD", "PD") */
+  .oh-marker {
+    @apply inline-grid place-items-center rounded-[5px] px-1.5 h-5 min-w-[1.6rem] text-[10px] font-bold;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    letter-spacing: 0.06em;
   }
 
-  /* XP Level badge colors */
-  .level-aprendiz    { @apply bg-slate-700/60 text-slate-300 border border-slate-600; }
-  .level-residente   { @apply bg-sky-900/60 text-sky-300 border border-sky-700; }
-  .level-especialista{ @apply bg-emerald-900/60 text-emerald-300 border border-emerald-700; }
-  .level-mestre      { @apply bg-purple-900/60 text-purple-300 border border-purple-700; }
-  .level-lenda       { @apply bg-amber-900/60 text-amber-300 border border-amber-700; }
+  /* Rótulo de seção estilo etiqueta do filme */
+  .oh-eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    letter-spacing: 0.16em;
+    color: var(--glow-2);
+  }
+  .oh-eyebrow::before {
+    content: "";
+    @apply inline-block h-1.5 w-1.5 rounded-full;
+    background: var(--glow);
+    box-shadow: 0 0 8px var(--glow);
+  }
 
-  /* Logo OssoHub animation */
+  /* Cabeçalho */
+  .oh-header {
+    background: rgba(8, 17, 31, 0.92);
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(56, 213, 224, 0.06);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .oh-header { background: rgba(8, 17, 31, 0.78); backdrop-filter: saturate(140%) blur(14px); }
+  }
+  .oh-underglow {
+    @apply absolute left-3 right-3 -bottom-[13px] h-[2px] rounded-full;
+    background: var(--glow);
+    box-shadow: 0 0 12px var(--glow), 0 0 2px var(--glow);
+  }
+
+  /* Barra lateral */
+  .oh-sidebar {
+    background: linear-gradient(180deg, rgba(8, 17, 31, 0.6), rgba(8, 17, 31, 0.2));
+    border-right: 1px solid var(--line);
+  }
+
+  .oh-popover {
+    background: #0D192C;
+    border: 1px solid rgba(148, 180, 220, 0.16);
+    border-radius: 14px;
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 213, 224, 0.05);
+  }
+
+  /* Celular: barra inferior + gaveta */
+  .oh-tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
+    height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    background: rgba(8, 17, 31, 0.96);
+    border-top: 1px solid var(--line);
+  }
+  @supports (backdrop-filter: blur(1px)) {
+    .oh-tabbar { background: rgba(8, 17, 31, 0.82); backdrop-filter: saturate(140%) blur(14px); }
+  }
+  .oh-tab {
+    @apply relative flex flex-col items-center justify-center gap-1 text-[11px] font-medium;
+    color: var(--ink-2);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .oh-tab.is-active { color: var(--glow-2); }
+  .oh-tab.is-active::before {
+    content: ""; position: absolute; top: 0; left: 30%; right: 30%; height: 2px; border-radius: 2px;
+    background: var(--glow); box-shadow: 0 0 10px var(--glow);
+  }
+  .oh-drawer {
+    background: #08111F;
+    border-left: 1px solid var(--line);
+    box-shadow: -24px 0 48px -12px rgba(0, 0, 0, 0.6);
+    animation: oh-drawer-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Altura da ferramenta clínica (iframe) */
+  .oh-tool-frame { height: calc(100dvh - 4rem); background: var(--film-0); color-scheme: dark; }
+  @media (max-width: 767px) {
+    body.oh-has-tabbar .oh-tool-frame {
+      height: calc(100dvh - 4rem - var(--tabbar-h) - env(safe-area-inset-bottom));
+    }
+  }
+
+  /* Cartões das páginas-resumo */
+  .oh-hub-card {
+    @apply ossohub-card relative flex flex-col gap-3 p-5 overflow-hidden;
+  }
+  .oh-hub-card::after {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 231, 238, 0.35), transparent);
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .oh-hub-card:hover::after { opacity: 1; }
+
+  /* Selos de nível (XP) */
+  .level-aprendiz     { @apply bg-slate-700/60 text-slate-200 border border-slate-500/60; }
+  .level-residente    { @apply bg-sky-900/60 text-sky-200 border border-sky-600/60; }
+  .level-especialista { @apply bg-emerald-900/60 text-emerald-200 border border-emerald-600/60; }
+  .level-mestre       { @apply bg-purple-900/60 text-purple-200 border border-purple-600/60; }
+  .level-lenda        { @apply bg-amber-900/60 text-amber-200 border border-amber-600/60; }
+
   .ossohub-logo {
-    animation: ossohub-logo-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both,
-               ossohub-logo-breathe 4.5s ease-in-out 0.7s infinite;
+    animation: ossohub-logo-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
     transition: filter 0.3s ease, transform 0.3s ease;
   }
   .ossohub-logo:hover {
-    transform: scale(1.06);
-    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));
-    animation-play-state: paused;
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 10px rgba(56, 213, 224, 0.55));
   }
 }
 
-@keyframes ossohub-logo-in {
-  from { opacity: 0; transform: scale(0.85); }
-  to   { opacity: 1; transform: scale(1); }
+@keyframes oh-drawer-in {
+  from { transform: translateX(24px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
 }
 
-@keyframes ossohub-logo-breathe {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0)); }
-  50%      { transform: scale(1.025); filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4)); }
+@keyframes ossohub-logo-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes float-slow {
@@ -211,10 +292,17 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes oh-scan {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ossohub-logo, .ossohub-logo:hover {
-    animation: none;
-    transition: none;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
@@ -225,14 +313,14 @@
    ========================================= */
 
 /* --- Backgrounds --- */
-body .bg-white                  { background-color: #0A1628 !important; }
+body .bg-white                  { background-color: #0D192C !important; }
 body .bg-slate-50,
-body .bg-gray-50                { background-color: #091424 !important; }
+body .bg-gray-50                { background-color: #0A1527 !important; }
 body .bg-slate-100,
-body .bg-gray-100               { background-color: #0d1b2e !important; }
+body .bg-gray-100               { background-color: #111F35 !important; }
 body .bg-slate-200,
-body .bg-gray-200               { background-color: #101f38 !important; }
-body .bg-ossohub-bg-light       { background-color: #0A1628 !important; }
+body .bg-gray-200               { background-color: #16263F !important; }
+body .bg-ossohub-bg-light       { background-color: #0D192C !important; }
 body .bg-ossohub-green-light    { background-color: rgba(16,185,129,0.12) !important; }
 
 /* --- Texto — tornar legível no fundo escuro --- */
@@ -243,10 +331,12 @@ body .text-slate-800            { color: #E2E8F0 !important; }
 body .text-gray-700,
 body .text-slate-700            { color: #CBD5E1 !important; }
 body .text-gray-600,
-body .text-slate-600            { color: #94A3B8 !important; }
+body .text-slate-600            { color: #A3B1C6 !important; }
 body .text-gray-500,
-body .text-slate-500            { color: #94A3B8 !important; }
-body .text-ossohub-slate        { color: #94A3B8 !important; }
+body .text-slate-500            { color: #A3B1C6 !important; }
+body .text-gray-400,
+body .text-slate-400            { color: #A3B1C6 !important; }
+body .text-ossohub-slate        { color: #A3B1C6 !important; }
 body .text-ossohub-navy         { color: #E2E8F0 !important; }
 body .text-ossohub-green-dark   { color: #10B981 !important; }
 body .hover\:text-ossohub-navy:hover { color: #CBD5E1 !important; }
@@ -269,6 +359,11 @@ body .text-amber-800            { color: #FCD34D !important; }
 body .text-amber-500            { color: #FBBF24 !important; }
 body .text-red-500              { color: #F87171 !important; }
 
+/* --- Verde preenchido: tinta escura (contraste 8:1 em vez de 2,5:1) --- */
+body .bg-ossohub-green.text-white,
+body .bg-primary.text-white,
+body .bg-ossohub-green .text-white { color: #04140D !important; }
+
 /* --- Bordas --- */
 body .border-white              { border-color: rgba(255,255,255,0.08) !important; }
 body .border-gray-100,
@@ -286,19 +381,19 @@ body .divide-gray-200 > * + *,
 body .divide-slate-200 > * + * { border-color: rgba(255,255,255,0.08) !important; }
 
 /* --- Inputs e formulários --- */
-body input,
+body input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
 body textarea,
 body select {
-  background-color: #0d1b2e !important;
-  color: #E2E8F0 !important;
-  border-color: rgba(255,255,255,0.1) !important;
+  background-color: #132239 !important;
+  color: #E6EBF2 !important;
+  border-color: rgba(148,180,220,0.16) !important;
 }
 body input::placeholder,
-body textarea::placeholder      { color: #475569 !important; }
+body textarea::placeholder      { color: #8C9AB0 !important; }
 body input:focus,
 body textarea:focus             {
-  border-color: #10B981 !important;
-  box-shadow: 0 0 0 3px rgba(16,185,129,0.12) !important;
+  border-color: #38D5E0 !important;
+  box-shadow: 0 0 0 3px rgba(56,213,224,0.14) !important;
   outline: none !important;
 }
 

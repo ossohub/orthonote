@@ -8,6 +8,14 @@
 <style>
 html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
 :root{
+  --ground:#050A14; --surface:#0D192C; --ink:#E6EBF2; --muted:#A3B1C6; --line:#1E3150;
+  --accent:#38D5E0; --accent-ink:#04141A; --select:#E6A93F;
+  --stage:#050A14; --stage-ink:#DCE7EA; --stage-muted:#8AA0A8; --stage-line:#1B323C;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+:root[data-theme="light"]{
   --ground:#EDF1F2; --surface:#FFFFFF; --ink:#14232B; --muted:#55696F; --line:#CFD9DC;
   --accent:#0B7A84; --accent-ink:#FFFFFF; --select:#C9851A;
   --stage:#0E1C24; --stage-ink:#DCE7EA; --stage-muted:#8AA0A8; --stage-line:#24404C;
@@ -15,17 +23,10 @@ html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:n
   --body:"IBM Plex Sans","Segoe UI",Roboto,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#0A141A; --surface:#12212A; --ink:#E3ECEE; --muted:#93A8AF; --line:#25404B;
-    --accent:#3FB6C0; --accent-ink:#06242A; --select:#E6A93F;
-    --stage:#060E13; --stage-line:#1B323C;
-  }
-}
 :root[data-theme="dark"]{
-  --ground:#0A141A; --surface:#12212A; --ink:#E3ECEE; --muted:#93A8AF; --line:#25404B;
-  --accent:#3FB6C0; --accent-ink:#06242A; --select:#E6A93F;
-  --stage:#060E13; --stage-line:#1B323C;
+  --ground:#050A14; --surface:#0D192C; --ink:#E6EBF2; --muted:#A3B1C6; --line:#1E3150;
+  --accent:#38D5E0; --accent-ink:#04141A; --select:#E6A93F;
+  --stage:#050A14; --stage-line:#1B323C;
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:20px 40px}
@@ -93,6 +94,7 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
 </style>
 </head>
 <body>
+<a href="/ortopedia" class="oh-voltar" style="display:inline-flex;align-items:center;gap:6px;margin:0 auto 12px;max-width:1120px;width:100%;color:var(--accent);font:600 14px/1.2 var(--body);text-decoration:none">&#8592; Voltar ao OssoHub</a>
 
 <div class="wrap">
   <header>

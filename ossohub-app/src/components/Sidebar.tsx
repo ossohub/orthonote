@@ -2,277 +2,134 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Pencil, Pill, FileText, StickyNote, LayoutGrid, Route,
-  HandMetal, Calculator, GitBranch, FileType, ClipboardList, ShieldCheck, Baby,
-  CalendarClock, PieChart, Users2, MessagesSquare, Layers, Wrench, Brain,
-  BookOpen, BookText, Bone,
-} from "lucide-react";
-import { TOOL_GROUPS, type ToolSlug } from "@/lib/clinicalTool";
+import { useEffect, useState } from "react";
+import { ChevronDown, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/hooks/useUser";
+import {
+  NAV_SECTIONS, TONES, isActive, sectionForPath, type NavSection,
+} from "@/lib/navigation";
 
-const DESEMPENHO_LINKS = [
-  { href: "/questions",              label: "Banco de Questões", icon: ClipboardList },
-  { href: "/flashcards",             label: "Flashcards",        icon: Layers },
-  { href: "/desempenho/cronograma",  label: "Cronograma",        icon: CalendarClock },
-  { href: "/desempenho/graficos",    label: "Gráficos",          icon: PieChart },
-  { href: "/desempenho/preditivo",   label: "Análise Preditiva", icon: Brain },
-  { href: "/desempenho/salas",       label: "Salas",             icon: MessagesSquare },
-  { href: "/desempenho/equipe",      label: "Minha Equipe",      icon: Users2 },
-];
+const STORAGE_KEY = "ossohub.sidebar.abertas";
 
-const ICONS: Record<ToolSlug, React.ElementType> = {
-  anamnese: Pencil,
-  medicamentos: Pill,
-  documentos: FileText,
-  "texto-salvo": StickyNote,
-  classificacoes: LayoutGrid,
-  pediatria: Baby,
-  "vias-acesso": Route,
-  "exame-fisico": HandMetal,
-  calculadora: Calculator,
-  algoritmos: GitBranch,
-  pdf: FileType,
-};
+function readOpen(): string[] | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as string[]) : null;
+  } catch {
+    return null;
+  }
+}
 
-// Cada grupo com cor de identidade — adaptada para tema dark
-const GROUP_STYLES: Record<string, { icon: string; activeIcon: string }> = {
-  "Clínica":      { icon: "bg-sky-900/40 text-sky-400",         activeIcon: "bg-sky-500/20 text-sky-300" },
-  "Pessoal":      { icon: "bg-violet-900/40 text-violet-400",   activeIcon: "bg-violet-500/20 text-violet-300" },
-  "Referência":   { icon: "bg-amber-900/40 text-amber-400",     activeIcon: "bg-amber-500/20 text-amber-300" },
-  "Calculadoras": { icon: "bg-indigo-900/40 text-indigo-400",   activeIcon: "bg-indigo-500/20 text-indigo-300" },
-  "Ferramentas":  { icon: "bg-cyan-900/40 text-cyan-400",       activeIcon: "bg-cyan-500/20 text-cyan-300" },
-};
-const DEFAULT_GROUP_STYLE = { icon: "bg-white/5 text-slate-400", activeIcon: "bg-white/10 text-slate-300" };
+function writeOpen(ids: string[]) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ids)); } catch { /* sem armazenamento: ok */ }
+}
+
+/** Lista de links de uma seção — usada na barra lateral e no menu do celular. */
+export function SectionLinks({
+  section, pathname, onNavigate, dense = false,
+}: { section: NavSection; pathname: string; onNavigate?: () => void; dense?: boolean }) {
+  const tone = TONES[section.tone];
+  const links = section.hub
+    ? [{ href: section.hub, label: "Visão geral", icon: LayoutDashboard }, ...section.items]
+    : section.items;
+
+  return (
+    <ul className={cn("space-y-0.5", dense ? "pl-0" : "pl-2")}>
+      {links.map(({ href, label, icon: Icon }) => {
+        const active = isActive(pathname, href);
+        return (
+          <li key={href}>
+            <Link
+              href={href}
+              onClick={onNavigate}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "group relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13.5px] font-medium transition-colors",
+                active
+                  ? cn("bg-white/[0.06]", tone.text)
+                  : "text-[#C9D3E1] hover:bg-white/[0.04] hover:text-white"
+              )}
+            >
+              {/* filete de luz à esquerda — como a borda acesa do negatoscópio */}
+              <span
+                aria-hidden
+                className={cn(
+                  "absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full transition-opacity",
+                  active ? "opacity-100" : "opacity-0"
+                )}
+                style={{ background: "currentColor", boxShadow: `0 0 10px ${tone.glow}` }}
+              />
+              <Icon className={cn("h-4 w-4 shrink-0", active ? "" : "text-[#8C9AB0] group-hover:text-[#C9D3E1]")} />
+              <span className="truncate">{label}</span>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export function Sidebar() {
   const pathname = usePathname();
   const { profile } = useUser();
+  const isAdmin = profile?.app_role === "admin";
+  const current = sectionForPath(pathname);
+
+  // Seções abertas: lembra a escolha do usuário; a seção da página atual
+  // sempre aparece aberta.
+  const [open, setOpen] = useState<string[]>(["consultorio"]);
+  useEffect(() => {
+    const saved = readOpen();
+    if (saved) setOpen(saved);
+  }, []);
+
+  function toggle(id: string) {
+    setOpen((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      writeOpen(next);
+      return next;
+    });
+  }
 
   return (
     <aside
-      className="hidden md:block w-60 shrink-0 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
-      style={{
-        background: "#0A1628",
-        borderRight: "1px solid rgba(255,255,255,0.06)",
-      }}
+      className="oh-sidebar hidden md:block w-64 shrink-0 sticky top-16 h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain"
+      aria-label="Ferramentas e conteúdos"
     >
-      <nav className="py-5 px-3 space-y-5">
-        {TOOL_GROUPS.map((group) => {
-          const style = GROUP_STYLES[group.label] ?? DEFAULT_GROUP_STYLE;
+      <nav className="py-5 pl-1 pr-3 space-y-1">
+        {NAV_SECTIONS.filter((s) => !s.adminOnly || isAdmin).map((section) => {
+          const tone = TONES[section.tone];
+          const isCurrent = current?.id === section.id;
+          const isOpen = isCurrent || open.includes(section.id);
           return (
-            <div key={group.label}>
-              <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                {group.label}
-              </p>
-              <div className="space-y-1">
-                {group.items.map(({ slug, label }) => {
-                  const Icon = ICONS[slug];
-                  const href = `/tools/${slug}`;
-                  const active = pathname === href;
-                  return (
-                    <Link
-                      key={slug}
-                      href={href}
-                      className={cn(
-                        "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
-                        active
-                          ? "text-sky-300"
-                          : "text-slate-300 hover:text-white hover:bg-white/5"
-                      )}
-                      style={active ? {
-                        background: "rgba(14,165,233,0.1)",
-                        border: "1px solid rgba(14,165,233,0.25)",
-                      } : {
-                        border: "1px solid rgba(255,255,255,0.05)",
-                      }}
-                    >
-                      <span
-                        className={cn(
-                          "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
-                          active ? style.activeIcon : style.icon
-                        )}
-                      >
-                        <Icon className="h-3.5 w-3.5" />
-                      </span>
-                      <span className="truncate">{label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
+            <div key={section.id} className="pb-1">
+              <button
+                type="button"
+                onClick={() => toggle(section.id)}
+                aria-expanded={isOpen}
+                className="group flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left hover:bg-white/[0.03]"
+              >
+                <span className={cn("oh-marker", tone.chip)}>{section.marker}</span>
+                <span className={cn(
+                  "flex-1 truncate text-[12px] font-semibold uppercase tracking-[0.1em]",
+                  isCurrent ? tone.text : "text-[#A3B1C6] group-hover:text-[#DCE3EE]"
+                )}>
+                  {section.label}
+                </span>
+                <ChevronDown
+                  className={cn("h-3.5 w-3.5 text-[#6B7A90] transition-transform", isOpen ? "" : "-rotate-90")}
+                  aria-hidden
+                />
+              </button>
+              {isOpen && (
+                <div className="mt-0.5 mb-2">
+                  <SectionLinks section={section} pathname={pathname} />
+                </div>
+              )}
             </div>
           );
         })}
-
-        {/* Referência — conteúdo didático */}
-        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-amber-400/70">
-            Referência
-          </p>
-          <div className="space-y-1">
-            {[
-              { href: "/referencia/ortopedia-adulto", label: "Ortopedia Adulto", Icon: BookOpen },
-              { href: "/visualizador-3d.html", label: "Anatomia 3D", Icon: Bone },
-            ].map(({ href, label, Icon }) => {
-              const active = pathname.startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
-                    active
-                      ? "text-amber-300"
-                      : "text-slate-300 hover:text-white hover:bg-white/5"
-                  )}
-                  style={active ? {
-                    background: "rgba(245,158,11,0.1)",
-                    border: "1px solid rgba(245,158,11,0.3)",
-                  } : {
-                    border: "1px solid rgba(255,255,255,0.05)",
-                  }}
-                >
-                  <span className={cn(
-                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
-                    active ? "bg-amber-500/20 text-amber-300" : "bg-amber-900/40 text-amber-400"
-                  )}>
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="truncate">{label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Pediatria — conteúdo didático */}
-        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-indigo-400/70">
-            Pediatria
-          </p>
-          <div className="space-y-1">
-            {[
-              { href: "/pediatria/classificacoes", label: "Classificações Pediátricas", Icon: LayoutGrid },
-              { href: "/pediatria/conteudo",       label: "Conteúdo Pediatria",         Icon: BookText },
-            ].map(({ href, label, Icon }) => {
-              const active = pathname.startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium transition-all duration-150",
-                    active
-                      ? "text-indigo-300"
-                      : "text-slate-300 hover:text-white hover:bg-white/5"
-                  )}
-                  style={active ? {
-                    background: "rgba(99,102,241,0.1)",
-                    border: "1px solid rgba(99,102,241,0.3)",
-                  } : {
-                    border: "1px solid rgba(255,255,255,0.05)",
-                  }}
-                >
-                  <span className={cn(
-                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
-                    active ? "bg-indigo-500/20 text-indigo-300" : "bg-indigo-900/40 text-indigo-400"
-                  )}>
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="truncate">{label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Desempenho */}
-        <div className="pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-emerald-400/70">
-            Desempenho
-          </p>
-          <div className="space-y-1">
-            {DESEMPENHO_LINKS.map(({ href, label, icon: Icon }) => {
-              const active = pathname.startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-semibold transition-all duration-150",
-                    active
-                      ? "text-emerald-300"
-                      : "text-emerald-400/80 hover:text-emerald-300 hover:bg-emerald-900/20"
-                  )}
-                  style={active ? {
-                    background: "rgba(16,185,129,0.12)",
-                    border: "1px solid rgba(16,185,129,0.3)",
-                  } : {
-                    border: "1px solid rgba(16,185,129,0.12)",
-                  }}
-                >
-                  <span
-                    className={cn(
-                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
-                      active
-                        ? "bg-emerald-500/20 text-emerald-300"
-                        : "bg-emerald-900/40 text-emerald-400"
-                    )}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="truncate">{label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Admin */}
-        {profile?.app_role === "admin" && (
-          <div className="pt-4 space-y-1" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-            <p className="px-1 mb-2 text-[11px] font-semibold uppercase tracking-wider text-red-400/70">
-              Admin
-            </p>
-            {[
-              { href: "/moderacao", label: "Moderação", Icon: ShieldCheck },
-              { href: "/tools/admin", label: "Painel de Sugestões", Icon: Wrench },
-            ].map(({ href, label, Icon }) => {
-              const active = pathname.startsWith(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={cn(
-                    "group flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-semibold transition-all duration-150",
-                    active
-                      ? "text-red-300"
-                      : "text-red-400/80 hover:text-red-300 hover:bg-red-900/20"
-                  )}
-                  style={active ? {
-                    background: "rgba(239,68,68,0.12)",
-                    border: "1px solid rgba(239,68,68,0.3)",
-                  } : {
-                    border: "1px solid rgba(239,68,68,0.12)",
-                  }}
-                >
-                  <span
-                    className={cn(
-                      "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors",
-                      active
-                        ? "bg-red-500/20 text-red-300"
-                        : "bg-red-900/40 text-red-400"
-                    )}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="truncate">{label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        )}
       </nav>
     </aside>
   );

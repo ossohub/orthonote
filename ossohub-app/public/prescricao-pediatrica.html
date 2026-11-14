@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#060F1E">
+<meta name="theme-color" content="#050A14">
 <meta name="format-detection" content="telephone=no">
 <title>Prescrição Pediátrica OssoHub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,15 +11,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <style>
 /* Visual alinhado à ferramenta clínica do OssoHub (index.html): fundo azul-noite,
-   cartões #0A1628, bordas azul-céu translúcidas, destaque verde, fonte Inter.
-   Contraste: todo texto ≥ 4,5:1 sobre o fundo (cinza secundário #A3B1C6, nunca #64748B). */
+   cartões #0D192C, bordas azul-céu translúcidas, destaque verde, fonte Inter.
+   Contraste: todo texto ≥ 4,5:1 sobre o fundo (cinza secundário #A3B1C6, nunca #8C9AB0). */
 :root {
-  --bg: #060F1E;          /* fundo geral do site */
-  --surface: #0A1628;     /* cartão do site */
-  --surface-2: #0D1B2E;   /* campo de formulário do site */
+  --bg: #050A14;          /* fundo geral do site */
+  --surface: #0D192C;     /* cartão do site */
+  --surface-2: #132239;   /* campo de formulário do site */
   --surface-3: #12243C;   /* hover / selecionado */
-  --line: rgba(14, 165, 233, .22);
-  --line-forte: rgba(14, 165, 233, .45);
+  --line: rgba(56, 213, 224, .22);
+  --line-forte: rgba(56, 213, 224, .45);
   --fg: #E8EEF6;          /* 15,5:1 sobre --surface */
   --muted: #A3B1C6;       /* 8,3:1 sobre --surface */
   --og: #10B981;          /* verde do site */
@@ -209,7 +209,7 @@ button { cursor: pointer; touch-action: manipulation; }
   border: 0; border-radius: 99px; padding: 12px 20px; font-weight: 800; font-size: 15px; box-shadow: 0 10px 28px -8px rgba(0, 0, 0, .7); min-height: 48px; }
 .bandeja[hidden] { display: none !important; }
 .toast { position: fixed; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 11; max-width: calc(100% - 32px);
-  background: #E8EEF6; color: #060F1E; padding: 10px 18px; border-radius: 99px; font-size: 14.5px; font-weight: 700; opacity: 0; transition: opacity .2s; pointer-events: none; text-align: center; }
+  background: #E8EEF6; color: #050A14; padding: 10px 18px; border-radius: 99px; font-size: 14.5px; font-weight: 700; opacity: 0; transition: opacity .2s; pointer-events: none; text-align: center; }
 .toast.on { opacity: 1; }
 
 .aviso-geral .mais { display: none; background: none; border: 0; padding: 0; color: var(--warn); font-weight: 700; text-decoration: underline; font-size: inherit; }

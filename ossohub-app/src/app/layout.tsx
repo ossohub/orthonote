@@ -1,14 +1,34 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Archivo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/next";
 import { Navbar } from "@/components/Navbar";
 
+// Fontes servidas pelo próprio site (sem pedir ao Google na hora de abrir):
+// Inter = texto, Archivo = títulos, JetBrains Mono = rótulos/números.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["600", "700", "800"],
+  display: "swap",
+});
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["500", "700"],
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#050A14",
+  colorScheme: "dark",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -37,16 +57,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans antialiased ossohub-canvas`}>
+      <body className={`${inter.variable} ${archivo.variable} ${mono.variable} font-sans antialiased`}>
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Toaster
-          position="bottom-right"
+          position="top-center"
           richColors
           closeButton
           toastOptions={{
             style: {
-              fontFamily: "Inter, system-ui, sans-serif",
+              fontFamily: "var(--font-inter), system-ui, sans-serif",
             },
           }}
         />

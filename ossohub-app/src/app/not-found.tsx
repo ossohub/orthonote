@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="text-center">
         <div className="flex justify-center mb-4">
           <div className="inline-flex items-center rounded-xl bg-ossohub-navy px-4 py-3 opacity-40">
-            <img src="/logo.png" alt="OssoHub" className="h-10 w-auto" />
+            <img src="/logo.webp" alt="OssoHub" className="h-10 w-auto" />
           </div>
         </div>
         <h1 className="text-4xl font-bold text-ossohub-navy mb-2">404</h1>

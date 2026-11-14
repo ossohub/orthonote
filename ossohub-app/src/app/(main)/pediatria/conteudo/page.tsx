@@ -3149,7 +3149,7 @@ function CardTopico({ topico, aberto, onToggle }: { topico: Topico; aberto: bool
   return (
     <div
       className="rounded-xl overflow-hidden transition-all"
-      style={{ background: "#0A1628", border: "1px solid rgba(14,165,233,0.15)" }}
+      style={{ background: "#0D192C", border: "1px solid rgba(56,213,224,0.15)" }}
     >
       <button
         onClick={onToggle}
@@ -3167,7 +3167,7 @@ function CardTopico({ topico, aberto, onToggle }: { topico: Topico; aberto: bool
       </button>
 
       {aberto && (
-        <div className="px-4 pb-4 pt-1" style={{ borderTop: "1px solid rgba(14,165,233,0.1)" }}>
+        <div className="px-4 pb-4 pt-1" style={{ borderTop: "1px solid rgba(56,213,224,0.1)" }}>
           <SecaoConteudo titulo="Epidemiologia" conteudo={topico.epidemiologia} />
 
           {topico.classificacao && topico.classificacao.length > 0 && (
@@ -3226,7 +3226,7 @@ export default function ConteudoPediatriaPage() {
       <div className="mb-6 flex items-start gap-3">
         <div
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-          style={{ background: "rgba(14,165,233,0.15)", border: "1px solid rgba(14,165,233,0.3)" }}
+          style={{ background: "rgba(56,213,224,0.15)", border: "1px solid rgba(56,213,224,0.3)" }}
         >
           <BookText className="h-5 w-5 text-sky-400" />
         </div>
@@ -3241,7 +3241,7 @@ export default function ConteudoPediatriaPage() {
       {/* Aviso */}
       <div
         className="flex gap-2.5 rounded-xl px-3.5 py-2.5 mb-6"
-        style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)" }}
+        style={{ background: "rgba(56,213,224,0.08)", border: "1px solid rgba(56,213,224,0.2)" }}
       >
         <AlertCircle className="h-4 w-4 text-sky-400 shrink-0 mt-0.5" />
         <p className="text-xs text-sky-200/70 leading-relaxed">
@@ -3250,7 +3250,7 @@ export default function ConteudoPediatriaPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-1 mb-5 rounded-xl p-1" style={{ background: "#060F1E" }}>
+      <div className="flex flex-wrap gap-1 mb-5 rounded-xl p-1" style={{ background: "#050A14" }}>
         {CATEGORIAS.map((c) => (
           <button
             key={c.id}
@@ -3263,7 +3263,7 @@ export default function ConteudoPediatriaPage() {
             )}
             style={
               categoriaAtiva === c.id
-                ? { border: "1px solid rgba(14,165,233,0.3)" }
+                ? { border: "1px solid rgba(56,213,224,0.3)" }
                 : { border: "1px solid transparent" }
             }
           >
@@ -3285,7 +3285,7 @@ export default function ConteudoPediatriaPage() {
         {categoria.topicos.length === 0 && (
           <div
             className="rounded-xl px-4 py-8 text-center"
-            style={{ background: "#0A1628", border: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "#0D192C", border: "1px solid rgba(255,255,255,0.06)" }}
           >
             <p className="text-slate-500 text-sm">Conteúdo em desenvolvimento</p>
           </div>

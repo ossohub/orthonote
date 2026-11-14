@@ -101,14 +101,14 @@ export function ClinicalToolFrame() {
       src="/index.html"
       onLoad={handleLoad}
       title="Ferramenta Clínica"
-      className="w-full border-0 block"
+      className="oh-tool-frame w-full border-0 block"
       // calc(100dvh - 4rem): dá ao iframe uma altura explícita baseada
       // no viewport, independente da cadeia de pais — necessário para
       // iOS Safari, que não consegue resolver height:100% quando os pais
       // não têm altura explícita (problema clássico em iframes no iPhone).
       // 4rem = h-16 do Navbar. dvh (dynamic viewport height) desconta
       // automaticamente a barra de endereços/tabs do Safari.
-      style={{ height: isToolsRoute ? "calc(100dvh - 4rem)" : 0, display: isToolsRoute ? "block" : "none" }}
+      style={isToolsRoute ? { display: "block" } : { height: 0, display: "none" }}
       sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals allow-popups-to-escape-sandbox allow-downloads"
     />
   );

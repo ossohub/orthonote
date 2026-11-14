@@ -102,7 +102,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
       {/* Título + preview */}
       <Link href={`/post/${post.id}`} className="block group">
         <h2 className="font-semibold text-white group-hover:text-emerald-400 transition-colors mb-2 line-clamp-2"
-          style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+          style={{ fontFamily: "var(--font-display), var(--font-inter), sans-serif" }}>
           {post.title}
         </h2>
         <p className="text-sm text-slate-400 line-clamp-3 leading-relaxed">
@@ -116,7 +116,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
           <video
             src={post.video_url}
             className="w-full max-h-72 rounded-xl"
-            style={{ background: "#0A1628" }}
+            style={{ background: "#0D192C" }}
             muted
             preload="metadata"
           />
@@ -128,7 +128,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
         <Link href={`/post/${post.id}`} className="mt-3 block">
           <div className={`grid gap-2 rounded-xl overflow-hidden ${post.image_urls.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}>
             {post.image_urls.slice(0, 4).map((url, i) => (
-              <div key={i} className="relative aspect-video" style={{ background: "#0A1628" }}>
+              <div key={i} className="relative aspect-video" style={{ background: "#0D192C" }}>
                 <PostImage src={url} className="w-full h-full object-cover" />
                 {i === 3 && post.image_urls.length > 4 && (
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center text-white font-bold text-lg">

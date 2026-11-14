@@ -4,19 +4,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-ossohub-green-dark text-white shadow-[0_1px_2px_rgba(15,23,42,0.06),0_6px_16px_-6px_rgba(5,150,105,0.45)] hover:bg-emerald-700 hover:shadow-[0_1px_2px_rgba(15,23,42,0.06),0_10px_22px_-6px_rgba(5,150,105,0.5)] active:scale-[0.98]",
+          "bg-primary text-primary-foreground font-semibold shadow-[0_6px_18px_-8px_rgba(16,185,129,0.6)] hover:bg-[#34D399] hover:shadow-[0_10px_24px_-8px_rgba(16,185,129,0.7)] active:scale-[0.98]",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
-          "border border-input bg-white shadow-sm hover:border-ossohub-green-dark/40 hover:bg-ossohub-green-dark/5 hover:text-ossohub-green-dark",
+          "border border-input bg-transparent text-foreground hover:border-[#38D5E0]/40 hover:bg-[#38D5E0]/5 hover:text-white",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-white/[0.06] hover:text-white",
         link: "text-ossohub-green-dark underline-offset-4 hover:underline",
         navy:
           "bg-ossohub-navy text-white shadow-sm hover:bg-ossohub-navy/90 active:scale-[0.98]",
