@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell, Scale, CheckCircle2, AlertTriangle, PlusCircle } from "lucide-react";
+import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell, Scale, CheckCircle2, AlertTriangle, PlusCircle, Copy, Check, Share2, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NOVOS } from "@/data/esporte/revisao";
-import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico, type Nota } from "@/data/esporte";
+import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico, type Nota, type Fase } from "@/data/esporte";
 
 const TIPO: Record<Nota["tipo"], { l: string; cls: string; Icon: React.ElementType }> = {
   concorda:   { l: "Concorda",   cls: "border-[#10B981]/35 bg-[#10B981]/[0.07] text-[#6EE7B7]", Icon: CheckCircle2 },
@@ -18,6 +18,84 @@ const NOVOS_IDS = new Set(NOVOS.map((n) => n.id));
 
 const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
+// ── Prescrição de reabilitação pronta para copiar/enviar ao paciente ──
+function textoFase(f: Fase, i: number) {
+  const linhas = [`FASE ${i + 1} — ${f.nome.replace(/^((Fase|Estágio)\s*)?\d+\s*—\s*/i, "")}${f.tempo ? ` (${f.tempo})` : ""}`];
+  if (f.objetivos.length) linhas.push(`Objetivos: ${f.objetivos.join("; ")}.`);
+  if (f.exercicios.length) {
+    linhas.push("Exercícios:");
+    f.exercicios.forEach((e, k) => linhas.push(`  ${k + 1}. ${e}`));
+  }
+  if (f.criterios.length && f.criterios[0] !== "—") linhas.push(`Avançar para a próxima fase quando: ${f.criterios.join("; ")}.`);
+  return linhas.join("\n");
+}
+
+function textoPrescricao(t: Topico, fase?: number) {
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const partes: string[] = [
+    `PRESCRIÇÃO DE REABILITAÇÃO — ${t.titulo.toUpperCase()}`,
+    `Paciente: ______________________________   Data: ${hoje}`,
+    "",
+    t.resumo,
+  ];
+  if (t.fases?.length) {
+    const lista = fase != null ? [[t.fases[fase], fase] as const] : t.fases.map((f, i) => [f, i] as const);
+    for (const [f, i] of lista) partes.push("", textoFase(f, i));
+  }
+  if (t.secoes.length && fase == null) {
+    for (const s of t.secoes) {
+      partes.push("", `${s.t.toUpperCase()}:`);
+      s.itens.forEach((x) => partes.push(`• ${x}`));
+    }
+  }
+  partes.push(
+    "",
+    "ORIENTAÇÕES GERAIS:",
+    "• Dor leve durante o exercício (até 3 de 10) é aceitável se voltar ao normal em até 24 h.",
+    "• Se a dor piorar no dia seguinte, reduza a carga/repetições na próxima sessão.",
+    "• Procure atendimento se houver inchaço importante, perda de força súbita, falseio ou dor que não melhora.",
+    "• Avance de fase somente quando atingir os critérios e com liberação do seu médico/fisioterapeuta.",
+    "",
+    "_______________________________",
+    "Médico(a) — CRM",
+  );
+  return partes.join("\n");
+}
+
+function AcoesPrescricao({ texto, rotulo = "Copiar prescrição", compacto = false }: { texto: string; rotulo?: string; compacto?: boolean }) {
+  const [ok, setOk] = useState(false);
+  const [podeEnviar, setPodeEnviar] = useState(false);
+  useEffect(() => { setPodeEnviar(typeof navigator.share === "function"); }, []);
+  async function copiar() {
+    try {
+      await navigator.clipboard.writeText(texto);
+    } catch {
+      // iPhone antigo / sem permissão: seleciona via campo temporário
+      const ta = document.createElement("textarea");
+      ta.value = texto; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch { /* ignora */ } ta.remove();
+    }
+    setOk(true); setTimeout(() => setOk(false), 1800);
+  }
+  return (
+    <div className="flex flex-wrap gap-2">
+      <button type="button" onClick={copiar}
+        className={cn("inline-flex items-center gap-1.5 rounded-lg border font-semibold transition-colors",
+          compacto ? "px-2.5 py-1 text-[12px]" : "px-3.5 py-2 text-[13.5px]",
+          ok ? "border-[#10B981]/50 bg-[#10B981]/12 text-[#6EE7B7]" : "border-[#10B981]/40 bg-[#10B981]/[0.08] text-[#6EE7B7] hover:bg-[#10B981]/15")}>
+        {ok ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        {ok ? "Copiado!" : rotulo}
+      </button>
+      {podeEnviar && !compacto && (
+        <button type="button" onClick={() => navigator.share({ text: texto }).catch(() => {})}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--line)] px-3.5 py-2 text-[13.5px] font-semibold text-[#C9D3E1] hover:text-white">
+          <Share2 className="h-4 w-4" /> Enviar
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
   return (
     <article className="pb-10">
@@ -28,6 +106,15 @@ function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
         <span className="oh-mono text-[11px] uppercase tracking-[0.14em] text-[#8C9AB0]">{t.grupo}</span>
         <h2 className="mt-1 text-2xl sm:text-[28px] font-bold leading-tight text-white">{t.titulo}</h2>
         <p className="mt-2 text-[15px] leading-relaxed text-[#C9D3E1]">{t.resumo}</p>
+        {t.area === "reabilitacao" && (
+          <div className="mt-4 rounded-xl border border-[#10B981]/25 bg-[#10B981]/[0.05] p-3">
+            <p className="mb-2 flex items-center gap-1.5 text-[12.5px] text-[#A3B1C6]">
+              <ClipboardList className="h-4 w-4 text-[#6EE7B7]" />
+              Copie o protocolo completo já formatado para o paciente{t.fases?.length ? " — ou só a fase atual, no botão de cada fase" : ""}.
+            </p>
+            <AcoesPrescricao texto={textoPrescricao(t)} />
+          </div>
+        )}
       </header>
 
       {t.secoes.map((s) => (
@@ -69,7 +156,10 @@ function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
                 <div className="ossohub-card p-4">
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <h4 className="text-[15px] font-semibold text-white">{f.nome}</h4>
-                    {f.tempo && <span className="oh-mono text-[11.5px] text-[#8C9AB0]">{f.tempo}</span>}
+                    <span className="flex items-center gap-2">
+                      {f.tempo && <span className="oh-mono text-[11.5px] text-[#8C9AB0]">{f.tempo}</span>}
+                      {t.area === "reabilitacao" && <AcoesPrescricao texto={textoPrescricao(t, i)} rotulo="Copiar fase" compacto />}
+                    </span>
                   </div>
                   <div className="mt-3 grid gap-3 sm:grid-cols-3">
                     {([["Objetivos", f.objetivos, Flag], ["Exercícios", f.exercicios, Dumbbell], ["Critérios para avançar", f.criterios, ChevronRight]] as const).map(([titulo, lista, Icon]) => (
