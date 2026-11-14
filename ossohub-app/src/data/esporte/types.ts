@@ -13,6 +13,13 @@ export interface Fase {
   criterios: string[];
 }
 
+/** Comparação com fontes adicionais: concorda, diverge ou acrescenta. */
+export interface Nota {
+  fonte: FonteEsp;
+  tipo: "concorda" | "diverge" | "acrescenta";
+  texto: string;
+}
+
 export interface Topico {
   id: string;
   titulo: string;
@@ -26,12 +33,16 @@ export interface Topico {
   fases?: Fase[];
   /** id de outro tópico relacionado (ex.: lesão → protocolo de reabilitação) */
   ver?: string[];
+  /** comparação com as fontes adicionais (revisão de nov/2026) */
+  notas?: Nota[];
   fontes: FonteEsp[];
 }
 
 export type FonteEsp =
   | "HAFF" | "PRESTES" | "LIPPERT" | "SPBIO" | "SPINE" | "NUTRI" | "INTEG" | "METAB" | "ANTRO"
-  | "CUT" | "REHAB" | "PTR" | "GARD" | "HODLER" | "WINNICK" | "BODYW" | "MORAN";
+  | "CUT" | "REHAB" | "PTR" | "GARD" | "HODLER" | "WINNICK" | "BODYW" | "MORAN"
+  | "ACL5" | "MOVBODY" | "PTRAIN" | "BIOBAS" | "WHITING" | "FANWANG" | "MCGINNIS" | "SPINESTAB" | "CORE50"
+  | "WOMEN" | "EXSCI" | "SWIM" | "RUSIN" | "NUTSCI" | "SUPPAZ" | "PSM" | "BANDS" | "SPINJ" | "KAPOOR";
 
 export const FONTES_ESP: Record<FonteEsp, string> = {
   HAFF: "Haff & Triplett — Essentials of Strength Training and Conditioning (NSCA)",
@@ -51,6 +62,25 @@ export const FONTES_ESP: Record<FonteEsp, string> = {
   WINNICK: "Winnick & Porretta — Adapted Physical Education and Sport",
   BODYW: "Contreras — Bodyweight Strength Training Anatomy",
   MORAN: "Moran — Strength Training Exercises",
+  ACL5: "University of Calgary Sport Medicine Centre — ACL Reconstruction Rehabilitation Program (5 estágios)",
+  MOVBODY: "Anatomy of the Moving Body (2ª ed.)",
+  PTRAIN: "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+  BIOBAS: "Yanes — Biomechanic Basics: anatomy of lifting weights",
+  WHITING: "Zernicke, Broglio & Whiting — Biomechanics of Injury (3ª ed.)",
+  FANWANG: "Fan & Wang (eds.) — Biomechanics of Injury and Prevention",
+  MCGINNIS: "McGinnis — Biomechanics of Sport and Exercise (4ª ed.)",
+  SPINESTAB: "Biomechanics of Spine Stabilization: Self-Assessment and Review",
+  CORE50: "Core Strength for 50+",
+  WOMEN: "Developing Sport for Women and Girls",
+  EXSCI: "Exercise Science For Dummies",
+  SWIM: "Swimmer Strength — Foundations of Strength Training (natação)",
+  RUSIN: "Rusin — Functional Hypertrophy Training",
+  NUTSCI: "McGuire & Beerman — Nutritional Sciences: From Fundamentals to Food (4ª ed.)",
+  SUPPAZ: "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+  PSM: "Buratovich (ed.) — Principles of Sports Medicine & Exercise Science",
+  BANDS: "Murray — Resistance Band Workout for Seniors",
+  SPINJ: "Doral, Karlsson et al. (eds.) — Sports Injuries: Prevention, Diagnosis, Treatment and Rehabilitation",
+  KAPOOR: "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
 };
 
 export const AREAS_ESP: { id: AreaEsp; titulo: string; desc: string }[] = [

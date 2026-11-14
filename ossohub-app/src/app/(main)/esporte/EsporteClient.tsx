@@ -3,9 +3,18 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell } from "lucide-react";
+import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell, Scale, CheckCircle2, AlertTriangle, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico } from "@/data/esporte";
+import { NOVOS } from "@/data/esporte/revisao";
+import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico, type Nota } from "@/data/esporte";
+
+const TIPO: Record<Nota["tipo"], { l: string; cls: string; Icon: React.ElementType }> = {
+  concorda:   { l: "Concorda",   cls: "border-[#10B981]/35 bg-[#10B981]/[0.07] text-[#6EE7B7]", Icon: CheckCircle2 },
+  diverge:    { l: "Diverge",    cls: "border-amber-400/40 bg-amber-400/[0.08] text-amber-200",   Icon: AlertTriangle },
+  acrescenta: { l: "Acrescenta", cls: "border-[#38D5E0]/35 bg-[#38D5E0]/[0.07] text-[#7FE7EE]",  Icon: PlusCircle },
+};
+
+const NOVOS_IDS = new Set(NOVOS.map((n) => n.id));
 
 const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
@@ -76,6 +85,31 @@ function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
               </li>
             ))}
           </ol>
+        </section>
+      )}
+
+      {t.notas && t.notas.length > 0 && (
+        <section className="mb-5 rounded-xl border border-[var(--line)] bg-[var(--film-1)] p-4">
+          <h3 className="mb-1 flex items-center gap-2 text-[13px] font-semibold uppercase tracking-wide text-[#EADFC8]">
+            <Scale className="h-4 w-4" /> Comparação entre fontes
+          </h3>
+          <p className="mb-3 text-[12.5px] text-[#8C9AB0]">Como as referências adicionais se posicionam em relação ao conteúdo acima.</p>
+          <ul className="space-y-2.5">
+            {(["diverge", "acrescenta", "concorda"] as const).flatMap((tipo) =>
+              t.notas!.filter((n) => n.tipo === tipo).map((n, i) => {
+                const T = TIPO[n.tipo];
+                return (
+                  <li key={tipo + i} className="text-[14px] leading-relaxed text-[#DCE3EE]">
+                    <span className={cn("mr-2 inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 align-middle text-[11px] font-semibold", T.cls)}>
+                      <T.Icon className="h-3 w-3" /> {T.l}
+                    </span>
+                    {n.texto}
+                    <span className="mt-0.5 block text-[12px] text-[#8C9AB0]">{FONTES_ESP[n.fonte]}</span>
+                  </li>
+                );
+              })
+            )}
+          </ul>
         </section>
       )}
 
@@ -157,7 +191,15 @@ export function EsporteClient({ area }: { area: AreaEsp }) {
                 className={cn("group flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
                   sel?.id === t.id ? "border-[#38D5E0]/45 bg-[#38D5E0]/[0.07]" : "border-[var(--line)] bg-[var(--film-2)] hover:border-white/15")}>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[14.5px] font-semibold text-white">{t.titulo}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="truncate text-[14.5px] font-semibold text-white">{t.titulo}</span>
+                    {t.notas?.some((n) => n.tipo === "diverge") && (
+                      <span className="shrink-0 rounded border border-amber-400/40 px-1 text-[10px] font-semibold text-amber-200">diverge</span>
+                    )}
+                    {!t.notas?.some((n) => n.tipo === "diverge") && NOVOS_IDS.has(t.id) && (
+                      <span className="shrink-0 rounded border border-[#38D5E0]/40 px-1 text-[10px] font-semibold text-[#7FE7EE]">novo</span>
+                    )}
+                  </span>
                   <span className="mt-0.5 block truncate text-[12.5px] text-[#A3B1C6]">{t.grupo} · {t.resumo}</span>
                 </span>
                 <ChevronRight className="h-4 w-4 shrink-0 text-[#8C9AB0] group-hover:text-white" />
