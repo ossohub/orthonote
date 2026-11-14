@@ -30,35 +30,73 @@ function textoFase(f: Fase, i: number) {
   return linhas.join("\n");
 }
 
+// Cabeçalho, rótulo do botão e orientações de cada aba.
+const MODELO: Record<AreaEsp, { titulo: string; botao: string; paciente: boolean; dica: string; orient: string[] }> = {
+  reabilitacao: {
+    titulo: "PRESCRIÇÃO DE REABILITAÇÃO", botao: "Copiar prescrição", paciente: true,
+    dica: "Copie o protocolo completo já formatado para o paciente",
+    orient: [
+      "Dor leve durante o exercício (até 3 de 10) é aceitável se voltar ao normal em até 24 h.",
+      "Se a dor piorar no dia seguinte, reduza a carga/repetições na próxima sessão.",
+      "Procure atendimento se houver inchaço importante, perda de força súbita, falseio ou dor que não melhora.",
+      "Avance de fase somente quando atingir os critérios e com liberação do seu médico/fisioterapeuta.",
+    ],
+  },
+  fisioterapia: {
+    titulo: "PRESCRIÇÃO DE EXERCÍCIOS", botao: "Copiar prescrição", paciente: true,
+    dica: "Copie as orientações de treino já formatadas para o paciente",
+    orient: [
+      "Aqueça 5–10 minutos antes e progrida a carga aos poucos.",
+      "Interrompa e procure atendimento se houver dor no peito, falta de ar desproporcional, tontura ou dor articular forte.",
+      "Respeite pelo menos um dia de intervalo entre treinos intensos do mesmo grupo muscular.",
+    ],
+  },
+  lesoes: {
+    titulo: "ORIENTAÇÕES AO PACIENTE", botao: "Copiar orientações", paciente: true,
+    dica: "Copie as orientações sobre a lesão já formatadas para o paciente",
+    orient: [
+      "Siga as orientações de repouso relativo e de carga combinadas na consulta.",
+      "Retorne antes do previsto se houver piora da dor, inchaço importante, falseio, dormência ou febre.",
+      "Volte ao esporte somente após liberação, cumprindo os critérios de retorno.",
+    ],
+  },
+  nutricao: {
+    titulo: "ORIENTAÇÃO NUTRICIONAL", botao: "Copiar orientações", paciente: true,
+    dica: "Copie as orientações já formatadas para o paciente",
+    orient: [
+      "Valores por kg de peso corporal; ajuste com nutricionista conforme objetivo e rotina de treino.",
+      "Suplementos: preferir produtos com certificação de terceira parte; atletas federados devem consultar a lista antidoping.",
+    ],
+  },
+  biomecanica: { titulo: "RESUMO — BIOMECÂNICA", botao: "Copiar resumo", paciente: false, dica: "Copie o resumo para seu estudo ou para explicar ao paciente", orient: [] },
+  anatomia: { titulo: "RESUMO — ANATOMIA FUNCIONAL", botao: "Copiar resumo", paciente: false, dica: "Copie o resumo para seu estudo ou para explicar ao paciente", orient: [] },
+};
+
 function textoPrescricao(t: Topico, fase?: number) {
+  const m = MODELO[t.area];
   const hoje = new Date().toLocaleDateString("pt-BR");
-  const partes: string[] = [
-    `PRESCRIÇÃO DE REABILITAÇÃO — ${t.titulo.toUpperCase()}`,
-    `Paciente: ______________________________   Data: ${hoje}`,
-    "",
-    t.resumo,
-  ];
+  const partes: string[] = [`${m.titulo} — ${t.titulo.toUpperCase()}`];
+  if (m.paciente) partes.push(`Paciente: ______________________________   Data: ${hoje}`);
+  partes.push("", t.resumo);
   if (t.fases?.length) {
     const lista = fase != null ? [[t.fases[fase], fase] as const] : t.fases.map((f, i) => [f, i] as const);
     for (const [f, i] of lista) partes.push("", textoFase(f, i));
   }
-  if (t.secoes.length && fase == null) {
+  if (fase == null) {
     for (const s of t.secoes) {
       partes.push("", `${s.t.toUpperCase()}:`);
       s.itens.forEach((x) => partes.push(`• ${x}`));
     }
+    if (t.tabela) {
+      partes.push("", t.tabela.cab.join(" | "));
+      t.tabela.linhas.forEach((l) => partes.push(l.join(" | ")));
+    }
   }
-  partes.push(
-    "",
-    "ORIENTAÇÕES GERAIS:",
-    "• Dor leve durante o exercício (até 3 de 10) é aceitável se voltar ao normal em até 24 h.",
-    "• Se a dor piorar no dia seguinte, reduza a carga/repetições na próxima sessão.",
-    "• Procure atendimento se houver inchaço importante, perda de força súbita, falseio ou dor que não melhora.",
-    "• Avance de fase somente quando atingir os critérios e com liberação do seu médico/fisioterapeuta.",
-    "",
-    "_______________________________",
-    "Médico(a) — CRM",
-  );
+  if (m.orient.length) {
+    partes.push("", "ORIENTAÇÕES GERAIS:");
+    m.orient.forEach((o) => partes.push(`• ${o}`));
+  }
+  if (m.paciente) partes.push("", "_______________________________", "Médico(a) — CRM");
   return partes.join("\n");
 }
 
@@ -106,15 +144,13 @@ function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
         <span className="oh-mono text-[11px] uppercase tracking-[0.14em] text-[#8C9AB0]">{t.grupo}</span>
         <h2 className="mt-1 text-2xl sm:text-[28px] font-bold leading-tight text-white">{t.titulo}</h2>
         <p className="mt-2 text-[15px] leading-relaxed text-[#C9D3E1]">{t.resumo}</p>
-        {t.area === "reabilitacao" && (
-          <div className="mt-4 rounded-xl border border-[#10B981]/25 bg-[#10B981]/[0.05] p-3">
-            <p className="mb-2 flex items-center gap-1.5 text-[12.5px] text-[#A3B1C6]">
-              <ClipboardList className="h-4 w-4 text-[#6EE7B7]" />
-              Copie o protocolo completo já formatado para o paciente{t.fases?.length ? " — ou só a fase atual, no botão de cada fase" : ""}.
-            </p>
-            <AcoesPrescricao texto={textoPrescricao(t)} />
-          </div>
-        )}
+        <div className="mt-4 rounded-xl border border-[#10B981]/25 bg-[#10B981]/[0.05] p-3">
+          <p className="mb-2 flex items-center gap-1.5 text-[12.5px] text-[#A3B1C6]">
+            <ClipboardList className="h-4 w-4 shrink-0 text-[#6EE7B7]" />
+            {MODELO[t.area].dica}{t.fases?.length ? " — ou só a fase atual, no botão de cada fase" : ""}.
+          </p>
+          <AcoesPrescricao texto={textoPrescricao(t)} rotulo={MODELO[t.area].botao} />
+        </div>
       </header>
 
       {t.secoes.map((s) => (
@@ -158,7 +194,7 @@ function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
                     <h4 className="text-[15px] font-semibold text-white">{f.nome}</h4>
                     <span className="flex items-center gap-2">
                       {f.tempo && <span className="oh-mono text-[11.5px] text-[#8C9AB0]">{f.tempo}</span>}
-                      {t.area === "reabilitacao" && <AcoesPrescricao texto={textoPrescricao(t, i)} rotulo="Copiar fase" compacto />}
+                      <AcoesPrescricao texto={textoPrescricao(t, i)} rotulo="Copiar fase" compacto />
                     </span>
                   </div>
                   <div className="mt-3 grid gap-3 sm:grid-cols-3">
