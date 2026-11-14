@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  Bell, User, Menu, X, LogOut, Pencil, Plus, Home, Bone, Baby, GraduationCap,
+  Bell, User, Menu, X, LogOut, Pencil, Plus, Home, Bone, Baby, Siren,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,7 +21,7 @@ const TAB_ITEMS = [
   { href: "/feed",      label: "Início",    icon: Home,          section: null },
   { href: "/ortopedia", label: "Adulto",    icon: Bone,          section: "ortopedia" },
   { href: "/pediatria", label: "Pediatria", icon: Baby,          section: "pediatria" },
-  { href: "/estudos",   label: "Estudos",   icon: GraduationCap, section: "estudos" },
+  { href: "/pronto-socorro/adulto", label: "PS",  icon: Siren,         section: "ps" },
 ] as const;
 
 export function Navbar() {

@@ -9,7 +9,7 @@ import {
   Pencil, Pill, FileText, StickyNote, FileType,
   LayoutGrid, Route, HandMetal, Calculator, GitBranch, BookOpen, Bone,
   Baby, BookText, ClipboardList, Layers, CalendarClock, PieChart, Brain,
-  MessagesSquare, Users2, ShieldCheck, Wrench, Stethoscope, GraduationCap,
+  MessagesSquare, Users2, ShieldCheck, Wrench, Stethoscope, GraduationCap, Siren, Calculator as CalcIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -45,6 +45,18 @@ export const SOCIAL_LINKS: NavItem[] = [
 ];
 
 export const NAV_SECTIONS: NavSection[] = [
+  {
+    id: "ps",
+    label: "Pronto-Socorro",
+    marker: "PS",
+    icon: Siren,
+    tone: "red",
+    items: [
+      { href: "/pronto-socorro/adulto",        label: "Prescrições — Adulto",    icon: Stethoscope, desc: "Manejo e prescrição pronta das principais urgências do adulto." },
+      { href: "/pronto-socorro/pediatria",     label: "Prescrições — Pediatria", icon: Baby,        desc: "Condutas pediátricas com dose calculada pelo peso." },
+      { href: "/pronto-socorro/calculadoras",  label: "Calculadoras do PS",      icon: CalcIcon,    desc: "Hidratação, vasoativas, IOT, sódio, clearance e escores." },
+    ],
+  },
   {
     id: "consultorio",
     label: "Consultório",

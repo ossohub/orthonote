@@ -388,6 +388,12 @@ body select {
   color: #E6EBF2 !important;
   border-color: rgba(148,180,220,0.16) !important;
 }
+body input.oh-bare,
+body input.oh-bare:focus {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
 body input::placeholder,
 body textarea::placeholder      { color: #8C9AB0 !important; }
 body input:focus,
