@@ -5,14 +5,14 @@ import { cn } from "@/lib/utils";
 import { ADULTO, calcularDose } from "@/data/ps";
 
 // ───────── utilidades ─────────
-const n = (v: string) => {
+export const n = (v: string) => {
   const x = parseFloat(v.replace(",", "."));
   return Number.isFinite(x) ? x : NaN;
 };
-const f = (x: number, casas = 1) =>
+export const f = (x: number, casas = 1) =>
   Number.isFinite(x) ? x.toLocaleString("pt-BR", { maximumFractionDigits: casas }) : "—";
 
-function Campo({ label, value, onChange, unit, placeholder }: {
+export function Campo({ label, value, onChange, unit, placeholder }: {
   label: string; value: string; onChange: (v: string) => void; unit?: string; placeholder?: string;
 }) {
   return (
@@ -32,7 +32,7 @@ function Campo({ label, value, onChange, unit, placeholder }: {
   );
 }
 
-function Opcoes<T extends string>({ value, onChange, items }: {
+export function Opcoes<T extends string>({ value, onChange, items }: {
   value: T; onChange: (v: T) => void; items: { v: T; l: string }[];
 }) {
   return (
@@ -48,7 +48,7 @@ function Opcoes<T extends string>({ value, onChange, items }: {
   );
 }
 
-function Resultado({ children }: { children: React.ReactNode }) {
+export function Resultado({ children }: { children: React.ReactNode }) {
   return (
     <div className="mt-3 rounded-xl border border-[#38D5E0]/25 bg-[#38D5E0]/[0.06] px-4 py-3 text-[14px] leading-relaxed text-[#E6EBF2]">
       {children}
@@ -56,11 +56,11 @@ function Resultado({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Num({ children }: { children: React.ReactNode }) {
+export function Num({ children }: { children: React.ReactNode }) {
   return <strong className="oh-mono text-[#7FE7EE]">{children}</strong>;
 }
 
-function Card({ id, titulo, desc, children }: { id: string; titulo: string; desc: string; children: React.ReactNode }) {
+export function Card({ id, titulo, desc, children }: { id: string; titulo: string; desc: string; children: React.ReactNode }) {
   return (
     <section id={id} className="ossohub-card p-4 sm:p-5 scroll-mt-24">
       <h3 className="text-[16px] font-semibold text-white">{titulo}</h3>

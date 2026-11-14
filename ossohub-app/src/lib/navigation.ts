@@ -9,7 +9,7 @@ import {
   Pencil, Pill, FileText, StickyNote, FileType,
   LayoutGrid, Route, HandMetal, Calculator, GitBranch, BookOpen, Bone,
   Baby, BookText, ClipboardList, Layers, CalendarClock, PieChart, Brain,
-  MessagesSquare, Users2, ShieldCheck, Wrench, Stethoscope, GraduationCap, Siren, Calculator as CalcIcon,
+  MessagesSquare, Users2, ShieldCheck, Wrench, Stethoscope, GraduationCap, Siren, Calculator as CalcIcon, Activity, Apple, HeartPulse, Dumbbell, Footprints,
   type LucideIcon,
 } from "lucide-react";
 
@@ -99,6 +99,23 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: "/tools/pediatria",          label: "Ferramentas Pediátricas",    icon: Baby,       desc: "Referências rápidas de ortopedia pediátrica." },
       { href: "/pediatria/classificacoes", label: "Classificações Pediátricas", icon: LayoutGrid, desc: "Classificações próprias da criança." },
       { href: "/pediatria/conteudo",       label: "Conteúdo Pediatria",         icon: BookText,   desc: "Material de estudo de ortopedia pediátrica." },
+    ],
+  },
+  {
+    id: "esporte",
+    label: "Medicina Esportiva",
+    marker: "ME",
+    icon: Activity,
+    tone: "green",
+    hub: "/esporte",
+    items: [
+      { href: "/esporte/lesoes",       label: "Lesões no esporte",   icon: HeartPulse, desc: "Mecanismo, exame, imagem, conduta e retorno ao esporte." },
+      { href: "/esporte/reabilitacao", label: "Reabilitação",        icon: Footprints, desc: "Protocolos em fases com critérios para avançar." },
+      { href: "/esporte/fisioterapia", label: "Fisioterapia e treino", icon: Dumbbell, desc: "Exercício terapêutico, força, periodização e recursos." },
+      { href: "/esporte/biomecanica",  label: "Biomecânica",         icon: Activity,   desc: "Forças, corrida, salto, arremesso e coluna." },
+      { href: "/esporte/anatomia",     label: "Anatomia funcional",  icon: Bone,       desc: "Músculos, ações, inervação e testes por região." },
+      { href: "/esporte/nutricao",     label: "Nutrição esportiva",  icon: Apple,      desc: "Energia, macros, hidratação, suplementos e RED-S." },
+      { href: "/esporte/calculadoras", label: "Calculadoras do esporte", icon: CalcIcon, desc: "Gasto energético, macros, 1RM, FC, sudorese e carga." },
     ],
   },
   {

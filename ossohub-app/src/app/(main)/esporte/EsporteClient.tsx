@@ -1,0 +1,182 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico } from "@/data/esporte";
+
+const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+function Detalhe({ t, onVoltar }: { t: Topico; onVoltar: () => void }) {
+  return (
+    <article className="pb-10">
+      <button onClick={onVoltar} className="mb-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-[#7FE7EE] lg:hidden">
+        <ArrowLeft className="h-4 w-4" /> Voltar à lista
+      </button>
+      <header className="mb-5">
+        <span className="oh-mono text-[11px] uppercase tracking-[0.14em] text-[#8C9AB0]">{t.grupo}</span>
+        <h2 className="mt-1 text-2xl sm:text-[28px] font-bold leading-tight text-white">{t.titulo}</h2>
+        <p className="mt-2 text-[15px] leading-relaxed text-[#C9D3E1]">{t.resumo}</p>
+      </header>
+
+      {t.secoes.map((s) => (
+        <section key={s.t} className="mb-5">
+          <h3 className="oh-eyebrow mb-3">{s.t}</h3>
+          <ul className="space-y-2">
+            {s.itens.map((i, k) => (
+              <li key={k} className="flex gap-3 text-[14.5px] leading-relaxed text-[#DCE3EE]">
+                <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#38D5E0]/70" />
+                <span>{i}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      {t.tabela && (
+        <section className="mb-5 overflow-x-auto rounded-xl border border-[var(--line)]">
+          <table className="w-full min-w-[480px] text-left text-[13.5px]">
+            <thead className="bg-white/[0.04]">
+              <tr>{t.tabela.cab.map((c) => <th key={c} className="px-3 py-2 font-semibold text-[#EADFC8]">{c}</th>)}</tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--line)]">
+              {t.tabela.linhas.map((l, i) => (
+                <tr key={i}>{l.map((c, j) => <td key={j} className={cn("px-3 py-2 align-top", j === 0 ? "font-medium text-white" : "text-[#C9D3E1]")}>{c}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {t.fases && (
+        <section className="mb-5">
+          <h3 className="oh-eyebrow mb-3">Fases</h3>
+          <ol className="relative space-y-4 border-l border-[#38D5E0]/25 pl-5">
+            {t.fases.map((f, i) => (
+              <li key={i} className="relative">
+                <span className="oh-mono absolute -left-[31px] top-0 grid h-5 w-5 place-items-center rounded-full border border-[#38D5E0]/50 bg-[var(--film-0)] text-[10px] text-[#7FE7EE]">{i + 1}</span>
+                <div className="ossohub-card p-4">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h4 className="text-[15px] font-semibold text-white">{f.nome}</h4>
+                    {f.tempo && <span className="oh-mono text-[11.5px] text-[#8C9AB0]">{f.tempo}</span>}
+                  </div>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-3">
+                    {([["Objetivos", f.objetivos, Flag], ["Exercícios", f.exercicios, Dumbbell], ["Critérios para avançar", f.criterios, ChevronRight]] as const).map(([titulo, lista, Icon]) => (
+                      <div key={titulo}>
+                        <p className="mb-1.5 flex items-center gap-1.5 text-[11.5px] font-semibold uppercase tracking-wide text-[#A3B1C6]"><Icon className="h-3.5 w-3.5" />{titulo}</p>
+                        <ul className="space-y-1 text-[13.5px] leading-relaxed text-[#DCE3EE]">
+                          {lista.map((x, k) => <li key={k}>• {x}</li>)}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {t.ver && t.ver.length > 0 && (
+        <section className="mb-5">
+          <h3 className="oh-eyebrow mb-2">Veja também</h3>
+          <div className="flex flex-wrap gap-2">
+            {t.ver.map((id) => {
+              const r = acharTopico(id);
+              if (!r) return null;
+              return (
+                <Link key={id} href={`/esporte/${r.area}?t=${r.id}`}
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#38D5E0]/30 bg-[#38D5E0]/[0.06] px-3 py-1.5 text-[13px] text-[#7FE7EE] hover:bg-[#38D5E0]/10">
+                  <Link2 className="h-3.5 w-3.5" /> {r.titulo}
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <footer className="mt-6 flex items-start gap-2 text-[12px] leading-relaxed text-[#8C9AB0]">
+        <BookMarked className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+        <span>Referências: {t.fontes.map((f) => FONTES_ESP[f]).join("; ")}.</span>
+      </footer>
+    </article>
+  );
+}
+
+export function EsporteClient({ area }: { area: AreaEsp }) {
+  const router = useRouter();
+  const params = useSearchParams();
+  const selId = params.get("t");
+  const [busca, setBusca] = useState("");
+  const [grupo, setGrupo] = useState<string | null>(null);
+
+  const lista = TOPICOS[area];
+  const meta = AREAS_ESP.find((a) => a.id === area)!;
+  const grupos = useMemo(() => Array.from(new Set(lista.map((t) => t.grupo))), [lista]);
+  const filtrada = useMemo(() => {
+    const q = semAcento(busca.trim());
+    return lista.filter((t) => {
+      if (grupo && t.grupo !== grupo) return false;
+      if (!q) return true;
+      const alvo = semAcento([t.titulo, t.grupo, t.resumo, ...(t.tags ?? [])].join(" "));
+      return q.split(/\s+/).every((p) => alvo.includes(p));
+    });
+  }, [lista, busca, grupo]);
+  const sel = selId ? lista.find((t) => t.id === selId) : undefined;
+
+  function abrir(id: string | null) {
+    router.push(id ? `/esporte/${area}?t=${id}` : `/esporte/${area}`, { scroll: false });
+    if (id) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  return (
+    <div className="lg:grid lg:grid-cols-[minmax(300px,380px)_1fr] lg:gap-6">
+      <div className={cn(sel && "hidden lg:block")}>
+        <div className="sticky top-16 z-10 -mx-1 mb-3 space-y-2.5 bg-[var(--film-0)]/95 px-1 py-2 backdrop-blur">
+          <label className="flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--film-3)] px-3 focus-within:border-[#38D5E0]">
+            <Search className="h-4 w-4 shrink-0 text-[#8C9AB0]" />
+            <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={`Buscar em ${meta.titulo.toLowerCase()}…`}
+              className="oh-bare w-full min-w-0 py-2.5 text-[15px] text-white outline-none" />
+          </label>
+          <div className="flex gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none]">
+            {[null, ...grupos].map((g) => (
+              <button key={g ?? "todos"} onClick={() => setGrupo(g)}
+                className={cn("shrink-0 rounded-full border px-3 py-1 text-[12.5px] font-medium",
+                  grupo === g ? "border-[#38D5E0]/50 bg-[#38D5E0]/10 text-[#7FE7EE]" : "border-[var(--line)] text-[#C9D3E1]")}>
+                {g ?? "Todos"}
+              </button>
+            ))}
+          </div>
+        </div>
+        <ul className="space-y-2">
+          {filtrada.map((t) => (
+            <li key={t.id}>
+              <button onClick={() => abrir(t.id)}
+                className={cn("group flex w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors",
+                  sel?.id === t.id ? "border-[#38D5E0]/45 bg-[#38D5E0]/[0.07]" : "border-[var(--line)] bg-[var(--film-2)] hover:border-white/15")}>
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-[14.5px] font-semibold text-white">{t.titulo}</span>
+                  <span className="mt-0.5 block truncate text-[12.5px] text-[#A3B1C6]">{t.grupo} · {t.resumo}</span>
+                </span>
+                <ChevronRight className="h-4 w-4 shrink-0 text-[#8C9AB0] group-hover:text-white" />
+              </button>
+            </li>
+          ))}
+          {filtrada.length === 0 && <li className="py-8 text-center text-[14px] text-[#A3B1C6]">Nada encontrado.</li>}
+        </ul>
+      </div>
+      <div className={cn(!sel && "hidden lg:block")}>
+        {sel ? <Detalhe t={sel} onVoltar={() => abrir(null)} /> : (
+          <div className="ossohub-card grid min-h-[320px] place-items-center p-8 text-center">
+            <div>
+              <p className="text-[15px] text-[#C9D3E1]">Escolha um tema na lista.</p>
+              <p className="mt-1 text-[13px] text-[#8C9AB0]">{meta.desc}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
