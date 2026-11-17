@@ -6,18 +6,23 @@ import { BIOMECANICA } from "./biomecanica";
 import { ANATOMIA } from "./anatomia";
 import { NUTRICAO } from "./nutricao";
 import { NOTAS, NOVOS } from "./revisao";
+import { NOTAS_SRIP, NOVOS_SRIP } from "./revisao-srip";
 
 export * from "./types";
 
 // Aplica a revisão com as fontes adicionais: notas de comparação + temas novos.
 function revisar(lista: Topico[], area: AreaEsp): Topico[] {
   const base = lista.map((t) => {
-    const notas = NOTAS[t.id];
-    if (!notas) return t;
+    const notas = [...(NOTAS[t.id] ?? []), ...(NOTAS_SRIP[t.id] ?? [])];
+    if (!notas.length) return t;
     const fontes = Array.from(new Set([...t.fontes, ...notas.map((n) => n.fonte)]));
     return { ...t, notas: [...(t.notas ?? []), ...notas], fontes };
   });
-  return [...base, ...NOVOS.filter((n) => n.area === area)];
+  const novos = [...NOVOS, ...NOVOS_SRIP].filter((n) => n.area === area).map((n) => {
+    const extra = NOTAS_SRIP[n.id] ?? [];
+    return extra.length ? { ...n, notas: [...(n.notas ?? []), ...extra], fontes: Array.from(new Set([...n.fontes, ...extra.map((x) => x.fonte)])) } : n;
+  });
+  return [...base, ...novos];
 }
 
 export const TOPICOS: Record<AreaEsp, Topico[]> = {

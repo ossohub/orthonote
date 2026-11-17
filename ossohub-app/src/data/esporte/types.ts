@@ -42,7 +42,8 @@ export type FonteEsp =
   | "HAFF" | "PRESTES" | "LIPPERT" | "SPBIO" | "SPINE" | "NUTRI" | "INTEG" | "METAB" | "ANTRO"
   | "CUT" | "REHAB" | "PTR" | "GARD" | "HODLER" | "WINNICK" | "BODYW" | "MORAN"
   | "ACL5" | "MOVBODY" | "PTRAIN" | "BIOBAS" | "WHITING" | "FANWANG" | "MCGINNIS" | "SPINESTAB" | "CORE50"
-  | "WOMEN" | "EXSCI" | "SWIM" | "RUSIN" | "NUTSCI" | "SUPPAZ" | "PSM" | "BANDS" | "SPINJ" | "KAPOOR";
+  | "WOMEN" | "EXSCI" | "SWIM" | "RUSIN" | "NUTSCI" | "SUPPAZ" | "PSM" | "BANDS" | "SPINJ" | "KAPOOR"
+  | "SRIP";
 
 export const FONTES_ESP: Record<FonteEsp, string> = {
   HAFF: "Haff & Triplett — Essentials of Strength Training and Conditioning (NSCA)",
@@ -81,6 +82,7 @@ export const FONTES_ESP: Record<FonteEsp, string> = {
   BANDS: "Murray — Resistance Band Workout for Seniors",
   SPINJ: "Doral, Karlsson et al. (eds.) — Sports Injuries: Prevention, Diagnosis, Treatment and Rehabilitation",
   KAPOOR: "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+  SRIP: "Comfort & Abrahamson (eds.) — Sports Rehabilitation and Injury Prevention",
 };
 
 export const AREAS_ESP: { id: AreaEsp; titulo: string; desc: string }[] = [

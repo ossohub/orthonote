@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Search, ArrowLeft, ChevronRight, BookMarked, Flag, Link2, Dumbbell, Scale, CheckCircle2, AlertTriangle, PlusCircle, Copy, Check, Share2, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NOVOS } from "@/data/esporte/revisao";
+import { NOVOS_SRIP } from "@/data/esporte/revisao-srip";
 import { TOPICOS, FONTES_ESP, AREAS_ESP, acharTopico, type AreaEsp, type Topico, type Nota, type Fase } from "@/data/esporte";
 
 const TIPO: Record<Nota["tipo"], { l: string; cls: string; Icon: React.ElementType }> = {
@@ -14,7 +15,7 @@ const TIPO: Record<Nota["tipo"], { l: string; cls: string; Icon: React.ElementTy
   acrescenta: { l: "Acrescenta", cls: "border-[#38D5E0]/35 bg-[#38D5E0]/[0.07] text-[#7FE7EE]",  Icon: PlusCircle },
 };
 
-const NOVOS_IDS = new Set(NOVOS.map((n) => n.id));
+const NOVOS_IDS = new Set([...NOVOS, ...NOVOS_SRIP].map((n) => n.id));
 
 const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
