@@ -7,22 +7,29 @@ import { ANATOMIA } from "./anatomia";
 import { NUTRICAO } from "./nutricao";
 import { NOTAS, NOVOS } from "./revisao";
 import { NOTAS_SRIP, NOVOS_SRIP } from "./revisao-srip";
+import { NOTAS_READ, NOVOS_READ } from "./revisao-read";
+import type { Nota } from "./types";
+
+// Todas as revisões por fonte adicional (ordem = ordem de exibição das notas).
+const REVISOES: { notas: Record<string, Nota[]>; novos: Topico[] }[] = [
+  { notas: NOTAS, novos: NOVOS },
+  { notas: NOTAS_SRIP, novos: NOVOS_SRIP },
+  { notas: NOTAS_READ, novos: NOVOS_READ },
+];
+const NOVOS_TODOS = REVISOES.flatMap((r) => r.novos);
+export const NOVOS_IDS = new Set(NOVOS_TODOS.map((n) => n.id));
+const notasDe = (id: string) => REVISOES.flatMap((r) => r.notas[id] ?? []);
 
 export * from "./types";
 
 // Aplica a revisão com as fontes adicionais: notas de comparação + temas novos.
 function revisar(lista: Topico[], area: AreaEsp): Topico[] {
-  const base = lista.map((t) => {
-    const notas = [...(NOTAS[t.id] ?? []), ...(NOTAS_SRIP[t.id] ?? [])];
-    if (!notas.length) return t;
-    const fontes = Array.from(new Set([...t.fontes, ...notas.map((n) => n.fonte)]));
-    return { ...t, notas: [...(t.notas ?? []), ...notas], fontes };
-  });
-  const novos = [...NOVOS, ...NOVOS_SRIP].filter((n) => n.area === area).map((n) => {
-    const extra = NOTAS_SRIP[n.id] ?? [];
-    return extra.length ? { ...n, notas: [...(n.notas ?? []), ...extra], fontes: Array.from(new Set([...n.fontes, ...extra.map((x) => x.fonte)])) } : n;
-  });
-  return [...base, ...novos];
+  const juntar = (t: Topico): Topico => {
+    const extra = notasDe(t.id);
+    if (!extra.length) return t;
+    return { ...t, notas: [...(t.notas ?? []), ...extra], fontes: Array.from(new Set([...t.fontes, ...extra.map((n) => n.fonte)])) };
+  };
+  return [...lista.map(juntar), ...NOVOS_TODOS.filter((n) => n.area === area).map(juntar)];
 }
 
 export const TOPICOS: Record<AreaEsp, Topico[]> = {

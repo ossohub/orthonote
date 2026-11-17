@@ -43,7 +43,7 @@ export type FonteEsp =
   | "CUT" | "REHAB" | "PTR" | "GARD" | "HODLER" | "WINNICK" | "BODYW" | "MORAN"
   | "ACL5" | "MOVBODY" | "PTRAIN" | "BIOBAS" | "WHITING" | "FANWANG" | "MCGINNIS" | "SPINESTAB" | "CORE50"
   | "WOMEN" | "EXSCI" | "SWIM" | "RUSIN" | "NUTSCI" | "SUPPAZ" | "PSM" | "BANDS" | "SPINJ" | "KAPOOR"
-  | "SRIP";
+  | "SRIP" | "READ";
 
 export const FONTES_ESP: Record<FonteEsp, string> = {
   HAFF: "Haff & Triplett — Essentials of Strength Training and Conditioning (NSCA)",
@@ -83,6 +83,7 @@ export const FONTES_ESP: Record<FonteEsp, string> = {
   SPINJ: "Doral, Karlsson et al. (eds.) — Sports Injuries: Prevention, Diagnosis, Treatment and Rehabilitation",
   KAPOOR: "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
   SRIP: "Comfort & Abrahamson (eds.) — Sports Rehabilitation and Injury Prevention",
+  READ: "Read & Wade — Sports Injuries: A Unique Guide to Self-Diagnosis and Rehabilitation (3ª ed., 2009)",
 };
 
 export const AREAS_ESP: { id: AreaEsp; titulo: string; desc: string }[] = [
