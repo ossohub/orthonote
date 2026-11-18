@@ -1,7 +1,10 @@
-# Revisão diária do conteúdo (um capítulo por dia)
+# Revisão diária do conteúdo (3 capítulos por dia)
 
-Objetivo: **revisar o site**, não produzir leitura. A cada dia, um capítulo
-(unidade) das referências é comparado com os assuntos do site para:
+Objetivo: **revisar o site**, não produzir leitura. A tarefa agendada roda
+3 vezes por dia (03:41, 09:41 e 16:41, horário de Belém). Cada execução é
+uma sessão separada e revisa **um único capítulo** (unidade), para ler o
+capítulo inteiro com atenção total. O capítulo é comparado com os assuntos
+do site para:
 
 1. **corrigir** o que estiver errado no site;
 2. **criar disclaimer** (nota) do que a referência trata de forma diferente,
@@ -24,7 +27,7 @@ está como `<ID>.txt` numa pasta privada do Google Drive do dono (o id da pasta
 vai no prompt da tarefa agendada). Cabeçalho de cada arquivo:
 `LIVRO / UNIDADE / PÁGINAS DO PDF`.
 
-## Procedimento de cada dia
+## Procedimento de cada execução (uma unidade só)
 
 1. **Pegar a unidade**: a primeira de `fila.json` com `"status": "pendente"`.
 2. **Baixar do Drive**: buscar `title = '<ID>.txt'` dentro da pasta e baixar
