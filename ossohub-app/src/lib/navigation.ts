@@ -7,7 +7,7 @@
 import {
   Home, Compass, Users, Bell,
   Pencil, Pill, FileText, StickyNote, FileType,
-  LayoutGrid, Route, HandMetal, Calculator, GitBranch, BookOpen, Bone,
+  LayoutGrid, Route, HandMetal, Calculator, GitBranch, BookOpen, Bone, Ruler,
   Baby, BookText, ClipboardList, Layers, CalendarClock, PieChart, Brain,
   MessagesSquare, Users2, ShieldCheck, Wrench, Stethoscope, GraduationCap, Siren, Calculator as CalcIcon, Activity, Apple, HeartPulse, Dumbbell, Footprints,
   type LucideIcon,
@@ -81,6 +81,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: "/tools/classificacoes",          label: "Classificações",         icon: LayoutGrid, desc: "Classificações de fraturas e lesões do adulto." },
       { href: "/tools/vias-acesso",             label: "Vias de Acesso",         icon: Route,      desc: "Vias cirúrgicas passo a passo." },
       { href: "/tools/exame-fisico",            label: "Exame Físico",           icon: HandMetal,  desc: "Manobras e testes especiais por região." },
+      { href: "/mensuracao",                    label: "Mensuração Radiográfica", icon: Ruler,     desc: "Linhas, ângulos e índices radiográficos por região." },
       { href: "/tools/calculadora",             label: "Calculadora Ortopédica", icon: Calculator, desc: "Escores e cálculos do dia a dia." },
       { href: "/tools/algoritmos",              label: "Algoritmos",             icon: GitBranch,  desc: "Fluxogramas de conduta." },
       { href: "/referencia/ortopedia-adulto",   label: "Conteúdo Adulto",        icon: BookOpen,   desc: "Material de estudo de ortopedia do adulto." },

@@ -12,6 +12,7 @@ import { NOTAS_READ } from "../src/data/esporte/revisao-read";
 import { NOTAS_DIARIA } from "../src/data/esporte/revisao-diaria";
 import { ADULTO, PEDIATRIA, FONTES } from "../src/data/ps";
 import { NOTAS_PS } from "../src/data/ps/revisao-diaria";
+import { MEDIDAS, REGIOES_RX } from "../src/data/radiologia";
 
 const erros: string[] = [];
 const avisos: string[] = [];
@@ -64,6 +65,20 @@ for (const c of todasPS) {
 }
 for (const id of Object.keys(NOTAS_PS)) if (!idsPS.has(id)) erros.push(`ps/revisao-diaria.ts: notas para condição inexistente "${id}"`);
 
+// ---------- Mensuração radiográfica ----------
+const idsRx = new Map<string, number>();
+for (const m of MEDIDAS) idsRx.set(m.id, (idsRx.get(m.id) ?? 0) + 1);
+idsRx.forEach((n, id) => { if (n > 1) erros.push(`radiologia: id duplicado "${id}" (${n}x)`); });
+const regioesRx = new Set(REGIOES_RX.map((r) => r.id));
+for (const m of MEDIDAS) {
+  if (!regioesRx.has(m.regiao)) erros.push(`radiologia: "${m.id}" com região inválida "${m.regiao}"`);
+  if (!m.nome || !m.resumo) erros.push(`radiologia: "${m.id}" sem nome ou resumo`);
+  if (!m.valores?.length && !m.como?.length && !m.tabela && !m.obs?.length) erros.push(`radiologia: "${m.id}" sem conteúdo`);
+  for (const l of m.tabela?.linhas ?? []) {
+    if (l.length !== m.tabela!.cab.length) erros.push(`radiologia: "${m.id}" linha de tabela com ${l.length} colunas (esperado ${m.tabela!.cab.length})`);
+  }
+}
+
 // ---------- Fila da revisão diária ----------
 type ItemFila = { id: string; status: string; data?: string; resumo?: string; ids?: string[]; fonte: string; alvo: string };
 try {
@@ -95,7 +110,7 @@ try {
   }
 } catch { avisos.push("repo: não consegui listar arquivos com git"); }
 
-avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria`);
+avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria · radiologia: ${MEDIDAS.length} itens`);
 for (const a of avisos) console.log("•", a);
 if (erros.length) {
   console.error(`\n${erros.length} erro(s):`);
