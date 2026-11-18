@@ -188,6 +188,7 @@ export const NOVOS: Topico[] = [
     secoes: [
       { t: "Como fazer", itens: ["PAR-Q+: questionário gratuito de prontidão para atividade física — respostas positivas levam a avaliação médica.", "Sinais de alerta para avaliação cardiológica: dor torácica ou síncope ao esforço, palpitações, história familiar de morte súbita < 50 anos.", "Avaliação inicial do aluno/atleta: objetivos, histórico de lesões, medicações, testes de força, mobilidade e condicionamento.", "Reavaliar periodicamente para ajustar a prescrição.", "Registrar dados de base do atleta sem lesão (amplitude, força, testes funcionais e, nos esportes de contato, teste cognitivo/concussão): servem de comparação para decidir o retorno após uma lesão."] },
     ],
+    ver: ["f-triagem-msk"],
     fontes: ["PTRAIN", "EXSCI"],
   },
   {

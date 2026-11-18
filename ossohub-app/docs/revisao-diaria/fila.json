@@ -24,7 +24,19 @@
    "paginas": "37–60",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-18",
+   "resumo": "Sem erros a corrigir. Novo tópico \"Triagem musculoesquelética e prevenção de lesões\" (questionários NMQ-E/Örebro, GALS, bateria funcional, fatores de risco do LCA, compensações, mapa de elos fracos) e 9 notas: 2 diverge (pontos de corte isolados e relação isquiotibiais/quadríceps) e 7 acrescenta (LCA, valgo em vídeo 2D, ajuste da bicicleta na dor do trato iliotibial e na dor patelofemoral, segurança na manipulação cervical, valores de referência de prancha/ponte).",
+   "ids": [
+    "f-triagem-msk",
+    "f-triagem",
+    "l-lca",
+    "b-aterrissagem",
+    "l-iliotibial",
+    "l-pfp",
+    "r-cervical",
+    "r-lombar"
+   ]
   },
   {
    "id": "ESP-01-03",
