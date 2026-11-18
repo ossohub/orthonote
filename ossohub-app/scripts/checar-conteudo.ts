@@ -13,6 +13,7 @@ import { NOTAS_DIARIA } from "../src/data/esporte/revisao-diaria";
 import { ADULTO, PEDIATRIA, FONTES } from "../src/data/ps";
 import { NOTAS_PS } from "../src/data/ps/revisao-diaria";
 import { MEDIDAS, REGIOES_RX } from "../src/data/radiologia";
+import { PROCEDIMENTOS, SECOES_CIR } from "../src/data/cirurgia";
 
 const erros: string[] = [];
 const avisos: string[] = [];
@@ -79,6 +80,27 @@ for (const m of MEDIDAS) {
   }
 }
 
+// ---------- Procedimentos cirúrgicos ----------
+const idsCir = new Map<string, number>();
+for (const p of PROCEDIMENTOS) idsCir.set(p.id, (idsCir.get(p.id) ?? 0) + 1);
+idsCir.forEach((n, id) => { if (n > 1) erros.push(`cirurgia: id duplicado "${id}" (${n}x)`); });
+const secoesCir = new Set(SECOES_CIR.map((s) => s.id));
+const capsCir = new Set(PROCEDIMENTOS.map((p) => p.cap));
+for (let c = 1; c <= 51; c++) if (!capsCir.has(c)) erros.push(`cirurgia: falta o capítulo ${c}`);
+for (const p of PROCEDIMENTOS) {
+  if (!secoesCir.has(p.secao)) erros.push(`cirurgia: "${p.id}" com seção inválida "${p.secao}"`);
+  if (!p.titulo || !p.resumo || !p.original || !p.autores) erros.push(`cirurgia: "${p.id}" sem título/resumo/original/autores`);
+  if (!/^\d+–\d+$/.test(p.paginas)) erros.push(`cirurgia: "${p.id}" páginas fora do formato "N–M"`);
+  if (!p.indicacoes.length || !p.etapas.length || !p.posop.length) erros.push(`cirurgia: "${p.id}" sem indicações, etapas ou pós-op`);
+  for (const e of p.etapas) {
+    if (!e.t || !e.passos.length) erros.push(`cirurgia: "${p.id}" etapa vazia`);
+    for (const f of e.figs ?? []) {
+      if (!/^\d+–\d+$/.test(f)) erros.push(`cirurgia: "${p.id}" figura fora do formato "N–M": ${f}`);
+      else if (!capsCir.has(Number(f.split("–")[0]))) erros.push(`cirurgia: "${p.id}" figura ${f} de capítulo inexistente`); // pode citar figura de outro capítulo (ex.: cap. 2 usa as do cap. 1)
+    }
+  }
+}
+
 // ---------- Fila da revisão diária ----------
 type ItemFila = { id: string; status: string; data?: string; resumo?: string; ids?: string[]; fonte: string; alvo: string };
 try {
@@ -110,7 +132,7 @@ try {
   }
 } catch { avisos.push("repo: não consegui listar arquivos com git"); }
 
-avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria · radiologia: ${MEDIDAS.length} itens`);
+avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria · radiologia: ${MEDIDAS.length} itens · cirurgia: ${PROCEDIMENTOS.length} procedimentos`);
 for (const a of avisos) console.log("•", a);
 if (erros.length) {
   console.error(`\n${erros.length} erro(s):`);
