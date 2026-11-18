@@ -151,8 +151,8 @@ export default async function ProcedimentoDetalhe({ params }: { params: Promise<
 
       <p className="mt-8 border-t border-[var(--line)] pt-4 text-[12px] leading-relaxed text-[#8C9AB0]">
         Conteúdo educativo para profissionais de saúde, resumido com palavras próprias. Base: {FONTE_CIR} (cap. {p.cap},
-        pp. {p.paginas}). As figuras citadas (Fig. X–Y) são do livro e não são reproduzidas aqui; a numeração é a mesma
-        do arquivo de figuras. A técnica do serviço e as instruções do fabricante do implante prevalecem.
+        pp. {p.paginas}). As figuras do livro (Fig. X–Y) aparecem só para administradores, por direito autoral; a
+        numeração é a mesma do arquivo de figuras. A técnica do serviço e as instruções do fabricante do implante prevalecem.
       </p>
     </div>
   );

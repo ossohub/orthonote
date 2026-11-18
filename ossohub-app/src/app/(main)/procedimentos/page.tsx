@@ -22,7 +22,8 @@ export default function ProcedimentosHub() {
       <ProcedimentosClient />
       <p className="mt-8 border-t border-[var(--line)] pt-4 text-[12px] leading-relaxed text-[#8C9AB0]">
         Conteúdo educativo para profissionais de saúde, resumido com palavras próprias. Base: {FONTE_CIR} As
-        ilustrações do livro não são reproduzidas; as figuras são citadas pelo número original. A técnica de cada
+        ilustrações do livro ficam visíveis só para administradores (direito autoral); para os demais, as figuras
+        são citadas pelo número original. A técnica de cada
         serviço e as instruções do fabricante do implante prevalecem.
       </p>
     </div>

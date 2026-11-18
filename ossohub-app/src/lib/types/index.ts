@@ -607,6 +607,29 @@ type Rel<Name extends string, Cols extends string[], Ref extends string, RefCols
   referencedColumns: RefCols;
 };
 
+// Figuras da aba Procedimentos Cirúrgicos (tabela procedure_images; bucket privado procedimento-figuras)
+export interface ProcedureImage {
+  id: string;
+  procedure_id: string;
+  fig_ref: string | null;
+  part: string | null;
+  step_index: number | null;
+  sort: number;
+  caption: string | null;
+  legenda_original: string | null;
+  source: "stern2001" | "upload";
+  visibility: "admin" | "public";
+  hidden: boolean;
+  storage_path: string;
+  thumb_path: string | null;
+  width: number | null;
+  height: number | null;
+  page: number | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -693,6 +716,7 @@ export interface Database {
       consent_logs: { Row: Loose<ConsentLog>; Insert: Partial<Loose<ConsentLog>>; Update: Partial<Loose<ConsentLog>>; Relationships: [
         Rel<"consent_logs_user_id_fkey", ["user_id"], "profiles", ["id"]>
       ] };
+      procedure_images: { Row: Loose<ProcedureImage>; Insert: Partial<Loose<ProcedureImage>>; Update: Partial<Loose<ProcedureImage>>; Relationships: [] };
     };
     Views: Record<string, never>;
     Functions: {
