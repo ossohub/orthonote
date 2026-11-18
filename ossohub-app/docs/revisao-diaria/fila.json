@@ -1,0 +1,599 @@
+{
+ "descricao": "Fila da revisão diária do conteúdo do site: um capítulo (unidade) por dia, na ordem abaixo. Ver README.md.",
+ "unidades": [
+  {
+   "id": "ESP-01-01",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "1 Introduction to sport injury management",
+   "paginas": "25–36",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-02",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "2 Injury prevention and screening",
+   "paginas": "37–60",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-03",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "3 Assessment and needs analysis",
+   "paginas": "61–88",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-04",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "4 Pathophysiology of skeletal muscle injuries",
+   "paginas": "89–100",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-05",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "5 Tendons",
+   "paginas": "101–116",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-06",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "6 Pathophysiology of ligament injuries",
+   "paginas": "117–126",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-07",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "7 Pathophysiology of skeletal injuries",
+   "paginas": "127–140",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-08",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "8 Peripheral nerve injuries",
+   "paginas": "141–166",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-09",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "9 An introduction to periodisation",
+   "paginas": "167–184",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-10",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "10 Management of acute sport injury",
+   "paginas": "185–206",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-11",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "11 Musculoskeletal assessment",
+   "paginas": "207–220",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-12",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "12 Progressive systematic functional rehabilitation",
+   "paginas": "221–244",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-13",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "13 Strength and conditioning",
+   "paginas": "245–266",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-14",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "14 Nutritional considerations for performance and rehabilitation",
+   "paginas": "267–296",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-15",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "15 Psychology and sports rehabilitation",
+   "paginas": "297–318",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-16",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "16 Clinical reasoning",
+   "paginas": "319–330",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-17",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "17 Shoulder injuries in sport",
+   "paginas": "331–358",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-18",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "18 The elbow",
+   "paginas": "359–386",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-19",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "19 Wrist and hand injuries in sport",
+   "paginas": "387–406",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-20",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "20 The groin in sport",
+   "paginas": "407–428",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-21",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 1)",
+   "paginas": "429–444",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-22",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 2)",
+   "paginas": "445–460",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-23",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 3)",
+   "paginas": "461–476",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-24",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 4)",
+   "paginas": "477–486",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-25",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "22 Ankle complex injuries in sport",
+   "paginas": "487–518",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-26",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "23 The foot in sport",
+   "paginas": "519–550",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-01",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 1: How to avoid injuries in the first place",
+   "paginas": "10–38",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-02",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 2: Guide to treatments",
+   "paginas": "39–52",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-03",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — How to Use this Section, Serious Injuries, Head, Neck and Shoulder",
+   "paginas": "53–70",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-04",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Neck and Chest, Shoulder, Elbow",
+   "paginas": "71–92",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-05",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Wrist and Hand, Back",
+   "paginas": "93–112",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-06",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Hip and Pelvis, Uper Leg, Knee",
+   "paginas": "113–142",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-07",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Lower Leg, Ankle, Foot and Toes",
+   "paginas": "143–168",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-08",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 4: How to recover from an injury",
+   "paginas": "169–189",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-09",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 5: Sport-by-sport guide to technical injuries",
+   "paginas": "190–217",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-01",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 1–20: Prescrições · Da Emergência",
+   "paginas": "1–20",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-02",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 21–40: Não Realizar Essas Doses Em Cenários De Hipervolemia! · Urgência E Em",
+   "paginas": "21–40",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-03",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 41–60: Pneumonia · Antibióticos",
+   "paginas": "41–60",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-04",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 61–80: Sistema Gastrointestinal · Náuseas E Vômitos",
+   "paginas": "61–80",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-05",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 81–100: Apendicite Aguda · Abdome Agudo Obstrutivo",
+   "paginas": "81–100",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-06",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 101–120: Hipoglicemia · Sistema Genito-Urinário",
+   "paginas": "101–120",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-07",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 121–140: Psiquiatria · Acatisia",
+   "paginas": "121–140",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-08",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 141–160: Infecções · Sífilis",
+   "paginas": "141–160",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-09",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 161–180: Tinea Corporis · Escabiose",
+   "paginas": "161–180",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-10",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 181–200: Escorpionismo · Hemocomponentes",
+   "paginas": "181–200",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-11",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 201–207",
+   "paginas": "201–207",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-01",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 1–20: Prescrição · No Pronto Socorro · Ficha Verde",
+   "paginas": "1–20",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-02",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 21–40: Infarto Agudo Do Miocárdio · Com Supra De St · Paciente Candidato À Trombólise",
+   "paginas": "21–40",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-03",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 41–60: Diarreia Aguda · (Geca) · Esquema De Tratamento",
+   "paginas": "41–60",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-04",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 61–80: Conjuntivite Bacteriana · Prescrição Ambulatorial · Ortopedia",
+   "paginas": "61–80",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-05",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 81–94: Cólica Nefrética · Opções De Tratamento · + Sf0,9%",
+   "paginas": "81–94",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-03-01",
+   "livro": "Guia do Plantonista — Pediatria",
+   "titulo": "Páginas 1–18: Anti-Histamínicos · Aftas (Estomatite Aftosa)",
+   "paginas": "1–18",
+   "fonte": "GPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-03-02",
+   "livro": "Guia do Plantonista — Pediatria",
+   "titulo": "Páginas 19–35: Plano A · Plano B · Plano C",
+   "paginas": "19–35",
+   "fonte": "GPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-01",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 1–20: Sistema Cardiovascular · Taquicardia Supraventricular",
+   "paginas": "1–20",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-02",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 21–40: Sinusite · Faringoamigdalite · Crise Asmática",
+   "paginas": "21–40",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-03",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 41–60: Candidíase Vaginal · Vaginose · Tricomoníase",
+   "paginas": "41–60",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-04",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 61–80: Hipermagnesemia · Infecções · Sífilis",
+   "paginas": "61–80",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-01",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 1–18: Manual De Prescrição Pediátrica · Um Guia Prático Para Estudantes De · Medicina E Médicos",
+   "paginas": "1–18",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-02",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 19–36: Antieméticos",
+   "paginas": "19–36",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-03",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 37–54: Cefalosporinas De Primeira Geração · Cefalosporinas De Segunda Geração · Cefalosporinas De Terc",
+   "paginas": "37–54",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-04",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 55–72: Espectro Antibacteriano Da Associação Sulfametozazol-Trimetoprima · Tetraciclinas · Polimixinas",
+   "paginas": "55–72",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-05",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 73–90: Principais Drogas Usadas · Na Emergência Pediátrica",
+   "paginas": "73–90",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-06",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 91–108: Intoxicação",
+   "paginas": "91–108",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-07",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 109–125: Transtorno Depressivo E Inibidores Damonoxidase (Imao) · Mirtazapina · Antipsicóticos De Prme",
+   "paginas": "109–125",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-02-01",
+   "livro": "Guia Rápido de Medicamentos em Pediatria",
+   "titulo": "Páginas 1–11: Apresentação · Medicamento · Forma Farmacêutica",
+   "paginas": "1–11",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-03-01",
+   "livro": "HGWA — Medicamentos mais utilizados em Pediatria",
+   "titulo": "Páginas 1–2: Medicamentos Mais Usados Em Pediatria · Medicamento · Diluição",
+   "paginas": "1–2",
+   "fonte": "HGWA",
+   "alvo": "ps",
+   "status": "pendente"
+  }
+ ]
+}

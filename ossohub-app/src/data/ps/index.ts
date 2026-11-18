@@ -1,14 +1,28 @@
-import type { Condicao, PorPeso } from "./types";
+import type { Area, Condicao, PorPeso } from "./types";
 import { ADULTO_1 } from "./adulto-1";
 import { ADULTO_2 } from "./adulto-2";
 import { ADULTO_3 } from "./adulto-3";
 import { ADULTO_4 } from "./adulto-4";
-import { PEDIATRIA } from "./pediatria";
+import { PEDIATRIA as PEDIATRIA_BASE } from "./pediatria";
+import { NOTAS_PS, NOVOS_PS } from "./revisao-diaria";
 
 export * from "./types";
 
-export const ADULTO: Condicao[] = [...ADULTO_1, ...ADULTO_2, ...ADULTO_3, ...ADULTO_4];
-export { PEDIATRIA };
+/** ids das condições acrescentadas pela revisão diária (badge "novo"). */
+export const NOVOS_PS_IDS = new Set(NOVOS_PS.map((c) => c.id));
+
+// Aplica a revisão diária: notas de comparação + condições novas da área.
+function revisar(lista: Condicao[], area: Area): Condicao[] {
+  const juntar = (c: Condicao): Condicao => {
+    const extra = NOTAS_PS[c.id] ?? [];
+    if (!extra.length) return c;
+    return { ...c, notas: [...(c.notas ?? []), ...extra], fontes: Array.from(new Set([...c.fontes, ...extra.map((n) => n.fonte)])) };
+  };
+  return [...lista.map(juntar), ...NOVOS_PS.filter((c) => c.area === area).map(juntar)];
+}
+
+export const ADULTO: Condicao[] = revisar([...ADULTO_1, ...ADULTO_2, ...ADULTO_3, ...ADULTO_4], "adulto");
+export const PEDIATRIA: Condicao[] = revisar(PEDIATRIA_BASE, "pediatria");
 
 const fmt = (n: number, casas = 1) =>
   n.toLocaleString("pt-BR", { maximumFractionDigits: casas, minimumFractionDigits: 0 });

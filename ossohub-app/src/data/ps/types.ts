@@ -52,14 +52,24 @@ export interface Condicao {
   manejo: string[];
   alarme?: string[];
   rx: Bloco[];
+  /** comparação com as referências (revisão diária): concorda, diverge ou acrescenta */
+  notas?: NotaPS[];
   fontes: FonteId[];
 }
 
-export type FonteId = "PSZ" | "PRV" | "GPP" | "MPP";
+/** Nota de revisão: como uma referência se posiciona em relação ao conteúdo. */
+export interface NotaPS {
+  fonte: FonteId;
+  tipo: "concorda" | "diverge" | "acrescenta";
+  texto: string;
+}
+
+export type FonteId = "PSZ" | "PRV" | "GPP" | "MPP" | "HGWA";
 
 export const FONTES: Record<FonteId, string> = {
   PSZ: "Guia de Prescrições da Emergência — PS Zerado (2ª ed., 2025; e 1ª ed.)",
   PRV: "Prescrição no Pronto-Socorro — Paciente Adulto, Ficha Verde (Prescrevendo, 2024)",
   GPP: "Guia do Plantonista — Pediatria",
   MPP: "Manuais de Prescrição Pediátrica (Oliveira Aguiar 2024; Guia Rápido de Medicamentos em Pediatria)",
+  HGWA: "HGWA — Medicamentos mais utilizados em Pediatria (tabela de diluição)",
 };
