@@ -85,7 +85,17 @@
    "paginas": "101–116",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-19",
+   "resumo": "Tópico novo sobre o tendão (estrutura, mecânica, termos, fatores de risco como fluoroquinolona e corticoide, diagnóstico e tempos de cicatrização). Notas no Aquiles (zona de ruptura e fatores de risco; diverge sobre cirurgia × tratamento funcional), tendinopatia patelar, treino para tendinopatias (diverge sobre escleroterapia e AINEs) e mecânica dos tecidos; tempos de cicatrização do tendão detalhados em Cicatrização dos tecidos.",
+   "ids": [
+    "b-tendao",
+    "l-aquiles",
+    "l-tend-patelar",
+    "f-tendao",
+    "b-tecidos",
+    "r-cicatrizacao"
+   ]
   },
   {
    "id": "ESP-01-06",

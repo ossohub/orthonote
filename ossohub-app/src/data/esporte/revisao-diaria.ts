@@ -76,6 +76,21 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "r-principios": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Liberar para jogar com lesão ainda presente é um dilema ético frequente (pressão do clube, do técnico e do próprio atleta). A decisão de aptidão deve seguir a prática clínica atual, ser registrada e, na dúvida, o atleta deve ser afastado e encaminhado a um profissional mais experiente — continuar jogando e agravar a lesão gera responsabilidade para quem liberou." },
   ],
+  "l-aquiles": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "A ruptura costuma ocorrer 2–6 cm acima da inserção no calcâneo, zona de pouca irrigação; cerca de 3 em cada 4 rupturas do Aquiles acontecem no esporte. Muitas têm degeneração prévia silenciosa. Perguntar sempre por uso de fluoroquinolona (ciprofloxacino, levofloxacino), infiltração de corticoide no tendão ou ao redor e corticoide sistêmico — todos aumentam o risco." },
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro diz que a cirurgia dá melhor função e retorno mais rápido no paciente ativo, e que o tratamento conservador fica para o sedentário. Ensaios mais recentes mostram que o tratamento funcional com carga e mobilização precoces tem taxa de re-ruptura semelhante à da cirurgia, com menos complicações (infecção, problema de ferida); a cirurgia segue como opção razoável no atleta de alto rendimento ou com diagnóstico tardio." },
+  ],
+  "l-tend-patelar": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Na origem do tendão no polo inferior da patela, a deformação do tendão aumenta com a carga e com a flexão do joelho (em modelos de aterrissagem, a maior carga no joelho ocorre perto de 60° de flexão). Por isso agachamento profundo e aterrissagem com muita carga provocam dor — dosar profundidade e carga no início do programa." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Classificar a dor pela relação com a atividade ajuda a acompanhar: só depois da atividade → durante, sem atrapalhar → durante e depois, atrapalhando o desempenho → ruptura. No exame, procurar espessamento, dor à palpação, nódulo ou crepitação." },
+  ],
+  "f-tendao": [
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro apresenta a injeção esclerosante (polidocanol) guiada por Doppler na neovascularização como tratamento com bons resultados. A base são séries pequenas e estudos piloto; ensaios maiores não confirmaram benefício consistente. Não é 1ª linha: começar sempre pelo programa de carga." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Cita os anti-inflamatórios (AINEs) como úteis para reduzir sintomas da tendinopatia. Como a tendinopatia crônica é sobretudo degenerativa, e não inflamatória, os AINEs dão no máximo alívio de curto prazo, sem mudar a evolução — usar pouco e por pouco tempo." },
+  ],
+  "b-tecidos": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Números do tendão: deformação normal na contração máxima de 6–14%; dano a partir de ~15% (alguns estudos falam em até 30%); microlesão acumulada já pode ocorrer abaixo de 10% com ciclos repetidos. Resistência à ruptura do tendão patelar de jovens ~65 MPa. Devolve ~93% da energia elástica armazenada. Aquiles chega a ~7 kN na corrida e ~9 kN no salto. Detalhes em 'Tendão: estrutura, mecânica, lesão e cicatrização'." },
+  ],
 };
 
 export const NOVOS_DIARIA: Topico[] = [
@@ -145,6 +160,26 @@ export const NOVOS_DIARIA: Topico[] = [
       { fonte: "SRIP", tipo: "diverge", texto: "O livro ainda usa RICE com gelo de 5–10 min a cada hora nas primeiras 24–48 h. O site segue o PEACE & LOVE (ver 'Manejo agudo'), em que o gelo é só para dor e o foco é a carga precoce." },
     ],
     ver: ["l-isquios", "r-isquios", "r-agudo", "r-cicatrizacao", "b-contracao", "f-flexibilidade", "f-forca"],
+    fontes: ["SRIP"],
+  },
+  {
+    id: "b-tendao", titulo: "Tendão: estrutura, mecânica, lesão e cicatrização", area: "biomecanica", grupo: "Fundamentos",
+    tags: ["tendão", "colágeno", "endotendão", "epitendão", "paratendão", "crimp", "rigidez", "energia elástica", "tendinopatia", "tendinose", "tendinite", "ruptura", "fluoroquinolona", "corticoide", "cicatrização do tendão", "neovascularização", "visa"],
+    resumo: "O tendão precisa ser rígido para transmitir força e elástico para guardar energia. Lesa por sobrecarga repetida mais do que por um pico único, cicatriza devagar (meses) e responde à carga bem dosada.",
+    secoes: [
+      { t: "Estrutura", itens: ["Hierarquia: moléculas de colágeno → fibrilas → fibras → feixes (fascículos) → tendão. Essa organização em camadas reduz o risco de ruptura total.", "Endotendão envolve cada feixe e leva vasos e nervos; epitendão cobre o tendão; paratendão (frouxo, com células sinoviais) permite o deslizamento.", "Matriz: muita água, colágeno quase todo tipo I (força) e proteoglicanos (comportamento viscoelástico). Tenócitos em fileiras, ligados entre si.", "Tecido vivo: aumenta rigidez e espessura com carga e perde com desuso. Músculo forte costuma ter tendão mais rígido."] },
+      { t: "Mecânica", itens: ["Curva: região do 'dedo' (as fibras onduladas — crimp — se esticam) → região linear (elástica) → deformação plástica (não volta ao comprimento) → ruptura.", "Deformação normal na contração máxima: 6–14%. Dano a partir de ~15%. Rigidez normalizada (módulo de Young) ~0,8–2 GPa.", "Em geral há boa margem de segurança, mas o Aquiles chega a ~7 kN na corrida e ~9 kN no salto, e o patelar a ~12 kN no levantamento de peso.", "Mola: devolve ~93% da energia guardada no ciclo alongamento-encurtamento (corrida, salto). Tendão muito complacente atrasa a transmissão de força — ruim para gestos explosivos.", "Mulheres jovens têm tendão mais complacente, e o alongamento agudo reduz mais a rigidez nelas; a diferença some no idoso."] },
+      { t: "Termos", itens: ["Tendinopatia: termo clínico geral (dor + perda de função) — o preferido.", "Tendinose: degeneração sem inflamação; tendinite: inflamação do tendão (pouco comum no quadro crônico).", "Paratendinite: inflamação do paratendão. Entesopatia: problema na junção tendão–osso.", "Ruptura parcial ou total; 'espontânea' quando ocorre sem sintomas prévios — quase sempre há degeneração escondida."] },
+      { t: "Causas e fatores de risco", itens: ["Ruptura aguda: força grande e súbita, muitas vezes oblíqua (pisada errada, piso irregular, falha de controle neuromuscular), em tendão já degenerado.", "Tendinopatia: volume e intensidade de carga acima da capacidade de recuperação; piora com idade, peso corporal, doenças e anticoncepcional oral.", "Zonas pouco irrigadas rompem mais (Aquiles 2–6 cm acima da inserção).", "Remédios: fluoroquinolonas (ativam enzimas que degradam colágeno) e corticoide (infiltração local ou sistêmico).", "Anabolizantes: força muscular cresce mais rápido que o tendão consegue se adaptar; há relatos de ruptura (inclusive bilateral do quadríceps).", "Genética: variantes dos genes COL5A1 e tenascina-C associadas a lesão do Aquiles.", "Homens se lesionam mais, talvez por mais exposição ao esporte."] },
+      { t: "Diagnóstico da tendinopatia", itens: ["História: tempo de dor e relação com a atividade (só depois → durante sem atrapalhar → durante e depois atrapalhando → ruptura).", "Exame: espessamento, dor à palpação, nódulo, crepitação; observar o gesto.", "Questionários VISA-P (patelar) e VISA-A (Aquiles) para medir gravidade e acompanhar.", "USG (sonda linear 7,5–15 MHz): normal → tendão alargado → área hipoecoica; Doppler mostra neovasos, ligados à dor. RM quando houver dúvida (mais cara)."] },
+      { t: "Cicatrização (tempos aproximados)", itens: ["Inflamação: primeiras 24–48 h — células de defesa limpam o tecido e começa a formação de vasos.", "Proliferação: a partir de ~2 dias, com pico de colágeno tipo III (mais fraco).", "Consolidação: ~6–10 semanas — o tecido passa de celular a fibroso e as fibras se alinham à direção da carga; colágeno tipo III é trocado pelo tipo I.", "Maturação: depois de ~10 semanas até ~1 ano; o resultado é uma cicatriz tipo tendão, nunca idêntica ao original.", "Tendão gasta só ~13% do oxigênio do músculo e é pouco irrigado — por isso cicatriza bem mais devagar."] },
+      { t: "Implicações práticas", itens: ["Carga moderada mantém o tendão saudável; deformação alta e repetida gera microlesão que se acumula (em células, ~4% não fez mal e ~8% já ativou marcadores inflamatórios).", "Tratamento depende do tendão, do grau, da atividade e das expectativas do paciente.", "Reabilitação: proteção curta → fortalecimento e mobilidade progressivos por meses (ver 'Treino para tendinopatias').", "Infiltração com corticoide no tendão: evitar (associada a ruptura).", "Ruptura: cirurgia ou tratamento funcional conforme o tendão e o paciente (ver 'Tendinopatia e ruptura do Aquiles')."] },
+    ],
+    notas: [
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro mostra como promissores a membrana rica em plaquetas no reparo do manguito e a injeção esclerosante na neovascularização, com base em relato de caso e estudos piloto. Hoje o PRP no reparo do manguito e nas tendinopatias tem resultados inconsistentes, e a escleroterapia não se confirmou em ensaios maiores — nenhum dos dois substitui o programa de carga." },
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro dá o excêntrico como o complemento mais útil da reabilitação. O site prefere programas de carga pesada e lenta (HSR) e isométricos para analgesia, com resultados iguais ou melhores e melhor adesão." },
+    ],
+    ver: ["b-tecidos", "r-cicatrizacao", "f-tendao", "l-aquiles", "r-aquiles", "l-tend-patelar", "r-tend-patelar", "b-salto", "l-manguito"],
     fontes: ["SRIP"],
   },
 ];
