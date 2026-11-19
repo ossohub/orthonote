@@ -45,7 +45,19 @@
    "paginas": "61–88",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-19",
+   "resumo": "Sem erros a corrigir. Novo tópico \"Análise de necessidades e testes físicos do atleta\" (bateria e ordem dos testes, sprint/agilidade, saltos e hop tests, SEBT, 1RM, isocinético, Wingate, aeróbio e critérios de VO2máx, exemplos de futebol e rugby) e 8 notas: 1 diverge (duração dos sistemas de energia), 6 acrescenta (protocolo de 1RM e 3–5RM, papel do aeróbio na repetição de sprints, hop tests, padronização do SEBT, mecanismos da lesão de isquiotibiais) e 1 concorda (progressão da pliometria).",
+   "ids": [
+    "f-testes-fisicos",
+    "f-triagem",
+    "f-forca",
+    "n-metabolismo",
+    "f-pliometria",
+    "r-lca",
+    "r-tornozelo",
+    "r-isquios"
+   ]
   },
   {
    "id": "ESP-01-04",
