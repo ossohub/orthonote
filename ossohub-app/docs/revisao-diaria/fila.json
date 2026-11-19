@@ -66,7 +66,17 @@
    "paginas": "89–100",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-19",
+   "resumo": "Novo tópico \"Lesão muscular: tipos, cicatrização e tratamento\". Notas em isquiotibiais (alongamento só após 7–10 dias, progressão de isométricos, Nordic em volume baixo, recidiva e fatores de risco), manejo agudo (compressão no músculo), modalidades (ondas curtas/ultrassom e eletroestimulação) e contração muscular.",
+   "ids": [
+    "l-lesao-muscular",
+    "r-isquios",
+    "l-isquios",
+    "r-agudo",
+    "f-modalidades",
+    "b-contracao"
+   ]
   },
   {
    "id": "ESP-01-05",

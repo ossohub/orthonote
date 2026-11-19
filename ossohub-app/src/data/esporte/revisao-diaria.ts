@@ -28,6 +28,25 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "r-isquios": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Dois mecanismos sem contato: corrida em alta velocidade (fim do balanço e saída do pé, quando o músculo freia flexão do quadril e extensão do joelho) e alongamento em amplitude extrema (dança, chute). Na prevenção e na fase final, além do Nordic, progredir para excêntrico rápido (pliometria/desaceleração)." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Alongamento na fase inicial: evitar alongamento passivo forçado no fim da amplitude por pelo menos 72 h (idealmente 7–10 dias). Antes disso, só levar o músculo pela amplitude livre de dor, sem forçar. A cicatriz começa a retrair por volta do 10º dia — é aí que o alongamento progressivo passa a fazer sentido." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Isométricos a partir do 2º–5º dia, dentro da dor (ex.: 3 × 10 contrações de 5–10 s), primeiro em amplitude média, depois encurtada e por fim alongada. Isotônicos só quando os isométricos estiverem sem dor em toda a amplitude: começar com resistência (3 × 15 a 40–60% de 1RM), depois força e potência." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Nordic e outros excêntricos geram dor muscular tardia: começar com volume baixo (3–5 séries de 3 repetições) e frequência maior (3–4x/semana), e aumentar aos poucos." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Manter o condicionamento desde cedo sem estressar a lesão (bicicleta, natação, corrida na água, membros superiores) — músculo cansado absorve menos energia antes de romper, e a fadiga é fator de risco de nova lesão." },
+  ],
+  "l-isquios": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Recidiva de 12–31%; cerca de 1 em cada 13 atletas volta a se lesionar no 1º ano após o retorno. Fatores de risco citados: lesão prévia (o mais consistente), fadiga, aquecimento inadequado, pouca flexibilidade, desequilíbrio de força (incluindo relação isquiotibiais/quadríceps), má coordenação e postura lombar. Pico de torque em ângulo mais 'curto' do joelho também pode aumentar o risco — e o Nordic desloca esse pico para comprimentos maiores." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Flexibilidade e relação de força isquiotibiais/quadríceps aparecem no livro como fatores de risco, mas revisões prospectivas mais recentes mostram associação fraca ou inconsistente. Os fatores mais firmes hoje são lesão prévia de isquiotibiais, idade e baixa força excêntrica." },
+  ],
+  "r-agudo": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "No músculo, o repouso deve ser relativo e curto: imobilizar ou carregar mal (pouco ou demais) forma cicatriz retraída que impede a regeneração das fibras e deixa a área mais vulnerável. Carga leve e abaixo do limiar de dor, cedo, ajuda a orientar fibras e colágeno." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Para lesão muscular, a compressão tem pouca evidência: num estudo com 40 atletas com lesão de panturrilha, a compressão imediata não reduziu o hematoma nem acelerou a recuperação. O livro sugere que o maior ganho de compressão e elevação é garantir repouso relativo nas primeiras 72 h. Continuamos indicando compressão para conforto e edema." },
+  ],
+  "f-modalidades": [
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro indica ondas curtas pulsadas para reabsorver hematoma muscular e ultrassom para 'quebrar' cicatriz. A base é sobretudo laboratorial (células e animais); ensaios clínicos não mostram benefício consistente — não devem substituir a carga progressiva." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Afirma que a eletroestimulação neuromuscular reduz edema e inibição, mas não ajuda a recuperar força. Hoje há boa evidência de que a eletroestimulação somada ao exercício melhora a força do quadríceps após reconstrução do LCA — é útil quando há inibição muscular importante." },
+  ],
+  "b-contracao": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Base da contração: o impulso nervoso percorre o sarcolema e os túbulos T, o retículo sarcoplasmático libera cálcio, o cálcio se liga à troponina e libera o sítio de ligação na actina; as pontes de miosina puxam a actina (filamentos deslizantes), com gasto de ATP. Banda A não muda; banda I encurta." },
   ],
   "f-triagem-msk": [
     { fonte: "SRIP", tipo: "diverge", texto: "O livro apresenta pontos de corte isolados (ângulo Q, queda do navicular, relação isquiotibiais/quadríceps < 0,75, déficit de isquiotibiais > 15%) como marcadores de risco. Estudos prospectivos mais recentes mostram que nenhum teste isolado prevê bem a lesão de um atleta específico; o ângulo Q, por exemplo, tem baixa reprodutibilidade e não prevê lesão. Usar os achados para direcionar o treino, nunca como 'sentença' de risco." },
@@ -107,6 +126,25 @@ export const NOVOS_DIARIA: Topico[] = [
       { t: "Exemplos de demanda", itens: ["Futebol: ~10–13 km por jogo a > 70% do VO₂máx; sprints de 10–15 m (2–4 s) a cada ~90 s; VO₂máx típico > 60 mL/kg/min. Lesões mais frequentes: isquiotibiais (até ~21%) e LCA (~8%), em geral sem contato — logo, preveníveis com preparo. Mais lesões na pré-temporada.", "Rugby league: até ~10 km em 80 min, até ~40 tackles por jogo; lesões de membro inferior predominam, mas boa parte vem de colisão. Precisa também de força de membros superiores."] },
     ],
     ver: ["f-triagem", "f-triagem-msk", "n-metabolismo", "f-forca", "f-aerobio", "r-lca", "r-tornozelo", "r-isquios", "f-pliometria"],
+    fontes: ["SRIP"],
+  },
+  {
+    id: "l-lesao-muscular", titulo: "Lesão muscular: tipos, cicatrização e tratamento", area: "lesoes", grupo: "Geral",
+    tags: ["lesão muscular", "estiramento", "distensão", "contusão", "laceração", "hematoma", "células satélites", "cicatriz", "regeneração", "junção miotendínea", "isométrico"],
+    resumo: "Músculo regenera rápido (células satélites), mas cicatriz desorganizada atrapalha. Repouso curto, carga precoce abaixo da dor, alongamento só após ~7–10 dias e retorno por critérios.",
+    secoes: [
+      { t: "Tipos", itens: ["Laceração: corte por objeto externo (acidentes).", "Contusão: compressão direta (choque joelho–coxa nos esportes de contato).", "Estiramento (distensão): tração além da tolerância, quase sempre em ação excêntrica, em músculos que cruzam duas articulações (isquiotibiais, gastrocnêmio, reto femoral, adutores), em aceleração ou desaceleração rápida.", "O ponto mais frágil é a junção miotendínea; lesão no meio do ventre exige força bem maior. As fibras contráteis rompem antes do tecido conjuntivo ao redor."] },
+      { t: "O que acontece no tecido", itens: ["Fase de lesão (minutos a dias): fibras rompem e necrosam; forma-se hematoma no espaço entre elas; inflamação (dor, calor, rubor, edema).", "Uma 'banda de contração' isola o trecho lesado e impede a necrose de se espalhar pela fibra inteira.", "Macrófagos limpam o tecido morto nos primeiros dias.", "Regeneração começa em 3–6 dias, com pico entre 7 e 14 dias: células satélites viram mioblastos, depois miotubos, que tentam atravessar a falha.", "Ao mesmo tempo, fibroblastos depositam uma rede de fibrina/colágeno (cicatriz). Se for grossa e desorganizada, bloqueia a passagem dos miotubos e a área fica mais vulnerável.", "Por volta do 10º dia a cicatriz começa a retrair (miofibroblastos)."] },
+      { t: "Carga e repouso", itens: ["Imobilizar ou carregar mal (pouco ou demais) gera cicatriz retraída e maior risco de nova lesão.", "Mobilização e apoio precoces, com carga abaixo do limiar de dor, orientam fibras e colágeno e estimulam a regeneração.", "Com carga bem dosada, o músculo recupera boa parte da capacidade contrátil em ~10 dias nas lesões leves.", "Gelo nas primeiras 24–48 h reduz dor e hematoma (ver 'Manejo agudo' sobre o papel atual do gelo e dos anti-inflamatórios)."] },
+      { t: "Progressão de exercícios", itens: ["Isométricos a partir do 2º–5º dia, dentro da dor: amplitude média → encurtada → alongada.", "Isotônicos quando os isométricos estiverem sem dor em toda a amplitude: começar em amplitude média (~90°) e terminar na amplitude funcional (alongada, concêntrico e excêntrico).", "Carga: resistência primeiro (~3 × 15 a 40–60% de 1RM) → força (cargas altas, poucas repetições) → potência/pliometria conforme o esporte.", "Músculos com papel estabilizador (glúteo médio, tibial posterior, manguito rotador) precisam também de progressão com desafio de equilíbrio/propriocepção.", "Manter o condicionamento geral sem estressar a lesão (bicicleta, natação, corrida na água, membros superiores)."] },
+      { t: "Alongamento", itens: ["Evitar alongamento passivo forçado no fim da amplitude por pelo menos 72 h (idealmente 7–10 dias): o tecido novo é fraco e ainda não há retração a combater.", "Antes disso, só movimentar na amplitude livre de dor.", "Depois, alongamento estático no limite da dor; ~30 s por repetição bastam (mais tempo não traz ganho extra)."] },
+      { t: "Retorno e prevenção", itens: ["Retorno com força completa, movimento sem dor, programa progressivo de corrida e testes funcionais concluídos.", "Reproduzir o gesto do esporte na fase final (ex.: sprints curtos com freada e troca de direção, primeiro mais lentos e depois em velocidade de jogo).", "Prevenção: aquecimento adequado, excêntrico (Nordic para isquiotibiais), pliometria, condicionamento e tratar bem a lesão anterior.", "Perguntar ao atleta como a lesão aconteceu (e pedir que mostre o gesto) ajuda a achar a causa a corrigir."] },
+    ],
+    notas: [
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro diz que o estiramento costuma romper a junção miotendínea distal — dado de modelos animais. Nos isquiotibiais humanos, o local mais comum é a junção miotendínea proximal da cabeça longa do bíceps femoral; o semimembranoso proximal é típico das lesões por alongamento (dança)." },
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro ainda usa RICE com gelo de 5–10 min a cada hora nas primeiras 24–48 h. O site segue o PEACE & LOVE (ver 'Manejo agudo'), em que o gelo é só para dor e o foco é a carga precoce." },
+    ],
+    ver: ["l-isquios", "r-isquios", "r-agudo", "r-cicatrizacao", "b-contracao", "f-flexibilidade", "f-forca"],
     fontes: ["SRIP"],
   },
 ];

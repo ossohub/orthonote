@@ -90,7 +90,7 @@ export const LESOES: Topico[] = [
       { t: "Classificação", itens: ["Britânica (BAMIC): grau 0–4 e localização (a miofascial, b musculotendínea, c intratendínea — pior prognóstico)."] },
       { t: "Retorno ao esporte", itens: ["Sem dor em sprint máximo, força excêntrica e flexibilidade simétricas, confiança do atleta.", "Programa Nordic Hamstring reduz novas lesões em cerca de 50%."] },
     ],
-    ver: ["r-isquios"],
+    ver: ["r-isquios", "l-lesao-muscular"],
     fontes: ["REHAB", "SPBIO", "HODLER"],
   },
   {
