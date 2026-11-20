@@ -1,19 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import {
   Search, ChevronDown, Copy, Check, Baby, Ruler, Bone, Wrench, ArrowUpRight, Lightbulb, Link2, X,
-  ChevronLeft, ChevronRight, Image as ImageIcon,
+  ChevronLeft, ChevronRight, Image as ImageIcon, Pencil, Plus, Trash2, Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   MEDIDAS, MEDIDAS_POR_REGIAO, REGIOES_RX, TIPOS_RX, tituloRegiao,
   type Medida, type RegiaoRx, type TipoRx, type Tom,
 } from "@/data/radiologia";
-import { IMAGENS_RX, type ImagemRx } from "@/data/radiologia/imagens";
+import { useUser } from "@/hooks/useUser";
+import { carregarImagensRx, incluirImagemRx, salvarLegendaRx, excluirImagemRx, type RxImagem } from "@/lib/rxImages";
 
 const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
@@ -131,11 +132,17 @@ function Tabela({ m }: { m: Medida }) {
   );
 }
 
-/** Imagens com os traçados da medida; toque abre em tela cheia. */
-function Imagens({ itens }: { itens: ImagemRx[] }) {
+type CtxImagens = { porMedida: Record<string, RxImagem[]>; isAdmin: boolean; recarregar: () => Promise<void> };
+const ImagensCtx = createContext<CtxImagens>({ porMedida: {}, isAdmin: false, recarregar: async () => {} });
+
+/** Imagens com os traçados da medida; toque abre em tela cheia. Administrador inclui, edita legenda e exclui. */
+function Imagens({ medidaId }: { medidaId: string }) {
+  const { porMedida, isAdmin, recarregar } = useContext(ImagensCtx);
+  const itens = porMedida[medidaId] ?? [];
   const [aberta, setAberta] = useState<number | null>(null);
+  const [editando, setEditando] = useState(false);
   const atual = aberta === null ? null : itens[aberta];
-  const ir = (d: number) => setAberta((i) => (i === null ? null : (i + d + itens.length) % itens.length));
+  const ir = (d: number) => setAberta((i) => (i === null || !itens.length ? null : (i + d + itens.length) % itens.length));
   useEffect(() => {
     if (aberta === null) return;
     const tecla = (e: KeyboardEvent) => {
@@ -149,31 +156,53 @@ function Imagens({ itens }: { itens: ImagemRx[] }) {
     return () => { window.removeEventListener("keydown", tecla); document.body.style.overflow = ov; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aberta]);
+
+  if (!itens.length && !isAdmin) return null;
   return (
     <section>
-      <h4 className="oh-eyebrow mb-2 flex items-center gap-1.5"><ImageIcon className="h-3.5 w-3.5" /> {itens.length > 1 ? "Imagens" : "Imagem"}</h4>
-      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-        {itens.map((im, i) => (
-          <button key={im.src} type="button" onClick={() => setAberta(i)} className="shrink-0 text-left">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={im.src} alt={im.legenda} loading="lazy" decoding="async" width={im.w} height={im.h}
-              className="h-36 w-auto max-w-[260px] rounded-lg border border-[var(--line)] bg-black object-contain sm:h-44" />
-            <span className="mt-1 block max-w-[260px] text-[11.5px] leading-snug text-[#A3B1C6]">{im.legenda}</span>
+      <div className="mb-2 flex items-center gap-2">
+        <h4 className="oh-eyebrow flex items-center gap-1.5"><ImageIcon className="h-3.5 w-3.5" /> {itens.length === 1 ? "Imagem" : "Imagens"}</h4>
+        {isAdmin && (
+          <button type="button" onClick={() => setEditando((e) => !e)} aria-pressed={editando}
+            className={cn("ml-auto inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-[12px] font-semibold",
+              editando ? "border-[#A78BFA] bg-[#A78BFA]/20 text-white" : "border-[#A78BFA]/40 text-[#DDD6FE]")}>
+            <Pencil className="h-3.5 w-3.5" /> {editando ? "Concluir" : "Editar imagens"}
           </button>
-        ))}
+        )}
       </div>
+
+      {editando ? (
+        <ul className="space-y-3">
+          {itens.map((im) => <ItemEdicao key={im.id} im={im} recarregar={recarregar} />)}
+          <li><BotaoIncluir medidaId={medidaId} proximo={(itens[itens.length - 1]?.sort ?? 0) + 10} recarregar={recarregar} /></li>
+        </ul>
+      ) : (
+        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+          {itens.map((im, i) => (
+            <button key={im.id} type="button" onClick={() => setAberta(i)} className="shrink-0 text-left">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={im.url} alt={im.caption || "Imagem radiográfica"} loading="lazy" decoding="async"
+                width={im.width ?? undefined} height={im.height ?? undefined}
+                className="h-36 w-auto max-w-[260px] rounded-lg border border-[var(--line)] bg-black object-contain sm:h-44" />
+              {im.caption && <span className="mt-1 block max-w-[260px] text-[11.5px] leading-snug text-[#A3B1C6]">{im.caption}</span>}
+            </button>
+          ))}
+          {!itens.length && <p className="text-[12.5px] text-[#8C9AB0]">Nenhuma imagem. Toque em “Editar imagens” para incluir.</p>}
+        </div>
+      )}
+
       {atual && typeof document !== "undefined" && createPortal(
-        <div className="fixed inset-0 z-[1000] flex flex-col bg-[#02060D]" role="dialog" aria-modal="true" aria-label={atual.legenda}>
+        <div className="fixed inset-0 z-[1000] flex flex-col bg-[#02060D]" role="dialog" aria-modal="true" aria-label={atual.caption || "Imagem"}>
           <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2.5" style={{ paddingTop: "max(0.625rem, env(safe-area-inset-top))" }}>
             <button type="button" onClick={() => setAberta(null)} className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white" aria-label="Fechar">
               <X className="h-5 w-5" />
             </button>
-            <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{atual.legenda}</p>
+            <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{atual.caption}</p>
             {itens.length > 1 && <span className="oh-mono text-[11px] text-[#8C9AB0]">{(aberta ?? 0) + 1}/{itens.length}</span>}
           </div>
           <div className="grid min-h-0 flex-1 place-items-center overflow-auto p-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={atual.src} alt={atual.legenda} className="max-h-full max-w-full object-contain" />
+            <img src={atual.url} alt={atual.caption || "Imagem radiográfica"} className="max-h-full max-w-full object-contain" />
           </div>
           {itens.length > 1 && (
             <div className="flex items-center justify-between border-t border-white/10 px-3 py-2.5" style={{ paddingBottom: "max(0.625rem, env(safe-area-inset-bottom))" }}>
@@ -185,6 +214,95 @@ function Imagens({ itens }: { itens: ImagemRx[] }) {
         document.body,
       )}
     </section>
+  );
+}
+
+function ItemEdicao({ im, recarregar }: { im: RxImagem; recarregar: () => Promise<void> }) {
+  const [legenda, setLegenda] = useState(im.caption ?? "");
+  const [ocupado, setOcupado] = useState<string | null>(null);
+  const [confirmar, setConfirmar] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+  useEffect(() => { setLegenda(im.caption ?? ""); }, [im.caption]);
+  const executar = async (rotulo: string, acao: () => Promise<void>) => {
+    setOcupado(rotulo); setErro(null);
+    try { await acao(); await recarregar(); } catch (e) { setErro((e as Error).message || "Falhou"); } finally { setOcupado(null); }
+  };
+  const mudou = legenda.trim() !== (im.caption ?? "").trim();
+  return (
+    <li className="flex gap-3 rounded-lg border border-[#A78BFA]/30 bg-[#A78BFA]/[0.04] p-2.5">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={im.url} alt="" className="h-20 w-20 shrink-0 rounded border border-[var(--line)] bg-black object-contain" />
+      <div className="min-w-0 flex-1 space-y-2">
+        <input value={legenda} onChange={(e) => setLegenda(e.target.value)} placeholder="Legenda (opcional)"
+          className="w-full rounded-lg border border-[var(--line)] bg-[var(--film-3)] px-2.5 py-1.5 text-[13.5px] text-white outline-none focus:border-[#A78BFA]" />
+        <div className="flex flex-wrap gap-1.5">
+          <button type="button" disabled={!!ocupado || !mudou} onClick={() => executar("legenda", () => salvarLegendaRx(im.id, legenda.trim()))}
+            className="inline-flex items-center gap-1 rounded-lg bg-[#A78BFA] px-2.5 py-1 text-[12px] font-semibold text-[#1E1B4B] disabled:opacity-40">
+            {ocupado === "legenda" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />} Salvar legenda
+          </button>
+          {(im.caption ?? "") !== "" && (
+            <button type="button" disabled={!!ocupado} onClick={() => executar("apagar", async () => { setLegenda(""); await salvarLegendaRx(im.id, ""); })}
+              className="rounded-lg border border-[var(--line)] px-2.5 py-1 text-[12px] text-[#C9D3E1]">Apagar legenda</button>
+          )}
+          {!confirmar ? (
+            <button type="button" disabled={!!ocupado} onClick={() => setConfirmar(true)}
+              className="inline-flex items-center gap-1 rounded-lg border border-[#F87171]/40 px-2.5 py-1 text-[12px] text-[#FCA5A5]">
+              <Trash2 className="h-3.5 w-3.5" /> Excluir imagem
+            </button>
+          ) : (
+            <>
+              <button type="button" onClick={() => setConfirmar(false)} className="rounded-lg border border-[var(--line)] px-2.5 py-1 text-[12px] text-[#C9D3E1]">Cancelar</button>
+              <button type="button" disabled={!!ocupado} onClick={() => executar("excluir", () => excluirImagemRx(im))}
+                className="inline-flex items-center gap-1 rounded-lg bg-[#DC2626] px-2.5 py-1 text-[12px] font-semibold text-white">
+                {ocupado === "excluir" ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />} Confirmar exclusão
+              </button>
+            </>
+          )}
+        </div>
+        {erro && <p className="text-[12px] text-[#FCA5A5]">{erro}</p>}
+      </div>
+    </li>
+  );
+}
+
+function BotaoIncluir({ medidaId, proximo, recarregar }: { medidaId: string; proximo: number; recarregar: () => Promise<void> }) {
+  const entrada = useRef<HTMLInputElement>(null);
+  const [enviando, setEnviando] = useState(0);
+  const [erro, setErro] = useState<string | null>(null);
+  return (
+    <div>
+      <button type="button" disabled={enviando > 0} onClick={() => entrada.current?.click()}
+        className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-[#A78BFA]/60 px-3 py-3 text-[13px] font-medium text-[#DDD6FE]">
+        {enviando > 0 ? <><Loader2 className="h-4 w-4 animate-spin" /> Enviando {enviando}…</> : <><Plus className="h-4 w-4" /> Incluir imagem</>}
+      </button>
+      <p className="mt-1 text-[11.5px] text-[#8C9AB0]">Fica visível para todos. Confira que a imagem não identifica o paciente.</p>
+      {erro && <p className="mt-1 text-[12px] text-[#FCA5A5]">{erro}</p>}
+      <input ref={entrada} type="file" accept="image/*" multiple hidden
+        onChange={async (e) => {
+          const arquivos = Array.from(e.target.files ?? []);
+          e.target.value = "";
+          if (!arquivos.length) return;
+          setErro(null);
+          let falhas = 0;
+          for (let i = 0; i < arquivos.length; i++) {
+            setEnviando(arquivos.length - i);
+            try { await incluirImagemRx(medidaId, arquivos[i], proximo + i * 10); } catch { falhas++; }
+          }
+          setEnviando(0);
+          if (falhas) setErro(`${falhas} imagem(ns) não enviada(s).`);
+          await recarregar();
+        }} />
+    </div>
+  );
+}
+
+function SeloImagens({ id }: { id: string }) {
+  const n = useContext(ImagensCtx).porMedida[id]?.length ?? 0;
+  if (!n) return null;
+  return (
+    <span className="inline-flex items-center gap-1 rounded border border-[#EADFC8]/30 px-1 text-[10.5px] font-semibold text-[#EADFC8]">
+      <ImageIcon className="h-3 w-3" /> {n}
+    </span>
   );
 }
 
@@ -207,11 +325,7 @@ function Cartao({ m, aberto, alternar, mostrarRegiao }: { m: Medida; aberto: boo
                 <Baby className="h-3 w-3" /> ped
               </span>
             )}
-            {IMAGENS_RX[m.id] && (
-              <span className="inline-flex items-center gap-1 rounded border border-[#EADFC8]/30 px-1 text-[10.5px] font-semibold text-[#EADFC8]">
-                <ImageIcon className="h-3 w-3" /> {IMAGENS_RX[m.id].length}
-              </span>
-            )}
+            <SeloImagens id={m.id} />
           </span>
           {(m.inc || mostrarRegiao) && (
             <span className="oh-mono mt-0.5 block text-[11.5px] text-[#8C9AB0]">
@@ -233,7 +347,7 @@ function Cartao({ m, aberto, alternar, mostrarRegiao }: { m: Medida; aberto: boo
             </section>
           )}
           {m.tabela && <section><Tabela m={m} /></section>}
-          {IMAGENS_RX[m.id] && <Imagens itens={IMAGENS_RX[m.id]} />}
+          <Imagens medidaId={m.id} />
           {m.como && (
             <section>
               <h4 className="oh-eyebrow mb-2">Como medir</h4>
@@ -288,6 +402,13 @@ export function MensuracaoClient({ regiao }: { regiao?: RegiaoRx }) {
   const [tipo, setTipo] = useState<TipoRx | null>(null);
   const [soPed, setSoPed] = useState(false);
   const [abertos, setAbertos] = useState<Set<string>>(() => new Set(alvoInicial ? [alvoInicial] : []));
+  const { profile, loading: carregandoUsuario } = useUser();
+  const [porMedida, setPorMedida] = useState<Record<string, RxImagem[]>>({});
+  const recarregar = useCallback(async () => { setPorMedida(await carregarImagensRx()); }, []);
+  useEffect(() => { void recarregar(); }, [recarregar]);
+  const ctxImagens = useMemo<CtxImagens>(() => ({
+    porMedida, isAdmin: !carregandoUsuario && profile?.app_role === "admin", recarregar,
+  }), [porMedida, carregandoUsuario, profile?.app_role, recarregar]);
 
   useEffect(() => {
     if (!alvoInicial) return;
@@ -319,6 +440,7 @@ export function MensuracaoClient({ regiao }: { regiao?: RegiaoRx }) {
   const todosAbertos = filtrada.length > 0 && filtrada.every((m) => abertos.has(m.id));
 
   return (
+    <ImagensCtx.Provider value={ctxImagens}>
     <div>
       <div className="sticky top-16 z-10 -mx-1 mb-4 space-y-2.5 bg-[var(--film-0)]/95 px-1 py-2 backdrop-blur">
         <label className="flex items-center gap-2 rounded-xl border border-[var(--line)] bg-[var(--film-3)] px-3 focus-within:border-[#38D5E0]">
@@ -396,6 +518,6 @@ export function MensuracaoClient({ regiao }: { regiao?: RegiaoRx }) {
         </>
       )}
     </div>
+    </ImagensCtx.Provider>
   );
 }
-

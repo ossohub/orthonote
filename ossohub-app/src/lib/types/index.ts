@@ -630,6 +630,21 @@ export interface ProcedureImage {
   updated_at: string;
 }
 
+// Imagens da aba Mensuração Radiográfica (tabela rx_images; bucket público mensuracao-figuras)
+export interface RxImage {
+  id: string;
+  medida_id: string;
+  src_static: string | null;
+  storage_path: string | null;
+  caption: string | null;
+  width: number | null;
+  height: number | null;
+  sort: number;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -717,6 +732,7 @@ export interface Database {
         Rel<"consent_logs_user_id_fkey", ["user_id"], "profiles", ["id"]>
       ] };
       procedure_images: { Row: Loose<ProcedureImage>; Insert: Partial<Loose<ProcedureImage>>; Update: Partial<Loose<ProcedureImage>>; Relationships: [] };
+      rx_images: { Row: Loose<RxImage>; Insert: Partial<Loose<RxImage>>; Update: Partial<Loose<RxImage>>; Relationships: [] };
     };
     Views: Record<string, never>;
     Functions: {
