@@ -2,15 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useSearchParams } from "next/navigation";
 import {
   Search, ChevronDown, Copy, Check, Baby, Ruler, Bone, Wrench, ArrowUpRight, Lightbulb, Link2, X,
+  ChevronLeft, ChevronRight, Image as ImageIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   MEDIDAS, MEDIDAS_POR_REGIAO, REGIOES_RX, TIPOS_RX, tituloRegiao,
   type Medida, type RegiaoRx, type TipoRx, type Tom,
 } from "@/data/radiologia";
+import { IMAGENS_RX, type ImagemRx } from "@/data/radiologia/imagens";
 
 const semAcento = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
@@ -128,6 +131,63 @@ function Tabela({ m }: { m: Medida }) {
   );
 }
 
+/** Imagens com os traçados da medida; toque abre em tela cheia. */
+function Imagens({ itens }: { itens: ImagemRx[] }) {
+  const [aberta, setAberta] = useState<number | null>(null);
+  const atual = aberta === null ? null : itens[aberta];
+  const ir = (d: number) => setAberta((i) => (i === null ? null : (i + d + itens.length) % itens.length));
+  useEffect(() => {
+    if (aberta === null) return;
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAberta(null);
+      if (e.key === "ArrowRight") ir(1);
+      if (e.key === "ArrowLeft") ir(-1);
+    };
+    window.addEventListener("keydown", tecla);
+    const ov = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", tecla); document.body.style.overflow = ov; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [aberta]);
+  return (
+    <section>
+      <h4 className="oh-eyebrow mb-2 flex items-center gap-1.5"><ImageIcon className="h-3.5 w-3.5" /> {itens.length > 1 ? "Imagens" : "Imagem"}</h4>
+      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+        {itens.map((im, i) => (
+          <button key={im.src} type="button" onClick={() => setAberta(i)} className="shrink-0 text-left">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={im.src} alt={im.legenda} loading="lazy" decoding="async" width={im.w} height={im.h}
+              className="h-36 w-auto max-w-[260px] rounded-lg border border-[var(--line)] bg-black object-contain sm:h-44" />
+            <span className="mt-1 block max-w-[260px] text-[11.5px] leading-snug text-[#A3B1C6]">{im.legenda}</span>
+          </button>
+        ))}
+      </div>
+      {atual && typeof document !== "undefined" && createPortal(
+        <div className="fixed inset-0 z-[1000] flex flex-col bg-[#02060D]" role="dialog" aria-modal="true" aria-label={atual.legenda}>
+          <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2.5" style={{ paddingTop: "max(0.625rem, env(safe-area-inset-top))" }}>
+            <button type="button" onClick={() => setAberta(null)} className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white" aria-label="Fechar">
+              <X className="h-5 w-5" />
+            </button>
+            <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{atual.legenda}</p>
+            {itens.length > 1 && <span className="oh-mono text-[11px] text-[#8C9AB0]">{(aberta ?? 0) + 1}/{itens.length}</span>}
+          </div>
+          <div className="grid min-h-0 flex-1 place-items-center overflow-auto p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={atual.src} alt={atual.legenda} className="max-h-full max-w-full object-contain" />
+          </div>
+          {itens.length > 1 && (
+            <div className="flex items-center justify-between border-t border-white/10 px-3 py-2.5" style={{ paddingBottom: "max(0.625rem, env(safe-area-inset-bottom))" }}>
+              <button type="button" onClick={() => ir(-1)} className="inline-flex items-center gap-1 rounded-lg bg-white/10 px-3 py-2 text-[13px] text-white"><ChevronLeft className="h-4 w-4" /> Anterior</button>
+              <button type="button" onClick={() => ir(1)} className="inline-flex items-center gap-1 rounded-lg bg-white/10 px-3 py-2 text-[13px] text-white">Próxima <ChevronRight className="h-4 w-4" /></button>
+            </div>
+          )}
+        </div>,
+        document.body,
+      )}
+    </section>
+  );
+}
+
 function Cartao({ m, aberto, alternar, mostrarRegiao }: { m: Medida; aberto: boolean; alternar: () => void; mostrarRegiao?: boolean }) {
   const tipo = m.tipo ?? "medida";
   const Icone = ICONE_TIPO[tipo];
@@ -145,6 +205,11 @@ function Cartao({ m, aberto, alternar, mostrarRegiao }: { m: Medida; aberto: boo
             {m.ped && (
               <span className="inline-flex items-center gap-1 rounded border border-[#38D5E0]/35 px-1 text-[10.5px] font-semibold text-[#7FE7EE]">
                 <Baby className="h-3 w-3" /> ped
+              </span>
+            )}
+            {IMAGENS_RX[m.id] && (
+              <span className="inline-flex items-center gap-1 rounded border border-[#EADFC8]/30 px-1 text-[10.5px] font-semibold text-[#EADFC8]">
+                <ImageIcon className="h-3 w-3" /> {IMAGENS_RX[m.id].length}
               </span>
             )}
           </span>
@@ -168,6 +233,7 @@ function Cartao({ m, aberto, alternar, mostrarRegiao }: { m: Medida; aberto: boo
             </section>
           )}
           {m.tabela && <section><Tabela m={m} /></section>}
+          {IMAGENS_RX[m.id] && <Imagens itens={IMAGENS_RX[m.id]} />}
           {m.como && (
             <section>
               <h4 className="oh-eyebrow mb-2">Como medir</h4>
