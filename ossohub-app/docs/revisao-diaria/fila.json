@@ -104,7 +104,18 @@
    "paginas": "117–126",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-20",
+   "resumo": "Tópico novo sobre o ligamento (estrutura, irrigação, mecanorreceptores, mecânica viscoelástica, adaptação por idade e sexo, cicatrização e implicações). Notas na entorse do tornozelo (fatores de risco, recidiva; diverge sobre órtese e alongamento prévio), LCA (puberdade e hormônios; diverge sobre fase do ciclo), LCM, propriocepção e mecânica dos tecidos (histerese); cicatrização do ligamento detalhada em Cicatrização dos tecidos.",
+   "ids": [
+    "b-ligamento",
+    "l-entorse-tornozelo",
+    "l-lca",
+    "l-lcm",
+    "f-proprio",
+    "b-tecidos",
+    "r-cicatrizacao"
+   ]
   },
   {
    "id": "ESP-01-07",

@@ -54,6 +54,8 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "l-lca": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Fatores de risco do LCA: alinhamento do membro (pronação excessiva, recurvato, torção tibial), frouxidão ligamentar, chanfro intercondilar estreito, fatores hormonais, força e controle neuromuscular. Só os dois últimos são modificáveis pelo treino — por isso são o foco da triagem e da prevenção (ver 'Triagem musculoesquelética')." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Antes da puberdade a taxa de lesão do LCA é igual entre meninos e meninas; depois dela fica pelo menos 3x maior nas meninas, junto com aumento da frouxidão articular. O LCA tem receptores de estrogênio, testosterona e relaxina." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Aponta maior risco de lesão na fase pré-ovulatória do ciclo menstrual. Os estudos sobre fase do ciclo e lesão do LCA são pequenos e inconsistentes — hoje não se recomenda mudar treino ou jogo pela fase do ciclo; o foco segue no treino neuromuscular." },
   ],
   "b-aterrissagem": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "No campo, filmagem 2D de frente durante corte lateral ou salto lateral é válida para triagem do valgo dinâmico: correlaciona de moderada a boa com a análise 3D (padrão-ouro), melhor quando o valgo é grande. Valgo pequeno pode passar despercebido no 2D." },
@@ -88,8 +90,22 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "diverge", texto: "O livro apresenta a injeção esclerosante (polidocanol) guiada por Doppler na neovascularização como tratamento com bons resultados. A base são séries pequenas e estudos piloto; ensaios maiores não confirmaram benefício consistente. Não é 1ª linha: começar sempre pelo programa de carga." },
     { fonte: "SRIP", tipo: "diverge", texto: "Cita os anti-inflamatórios (AINEs) como úteis para reduzir sintomas da tendinopatia. Como a tendinopatia crônica é sobretudo degenerativa, e não inflamatória, os AINEs dão no máximo alívio de curto prazo, sem mudar a evolução — usar pouco e por pouco tempo." },
   ],
+  "l-entorse-tornozelo": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Fatores de risco citados: entorse prévia (o principal), sobrepeso, pé mais largo e fraqueza de eversão e de dorsiflexão. Instabilidade pode ser mecânica (frouxidão, fraqueza, alterações articulares) ou funcional (falha de propriocepção e coordenação) — as duas costumam coexistir." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Por que recidiva tanto: o ligamento cicatriza com tecido mais fraco e menos irrigado e perde mecanorreceptores. Treino de equilíbrio (prancha instável) reduz a recidiva para cerca da metade — por isso o programa deve continuar depois que a dor some (ver 'Ligamento: estrutura, mecânica, lesão e cicatrização')." },
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro afirma que não há dados a favor de órtese no ligamento torcido, mas a revisão que cita trata de órtese preventiva de joelho em jogadores de futebol americano. No tornozelo, órtese ou bandagem reduz a recidiva após entorse — o site mantém a indicação." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Lista 'não alongar antes do esporte' como fator de risco. Estudos mais recentes não mostram que o alongamento estático antes do treino previna entorse; o que protege é o aquecimento neuromuscular estruturado (ver 'Propriocepção e controle neuromuscular')." },
+    { fonte: "SRIP", tipo: "concorda", texto: "Grau III: a reconstrução precoce não se mostrou superior; a cirurgia tardia fica para quem continua instável depois de falhar o tratamento funcional." },
+  ],
+  "l-lcm": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "O LCM cicatriza bem melhor que o LCA (é extra-articular e mais irrigado). Lesão isolada cicatriza melhor que combinada. Em estudos experimentais, movimento e carga precoces dão ligamento mais forte e cicatrização mais rápida que a imobilização longa — base do tratamento funcional." },
+  ],
+  "f-proprio": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Base do treino: o ligamento tem mecanorreceptores (os de Ruffini são os mais comuns, além de Pacini, órgão tendinoso-símile e terminações livres). A lesão destrói parte deles e altera também o processamento central, o que piora o reflexo de proteção muscular. Mesmo um programa domiciliar sem supervisão de propriocepção reduz recidiva de entorse do tornozelo." },
+  ],
   "b-tecidos": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Números do tendão: deformação normal na contração máxima de 6–14%; dano a partir de ~15% (alguns estudos falam em até 30%); microlesão acumulada já pode ocorrer abaixo de 10% com ciclos repetidos. Resistência à ruptura do tendão patelar de jovens ~65 MPa. Devolve ~93% da energia elástica armazenada. Aquiles chega a ~7 kN na corrida e ~9 kN no salto. Detalhes em 'Tendão: estrutura, mecânica, lesão e cicatrização'." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Histerese: após cargas repetidas o ligamento não volta logo ao comprimento inicial e a curva se desloca — a mesma carga passa a deformar mais. Muitas cargas seguidas sem tempo de recuperação podem levar a estiramento ou ruptura. O creep (fluência) aumenta com a temperatura do tecido." },
   ],
 };
 
@@ -180,6 +196,25 @@ export const NOVOS_DIARIA: Topico[] = [
       { fonte: "SRIP", tipo: "diverge", texto: "O livro dá o excêntrico como o complemento mais útil da reabilitação. O site prefere programas de carga pesada e lenta (HSR) e isométricos para analgesia, com resultados iguais ou melhores e melhor adesão." },
     ],
     ver: ["b-tecidos", "r-cicatrizacao", "f-tendao", "l-aquiles", "r-aquiles", "l-tend-patelar", "r-tend-patelar", "b-salto", "l-manguito"],
+    fontes: ["SRIP"],
+  },
+  {
+    id: "b-ligamento", titulo: "Ligamento: estrutura, mecânica, lesão e cicatrização", area: "biomecanica", grupo: "Fundamentos",
+    tags: ["ligamento", "entorse", "colágeno", "êntese", "epiligamento", "crimp", "mecanorreceptores", "ruffini", "viscoelasticidade", "histerese", "cicatriz", "frouxidão", "imobilização", "lca", "lcm"],
+    resumo: "O ligamento estabiliza a articulação e informa o sistema nervoso sobre posição e tensão. É pouco irrigado, cicatriza com tecido mais fraco e perde receptores — por isso a recidiva é alta e o treino neuromuscular é parte do tratamento.",
+    secoes: [
+      { t: "Estrutura", itens: ["Fibroblastos em fileiras produzem matriz e colágeno. Colágeno quase todo tipo I, com só 1–2% de fibras elásticas (exceção: ligamento amarelo e nucal, mais elásticos, ajudam a coluna a voltar da flexão).", "Proteoglicano principal: decorina, que reforça a ligação entre as fibras.", "Hierarquia: fibrilas → fascículos (envoltos pelo endoligamento) → ligamento (coberto pelo epiligamento, frouxo e vascular). Os fascículos deslizam entre si nas várias posições da articulação.", "Fibrilas onduladas (crimp) dão a 'pseudoelasticidade' e se esticam primeiro quando o ligamento é tensionado.", "Êntese: as fibras se abrem em leque e entram no osso em diagonal, distribuindo a carga.", "Muitos ligamentos se fundem com cápsula e tendões — por isso as lesões costumam ser combinadas."] },
+      { t: "Irrigação e inervação", itens: ["Pouco irrigado: melhor perto das inserções, pior no meio. Vasos vêm do epiligamento, do periósteo (êntese) e de tecidos vizinhos (gordura, cápsula, músculo). Tensão reduz o fluxo, que volta no repouso.", "A irrigação costuma ser o fator que limita a cicatrização.", "Após a lesão a vascularização aumenta por cerca de 40 semanas; no fim a cicatriz fica menos irrigada que o ligamento original — uma das explicações para a recidiva.", "Inervação: mecanorreceptores (Ruffini os mais comuns; Pacini, órgão tendinoso-símile, terminações livres) e dor. Eles ajustam a contração muscular que protege a articulação.", "Após a lesão perdem-se receptores e o sistema nervoso central também se reorganiza (descrito após lesão do LCA): a informação chega distorcida e o padrão muscular piora."] },
+      { t: "Mecânica", itens: ["Curva carga–deformação: região do 'dedo' (o crimp se estica; é onde o ligamento fica em repouso) → região linear (movimento normal) → falha (pequeno aumento de carga gera grande deformação ou ruptura).", "Viscoelástico: creep (deforma lentamente sob carga constante; aumenta com o calor), relaxamento de estresse (sob comprimento fixo, a tensão cai) e histerese (após vários ciclos não volta logo ao comprimento — a mesma carga deforma mais).", "Muitos ciclos de carga sem recuperação entre eles podem causar estiramento ou ruptura (ver 'Mecânica dos tecidos')."] },
+      { t: "Adaptação ao longo da vida", itens: ["Exercício engrossa as fibrilas de colágeno; imobilização as afina.", "Sem diferença entre sexos antes da puberdade; depois, mulheres têm mais frouxidão e a lesão do LCA fica ≥ 3x mais comum nas meninas. O LCA tem receptores de estrogênio, testosterona e relaxina.", "No idoso aumenta a frouxidão de cápsula e ligamentos — possível contribuição para a artrose."] },
+      { t: "Lesão e cicatrização", itens: ["Graus: I leve, II moderado (ruptura parcial), III ruptura completa. Qualquer grau pode deixar instabilidade a longo prazo.", "Inflamação: o espaço da lesão enche de sangue. Proliferação: fibroblastos multiplicam-se, entram vasos e forma-se cicatriz rápida e desorganizada de colágeno tipo III (mais fraco).", "Remodelação: meses a anos, com reorganização das fibras e ligações mais fortes — mas o tecido nunca volta a ser igual (fibras mais finas, ligações cruzadas mais fracas, menos irrigação).", "Cicatriza melhor: lesão isolada (× combinada), grau menor e certos ligamentos (LCM muito melhor que LCA). A falha do reparo pode aparecer meses depois."] },
+      { t: "Implicações práticas", itens: ["Graus I–II: tratamento ativo — proteção curta, controle de dor e edema, amplitude, isométricos → isotônicos e propriocepção (ver 'Manejo agudo').", "Atividade precoce dá cicatrização mais rápida e ligamento mais forte que imobilização longa.", "Propriocepção é tratamento, não só prevenção: reduz recidiva de entorse do tornozelo para cerca da metade, inclusive em programa domiciliar.", "Grau III: depende do ligamento — tornozelo, tratamento funcional e reconstrução tardia se continuar instável; LCA, reconstrução para quem pratica pivô (ver 'Lesão do LCA')."] },
+    ],
+    notas: [
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro ainda usa RICE como base do tratamento agudo. O site segue o PEACE & LOVE, com gelo só para dor e carga precoce." },
+      { fonte: "SRIP", tipo: "acrescenta", texto: "Na reconstrução do LCA o livro cita enxerto de isquiotibiais ou quadricipital (feixe simples ou duplo); o tendão patelar (osso–tendão–osso) também é opção padrão." },
+    ],
+    ver: ["b-tecidos", "b-tendao", "r-cicatrizacao", "r-agudo", "l-entorse-tornozelo", "r-tornozelo", "l-lca", "r-lca", "l-lcm", "f-proprio"],
     fontes: ["SRIP"],
   },
 ];
