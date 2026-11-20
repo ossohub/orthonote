@@ -124,7 +124,18 @@
    "paginas": "127–140",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-20",
+   "resumo": "Sem erros no site. Acrescentados os fatores que atrasam a consolidação em “Reabilitação após fraturas” e aprofundada a nota SRIP de fraturas (AINE só no uso prolongado, força adequada ~6 meses). Notas novas: fratura por fadiga x insuficiência, tríade x RED-S e Z-score, cálcio e proteína, cartilagem/artrose e proporção de osso esponjoso.",
+   "ids": [
+    "r-fratura",
+    "l-canelite",
+    "n-reds",
+    "n-proteina",
+    "n-gordura",
+    "r-oa-joelho",
+    "b-tecidos"
+   ]
   },
   {
    "id": "ESP-01-08",

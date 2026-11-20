@@ -103,9 +103,28 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "f-proprio": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Base do treino: o ligamento tem mecanorreceptores (os de Ruffini são os mais comuns, além de Pacini, órgão tendinoso-símile e terminações livres). A lesão destrói parte deles e altera também o processamento central, o que piora o reflexo de proteção muscular. Mesmo um programa domiciliar sem supervisão de propriocepção reduz recidiva de entorse do tornozelo." },
   ],
+  "l-canelite": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Dois tipos de fratura por estresse: por fadiga (osso normal, carga repetida acima da capacidade de adaptação — o típico do atleta) e por insuficiência (carga normal sobre osso fraco: osteoporose, osteomalácia, artrite reumatoide, doença de Paget). Na de insuficiência, investigar o osso, não só o treino." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Fatores a corrigir no corredor: aumento brusco de volume ou intensidade, discrepância de comprimento dos membros, pronação excessiva, calçado inadequado e fadiga muscular (o músculo cansado amortece menos e passa a carga para o osso). No membro superior, a tração muscular repetida é o mecanismo provável. Fraturas por estresse chegam a ~10% dos atendimentos em medicina esportiva." },
+  ],
+  "n-reds": [
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro usa a tríade clássica (transtorno alimentar, amenorreia e osteoporose), mas já sugere que o problema central é o balanço energético, não só a falta de estrogênio. O conceito atual (tríade revisada e RED-S) é um espectro de baixa disponibilidade energética, com ou sem transtorno alimentar declarado, e que também atinge homens." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Cita o critério da OMS (T-score ≤ −2,5) para osteoporose, que vale para pós-menopausa e homens mais velhos. Em atleta jovem usa-se o Z-score: < −1 já preocupa em esportes de impacto e ≤ −2 é baixa massa óssea para a idade." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Mesmo com a volta da menstruação ou com anticoncepcional, a perda óssea pode não se recuperar por completo — por isso a detecção precoce importa. Ginastas (impacto alto) têm densidade maior que corredoras e nadadoras, mesmo com ciclo irregular: carga de impacto protege o osso. Esportes de estética e de categoria de peso são os de maior risco." },
+  ],
+  "n-proteina": [
+    { fonte: "SRIP", tipo: "diverge", texto: "O livro afirma que dieta rica em proteína reduz as reservas de cálcio por aumentar a perda urinária. Estudos mais recentes mostram que, com cálcio adequado na dieta, proteína alta não prejudica o osso e pode até favorecê-lo — mantemos as doses indicadas aqui." },
+  ],
+  "n-gordura": [
+    { fonte: "SRIP", tipo: "diverge", texto: "Cita 800–1.200 mg/dia de cálcio. Usamos 1.000–1.500 mg/dia (mais alto na baixa disponibilidade energética e na amenorreia), em linha com as recomendações atuais para atletas. Álcool, excesso de fibra/gordura, megadoses de zinco ou vitamina A, heparina e corticoide podem reduzir o aproveitamento do cálcio; a vitamina D regula sua absorção." },
+  ],
+  "r-oa-joelho": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Lesão restrita à cartilagem articular (hialina, sem vasos) tem pouca ou nenhuma capacidade de cicatrizar e pode evoluir para artrose. Corrida moderada e regular tem risco baixo ou nulo de artrose; o risco sobe nos esportes com impacto articular alto e direto (contato com adversário, piso ou equipamento) — e após lesões articulares." },
+  ],
   "b-tecidos": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Números do tendão: deformação normal na contração máxima de 6–14%; dano a partir de ~15% (alguns estudos falam em até 30%); microlesão acumulada já pode ocorrer abaixo de 10% com ciclos repetidos. Resistência à ruptura do tendão patelar de jovens ~65 MPa. Devolve ~93% da energia elástica armazenada. Aquiles chega a ~7 kN na corrida e ~9 kN no salto. Detalhes em 'Tendão: estrutura, mecânica, lesão e cicatrização'." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Histerese: após cargas repetidas o ligamento não volta logo ao comprimento inicial e a curva se desloca — a mesma carga passa a deformar mais. Muitas cargas seguidas sem tempo de recuperação podem levar a estiramento ou ruptura. O creep (fluência) aumenta com a temperatura do tecido." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Osso: cerca de 80% do esqueleto adulto é cortical, mas a proporção de osso esponjoso varia — ~70% na vértebra lombar, ~50% no colo do fêmur e ~5% na diáfise do rádio. Como o esponjoso é o mais ativo e perde massa mais rápido, vértebra e colo femoral são os locais típicos de fratura por fragilidade. Cerca de 20% do osso é renovado por ano." },
   ],
 };
 

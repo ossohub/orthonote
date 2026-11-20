@@ -114,7 +114,7 @@ export const NOVOS: Topico[] = [
     resumo: "Mover tudo o que não está imobilizado, isométricos dentro do gesso e progressão de carga conforme a consolidação.",
     secoes: [
       { t: "Durante a imobilização", itens: ["Elevação e exercícios ativos dos dedos/articulações livres para reduzir edema e rigidez.", "Contrações isométricas dos músculos dentro do gesso/tala para limitar atrofia.", "Manter condicionamento geral e do membro contralateral (efeito de educação cruzada)."] },
-      { t: "Após retirar a imobilização", itens: ["Amplitude ativa → ativa-assistida → passiva; mobilização articular se rigidez.", "Carga progressiva conforme orientação ortopédica e sinais radiográficos de consolidação.", "Fortalecimento, propriocepção e treino de marcha/função.", "Vigiar sinais de síndrome dolorosa regional complexa (dor desproporcional, edema, alteração de cor/temperatura)."] },
+      { t: "Após retirar a imobilização", itens: ["Amplitude ativa → ativa-assistida → passiva; mobilização articular se rigidez.", "Carga progressiva conforme orientação ortopédica e sinais radiográficos de consolidação.", "Fortalecimento, propriocepção e treino de marcha/função.", "Vigiar sinais de síndrome dolorosa regional complexa (dor desproporcional, edema, alteração de cor/temperatura).", "Fatores que atrasam a consolidação: tabagismo, álcool, desnutrição, infecção, redução ruim, lesão vascular ou perda da irrigação local e uso prolongado de anti-inflamatórios."] },
     ],
     notas: [{ fonte: "KAPOOR", tipo: "acrescenta", texto: "Pacientes em gesso pelvipodálico ou imobilizações extensas precisam de contrações estáticas obrigatórias de membros inferiores e tronco." }],
     fontes: ["KAPOOR", "GARD"],

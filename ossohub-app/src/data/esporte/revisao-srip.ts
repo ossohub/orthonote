@@ -63,7 +63,7 @@ export const NOTAS_SRIP: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "concorda", texto: "Mesma classificação (neuropraxia, axonotmese, neurotmese) orientando prognóstico e reabilitação." },
   ],
   "r-fratura": [
-    { fonte: "SRIP", tipo: "acrescenta", texto: "Linha do tempo da consolidação: hematoma/inflamação na 1ª semana, calo mole nas semanas 2–3, calo duro entre as semanas 4 e 16 e remodelação ao longo de meses a anos. Anti-inflamatórios podem prejudicar a consolidação." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Linha do tempo da consolidação: hematoma/inflamação na 1ª semana, calo mole nas semanas 2–3, calo duro entre as semanas 4 e 16 e remodelação ao longo de meses a anos. A força costuma ser adequada por volta de 6 meses. Fratura por estresse não forma o hematoma inicial. O uso prolongado ou excessivo de anti-inflamatórios (inibem as prostaglandinas) pode prejudicar a consolidação." },
   ],
   "n-proteina": [
     { fonte: "SRIP", tipo: "diverge", texto: "Indica 1,2–2,0 g/kg/dia para atletas (1,7–2,0 g/kg no início de treino de força) — limite inferior um pouco abaixo do 1,4 g/kg usado aqui." },
