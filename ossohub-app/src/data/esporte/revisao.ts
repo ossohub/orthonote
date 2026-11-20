@@ -124,9 +124,10 @@ export const NOVOS: Topico[] = [
     tags: ["neuropraxia", "axonotmese", "neurotmese", "seddon", "nervo"],
     resumo: "Classificação de Seddon orienta prognóstico; proteger a articulação, manter amplitude e reeducar a função durante a regeneração.",
     secoes: [
-      { t: "Classificação (Seddon)", itens: ["Neuropraxia: bloqueio de condução sem lesão axonal — é a mais comum e recupera em semanas (~1 mês).", "Axonotmese: ruptura de axônios com bainha preservada — recuperação em meses (regeneração ~1 mm/dia).", "Neurotmese: secção completa do nervo — sem recuperação espontânea; precisa de reparo cirúrgico."] },
+      { t: "Classificação (Seddon)", itens: ["Neuropraxia: bloqueio de condução por lesão da mielina, sem lesão axonal — é a mais comum; recuperação completa em dias a semanas (em geral até ~12 semanas).", "Axonotmese: ruptura de axônios com bainha preservada — recuperação em meses (regeneração ~1 mm/dia).", "Neurotmese: secção completa do nervo — sem recuperação espontânea; precisa de reparo cirúrgico."] },
       { t: "Reabilitação", itens: ["Órteses para evitar deformidade (ex.: punho caído na lesão do radial; pé caído no fibular).", "Amplitude passiva diária para prevenir contraturas; proteção da pele insensível.", "Estimulação elétrica e exercícios ativos assim que houver reinervação.", "Reeducação sensorial e motora; ENMG para acompanhar quando não houver sinais de recuperação no tempo esperado."] },
     ],
+    ver: ["l-nervos-atleta", "f-neurodinamica"],
     fontes: ["KAPOOR"],
   },
   {

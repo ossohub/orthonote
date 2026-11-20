@@ -144,7 +144,23 @@
    "paginas": "141–166",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-20",
+   "resumo": "Corrigido o tempo de recuperação da neuropraxia em “Lesão de nervo periférico” (de ~1 mês para dias a semanas, em geral até ~12 semanas). Criados os tópicos “Neuropatias e lesões de nervo no atleta” (stinger, desfiladeiro, axilar, torácico longo, supraescapular, cubital, túnel radial, pronador, carpo, piriforme, fibular, túnel do tarso) e “Testes e mobilização neurodinâmica”. Notas novas em luxação do ombro (nervo axilar), isquiotibiais (dor neural), túnel do carpo (AINE sem efeito), cotovelo, tornozelo, fascite e lombar.",
+   "ids": [
+    "r-nervo",
+    "l-nervos-atleta",
+    "f-neurodinamica",
+    "l-ombro-instab",
+    "l-isquios",
+    "r-isquios",
+    "r-tunel-carpo",
+    "l-epicondilite",
+    "l-cotovelo-medial",
+    "l-entorse-tornozelo",
+    "l-fascite",
+    "a-lombar"
+   ]
   },
   {
    "id": "ESP-01-09",
