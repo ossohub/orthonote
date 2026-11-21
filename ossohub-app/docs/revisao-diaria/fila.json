@@ -207,7 +207,10 @@
    "paginas": "207–220",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-21",
+   "resumo": "Tópico novo de avaliação musculoesquelética (anamnese em pares, bandeiras vermelhas, tensão seletiva de Cyriax, sensação final, padrão capsular, dor referida e registro SOAP) e roteiro SALTAPS no corpo do atendimento à beira do campo. Notas: limites da tensão seletiva, papel atual da imagem, dor referida fora do dermátomo, guarda de prontuário no Brasil (20 anos), concussão/coluna fora do 'correr para passar', bloqueio em mola do menisco e padrão capsular do ombro.",
+   "ids": ["f-avaliacao-msk", "r-equipe-campo", "l-menisco", "r-capsulite", "f-triagem"]
   },
   {
    "id": "ESP-01-12",

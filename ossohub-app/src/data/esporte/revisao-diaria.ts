@@ -190,6 +190,15 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "b-trauma-cabeca": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "No futebol, faixas/capacetes de proteção parecem reduzir a gravidade do choque cabeça com cabeça, mas não protegem do impacto da bola. Em geral, capacete não impede concussão." },
   ],
+  "r-equipe-campo": [
+    { fonte: "SRIP", tipo: "diverge", texto: "No roteiro SALTAPS o livro admite que o atleta tente 'correr para passar' a dor. Isso não vale para suspeita de concussão (afastar no mesmo dia, sem exceção) nem para suspeita de lesão da coluna (não mover; imobilizar e chamar resgate). Na dúvida, tirar do jogo." },
+  ],
+  "l-menisco": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "No exame passivo, o menisco preso entre as superfícies dá um bloqueio 'em mola' (springy): resistência firme que cede um pouco e volta ao soltar, típica no fim da extensão. Diferente do bloqueio duro ósseo e do bloqueio por espasmo, que muda de ponto a cada tentativa." },
+  ],
+  "r-capsulite": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Capsulite é o exemplo clássico de padrão capsular (Cyriax): a cápsula inflamada retrai e limita o movimento sempre na mesma ordem — no ombro, rotação externa mais limitada, depois abdução e por último rotação interna, com sensação final firme. Perda que não segue essa ordem (padrão não capsular) aponta outra causa (bursite, bloqueio mecânico, lesão do manguito)." },
+  ],
 };
 
 export const NOVOS_DIARIA: Topico[] = [
@@ -212,17 +221,18 @@ export const NOVOS_DIARIA: Topico[] = [
   },
   {
     id: "r-equipe-campo", titulo: "Atendimento à beira do campo: equipe, emergência, sigilo e registro", area: "reabilitacao", grupo: "Geral",
-    tags: ["beira do campo", "equipe multiprofissional", "plano de emergência", "rcp", "dea", "sigilo", "prontuário", "ética", "responsabilidade legal"],
+    tags: ["beira do campo", "saltaps", "equipe multiprofissional", "plano de emergência", "rcp", "dea", "sigilo", "prontuário", "ética", "responsabilidade legal"],
     resumo: "Lesão no esporte é cuidada em equipe. Quem atende no campo precisa de preparo para emergência, plano escrito, sigilo sobre o atleta e registro completo.",
     secoes: [
       { t: "Equipe", itens: ["Médicos (clínico, ortopedista, radiologista, cardiologista, neurologista), fisioterapeuta/reabilitador, preparador físico, nutricionista, psicólogo do esporte, técnico e dirigentes.", "Nem todos estão presentes em todo nível; o essencial é saber quem decide o quê e para quem encaminhar.", "Atleta menor de idade: pais ou responsáveis fazem parte das decisões."] },
       { t: "Preparo mínimo de quem atende no campo", itens: ["Suporte básico de vida com DEA (RCP + desfibrilador) com certificação em dia e retreino periódico.", "Primeiros socorros, precauções com sangue e fluidos, bandagem e órteses.", "Avaliar a lesão logo no campo, de preferência antes do espasmo muscular e do edema mascararem o exame.", "Esportes com equipamento de proteção (capacete e ombreiras no futebol americano, hóquei no gelo, críquete): treinar o atendimento de emergência com o equipamento — inclusive quando e como retirá-lo."] },
+      { t: "Roteiro rápido no campo (SALTAPS)", itens: ["S — parar o jogo e chegar rápido (combinar antes com a arbitragem como entrar).", "A — perguntar o que aconteceu (se consciente); observar rosto, postura e se fala com coerência. Sem resposta: suporte de vida.", "L — olhar o membro: sangramento, hematoma, edema imediato, deformidade, espasmo.", "T — tocar com delicadeza, só se o atleta deixar, para achar o ponto de dor.", "A — movimento ativo: mexe o membro sem dor em toda a amplitude?", "P — passivo: só se o ativo estiver bom, levar ao fim da amplitude.", "S — ficar de pé e voltar: observar de perto; estar pronto para substituir. É triagem, não diagnóstico — reavaliar depois com calma."] },
       { t: "Plano de emergência", itens: ["Clube, escola ou evento deve ter plano escrito para cada local: quem atende, material, acesso da ambulância e hospital de referência.", "Situações que exigem resposta rápida e protocolo próprio: concussão, suspeita de lesão medular e hipertermia (insolação de esforço).", "Afastar da partida o atleta lesionado quando continuar pode agravar a lesão."] },
       { t: "Sigilo", itens: ["Examinar longe de colegas, adversários e imprensa sempre que possível; cuidado com comentários em voz alta.", "Informação de saúde do atleta só é passada ao técnico, clube ou imprensa com consentimento dele (ou quando a lei exigir).", "Combinar antes, com o atleta e o clube, como as informações serão compartilhadas."] },
       { t: "Registro (prontuário)", itens: ["Registrar a lesão, a avaliação, o tratamento, a evolução e as orientações dadas (inclusive explicação de cada recurso terapêutico).", "Nunca alterar ou 'corrigir' registros depois; manter os registros protegidos.", "Em lesão grave ou catastrófica, a documentação precisa ser bem mais detalhada do que se costuma imaginar."] },
       { t: "Onde mais surgem processos", itens: ["Avaliação pré-participação ausente ou mal feita.", "Liberação para jogar sem critério atual.", "Atendimento inadequado de lesão grave no campo.", "Quebra de sigilo.", "Também: piso/equipamento inseguro, falta de equipamento de proteção ou de ensino de técnica segura, demora em encaminhar."] },
     ],
-    ver: ["f-triagem", "r-principios", "l-concussao", "r-agudo"],
+    ver: ["f-triagem", "r-principios", "l-concussao", "r-agudo", "f-avaliacao-msk"],
     fontes: ["SRIP"],
   },
   {
@@ -345,6 +355,30 @@ export const NOVOS_DIARIA: Topico[] = [
       { fonte: "SRIP", tipo: "diverge", texto: "A evidência para mobilização neural é moderada e heterogênea: melhora dor e função em algumas condições (ex.: dor lombar com irradiação, túnel do carpo), mas os estudos são pequenos. Não há estudo sobre o efeito de sliders ou tensioners no tempo de retorno ao esporte." },
     ],
     ver: ["l-nervos-atleta", "r-nervo", "a-lombar", "l-isquios", "r-tunel-carpo", "f-flexibilidade"],
+    fontes: ["SRIP"],
+  },
+  {
+    id: "f-avaliacao-msk", titulo: "Avaliação musculoesquelética: anamnese, exame por tensão seletiva e registro", area: "fisioterapia", grupo: "Fundamentos",
+    tags: ["avaliação", "exame físico", "cyriax", "tensão seletiva", "contrátil", "inerte", "sensação final", "end-feel", "padrão capsular", "dor referida", "anamnese", "bandeira vermelha", "saltaps", "soap", "prontuário"],
+    resumo: "Diagnóstico por padrão, não por um achado isolado: anamnese em pares → inspeção → ativo, passivo e resistido (tensão seletiva de Cyriax) → palpação no fim → registro SOAP.",
+    secoes: [
+      { t: "Três perguntas antes de tudo", itens: ["Em que articulação/região está a lesão? (a anamnese costuma responder).", "Em que tipo de tecido? Contrátil (músculo, tendão, junções miotendínea e tendo-óssea) ou inerte (osso, cartilagem, ligamento, cápsula, bursa, fáscia, raiz nervosa, dura-máter).", "O teste reproduz a dor que o paciente conhece?", "Tratar a fonte da dor, não só o lugar onde ela é sentida."] },
+      { t: "Anamnese em pares (roteiro)", itens: ["Idade e profissão/esporte: doenças típicas da idade (epifisiólise do quadril no adolescente, degenerativas após os 50) e nível de atividade a recuperar.", "Local e irradiação: aponta com um dedo = lesão local; mostra uma área vaga com a mão = provável dor referida (ex.: dor medial no joelho vinda do quadril).", "Início e duração: súbito = trauma (reconstruir o mecanismo); gradual = sobrecarga; sem causa aparente (insidioso) = pensar em causa sistêmica ou grave. Quanto mais antigo, mais difícil mudar.", "Comportamento e sintomas: o que piora, o que alivia, variação ao longo do dia. Cápsula/ligamento: rigidez ao começar, melhora ao mover. Tendinopatia: dói durante ou depois da carga. Também perguntar bloqueio, falseio, formigamento e dormência.", "História médica e remédios no fim (depois de criar vínculo): cirurgias, acidentes, doenças — insistir ('tem certeza?'). Anticoagulante (risco de sangramento com técnicas vigorosas) e corticoide de uso prolongado (fragiliza tendão e ligamento)."] },
+      { t: "Bandeiras vermelhas na anamnese", itens: ["Dor constante, que não muda com movimento ou posição — dor musculoesquelética costuma ser intermitente e mecânica.", "Início insidioso com história de câncer (ex.: dor lombar e câncer ginecológico prévio → metástase óssea até prova em contrário).", "Também: dor noturna que não alivia, perda de peso, febre, déficit neurológico progressivo → encaminhar para investigação médica."] },
+      { t: "Observação e inspeção", itens: ["Observar rosto, postura e marcha desde a entrada (o paciente age mais naturalmente).", "Tornozelo doloroso: marcha apoiando o calcanhar com joelho rígido; joelho doloroso: marcha na ponta do pé para não estender o joelho.", "Inspeção local: deformidade óssea, mudança de cor, atrofia, edema.", "Palpação inicial rápida: calor, edema, espessamento sinovial (inflamação antiga) e pulsos.", "Perguntar se há dor em repouso antes de começar os testes."] },
+      { t: "Ativo, passivo e resistido", itens: ["Ativo: tensiona tudo ao mesmo tempo — mostra vontade de mover, amplitude e quando a dor começa; pouco específico.", "Passivo: testa sobretudo o inerte (dor, amplitude e sensação final). O paciente deve estar relaxado; se ajudar, recruta músculo e gera falso positivo.", "Resistido: testa o contrátil (dor e força). Isométrico, máximo, articulação em posição média — sem alongar o inerte. Teste submáximo pode deixar a lesão passar (falso negativo).", "Leitura clássica do resistido: forte e doloroso = lesão menor do contrátil; fraco e indolor = problema neurológico ou ruptura completa; fraco e doloroso = lesão grave (fratura, tumor, ruptura parcial grande); forte e indolor = normal.", "Na coluna, somar reflexos, miótomos e dermátomos.", "Palpar só no fim, para localizar a lesão já suspeitada; depois, se preciso, exames (imagem, sangue)."] },
+      { t: "Sensação final (end-feel)", itens: ["Normais: dura/óssea (olécrano na fossa na extensão do cotovelo); mole/de partes moles (panturrilha contra coxa na flexão do joelho); elástica/capsular, a mais comum (rotação externa do ombro).", "Patológicas: em mola (cartilagem ou menisco preso — resistência que cede um pouco); espasmo (contração reflexa por dor ou medo, não ocorre sempre no mesmo ponto); vazia (não se chega ao fim — dor extrema ou ruptura grosseira de ligamento/cápsula: pensar em lesão grave).", "Padrão capsular: cápsula inflamada (trauma, infecção, artrose) perde movimento numa ordem fixa para cada articulação. Perda fora dessa ordem = padrão não capsular (bloqueio, lesão extra-articular)."] },
+      { t: "Dor referida (regras práticas de Cyriax)", itens: ["Segue o segmento (dermátomo), no todo ou em parte; tende a ir para distal; em geral não cruza a linha média; costuma ser sentida como profunda.", "Quanto mais profunda e mais proximal a lesão, e quanto mais forte o estímulo, mais vaga e espalhada é a dor.", "Por isso a palpação engana: o ponto que dói pode não ser a origem."] },
+      { t: "Registro SOAP", itens: ["S (subjetivo): os pares da anamnese.", "O (objetivo): inspeção, palpação, passivo, resistido e testes especiais — anotar também os negativos e destacar os achados-chave.", "A (avaliação): diagnóstico(s), gravidade, irritabilidade, prognóstico e metas de curto e longo prazo (ex.: entorse de tornozelo — curto: bandagem e controle do edema; longo: marcha, propriocepção e gesto esportivo).", "P (plano): tratamento, frequência, exercícios para casa (dose) e critérios de alta.", "Letra legível, guarda segura e sigilo: só compartilhar com outros profissionais de saúde envolvidos."] },
+    ],
+    notas: [
+      { fonte: "SRIP", tipo: "diverge", texto: "O capítulo diz que esse método leva ao diagnóstico em mais de 90% dos casos. Estudos sobre tensão seletiva mostram concordância entre examinadores apenas razoável e padrões capsulares que nem sempre se confirmam (ex.: no ombro e no joelho). Usar como roteiro de raciocínio, somando testes especiais validados e imagem quando o quadro pedir." },
+      { fonte: "SRIP", tipo: "diverge", texto: "O livro valoriza pouco a imagem porque o RX só mostra osso. Hoje ultrassom e ressonância mostram partes moles; mas achados sem sintoma são muito comuns (artrose, ruptura de manguito, protrusão discal com a idade) — a imagem confirma a hipótese do exame, não substitui." },
+      { fonte: "SRIP", tipo: "diverge", texto: "As regras da dor referida (sempre segmentar, não cruza a linha média) são simplificações. Dor de origem profunda (disco, faceta, víscera) e dor com sensibilização central podem ter distribuição fora do dermátomo, bilateral ou desproporcional — sem isso indicar simulação." },
+      { fonte: "SRIP", tipo: "diverge", texto: "A guarda de prontuário de 8 anos citada é regra do Reino Unido. No Brasil, a Lei 13.787/2018 fixa guarda mínima de 20 anos a partir do último registro (prontuário em papel ou digital)." },
+      { fonte: "SRIP", tipo: "acrescenta", texto: "Na pergunta sobre remédios, incluir fluoroquinolona (ciprofloxacino, levofloxacino) e infiltrações recentes de corticoide, que também aumentam o risco de lesão de tendão." },
+    ],
+    ver: ["f-triagem", "f-triagem-msk", "r-equipe-campo", "f-neurodinamica", "l-menisco", "r-capsulite"],
     fontes: ["SRIP"],
   },
 ];
