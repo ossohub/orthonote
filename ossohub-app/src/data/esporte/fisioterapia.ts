@@ -36,10 +36,10 @@ export const FISIOTERAPIA: Topico[] = [
     tags: ["periodização linear", "ondulatória", "blocos", "macrociclo", "mesociclo", "deload"],
     resumo: "Organizar o treino em ciclos para chegar ao pico no momento certo e evitar estagnação e sobretreinamento.",
     secoes: [
-      { t: "Estrutura", itens: ["Macrociclo (temporada/ano) → mesociclos (3–6 semanas) → microciclos (semana).", "Fases: preparação geral → específica → competitiva → transição.", "Semana de descarga (deload) a cada 3–6 semanas: reduzir volume 40–60%."] },
+      { t: "Estrutura", itens: ["Macrociclo (temporada/ano) → mesociclos (3–6 semanas) → microciclos (semana).", "Fases: preparação geral → específica → competitiva → transição.", "Semana de descarga (deload) a cada 3–6 semanas: reduzir volume 40–60%, mantendo a intensidade.", "Dentro do bloco: velocidade, força máxima e técnica nas primeiras semanas (atleta descansado); resistência nas semanas finais, com fadiga acumulada."] },
       { t: "Modelos", itens: ["Linear: volume alto/intensidade baixa → volume baixo/intensidade alta.", "Ondulatória (diária/semanal): varia o estímulo dentro da semana — útil para quem compete com frequência.", "Blocos: acumulação → transmutação → realização, foco concentrado em poucas capacidades por bloco."] },
     ],
-    fontes: ["HAFF", "PRESTES"],
+    fontes: ["HAFF", "PRESTES", "SRIP"],
   },
   {
     id: "f-pliometria", titulo: "Pliometria e potência", area: "fisioterapia", grupo: "Força e potência",

@@ -169,7 +169,16 @@
    "paginas": "167–184",
    "fonte": "SRIP",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-21",
+   "resumo": "Periodização ganhou bloco de 4 semanas com descarga mantendo intensidade, dose de força por fase do ano, ordem dos mesociclos e duração por esporte. Notas de cargas ótimas de potência e faixas de força (diverge com a NSCA), progressão do drop jump, força periodizada na fase final do LCA e critério de agachar ~1,5x o peso corporal antes de pliometria intensa.",
+   "ids": [
+    "f-periodizacao",
+    "f-forca",
+    "f-pliometria",
+    "r-lca",
+    "l-lca"
+   ]
   },
   {
    "id": "ESP-01-10",

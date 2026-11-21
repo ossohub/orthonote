@@ -21,10 +21,10 @@ export const REABILITACAO: Topico[] = [
       { nome: "Fase 1 — Proteção e controle de derrame", tempo: "0–2 semanas", objetivos: ["Extensão 0°", "Flexão ≥ 90°", "Elevação da perna estendida sem queda (lag)"], exercicios: ["Crioterapia e compressão", "Mobilização patelar", "Isométrico de quadríceps com estimulação elétrica", "Elevação da perna estendida", "Marcha com muletas conforme tolerância"], criterios: ["Derrame mínimo", "Extensão completa", "Marcha sem muleta sem claudicação"] },
       { nome: "Fase 2 — Força inicial e marcha", tempo: "2–6 semanas", objetivos: ["Flexão ≥ 120°", "Marcha normal", "Controle neuromuscular básico"], exercicios: ["Bicicleta ergométrica", "Leg press e agachamento parcial (0–60°)", "Ponte, abdutores de quadril", "Equilíbrio unipodal"], criterios: ["Amplitude completa", "Agachamento bipodal simétrico sem dor"] },
       { nome: "Fase 3 — Força e início do impacto", tempo: "6–12 semanas", objetivos: ["Quadríceps ≥ 70% do lado sadio"], exercicios: ["Cadeia aberta 90–45° progredindo", "Agachamento unipodal, step-down", "Saltos bipodais com aterrissagem controlada (fim da fase)"], criterios: ["LSI quadríceps ≥ 70–80%", "Step-down sem valgo"] },
-      { nome: "Fase 4 — Corrida e pliometria", tempo: "3–6 meses", objetivos: ["Corrida em linha reta", "Pliometria uni e bipodal"], exercicios: ["Programa de corrida progressiva", "Saltos unipodais, aterrissagem com controle de valgo", "Força máxima e potência"], criterios: ["LSI ≥ 80–85%", "Corrida sem dor ou derrame"] },
+      { nome: "Fase 4 — Corrida e pliometria", tempo: "3–6 meses", objetivos: ["Corrida em linha reta", "Pliometria uni e bipodal"], exercicios: ["Programa de corrida progressiva", "Saltos unipodais, aterrissagem com controle de valgo", "Força máxima e potência"], criterios: ["LSI ≥ 80–85%", "Corrida sem dor ou derrame", "Agachar ~1,5x o peso corporal, sem dor e com boa técnica, antes de pliometria intensa (saltos em profundidade)"] },
       { nome: "Fase 5 — Específico do esporte e retorno", tempo: "6–9+ meses", objetivos: ["Mudança de direção, desaceleração, treino com equipe"], exercicios: ["Agilidade e corte planejado → não planejado", "Treino técnico progressivo com contato", "Programa preventivo (ex.: FIFA 11+)"], criterios: ["≥ 9 meses de pós-operatório", "Força e saltos ≥ 90%", "Prontidão psicológica"] },
     ],
-    fontes: ["REHAB", "PTR", "SPBIO"],
+    fontes: ["REHAB", "PTR", "SPBIO", "SRIP"],
   },
   {
     id: "r-tornozelo", titulo: "Entorse lateral do tornozelo", area: "reabilitacao", grupo: "Tornozelo e pé",
