@@ -1,5 +1,5 @@
 {
- "descricao": "Fila da revisão diária do conteúdo do site: um capítulo (unidade) por dia, na ordem abaixo. Ver README.md.",
+ "descricao": "Fila da revisão diária do conteúdo do site: um capítulo (unidade) por execução, na ordem abaixo (livros intercalados). Ver README.md.",
  "unidades": [
   {
    "id": "ESP-01-01",
@@ -210,139 +210,19 @@
    "status": "feito",
    "data": "2026-11-21",
    "resumo": "Tópico novo de avaliação musculoesquelética (anamnese em pares, bandeiras vermelhas, tensão seletiva de Cyriax, sensação final, padrão capsular, dor referida e registro SOAP) e roteiro SALTAPS no corpo do atendimento à beira do campo. Notas: limites da tensão seletiva, papel atual da imagem, dor referida fora do dermátomo, guarda de prontuário no Brasil (20 anos), concussão/coluna fora do 'correr para passar', bloqueio em mola do menisco e padrão capsular do ombro.",
-   "ids": ["f-avaliacao-msk", "r-equipe-campo", "l-menisco", "r-capsulite", "f-triagem"]
+   "ids": [
+    "f-avaliacao-msk",
+    "r-equipe-campo",
+    "l-menisco",
+    "r-capsulite",
+    "f-triagem"
+   ]
   },
   {
    "id": "ESP-01-12",
    "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
    "titulo": "12 Progressive systematic functional rehabilitation",
    "paginas": "221–244",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-13",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "13 Strength and conditioning",
-   "paginas": "245–266",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-14",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "14 Nutritional considerations for performance and rehabilitation",
-   "paginas": "267–296",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-15",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "15 Psychology and sports rehabilitation",
-   "paginas": "297–318",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-16",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "16 Clinical reasoning",
-   "paginas": "319–330",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-17",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "17 Shoulder injuries in sport",
-   "paginas": "331–358",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-18",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "18 The elbow",
-   "paginas": "359–386",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-19",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "19 Wrist and hand injuries in sport",
-   "paginas": "387–406",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-20",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "20 The groin in sport",
-   "paginas": "407–428",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-21",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "21 The knee (parte 1)",
-   "paginas": "429–444",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-22",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "21 The knee (parte 2)",
-   "paginas": "445–460",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-23",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "21 The knee (parte 3)",
-   "paginas": "461–476",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-24",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "21 The knee (parte 4)",
-   "paginas": "477–486",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-25",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "22 Ankle complex injuries in sport",
-   "paginas": "487–518",
-   "fonte": "SRIP",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-01-26",
-   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
-   "titulo": "23 The foot in sport",
-   "paginas": "519–550",
    "fonte": "SRIP",
    "alvo": "esporte",
    "status": "pendente"
@@ -357,172 +237,10 @@
    "status": "pendente"
   },
   {
-   "id": "ESP-02-02",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Chapter 2: Guide to treatments",
-   "paginas": "39–52",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-03",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Cap. 3 (guia por região) — How to Use this Section, Serious Injuries, Head, Neck and Shoulder",
-   "paginas": "53–70",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-04",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Cap. 3 (guia por região) — Neck and Chest, Shoulder, Elbow",
-   "paginas": "71–92",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-05",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Cap. 3 (guia por região) — Wrist and Hand, Back",
-   "paginas": "93–112",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-06",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Cap. 3 (guia por região) — Hip and Pelvis, Uper Leg, Knee",
-   "paginas": "113–142",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-07",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Cap. 3 (guia por região) — Lower Leg, Ankle, Foot and Toes",
-   "paginas": "143–168",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-08",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Chapter 4: How to recover from an injury",
-   "paginas": "169–189",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
-   "id": "ESP-02-09",
-   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
-   "titulo": "Chapter 5: Sport-by-sport guide to technical injuries",
-   "paginas": "190–217",
-   "fonte": "READ",
-   "alvo": "esporte",
-   "status": "pendente"
-  },
-  {
    "id": "PS-01-01",
    "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
    "titulo": "Páginas 1–20: Prescrições · Da Emergência",
    "paginas": "1–20",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-02",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 21–40: Não Realizar Essas Doses Em Cenários De Hipervolemia! · Urgência E Em",
-   "paginas": "21–40",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-03",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 41–60: Pneumonia · Antibióticos",
-   "paginas": "41–60",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-04",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 61–80: Sistema Gastrointestinal · Náuseas E Vômitos",
-   "paginas": "61–80",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-05",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 81–100: Apendicite Aguda · Abdome Agudo Obstrutivo",
-   "paginas": "81–100",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-06",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 101–120: Hipoglicemia · Sistema Genito-Urinário",
-   "paginas": "101–120",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-07",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 121–140: Psiquiatria · Acatisia",
-   "paginas": "121–140",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-08",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 141–160: Infecções · Sífilis",
-   "paginas": "141–160",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-09",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 161–180: Tinea Corporis · Escabiose",
-   "paginas": "161–180",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-10",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 181–200: Escorpionismo · Hemocomponentes",
-   "paginas": "181–200",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-01-11",
-   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
-   "titulo": "Páginas 201–207",
-   "paginas": "201–207",
    "fonte": "PSZ",
    "alvo": "ps",
    "status": "pendente"
@@ -537,55 +255,10 @@
    "status": "pendente"
   },
   {
-   "id": "PS-02-02",
-   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
-   "titulo": "Páginas 21–40: Infarto Agudo Do Miocárdio · Com Supra De St · Paciente Candidato À Trombólise",
-   "paginas": "21–40",
-   "fonte": "PRV",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-02-03",
-   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
-   "titulo": "Páginas 41–60: Diarreia Aguda · (Geca) · Esquema De Tratamento",
-   "paginas": "41–60",
-   "fonte": "PRV",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-02-04",
-   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
-   "titulo": "Páginas 61–80: Conjuntivite Bacteriana · Prescrição Ambulatorial · Ortopedia",
-   "paginas": "61–80",
-   "fonte": "PRV",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-02-05",
-   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
-   "titulo": "Páginas 81–94: Cólica Nefrética · Opções De Tratamento · + Sf0,9%",
-   "paginas": "81–94",
-   "fonte": "PRV",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
    "id": "PS-03-01",
    "livro": "Guia do Plantonista — Pediatria",
    "titulo": "Páginas 1–18: Anti-Histamínicos · Aftas (Estomatite Aftosa)",
    "paginas": "1–18",
-   "fonte": "GPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-03-02",
-   "livro": "Guia do Plantonista — Pediatria",
-   "titulo": "Páginas 19–35: Plano A · Plano B · Plano C",
-   "paginas": "19–35",
    "fonte": "GPP",
    "alvo": "ps",
    "status": "pendente"
@@ -600,91 +273,10 @@
    "status": "pendente"
   },
   {
-   "id": "PS-04-02",
-   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
-   "titulo": "Páginas 21–40: Sinusite · Faringoamigdalite · Crise Asmática",
-   "paginas": "21–40",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-04-03",
-   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
-   "titulo": "Páginas 41–60: Candidíase Vaginal · Vaginose · Tricomoníase",
-   "paginas": "41–60",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PS-04-04",
-   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
-   "titulo": "Páginas 61–80: Hipermagnesemia · Infecções · Sífilis",
-   "paginas": "61–80",
-   "fonte": "PSZ",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
    "id": "PED-01-01",
    "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
    "titulo": "Páginas 1–18: Manual De Prescrição Pediátrica · Um Guia Prático Para Estudantes De · Medicina E Médicos",
    "paginas": "1–18",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-02",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 19–36: Antieméticos",
-   "paginas": "19–36",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-03",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 37–54: Cefalosporinas De Primeira Geração · Cefalosporinas De Segunda Geração · Cefalosporinas De Terc",
-   "paginas": "37–54",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-04",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 55–72: Espectro Antibacteriano Da Associação Sulfametozazol-Trimetoprima · Tetraciclinas · Polimixinas",
-   "paginas": "55–72",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-05",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 73–90: Principais Drogas Usadas · Na Emergência Pediátrica",
-   "paginas": "73–90",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-06",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 91–108: Intoxicação",
-   "paginas": "91–108",
-   "fonte": "MPP",
-   "alvo": "ps",
-   "status": "pendente"
-  },
-  {
-   "id": "PED-01-07",
-   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
-   "titulo": "Páginas 109–125: Transtorno Depressivo E Inibidores Damonoxidase (Imao) · Mirtazapina · Antipsicóticos De Prme",
-   "paginas": "109–125",
    "fonte": "MPP",
    "alvo": "ps",
    "status": "pendente"
@@ -705,6 +297,3040 @@
    "paginas": "1–2",
    "fonte": "HGWA",
    "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-01",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "Introduction (abertura) + Section I: Traumatic Orthopedics (abertura)",
+   "paginas": "16–21",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-02",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "1 Integrative Sports Nutrition: An Introduction",
+   "paginas": "32–53",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-01",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 1: A Brief History of Exercise Metabolism",
+   "paginas": "10–27",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-01",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Introduction",
+   "paginas": "15–18",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-01",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Exercise Therapies and Their — parte 1/2",
+   "paginas": "1–14",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-01",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Introduction — parte 1/3",
+   "paginas": "30–43",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-01",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "1. Introduction",
+   "paginas": "20–23",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-01",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Introduction + Part 1 Shaping Up to Be a Personal Trainer (abertura)",
+   "paginas": "17–24",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-01",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "Introduction: WHAT IS ANATOMY? + 3 The Skull",
+   "paginas": "16–38",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-01",
+   "livro": "Core Strength for 50+",
+   "titulo": "part 1 - overview — parte 1/2",
+   "paginas": "10–25",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-01",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 1/10",
+   "paginas": "5–20",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-01",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 1/8",
+   "paginas": "5–19",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-15-01",
+   "livro": "University of Calgary Sport Medicine Centre — ACL Reconstruction Rehabilitation Program (5 estágios)",
+   "titulo": "Páginas — parte 1/3",
+   "paginas": "5–16",
+   "fonte": "ACL5",
+   "alvo": "esporte",
+   "arquivo": "ESP-15.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-01",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 1/6",
+   "paginas": "5–19",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-01",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 1/6",
+   "paginas": "5–20",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-18-01",
+   "livro": "Murray — Resistance Band Workout for Seniors",
+   "titulo": "CHAPTER ONE + CHAPTER TWO",
+   "paginas": "8–16",
+   "fonte": "BANDS",
+   "alvo": "esporte",
+   "arquivo": "ESP-18.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-13",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "13 Strength and conditioning",
+   "paginas": "245–266",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-02",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 2: Guide to treatments",
+   "paginas": "39–52",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-02",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 21–40: Não Realizar Essas Doses Em Cenários De Hipervolemia! · Urgência E Em",
+   "paginas": "21–40",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-02",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 21–40: Infarto Agudo Do Miocárdio · Com Supra De St · Paciente Candidato À Trombólise",
+   "paginas": "21–40",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-03-02",
+   "livro": "Guia do Plantonista — Pediatria",
+   "titulo": "Páginas 19–35: Plano A · Plano B · Plano C",
+   "paginas": "19–35",
+   "fonte": "GPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-02",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 21–40: Sinusite · Faringoamigdalite · Crise Asmática",
+   "paginas": "21–40",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-02",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 19–36: Antieméticos",
+   "paginas": "19–36",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-02",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 1/6",
+   "paginas": "22–35",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-03",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "2 Personalised Sports Nutrition — parte 1/2",
+   "paginas": "54–66",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-02",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 2: Overview of Exercise Metabolism",
+   "paginas": "28–35",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-02",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Part 1: Getting Started with Exercise Science — parte 1/2",
+   "paginas": "19–33",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-02",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Exercise Therapies and Their — parte 2/2",
+   "paginas": "15–27",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-02",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Introduction — parte 2/3",
+   "paginas": "44–57",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-02",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "2. Participation opportunities and pathways for women and girls",
+   "paginas": "24–37",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-02",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 1 Introducing the World of Personal Training",
+   "paginas": "25–38",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-02",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "4 Base of the Skull and Its Attachments + 5 Muscles of the Face and Jaw + 6 Suspensory Muscles of the Larynx +",
+   "paginas": "39–60",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-02",
+   "livro": "Core Strength for 50+",
+   "titulo": "part 1 - overview — parte 2/2",
+   "paginas": "26–40",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-02",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 2/10",
+   "paginas": "21–36",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-02",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 2/8",
+   "paginas": "20–34",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-15-02",
+   "livro": "University of Calgary Sport Medicine Centre — ACL Reconstruction Rehabilitation Program (5 estágios)",
+   "titulo": "Páginas — parte 2/3",
+   "paginas": "17–28",
+   "fonte": "ACL5",
+   "alvo": "esporte",
+   "arquivo": "ESP-15.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-02",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 2/6",
+   "paginas": "20–34",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-02",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 2/6",
+   "paginas": "21–36",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-18-02",
+   "livro": "Murray — Resistance Band Workout for Seniors",
+   "titulo": "CHAPTER THREE",
+   "paginas": "17–22",
+   "fonte": "BANDS",
+   "alvo": "esporte",
+   "arquivo": "ESP-18.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-14",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "14 Nutritional considerations for performance and rehabilitation",
+   "paginas": "267–296",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-03",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — How to Use this Section, Serious Injuries, Head, Neck and Shoulder",
+   "paginas": "53–70",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-03",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 41–60: Pneumonia · Antibióticos",
+   "paginas": "41–60",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-03",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 41–60: Diarreia Aguda · (Geca) · Esquema De Tratamento",
+   "paginas": "41–60",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-03",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 41–60: Candidíase Vaginal · Vaginose · Tricomoníase",
+   "paginas": "41–60",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-03",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 37–54: Cefalosporinas De Primeira Geração · Cefalosporinas De Segunda Geração · Cefalosporinas De Terc",
+   "paginas": "37–54",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-03",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 2/6",
+   "paginas": "36–49",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-04",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "2 Personalised Sports Nutrition — parte 2/2",
+   "paginas": "67–79",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-03",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 3: Exercise: Thermodynamic and Bioenergetic Principles",
+   "paginas": "36–59",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-03",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Part 1: Getting Started with Exercise Science — parte 2/2",
+   "paginas": "34–48",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-03",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Clinical Applications of Brain",
+   "paginas": "28–38",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-03",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Introduction — parte 3/3",
+   "paginas": "58–69",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-03",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "3. Developing sport for girls and adolescents",
+   "paginas": "38–50",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-03",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 2 Getting Certified",
+   "paginas": "39–52",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-03",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "8 Muscles of the Palate + 9 Muscles of the Throat",
+   "paginas": "61–67",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-03",
+   "livro": "Core Strength for 50+",
+   "titulo": "part 2 - the programs + part 3 - the exercises (abertura)",
+   "paginas": "41–56",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-03",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 3/10",
+   "paginas": "37–52",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-03",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 3/8",
+   "paginas": "35–49",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-15-03",
+   "livro": "University of Calgary Sport Medicine Centre — ACL Reconstruction Rehabilitation Program (5 estágios)",
+   "titulo": "Páginas — parte 3/3",
+   "paginas": "29–40",
+   "fonte": "ACL5",
+   "alvo": "esporte",
+   "arquivo": "ESP-15.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-03",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 3/6",
+   "paginas": "35–49",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-03",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 3/6",
+   "paginas": "37–52",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-18-03",
+   "livro": "Murray — Resistance Band Workout for Seniors",
+   "titulo": "CHAPTER FOUR",
+   "paginas": "23–28",
+   "fonte": "BANDS",
+   "alvo": "esporte",
+   "arquivo": "ESP-18.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-15",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "15 Psychology and sports rehabilitation",
+   "paginas": "297–318",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-04",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Neck and Chest, Shoulder, Elbow",
+   "paginas": "71–92",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-04",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 61–80: Sistema Gastrointestinal · Náuseas E Vômitos",
+   "paginas": "61–80",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-04",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 61–80: Conjuntivite Bacteriana · Prescrição Ambulatorial · Ortopedia",
+   "paginas": "61–80",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-04-04",
+   "livro": "Guia de Prescrição do PS Zerado (1ª ed.)",
+   "titulo": "Páginas 61–80: Hipermagnesemia · Infecções · Sífilis",
+   "paginas": "61–80",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-04",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 55–72: Espectro Antibacteriano Da Associação Sulfametozazol-Trimetoprima · Tetraciclinas · Polimixinas",
+   "paginas": "55–72",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-04",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 3/6",
+   "paginas": "50–63",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-05",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "3 Gastrointestinal Health in Athletes — parte 1/2",
+   "paginas": "80–93",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-04",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 4: Anaerobic Metabolism During Exercise + 5.1 Introduction",
+   "paginas": "60–81",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-05",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "The Foundations of Muscle Movement: The Science behind Contraction + The Tortoise and the Hare: Fast- and Slow",
+   "paginas": "52–61",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-04",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Advancements in Hand Function — parte 1/3",
+   "paginas": "39–50",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-04",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide (abertura) + Amino acids + γ–aminobutyric ",
+   "paginas": "70–92",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-04",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "4. Developing sport for mothers with dependent children",
+   "paginas": "51–63",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-04",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 3 Building Your Skills",
+   "paginas": "53–62",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-04",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "10 The Larynx",
+   "paginas": "68–73",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-04",
+   "livro": "Core Strength for 50+",
+   "titulo": "supine floor series — parte 1/3",
+   "paginas": "57–68",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-04",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 4/10",
+   "paginas": "53–68",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-04",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 4/8",
+   "paginas": "50–64",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-04",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 4/6",
+   "paginas": "50–64",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-04",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 4/6",
+   "paginas": "53–68",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-18-04",
+   "livro": "Murray — Resistance Band Workout for Seniors",
+   "titulo": "CHAPTER FOUR — parte 1/2",
+   "paginas": "29–43",
+   "fonte": "BANDS",
+   "alvo": "esporte",
+   "arquivo": "ESP-18.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-16",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "16 Clinical reasoning",
+   "paginas": "319–330",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-05",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Wrist and Hand, Back",
+   "paginas": "93–112",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-05",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 81–100: Apendicite Aguda · Abdome Agudo Obstrutivo",
+   "paginas": "81–100",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-02-05",
+   "livro": "Prescrição no Pronto-Socorro — Adulto, Ficha Verde (Prescrevendo 2024)",
+   "titulo": "Páginas 81–94: Cólica Nefrética · Opções De Tratamento · + Sf0,9%",
+   "paginas": "81–94",
+   "fonte": "PRV",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-05",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 73–90: Principais Drogas Usadas · Na Emergência Pediátrica",
+   "paginas": "73–90",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-05",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 4/6",
+   "paginas": "64–77",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-06",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "3 Gastrointestinal Health in Athletes — parte 2/2",
+   "paginas": "94–106",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-05",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "5.2 Glycogen Storage and Regulation",
+   "paginas": "82–85",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-06",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Working in Unison: How the Muscle Behaves",
+   "paginas": "62–69",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-05",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Advancements in Hand Function — parte 2/3",
+   "paginas": "51–62",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-05",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Caffeine + Calcium",
+   "paginas": "93–100",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-05",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "5. Developing sport for older women",
+   "paginas": "64–75",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-05",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 4 Planning Your Start + Part 2 Becoming a Successful Personal Trainer (abertura)",
+   "paginas": "63–82",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-05",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SPINE AND TRUNK REGION — parte 1/3",
+   "paginas": "74–87",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-05",
+   "livro": "Core Strength for 50+",
+   "titulo": "supine floor series — parte 2/3",
+   "paginas": "69–80",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-05",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 5/10",
+   "paginas": "69–84",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-05",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 5/8",
+   "paginas": "65–79",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-05",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 5/6",
+   "paginas": "65–79",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-05",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 5/6",
+   "paginas": "69–84",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-18-05",
+   "livro": "Murray — Resistance Band Workout for Seniors",
+   "titulo": "CHAPTER FOUR — parte 2/2",
+   "paginas": "44–57",
+   "fonte": "BANDS",
+   "alvo": "esporte",
+   "arquivo": "ESP-18.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-17",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "17 Shoulder injuries in sport",
+   "paginas": "331–358",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-06",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Hip and Pelvis, Uper Leg, Knee",
+   "paginas": "113–142",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-06",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 101–120: Hipoglicemia · Sistema Genito-Urinário",
+   "paginas": "101–120",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-06",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 91–108: Intoxicação",
+   "paginas": "91–108",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-06",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 5/6",
+   "paginas": "78–91",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-07",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "4 Detoxification and Biotransformation for Athletes — parte 1/2",
+   "paginas": "107–121",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-06",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "5.3 Utilization of Glycogen During Exercise",
+   "paginas": "86–98",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-07",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Acting on Instinct: Hardwired Muscle Reflexes",
+   "paginas": "70–79",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-06",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Advancements in Hand Function — parte 3/3",
+   "paginas": "63–72",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-06",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Carbohydrates + L-carnitine + Chinese herbs + Chlorogenic acids + Choline bitartrate and acetylcholine + Chond",
+   "paginas": "101–123",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-06",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "6. Developing sport for women and girls with a disability",
+   "paginas": "76–87",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-06",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 10 Getting to Know You: Performing Initial Consultations",
+   "paginas": "171–186",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-06",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SPINE AND TRUNK REGION — parte 2/3",
+   "paginas": "88–101",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-06",
+   "livro": "Core Strength for 50+",
+   "titulo": "supine floor series — parte 3/3",
+   "paginas": "81–90",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-06",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 6/10",
+   "paginas": "85–100",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-06",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 6/8",
+   "paginas": "80–94",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-16-06",
+   "livro": "Swimmer Strength — Foundations of Strength Training (natação)",
+   "titulo": "Páginas — parte 6/6",
+   "paginas": "80–90",
+   "fonte": "SWIM",
+   "alvo": "esporte",
+   "arquivo": "ESP-16.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-17-06",
+   "livro": "Océane — Cut: Training & Nutrition Guide",
+   "titulo": "Páginas — parte 6/6",
+   "paginas": "85–96",
+   "fonte": "CUT",
+   "alvo": "esporte",
+   "arquivo": "ESP-17.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-18",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "18 The elbow",
+   "paginas": "359–386",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-07",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Cap. 3 (guia por região) — Lower Leg, Ankle, Foot and Toes",
+   "paginas": "143–168",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-07",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 121–140: Psiquiatria · Acatisia",
+   "paginas": "121–140",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "PED-01-07",
+   "livro": "Manual de Prescrição Pediátrica — Oliveira Aguiar (2024)",
+   "titulo": "Páginas 109–125: Transtorno Depressivo E Inibidores Damonoxidase (Imao) · Mirtazapina · Antipsicóticos De Prme",
+   "paginas": "109–125",
+   "fonte": "MPP",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-07",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "1. Fractures — parte 6/6",
+   "paginas": "92–105",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-08",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "4 Detoxification and Biotransformation for Athletes — parte 2/2",
+   "paginas": "122–135",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-07",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "5.4 Glycogen Depletion and Fatigue + 5.5 Muscle Glycogen as a Regulator of Skeletal Muscle Training Adaptation",
+   "paginas": "99–109",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-08",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Training Muscles to Work + Recognizing Sources of Muscle Fatigue",
+   "paginas": "80–91",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-07",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Age-Related Changes in Upper",
+   "paginas": "73–89",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-07",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Conjugated linoleic acid + Copper + Cordyceps (Ophiocordyceps) + Creatine + Cysteine and cystine + Cytochrome ",
+   "paginas": "124–147",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-07",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "7. Promoting LGBT+ inclusion in women s and girls sport: Lessons from Australia",
+   "paginas": "88–101",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-07",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 11 The First Session: Performing the Fitness Assessment",
+   "paginas": "187–204",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-07",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SPINE AND TRUNK REGION — parte 3/3",
+   "paginas": "102–113",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-07",
+   "livro": "Core Strength for 50+",
+   "titulo": "prone floor series + side floor series",
+   "paginas": "91–106",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-07",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 7/10",
+   "paginas": "101–116",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-07",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 7/8",
+   "paginas": "95–109",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-19",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "19 Wrist and hand injuries in sport",
+   "paginas": "387–406",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-08",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 4: How to recover from an injury",
+   "paginas": "169–189",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-08",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 141–160: Infecções · Sífilis",
+   "paginas": "141–160",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-08",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "2. Dislocations — parte 1/2",
+   "paginas": "106–119",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-09",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "5 The Immune System and Exercise — parte 1/2",
+   "paginas": "136–148",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-08",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 6: Exercise-Regulated Skeletal Muscle Glucose Uptake",
+   "paginas": "124–145",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-09",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 4: Keeping the Big Wheel Turning: Exercise Metabolism — parte 1/3",
+   "paginas": "92–103",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-08",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "of Standing Postural Control in",
+   "paginas": "90–106",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-08",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Fish oils + Flavonoids + Folate + Garlic + Ginger + Ginkgo + Ginseng + Glandulars + Glucuronolactone + Glutami",
+   "paginas": "148–171",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-08",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "8. Developing sport for culturally and linguistically diverse women and girls",
+   "paginas": "102–113",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-08",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 12 Before We Meet Again: Planning the Program",
+   "paginas": "205–220",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-08",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "THORAX AND ABDOMEN — parte 1/2",
+   "paginas": "114–126",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-08",
+   "livro": "Core Strength for 50+",
+   "titulo": "tabletop series + foam roller series",
+   "paginas": "107–116",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-08",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 8/10",
+   "paginas": "117–132",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-14-08",
+   "livro": "Rusin — Functional Hypertrophy Training",
+   "titulo": "Páginas — parte 8/8",
+   "paginas": "110–121",
+   "fonte": "RUSIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-14.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-20",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "20 The groin in sport",
+   "paginas": "407–428",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-02-09",
+   "livro": "Read & Wade — Sports Injuries: A Unique Guide (3ª ed.)",
+   "titulo": "Chapter 5: Sport-by-sport guide to technical injuries",
+   "paginas": "190–217",
+   "fonte": "READ",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-09",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 161–180: Tinea Corporis · Escabiose",
+   "paginas": "161–180",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-09",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "2. Dislocations — parte 2/2",
+   "paginas": "120–132",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-10",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "5 The Immune System and Exercise — parte 2/2",
+   "paginas": "149–161",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-09",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 7: Adipose Tissue Lipid Metabolism During Exercise",
+   "paginas": "146–168",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-10",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 4: Keeping the Big Wheel Turning: Exercise Metabolism — parte 2/3",
+   "paginas": "104–115",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-09",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Challenges in Assessing Cognitive",
+   "paginas": "107–121",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-09",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Glycine + Green tea + Guarana + Histidine-containing dipeptides + α-hydroxyisocaproic acid (HICA) + β-hydroxy ",
+   "paginas": "172–194",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-09",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "9. Developing sport for Indigenous women and girls",
+   "paginas": "114–128",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-09",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 13 Taking Your Client through the First Workout",
+   "paginas": "221–232",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-09",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "THORAX AND ABDOMEN — parte 2/2",
+   "paginas": "127–138",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-09",
+   "livro": "Core Strength for 50+",
+   "titulo": "foam roller series — parte 1/2",
+   "paginas": "117–130",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-09",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 9/10",
+   "paginas": "133–148",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-21",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 1)",
+   "paginas": "429–444",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-10",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 181–200: Escorpionismo · Hemocomponentes",
+   "paginas": "181–200",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-10",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "3. Spinal Injuries",
+   "paginas": "133–145",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-11",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "6 Bioenergetics and Cardiovascular Health — parte 1/3",
+   "paginas": "162–173",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-10",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 8: Regulation of Fatty Acid Oxidation in Skeletal Muscle During Exercise: Effect of Obesity — parte 1/",
+   "paginas": "169–182",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-11",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 4: Keeping the Big Wheel Turning: Exercise Metabolism — parte 3/3",
+   "paginas": "116–126",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-10",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "and Muscle Energy Technique for",
+   "paginas": "122–135",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-10",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Ketone bodies + Lecithin + Leptin + Leucine + Linoleic acid + γ-linolenic acid + α-lipoic acid + Magnesium + M",
+   "paginas": "195–218",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-10",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "10. Developing sport for women and girls in underserved and low socioeconomic communities",
+   "paginas": "129–139",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-10",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 14 Choosing Exercises and Teaching Your Beginning Client",
+   "paginas": "233–240",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-10",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SHOULDER GIRDLE AND UPPER LIMB — parte 1/3",
+   "paginas": "139–151",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-10",
+   "livro": "Core Strength for 50+",
+   "titulo": "foam roller series — parte 2/2",
+   "paginas": "131–143",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-13-10",
+   "livro": "Anthropometry, Body Composition and Resting Energy Expenditure",
+   "titulo": "Páginas — parte 10/10",
+   "paginas": "149–162",
+   "fonte": "ANTRO",
+   "alvo": "esporte",
+   "arquivo": "ESP-13.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-22",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 2)",
+   "paginas": "445–460",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "PS-01-11",
+   "livro": "Guia de Prescrição PS Zerado (2ª ed., 2025)",
+   "titulo": "Páginas 201–207",
+   "paginas": "201–207",
+   "fonte": "PSZ",
+   "alvo": "ps",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-11",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "4. Traumatic Affections of Joints",
+   "paginas": "146–169",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-12",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "6 Bioenergetics and Cardiovascular Health — parte 2/3",
+   "paginas": "174–185",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-11",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 8: Regulation of Fatty Acid Oxidation in Skeletal Muscle During Exercise: Effect of Obesity — parte 2/",
+   "paginas": "183–196",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-12",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 5: The Body’s Engine: The Cardiovascular System — parte 1/3",
+   "paginas": "127–138",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-11",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Integrative Treatment for Arthritis — parte 1/2",
+   "paginas": "136–149",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-11",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "N-acetylcysteine (NAC) + Nitrate + Nootkatone + Octacosanol and policosanol + Ornithine + OxyElite Pro + Panga",
+   "paginas": "219–242",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-11",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "11. Empowering women and girls through sport",
+   "paginas": "140–153",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-11",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Chapter 15 Taking Your Client to the Next Level + Part 4 Growing Your Personal Training Business (abertura)",
+   "paginas": "241–254",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-11",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SHOULDER GIRDLE AND UPPER LIMB — parte 2/3",
+   "paginas": "152–164",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-11",
+   "livro": "Core Strength for 50+",
+   "titulo": "ball series — parte 1/3",
+   "paginas": "144–155",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-23",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 3)",
+   "paginas": "461–476",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-12",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "5. Amputation",
+   "paginas": "170–187",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-13",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "6 Bioenergetics and Cardiovascular Health — parte 3/3",
+   "paginas": "186–196",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-12",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 9: Skeletal Muscle Protein Metabolism During Exercise — parte 1/2",
+   "paginas": "197–209",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-13",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 5: The Body’s Engine: The Cardiovascular System — parte 2/3",
+   "paginas": "139–150",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-12",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Integrative Treatment for Arthritis — parte 2/2",
+   "paginas": "150–162",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-12",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Probiotics + Prohormones + Proline + Protein + Pycnogenol + Resveratrol + Rhodiola rosea + Ribose + Royal jell",
+   "paginas": "243–265",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-12",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "12. Developing sport for women and girls: Education",
+   "paginas": "154–165",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-10-12",
+   "livro": "Austin — Becoming a Personal Trainer For Dummies (2ª ed.)",
+   "titulo": "Part 5 The Part of Tens",
+   "paginas": "299–320",
+   "fonte": "PTRAIN",
+   "alvo": "esporte",
+   "arquivo": "ESP-10.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-12",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "SHOULDER GIRDLE AND UPPER LIMB — parte 3/3",
+   "paginas": "165–177",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-12",
+   "livro": "Core Strength for 50+",
+   "titulo": "ball series — parte 2/3",
+   "paginas": "156–167",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-24",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "21 The knee (parte 4)",
+   "paginas": "477–486",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-13",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "6. Peripheral Nerve Injuries",
+   "paginas": "188–211",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-14",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "7 Neuroendocrine Communication within Sport and Exercise — parte 1/3",
+   "paginas": "197–209",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-13",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 9: Skeletal Muscle Protein Metabolism During Exercise — parte 2/2",
+   "paginas": "210–221",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-14",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 5: The Body’s Engine: The Cardiovascular System — parte 3/3",
+   "paginas": "151–162",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-13",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "A New Outcome to Measure",
+   "paginas": "163–180",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-13",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Sodium bicarbonate and sodium citrate + Spirulina + Succinate + Sucrose + Taurine + Theobromine and theophylli",
+   "paginas": "266–289",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-13",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "13. Gender, sport, and livelihoods",
+   "paginas": "166–179",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-13",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "26 The Pelvic Girdle",
+   "paginas": "179–189",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-13",
+   "livro": "Core Strength for 50+",
+   "titulo": "ball series — parte 3/3",
+   "paginas": "168–177",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-25",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "22 Ankle complex injuries in sport",
+   "paginas": "487–518",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-14",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "7. Peripheral Vascular Injuries — parte 1/2",
+   "paginas": "212–225",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-15",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "7 Neuroendocrine Communication within Sport and Exercise — parte 2/3",
+   "paginas": "210–222",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-14",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 10: The Effect of Training on Skeletal Muscle and Exercise Metabolism — parte 1/2",
+   "paginas": "222–235",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-15",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 6: Earthlings and the Earth: Adapting to Your Environment",
+   "paginas": "163–185",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-14",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "Life after Limb Loss: Addressing",
+   "paginas": "181–196",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-14",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Vitamin D + Vitamin K + Water (oxygenated) + Weight loss supplements: general + Weight loss supplements: herba",
+   "paginas": "290–313",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-14",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "14. Promoting health for women and girls through sport",
+   "paginas": "180–190",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-14",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "27 Muscles of the Pelvis and Hip",
+   "paginas": "190–198",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-14",
+   "livro": "Core Strength for 50+",
+   "titulo": "partner series",
+   "paginas": "178–181",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-01-26",
+   "livro": "Comfort & Abrahamson — Sports Rehabilitation and Injury Prevention",
+   "titulo": "23 The foot in sport",
+   "paginas": "519–550",
+   "fonte": "SRIP",
+   "alvo": "esporte",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-15",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "7. Peripheral Vascular Injuries — parte 2/2",
+   "paginas": "226–239",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-16",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "7 Neuroendocrine Communication within Sport and Exercise — parte 3/3",
+   "paginas": "223–233",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-15",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 10: The Effect of Training on Skeletal Muscle and Exercise Metabolism — parte 2/2",
+   "paginas": "236–249",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-17",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 7: Planning Your Movements: Motor Control",
+   "paginas": "188–209",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-07-15",
+   "livro": "Physical Therapy and Rehabilitation: Research and Clinical Application",
+   "titulo": "of Speech Sound Disorders",
+   "paginas": "197–213",
+   "fonte": "PTR",
+   "alvo": "esporte",
+   "arquivo": "ESP-07.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-15",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Zinc + ZMA – zinc magnesium aspartate",
+   "paginas": "314–318",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-15",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "15. High-performance athletes",
+   "paginas": "191–203",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-15",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "28 Muscles of the Thigh",
+   "paginas": "199–207",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-15",
+   "livro": "Core Strength for 50+",
+   "titulo": "stretches — parte 1/2",
+   "paginas": "182–196",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-17",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "8. Deformities (Congenital and Postural) — parte 1/3",
+   "paginas": "242–253",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-17",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "8 The Role of Nutrition in Musculoskeletal Injury and Recovery — parte 1/3",
+   "paginas": "234–245",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-16",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 11: Role and Regulation of Hepatic Metabolism During Exercise",
+   "paginas": "250–269",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-18",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 8: The Nuts and Bolts of Movement — parte 1/3",
+   "paginas": "210–221",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-16",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "In practice",
+   "paginas": "319–332",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-16",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "16. Coaches and officials",
+   "paginas": "204–215",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-16",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "29 The Knee, Lower Leg, and Ankle",
+   "paginas": "208–216",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-12-16",
+   "livro": "Core Strength for 50+",
+   "titulo": "stretches — parte 2/2",
+   "paginas": "197–211",
+   "fonte": "CORE50",
+   "alvo": "esporte",
+   "arquivo": "ESP-12.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-18",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "8. Deformities (Congenital and Postural) — parte 2/3",
+   "paginas": "254–265",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-18",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "8 The Role of Nutrition in Musculoskeletal Injury and Recovery — parte 2/3",
+   "paginas": "246–257",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-17",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 12: Influence of Exercise on Cardiac Metabolism and Resilience — parte 1/2",
+   "paginas": "270–285",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-19",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 8: The Nuts and Bolts of Movement — parte 2/3",
+   "paginas": "222–233",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-17",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Conclusion — parte 1/3",
+   "paginas": "333–346",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-17",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "17. Athlete protection and duty of care",
+   "paginas": "216–227",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-17",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "30 Muscles of the Ankle and Foot",
+   "paginas": "217–228",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-19",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "8. Deformities (Congenital and Postural) — parte 3/3",
+   "paginas": "266–275",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-19",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "8 The Role of Nutrition in Musculoskeletal Injury and Recovery — parte 3/3",
+   "paginas": "258–267",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-18",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 12: Influence of Exercise on Cardiac Metabolism and Resilience — parte 2/2",
+   "paginas": "286–300",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-20",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 8: The Nuts and Bolts of Movement — parte 3/3",
+   "paginas": "234–245",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-18",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Conclusion — parte 2/3",
+   "paginas": "347–360",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-18",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "18. Regulating high testosterone in international women s sport",
+   "paginas": "228–241",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-11-18",
+   "livro": "Anatomy of the Moving Body (2ª ed.)",
+   "titulo": "31 Intrinsic Muscles of the Foot",
+   "paginas": "229–237",
+   "fonte": "MOVBODY",
+   "alvo": "esporte",
+   "arquivo": "ESP-11.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-20",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "9. Affections of Muscles, Tendons and Tendon Sheaths",
+   "paginas": "276–290",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-21",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "9 Energy Requirements for Sport and Exercise: Beyond Calories — parte 1/2",
+   "paginas": "270–282",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-19",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 13: Metabolism in the Brain During Exercise in Humans",
+   "paginas": "301–324",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-21",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 9: These Joints Are A-Jumping — parte 1/3",
+   "paginas": "246–258",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-08-19",
+   "livro": "Castell et al. — Nutritional Supplements in Sport, Exercise and Health: An A–Z Guide",
+   "titulo": "Conclusion — parte 3/3",
+   "paginas": "361–373",
+   "fonte": "SUPPAZ",
+   "alvo": "esporte",
+   "arquivo": "ESP-08.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-19",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "19. Professional women s sport leagues",
+   "paginas": "242–254",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-21",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "10. Affections of Fascial and Bursal",
+   "paginas": "291–306",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-22",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "9 Energy Requirements for Sport and Exercise: Beyond Calories — parte 2/2",
+   "paginas": "283–294",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-20",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 14: Effects of Age on Exercise Metabolism",
+   "paginas": "325–342",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-22",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 9: These Joints Are A-Jumping — parte 2/3",
+   "paginas": "259–271",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-09-20",
+   "livro": "Developing Sport for Women and Girls",
+   "titulo": "20. Developing sport for women and girls: Media influence",
+   "paginas": "255–266",
+   "fonte": "WOMEN",
+   "alvo": "esporte",
+   "arquivo": "ESP-09.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-22",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "11. Affections of Bones and Joints",
+   "paginas": "307–330",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-23",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "10 Micronutrients and Polyphenols: Catalysts and Protectors — parte 1/3",
+   "paginas": "295–305",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-21",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 15: Sex-Specific Effects on Exercise Metabolism",
+   "paginas": "343–362",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-23",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 9: These Joints Are A-Jumping — parte 3/3",
+   "paginas": "272–282",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-23",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "12. Arthritis and Allied Rheumatic Diseases",
+   "paginas": "331–347",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-24",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "10 Micronutrients and Polyphenols: Catalysts and Protectors — parte 2/3",
+   "paginas": "306–316",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-22",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 16: Circadian Rhythms and Exercise Metabolism",
+   "paginas": "363–382",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-24",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 10: Assessing Movement: Motion Analysis — parte 1/2",
+   "paginas": "283–298",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-24",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "13. Infective Disorders of Bones and Joints",
+   "paginas": "348–353",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-25",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "10 Micronutrients and Polyphenols: Catalysts and Protectors — parte 3/3",
+   "paginas": "317–327",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-05-23",
+   "livro": "McConell — Exercise Metabolism",
+   "titulo": "Chapter 17: Metabolic Factors in Skeletal Muscle Fatigue",
+   "paginas": "383–405",
+   "fonte": "METAB",
+   "alvo": "esporte",
+   "arquivo": "ESP-05.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-25",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 10: Assessing Movement: Motion Analysis — parte 2/2",
+   "paginas": "299–313",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-25",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "14. Endocrinal Disorders of Bones and Joints + 15. General Disorders of Bones and Joints",
+   "paginas": "354–366",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-26",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "11 Macronutrients: More than Just ‘Fuel’ for the Athlete — parte 1/3",
+   "paginas": "328–341",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-27",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 11: Improving Physical Fitness: Training Wisely",
+   "paginas": "316–332",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-26",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "16. Degenerative Disorders of Bones and Joints",
+   "paginas": "367–372",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-27",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "11 Macronutrients: More than Just ‘Fuel’ for the Athlete — parte 2/3",
+   "paginas": "342–355",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-28",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 12: Managing Your Body, Not the Other Way Around",
+   "paginas": "333–349",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-27",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "17. Affections of Nervous System Disorders",
+   "paginas": "373–382",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-28",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "11 Macronutrients: More than Just ‘Fuel’ for the Athlete — parte 3/3",
+   "paginas": "356–367",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-29",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 13: Molding the Clay: Body Composition and Weight Management",
+   "paginas": "350–365",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-28",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "18. Neoplastic Disorders of Bones and Joints — parte 1/4",
+   "paginas": "383–396",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-29",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "12 Body Composition and Weight Management in Sport — parte 1/3",
+   "paginas": "368–378",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-30",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 14: Measuring Performance: Fitness Trackers and the Wearables Craze",
+   "paginas": "366–381",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-29",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "18. Neoplastic Disorders of Bones and Joints — parte 2/4",
+   "paginas": "397–410",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-30",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "12 Body Composition and Weight Management in Sport — parte 2/3",
+   "paginas": "379–389",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-31",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 15: Eating for Success: Sports Nutrition — parte 1/2",
+   "paginas": "382–397",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-30",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "18. Neoplastic Disorders of Bones and Joints — parte 3/4",
+   "paginas": "411–424",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-31",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "12 Body Composition and Weight Management in Sport — parte 3/3",
+   "paginas": "390–400",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-32",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Chapter 15: Eating for Success: Sports Nutrition — parte 2/2",
+   "paginas": "398–412",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-31",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "18. Neoplastic Disorders of Bones and Joints — parte 4/4",
+   "paginas": "425–436",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-32",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "13 Skeletal Muscle Hypertrophy from an Integrative Nutrition Perspective — parte 1/2",
+   "paginas": "401–414",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-06-33",
+   "livro": "Exercise Science For Dummies",
+   "titulo": "Part 5: The Part of Tens",
+   "paginas": "413–435",
+   "fonte": "EXSCI",
+   "alvo": "esporte",
+   "arquivo": "ESP-06.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-32",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "19. Occupational Disorders",
+   "paginas": "437–445",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-33",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "13 Skeletal Muscle Hypertrophy from an Integrative Nutrition Perspective — parte 2/2",
+   "paginas": "415–427",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-33",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "20. Physiotherapy Techniques — parte 1/4",
+   "paginas": "446–461",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-34",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "14 Nutrient Timing in Sport and Exercise",
+   "paginas": "428–451",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-34",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "20. Physiotherapy Techniques — parte 2/4",
+   "paginas": "462–477",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-35",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "15 Hydration and Electrolytes for an Athlete",
+   "paginas": "452–473",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-35",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "20. Physiotherapy Techniques — parte 3/4",
+   "paginas": "478–493",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-36",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "16 Nourishing Sports and Recovery Drinks — parte 1/2",
+   "paginas": "474–486",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-03-36",
+   "livro": "Kapoor — Textbook of Orthopedic Physiotherapy (2021)",
+   "titulo": "20. Physiotherapy Techniques — parte 4/4",
+   "paginas": "494–509",
+   "fonte": "KAPOOR",
+   "alvo": "esporte",
+   "arquivo": "ESP-03.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-37",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "16 Nourishing Sports and Recovery Drinks — parte 2/2",
+   "paginas": "487–499",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
+   "status": "pendente"
+  },
+  {
+   "id": "ESP-04-38",
+   "livro": "Integrative Sport and Exercise Nutrition",
+   "titulo": "17 Integrative Sport and Exercise Nutrition: Closing Thoughts",
+   "paginas": "500–505",
+   "fonte": "INTEG",
+   "alvo": "esporte",
+   "arquivo": "ESP-04.txt",
    "status": "pendente"
   }
  ]

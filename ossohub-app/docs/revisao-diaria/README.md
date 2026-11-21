@@ -1,7 +1,7 @@
-# Revisão diária do conteúdo (3 capítulos por dia)
+# Revisão diária do conteúdo (6 capítulos por dia)
 
 Objetivo: **revisar o site**, não produzir leitura. A tarefa agendada roda
-3 vezes por dia (03:41, 09:41 e 16:41, horário de Belém). Cada execução é
+6 vezes por dia (a cada 4 horas). Cada execução é
 uma sessão separada e revisa **um único capítulo** (unidade), para ler o
 capítulo inteiro com atenção total. O capítulo é comparado com os assuntos
 do site para:
@@ -30,8 +30,10 @@ vai no prompt da tarefa agendada). Cabeçalho de cada arquivo:
 ## Procedimento de cada execução (uma unidade só)
 
 1. **Pegar a unidade**: a primeira de `fila.json` com `"status": "pendente"`.
-2. **Baixar do Drive**: buscar `title = '<ID>.txt'` dentro da pasta e baixar
-   com `download_file_content` (o conector salva um arquivo local). Guardar
+2. **Baixar do Drive**: se a unidade tiver o campo `arquivo` (ex.: `ESP-03.txt`,
+   um arquivo por livro), buscar `title = '<arquivo>'`; senão, `title = '<ID>.txt'`.
+   Baixar com `download_file_content` (o conector salva um arquivo local). No
+   arquivo por livro, usar só o trecho entre `### UNIDADE <ID>` e `### FIM <ID>`. Guardar
    **fora do repositório** (pasta temporária). Ler a unidade inteira.
    Se o Drive não responder ou o arquivo não existir: parar, não avançar a fila
    e avisar.
@@ -88,6 +90,11 @@ vai no prompt da tarefa agendada). Cabeçalho de cada arquivo:
 
 1. Extrair o texto do PDF em unidades de um capítulo (capítulos longos em
    partes de ~16 páginas), com o cabeçalho `LIVRO / UNIDADE / PÁGINAS DO PDF`.
-2. Subir cada unidade para a pasta do Drive como `<CÓDIGO>-NN.txt`.
-3. Acrescentar as unidades no fim de `fila.json` (`status: "pendente"`).
+   O conector do Drive só baixa PDFs de até 10 MB: livros maiores precisam ser
+   divididos em partes menores antes.
+2. Subir para a pasta do Drive: uma unidade por arquivo (`<ID>.txt`) ou um
+   arquivo por livro (`<LIVRO>.txt`, com cada unidade entre `### UNIDADE <ID>` e
+   `### FIM <ID>`, e o campo `arquivo` na fila).
+3. Acrescentar as unidades em `fila.json` (`status: "pendente"`), intercalando
+   os livros.
 4. Se a fonte for nova, criar o código em `FONTES_ESP` (esporte) ou `FONTES` (PS).
