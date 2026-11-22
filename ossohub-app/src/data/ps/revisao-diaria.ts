@@ -16,12 +16,19 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   ],
   tv: [
     { fonte: "PSZ", tipo: "diverge", texto: "O guia descreve o ataque como 300 mg em 250 mL de SG 5% em 30 min. O site mantém 150 mg em 10 min (repetível), que é o esquema do ACLS para TV estável; os dois terminam na mesma manutenção de 900 mg/24 h." },
+    // PS-04-01 (PSZ 1ª ed.)
+    { fonte: "PSZ", tipo: "diverge", texto: "A 1ª edição do guia faz o ataque de 150 mg em 30 min e uma manutenção de só 450 mg em 24 h (16 mL/h por 6 h e 8 mL/h por 18 h). O site segue o ACLS: ataque em 10 min e 900 mg em 24 h (1 mg/min por 6 h, depois 0,5 mg/min)." },
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Se a amiodarona falhar, o guia usa lidocaína 1,5 mg/kg EV lenta, com reforço de 0,5 mg/kg. Teto usual: 3 mg/kg no total. Entrou na prescrição do site." },
   ],
   fa: [
     { fonte: "PSZ", tipo: "diverge", texto: "O guia usa 24 h como limite seguro para reverter sem anticoagulação prévia (alinhado à ESC 2024); o site falava em 48 h (critério americano antigo). O site passou a usar 24 h." },
     { fonte: "PSZ", tipo: "diverge", texto: "Apixabana: o guia reduz para 2,5 mg 12/12 h pelo ClCr 15–30 mL/min (critério europeu). O site usa a regra dos 2 de 3 (≥ 80 anos, ≤ 60 kg, Cr ≥ 1,5); vale considerar os dois. Rivaroxabana: o guia cita redução com ClCr 30–50; a bula reduz para 15 mg em 15–50." },
     { fonte: "PSZ", tipo: "acrescenta", texto: "Edoxabana: contraindicada com TFG < 15; em idoso > 80 anos com alto risco de sangramento, pode-se considerar 15 mg/dia. Interações que pedem 30 mg: dronedarona, ciclosporina, eritromicina, cetoconazol." },
     { fonte: "PSZ", tipo: "acrescenta", texto: "Após cardioversão com amiodarona EV, seguir com impregnação oral até cerca de 10 g (esquema 200 mg 8/8 h → 12/12 h → 1x/dia, 10 dias cada fase)." },
+    // PS-04-01 (PSZ 1ª ed.)
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Para reverter FA, o guia calcula o ataque de amiodarona pelo peso: 5–7 mg/kg em SG 5% em 30–60 min (cerca de 350–500 mg em 70 kg). Os 300 mg do site ficam na faixa baixa; em paciente pesado, a dose por peso é mais adequada." },
+    { fonte: "PSZ", tipo: "diverge", texto: "Metoprolol EV: o guia vai até 20 mg (4 doses de 5 mg a cada 5 min); o site para em 15 mg, como a maioria dos protocolos. Verapamil: o guia permite até 20 mg EV e mantém 80–160 mg VO 8/8 h; o site começa a manutenção com 40 mg 8/8 h e ajusta." },
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Para manter o ritmo após a cardioversão, o guia usa propafenona 300 mg 12/12 h em quem não tem doença cardíaca estrutural, e amiodarona em quem tem IC. A propafenona entrou na prescrição do site." },
   ],
   bradi: [
     { fonte: "PSZ", tipo: "acrescenta", texto: "Bradicardia estável: monitorizar, observar e chamar o especialista; transferir se preciso. No BAV total, ir direto ao marcapasso sem insistir na atropina." },
@@ -39,6 +46,9 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "PSZ", tipo: "acrescenta", texto: "Prasugrel (60 mg de ataque → 10 mg/dia) só depois de conhecer a anatomia coronária; evitar se < 60 kg, AVC prévio ou > 75 anos. Betabloqueador oral pode ser carvedilol 3,125 mg 12/12 h; O₂ só se SpO₂ < 90%." },
     // PS-02-01 (PRV)
     { fonte: "PRV", tipo: "acrescenta", texto: "Nitrato SL do PS é o dinitrato de isossorbida 5 mg (Isordil®); o mononitrato não existe em forma sublingual. O site foi corrigido." },
+    // PS-04-01 (PSZ 1ª ed.)
+    { fonte: "PSZ", tipo: "acrescenta", texto: "O Tridil® também existe em ampola de 25 mg/5 mL. Uma ampola em cerca de 245 mL dá 100 mcg/mL, metade da solução feita com a ampola de 50 mg: conferir a ampola antes de usar a velocidade (mL/h) da prescrição." },
+    { fonte: "PSZ", tipo: "diverge", texto: "O guia escreve metoprolol 5 mg a cada 5 min (até 3 doses), que é o esquema EV. As diretrizes atuais não usam betabloqueador EV de rotina na SCA; o site prefere metoprolol VO 25–50 mg 12/12 h nas primeiras 24 h, se não houver IC, choque ou BAV." },
   ],
   eap: [
     { fonte: "PSZ", tipo: "acrescenta", texto: "Separar dois cenários: SCAPE (crise simpática hiperaguda, líquido no lugar errado sem sobrecarga) → VNI + nitroglicerina em bolus; FOSPE (sobrecarga subaguda da IC descompensada) → diurético é a base. O POCUS (linhas B) muda antes do raio-X e ajuda no diagnóstico e no seguimento." },
@@ -48,6 +58,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "PRV", tipo: "acrescenta", texto: "Furosemida: reavaliar em cerca de 20 min e repetir se ainda congesto. Usuário crônico recebe EV de 1 a 2 vezes a dose diária habitual (ex.: 80 mg/dia VO → 40–80 mg EV)." },
     { fonte: "PRV", tipo: "acrescenta", texto: "Nitroprussiato diluído em SG 5% (como manda a bula e o guia), em equipo protegido da luz. O site dizia SF e foi corrigido aqui, na emergência hipertensiva e na tabela de drogas vasoativas." },
     { fonte: "PRV", tipo: "acrescenta", texto: "CPAP com 5–10 cmH₂O se SpO₂ < 90%; alvo de SpO₂ 90–94%. Volume corrente de 6–8 mL/kg quando ventilado." },
+    // PS-04-01 (PSZ 1ª ed.)
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Dobutamina: com 4 ampolas em 170 mL (4 mg/mL), o valor em mL/h fica perto da dose em mcg/kg/min só para quem pesa cerca de 65–70 kg; com 2 ampolas em 210 mL (2 mg/mL), fica perto do dobro. Fora desse peso, calcular: mL/h = dose × peso × 60 ÷ concentração (mcg/mL)." },
   ],
   // PS-03-01 — Guia do Plantonista Pediatria (GPP): doses de bolso, antibióticos, anti-histamínicos, asma e convulsão
   "p-febre": [
@@ -112,6 +124,15 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   ],
   "p-dermatite-fraldas": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia também usa mometasona creme na área da fralda. Na pele sob oclusão do lactente, preferir corticoide fraco (hidrocortisona 1%) por poucos dias; corticoide médio/potente ali absorve mais e afina a pele." },
+  ],
+  // PS-04-01 (PSZ 1ª ed.) — neurologia
+  convulsao: [
+    { fonte: "PSZ", tipo: "diverge", texto: "A 1ª edição do guia usa fenitoína 5–10 mg/kg e fenobarbital 10 mg/kg no estado de mal. São doses baixas: as diretrizes pedem fenitoína 20 mg/kg (até 1.500 mg) e fenobarbital 15–20 mg/kg, como o site. Diluir 2 ampolas de fenitoína em 40 mL (500 mg) não basta para a dose plena." },
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Tiopental no estado de mal refratário, já intubado: 2 frascos de 500 mg em 40 mL de SF (25 mg/mL), ataque de 100–250 mg EV e manutenção de 3–5 mg/kg/h. Entrou na prescrição do site." },
+  ],
+  vertigem: [
+    { fonte: "PSZ", tipo: "diverge", texto: "O guia prescreve meclizina 50 mg 8/8 h (150 mg/dia). A bula vai até 100 mg/dia, divididos; o site mantém 25–50 mg/dia por poucos dias." },
+    { fonte: "PSZ", tipo: "acrescenta", texto: "Benzodiazepínico em dose baixa também suprime o vestíbulo e pode ajudar na crise intensa, junto com antiemético. Usar só por 1–3 dias: atrasa a compensação e dá sono e queda em idoso." },
   ],
   // PS-02-01 — Prescrevendo (Ficha Verde): analgesia
   analgesia: [

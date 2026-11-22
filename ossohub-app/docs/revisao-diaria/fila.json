@@ -338,7 +338,17 @@
    "paginas": "1–20",
    "fonte": "PSZ",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Acrescentadas à prescrição lidocaína (TV), propafenona (manutenção pós-cardioversão da FA) e tiopental (estado de mal refratário). 12 notas da 1ª edição: doses baixas de amiodarona na TV e de fenitoína/fenobarbital, metoprolol/verapamil na FA, Tridil 25 mg, betabloqueador EV na SCA, regra prática da dobutamina e meclizina na vertigem.",
+   "ids": [
+    "tv",
+    "fa",
+    "sca-ssst",
+    "eap",
+    "convulsao",
+    "vertigem"
+   ]
   },
   {
    "id": "PED-01-01",

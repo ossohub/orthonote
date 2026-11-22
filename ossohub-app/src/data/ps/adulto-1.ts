@@ -38,6 +38,7 @@ export const ADULTO_1: Condicao[] = [
     rx: [
       { t: "No PS — ataque", itens: [
         { m: "Amiodarona 150 mg/3 mL", p: "150 mg (1 ampola) diluída em 100 mL de SG 5% EV em 10 min; pode repetir uma vez.", o: "Diluir sempre em SG 5%." },
+        { m: "Lidocaína 2% sem vasoconstritor (20 mg/mL)", p: "1–1,5 mg/kg EV lento; se preciso, 0,5–0,75 mg/kg a cada 5–10 min, até 3 mg/kg no total.", k: { d: [1, 1.5], c: 20, f: "mL" }, o: "Alternativa se a amiodarona falhar ou não puder ser usada." },
       ]},
       { t: "Manutenção (24 h)", itens: [
         { m: "Amiodarona 150 mg/3 mL — 6 ampolas (900 mg)", p: "6 ampolas em 500 mL de SG 5% em BIC: 1 mg/min (≈ 34 mL/h) por 6 h, depois 0,5 mg/min (≈ 17 mL/h) por 18 h." },
@@ -67,6 +68,7 @@ export const ADULTO_1: Condicao[] = [
       ]},
       { t: "Após a reversão — impregnação oral", itens: [
         { m: "Amiodarona 200 mg", p: "200 mg VO 8/8 h por 10 dias → 200 mg 12/12 h por 10 dias → 200 mg 1x/dia.", o: "Meta de impregnação ≈ 10 g (600–800 mg/dia)." },
+        { m: "Propafenona 300 mg", p: "150–300 mg VO de 8/8 a 12/12 h (450–900 mg/dia).", o: "Só sem cardiopatia estrutural ou isquêmica; com IC ou doença estrutural, usar amiodarona." },
       ]},
       { t: "Anticoagulação oral (alta)", itens: [
         { m: "Rivaroxabana 20 mg", p: "1 cp VO 1x/dia com refeição.", o: "ClCr 15–50 mL/min: 15 mg/dia." },
@@ -379,6 +381,7 @@ export const ADULTO_1: Condicao[] = [
       { t: "Refratário (UTI)", itens: [
         { m: "Midazolam 50 mg/10 mL", p: "Ataque 0,2 mg/kg EV; manutenção 0,1–0,4 mg/kg/h em BIC." },
         { m: "Propofol 10 mg/mL", p: "Ataque 1–2 mg/kg EV; manutenção 2–10 mg/kg/h." },
+        { m: "Tiopental 500 mg (frasco-ampola)", p: "2 frascos (1 g) em 40 mL de SF (25 mg/mL): ataque 100–250 mg EV; manutenção 3–5 mg/kg/h em BIC.", o: "Causa hipotensão importante: deixar vasopressor pronto." },
       ]},
     ],
     fontes: ["PSZ", "PRV"],
