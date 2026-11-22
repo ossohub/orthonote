@@ -8,6 +8,14 @@ import type { Nota, Topico } from "./types";
 // e registrados no resumo da fila.
 
 export const NOTAS_DIARIA: Record<string, Nota[]> = {
+  "f-flexibilidade": [
+    { fonte: "SRIP", tipo: "diverge", texto: "FNP: o livro descreve contração isométrica de 7–10 s a 25–40% da força máxima antes do alongamento; o site usa 3–6 s de contração submáxima. As duas faixas aparecem na literatura; o ganho vem da sequência contrair → relaxar → alongar. A variante com contração do antagonista (contrai-relaxa-contrai o antagonista) tende a dar mais ganho de amplitude." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Duração do estático: 30 s parece o ponto ótimo (3 repetições, até 3x/dia na reabilitação); manter mais que 30 s não trouxe ganho extra. Após lesão muscular, alongamento passivo no fim da amplitude só depois de ≥ 72 h (7–10 dias se for grave) — ver 'Lesão muscular: tipos, cicatrização e tratamento'." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Liberação miofascial com rolo de espuma: pressão lenta sobre o ponto sensível por 20–90 s ou até a dor diminuir bem. Junto com o alongamento, fortalecer os sinergistas fracos no fim da amplitude — amplitude passiva sem força ativa não serve ao gesto." },
+  ],
+  "f-principios": [
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Síndrome geral de adaptação (Selye) para dosar a progressão: alarme (estímulo novo → dor muscular tardia, rigidez, queda de desempenho), resistência (adaptação — fase em que se ganha) e exaustão (fadiga, platô e lesão). A exaustão vem de volume alto demais ou de saltos de intensidade grandes ou rápidos; trocar o estímulo antes de chegar nela." },
+  ],
   "f-periodizacao": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Bloco clássico de 4 semanas (Matveyev): carga sobe até a 3ª semana e a 4ª é de descarga — cai o volume, não a intensidade. Um mesociclo costuma ter 1 ou 2 desses blocos (4–8 semanas). Até a semana de descarga o atleta acumula fadiga; a recuperação completa pode só vir nela." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Dose de força sugerida por fase do ano: preparação geral 8–20 repetições, 3–5 séries, 3–4x/semana (sobe primeiro o volume); preparação específica 4–6 repetições, 3–5 séries, 3–5x/semana; competição 2–3 repetições, 3–5 séries, 3–6x/semana conforme o calendário; transição (~1 mês) 1–3 repetições, 1–3 séries, ~3x/semana. A mesma lógica de volume baixo serve para o polimento." },
@@ -30,6 +38,8 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "f-pliometria": [
     { fonte: "SRIP", tipo: "concorda", texto: "Mesma progressão de direção: começar por saltos verticais, depois para a frente, depois laterais e por fim multidirecionais, cada vez mais parecidos com o esporte." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Drop jump começa como treino de aterrissagem: foco em absorver a força com boa técnica. Progredir pela altura da plataforma e depois para unipodal. Durante a pliometria completa, manter algum treino de força para não perder o que foi ganho." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Pré-requisito de força: o livro cita como mínimo agachar 60% do peso corporal por 5 repetições em ≤ 5 s (para iniciar pliometria na reabilitação). O site usa ~1,5x o peso corporal — referência para pliometria intensa (de alta altura/unipodal). Usar o mínimo para saltos de baixa intensidade e exigir mais força para progredir." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Pliometria na água (piscina) reduz o impacto e permite começar mais cedo na reabilitação. Antes de iniciar, checar controle lombopélvico e da aterrissagem, amplitude e equilíbrio adequados." },
   ],
   "r-lca": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Hop tests no retorno (comparar com o lado sadio): salto unipodal à distância, triplo à distância, triplo cruzado (cruzando uma fita de ≥ 8 m) e 6 m cronometrado. Mãos no quadril, aterrissagem estável e medir até o calcanhar. Os de distância são muito reprodutíveis (erro de medida ~5 cm no simples e ~11–18 cm nos triplos); o de 6 m com cronômetro manual é bem menos confiável — usar fotocélulas." },
@@ -68,6 +78,7 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "acrescenta", texto: "Gelo: cada aplicação até ~20 min e ~1 h de intervalo para o tecido reaquecer. Ciclos de 10 min com gelo, 10 min sem e mais 10 min com esfriaram melhor que 20 min seguidos. Gelo picado/derretendo esfria mais (troca de fase); imersão em água fria mantém o tecido frio por mais tempo. Pouca gordura, área grande ou bolsa muito fria aumentam o risco de lesão pelo frio." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Mesmo 10 min de gelo reduzem potência e desempenho funcional por um tempo — evitar gelar logo antes de voltar ao jogo ou de um teste. Crioterapia + exercício (cryokinetics): gelo para analgesia, exercício controlado, de novo gelo — permite mexer mais cedo." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Eletroanalgesia: TENS de alta frequência age pelo 'portão' da dor; a evidência na dor aguda é inconclusiva, mas o risco é baixo — vale testar e suspender se não ajudar. Estimulação de alta voltagem e baixa frequência busca liberar endorfina (mais desconfortável). Corrente interferencial tem efeito parecido com o TENS, mas só no consultório; o TENS tem a vantagem de ser portátil e manuseado pelo paciente." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Evidência do gelo ainda é fraca (estudos pequenos e de baixa qualidade): somar gelo à compressão trouxe pouco ganho extra, e gelo + exercício foi a combinação com melhor resultado após entorse de tornozelo e cirurgia. Usar um pano de algodão úmido entre o gelo e a pele para evitar queimadura. Gel frio (4x/dia por 14 dias) reduziu a dor em lesões leves de partes moles — opção prática fora do clube." },
   ],
   "b-contracao": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Base da contração: o impulso nervoso percorre o sarcolema e os túbulos T, o retículo sarcoplasmático libera cálcio, o cálcio se liga à troponina e libera o sítio de ligação na actina; as pontes de miosina puxam a actina (filamentos deslizantes), com gasto de ATP. Banda A não muda; banda I encurta." },
@@ -102,6 +113,9 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "r-principios": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Liberar para jogar com lesão ainda presente é um dilema ético frequente (pressão do clube, do técnico e do próprio atleta). A decisão de aptidão deve seguir a prática clínica atual, ser registrada e, na dúvida, o atleta deve ser afastado e encaminhado a um profissional mais experiente — continuar jogando e agravar a lesão gera responsabilidade para quem liberou." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Sequência sugerida (avançar por critério): avaliação inicial (SOAP e SINS — gravidade, irritabilidade, natureza e estágio da lesão) → amplitude ativa e passiva sem dor → propriocepção estática → dinâmica → resistência de força → força máxima → pliometria → gesto específico do esporte. O condicionamento aeróbio acompanha todas as fases." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Antes de começar exercício dinâmico e funcional: amplitude completa e simétrica, sem edema e sem dor. Isométricos sem dor em vários ângulos liberam os isotônicos; nos isotônicos, começar lento e controlado e só depois subir velocidade, carga e planos de movimento (cobrir toda a curva força-velocidade: isométrico → concêntrico → excêntrico, de lento a rápido)." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Fortalecer a cadeia inteira, não só o músculo 'culpado': em exercícios de cadeia fechada a fadiga e o mau controle (ex.: valgo do joelho no unipodal) não vêm de um músculo isolado. Abdutores do quadril fracos em relação aos adutores se associam a valgo e pronação — ver 'Aterrissagem, corte e o valgo dinâmico'." },
   ],
   "l-aquiles": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "A ruptura costuma ocorrer 2–6 cm acima da inserção no calcâneo, zona de pouca irrigação; cerca de 3 em cada 4 rupturas do Aquiles acontecem no esporte. Muitas têm degeneração prévia silenciosa. Perguntar sempre por uso de fluoroquinolona (ciprofloxacino, levofloxacino), infiltração de corticoide no tendão ou ao redor e corticoide sistêmico — todos aumentam o risco." },
@@ -132,6 +146,9 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "f-proprio": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Base do treino: o ligamento tem mecanorreceptores (os de Ruffini são os mais comuns, além de Pacini, órgão tendinoso-símile e terminações livres). A lesão destrói parte deles e altera também o processamento central, o que piora o reflexo de proteção muscular. Mesmo um programa domiciliar sem supervisão de propriocepção reduz recidiva de entorse do tornozelo." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Critério simples para sair do equilíbrio estático para o dinâmico: Romberg (pés juntos, olhos fechados) e apoio unipodal no lado lesionado por ≥ 30 s sem encostar o outro pé nem se apoiar; depois o mesmo com olhos fechados. Se não conseguir, ainda há déficit — não avançar." },
+    { fonte: "SRIP", tipo: "acrescenta", texto: "Fazer os exercícios de propriocepção no começo da sessão (ou antes do treino), principalmente quando são novos ou avançados: a fadiga piora a propriocepção e o controle neuromuscular e reduz a qualidade do exercício." },
+    { fonte: "SRIP", tipo: "diverge", texto: "Superfície instável: útil no início da reabilitação e no membro superior (gestos de cadeia aberta). Na fase final do membro inferior ela reduz força e potência: num estudo de 10 semanas, o grupo que treinou agachamento, terra e afundo em superfície estável melhorou mais salto e sprint do que o grupo em superfície instável. No fim da reabilitação, priorizar carga em base estável e equilíbrio dentro do gesto do esporte." },
   ],
   "l-canelite": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Dois tipos de fratura por estresse: por fadiga (osso normal, carga repetida acima da capacidade de adaptação — o típico do atleta) e por insuficiência (carga normal sobre osso fraco: osteoporose, osteomalácia, artrite reumatoide, doença de Paget). Na de insuficiência, investigar o osso, não só o treino." },
