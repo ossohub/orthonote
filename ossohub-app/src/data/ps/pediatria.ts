@@ -335,7 +335,7 @@ export const PEDIATRIA: Condicao[] = [
     rx: [
       { t: "Receita", itens: [
         { m: "Albendazol 400 mg (cp ou 40 mg/mL)", p: "1–2 anos: 200 mg; ≥ 2 anos: 400 mg VO dose única (repetir em 14 dias na oxiuríase; 3 dias na estrongiloidíase/teníase)." },
-        { m: "Metronidazol 40 mg/mL", p: "Giárdia: 15 mg/kg/dia ÷ 3 por 7 dias. Ameba: 35–50 mg/kg/dia ÷ 3 por 7–10 dias.", k: { d: 15, por: "dia", n: 3, max: 250, c: 40, f: "mL" } },
+        { m: "Metronidazol — benzoilmetronidazol 40 mg/mL (= 25 mg/mL de metronidazol)", p: "Giárdia: 15 mg/kg/dia ÷ 3 por 5–7 dias. Ameba: 35–50 mg/kg/dia ÷ 3 por 7–10 dias (doses em mg de metronidazol).", k: { d: 15, por: "dia", n: 3, max: 250, c: 25, f: "mL" }, o: "A suspensão pediátrica (Flagyl® Pediátrico) é o sal benzoil: 40 mg do sal equivalem a 25 mg de metronidazol." },
         { m: "Secnidazol 450 mg/15 mL", p: "30 mg/kg VO dose única (giárdia; máx. 2 g).", k: { d: 30, max: 2000, c: 30, f: "mL" } },
       ]},
     ],

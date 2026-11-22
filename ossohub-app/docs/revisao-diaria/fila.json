@@ -309,7 +309,27 @@
    "paginas": "1–18",
    "fonte": "GPP",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Corrigido: o metronidazol pediátrico era calculado como 40 mg/mL, mas a suspensão é benzoilmetronidazol (40 mg/mL = 25 mg/mL de metronidazol). Nova condição dermatite de fraldas; 31 notas GPP (15 diverge, 16 acrescenta) em antibióticos, asma, convulsão, anafilaxia, anti-histamínicos, antiparasitários e colírios.",
+   "ids": [
+    "p-parasitose",
+    "p-dermatite-fraldas",
+    "p-febre",
+    "p-vomitos",
+    "p-oma",
+    "p-faringo",
+    "p-itu",
+    "p-meningite",
+    "p-pneumonia",
+    "p-asma",
+    "p-convulsao",
+    "p-anafilaxia",
+    "p-alergia",
+    "p-impetigo",
+    "p-estomatite",
+    "p-conjuntivite"
+   ]
   },
   {
    "id": "PS-04-01",
