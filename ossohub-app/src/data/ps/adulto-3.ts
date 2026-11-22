@@ -22,6 +22,8 @@ export const ADULTO_3: Condicao[] = [
       { t: "Dor moderada", itens: [
         { m: "Cetoprofeno 100 mg", p: "100 mg em 100 mL SF EV em 20 min, até 12/12 h." },
         { m: "Cetorolaco 30 mg/mL", p: "10–30 mg EV/IM, até 8/8 h (máx. 5 dias).", o: "≥ 65 anos ou < 50 kg: 15 mg." },
+        { m: "Diclofenaco 75 mg/3 mL", p: "75 mg IM profundo (glúteo), dose única.", o: "Mesmas restrições dos AINE; não associar a outro AINE." },
+        { m: "Dexametasona 4 mg/mL", p: "10 mg (2,5 mL) EV diluídos em 20 mL AD, dose única no PS.", o: "Dose anti-inflamatória; não prescrever para casa." },
         { m: "Tramadol 100 mg/2 mL", p: "50–100 mg em 100 mL SF EV em 30 min, até 6/6 h (máx. 400 mg/dia).", o: "Associar antiemético. Evitar com ISRS (síndrome serotoninérgica)." },
       ]},
       { t: "Dor forte", itens: [

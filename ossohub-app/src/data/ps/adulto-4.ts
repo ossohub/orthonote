@@ -479,7 +479,7 @@ export const ADULTO_4: Condicao[] = [
         { m: "Dobutamina 250 mg/20 mL", p: "1.000 mg (4 amp) + 170 mL SF = 4 mg/mL → 2,5–20 mcg/kg/min." },
         { m: "Dopamina 50 mg/10 mL", p: "250 mg (5 amp) + 200 mL SG 5% = 1 mg/mL → 5–20 mcg/kg/min." },
         { m: "Vasopressina 20 UI/mL", p: "20 UI + 100 mL SF = 0,2 UI/mL → 0,03 UI/min (9 mL/h)." },
-        { m: "Nitroprussiato 50 mg/2 mL", p: "50 mg + 248 mL SF = 200 mcg/mL → 0,25–10 mcg/kg/min." },
+        { m: "Nitroprussiato 50 mg/2 mL", p: "50 mg + 248 mL SG 5% = 200 mcg/mL (protegido da luz) → 0,25–10 mcg/kg/min." },
         { m: "Nitroglicerina 50 mg/10 mL", p: "50 mg + 240 mL SF/SG = 200 mcg/mL → 5–200 mcg/min." },
       ]},
     ],

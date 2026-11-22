@@ -140,7 +140,7 @@ export const ADULTO_1: Condicao[] = [
         { m: "AAS 100 mg", p: "300 mg VO mastigados; manter 100 mg/dia." },
         { m: "Clopidogrel 75 mg", p: "300–600 mg VO de ataque; manter 75 mg/dia.", o: "Ou ticagrelor 180 mg → 90 mg 12/12 h." },
         { m: "Enoxaparina 60 mg/0,6 mL", p: "1 mg/kg SC 12/12 h.", o: "≥ 75 anos: 0,75 mg/kg; ClCr < 30: 1 mg/kg 1x/dia." },
-        { m: "Mononitrato de isossorbida 5 mg (Isordil®)", p: "5 mg sublingual se dor; repetir até 3x com intervalo de 5 min.", o: "Contraindicado se PAS < 90, IAM de VD ou PDE-5 < 24–48 h." },
+        { m: "Dinitrato de isossorbida 5 mg SL (Isordil®)", p: "5 mg sublingual se dor; repetir até 3x com intervalo de 5 min.", o: "Contraindicado se PAS < 90, IAM de VD ou PDE-5 < 24–48 h." },
         { m: "Nitroglicerina 50 mg/10 mL (Tridil®)", p: "50 mg em 240 mL de SF (200 mcg/mL) em BIC: iniciar 5 mL/h e titular pela dor e PA." },
         { m: "Atorvastatina 80 mg", p: "1 cp VO 1x/dia." },
         { m: "Metoprolol (oral)", p: "25–50 mg VO 12/12 h nas primeiras 24 h se sem IC/choque/BAV." },
@@ -163,11 +163,11 @@ export const ADULTO_1: Condicao[] = [
     ],
     rx: [
       { t: "No PS", itens: [
-        { m: "Mononitrato de isossorbida 5 mg", p: "5 mg SL; repetir a cada 5 min até 3 doses se PAS > 100." },
+        { m: "Dinitrato de isossorbida 5 mg SL (Isordil®)", p: "5 mg SL; repetir a cada 5 min até 3 doses se PAS > 100." },
         { m: "Furosemida 20 mg/2 mL", p: "40–80 mg EV (0,5–1 mg/kg) em bolus; reavaliar diurese em 2 h e dobrar se < 100–150 mL/h.", k: { d: [0.5, 1], max: 80, c: 10, f: "mL" } },
         { m: "Nitroglicerina 50 mg/10 mL (Tridil®)", p: "50 mg em 240 mL de SF (200 mcg/mL) em BIC: iniciar 3–5 mL/h, subir 3–6 mL/h a cada 5–10 min conforme PA." },
         { m: "Nitroglicerina 200 mcg/mL — bolus no SCAPE", p: "Bolus EV conforme PAS: 160–179 → 3 mL (600 mcg); 180–199 → 4 mL (800 mcg); ≥ 200 → 5 mL (1.000 mcg). Seguir com BIC e reavaliar PA em minutos.", o: "Só no EAP hipertensivo hiperagudo; evitar se IAM de VD, estenose aórtica grave ou PDE-5 recente." },
-        { m: "Nitroprussiato 50 mg/2 mL (Nipride®)", p: "50 mg em 248 mL de SF (200 mcg/mL), protegido da luz, em BIC: 0,25–0,5 mcg/kg/min até máx. 10 mcg/kg/min.", o: "Opção para EAP hipertensivo grave." },
+        { m: "Nitroprussiato 50 mg/2 mL (Nipride®)", p: "50 mg em 248 mL de SG 5% (200 mcg/mL), protegido da luz, em BIC: 0,25–0,5 mcg/kg/min até máx. 10 mcg/kg/min.", o: "Opção para EAP hipertensivo grave." },
       ]},
       { t: "Hipoperfusão (perfil C)", itens: [
         { m: "Dobutamina 250 mg/20 mL", p: "4 ampolas (1.000 mg) em 170 mL de SF (4 mg/mL) em BIC: 2,5–20 mcg/kg/min." },
@@ -186,7 +186,7 @@ export const ADULTO_1: Condicao[] = [
     ],
     rx: [
       { t: "No PS", itens: [
-        { m: "Nitroprussiato 50 mg/2 mL (Nipride®)", p: "50 mg em 248 mL de SF (200 mcg/mL) em BIC protegido da luz: iniciar 0,25–0,5 mcg/kg/min; máx. 10 mcg/kg/min." },
+        { m: "Nitroprussiato 50 mg/2 mL (Nipride®)", p: "50 mg em 248 mL de SG 5% (200 mcg/mL) em BIC protegido da luz: iniciar 0,25–0,5 mcg/kg/min; máx. 10 mcg/kg/min." },
         { m: "Nitroglicerina 50 mg/10 mL", p: "50 mg em 240 mL SG 5% em BIC: 5–20 mcg/min, aumentar até 200–400 mcg/min." },
       ]},
     ],

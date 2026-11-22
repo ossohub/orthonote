@@ -290,7 +290,17 @@
    "paginas": "1–20",
    "fonte": "PRV",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Corrigido: o nitrato sublingual aparecia como mononitrato (é dinitrato de isossorbida, Isordil®) e o nitroprussiato estava diluído em SF (passou a SG 5%). Acrescentados diclofenaco IM e dexametasona EV na dor moderada; 12 notas PRV (3 diverge, 9 acrescenta) em analgesia, EAP, IAM com supra e SCA sem supra.",
+   "ids": [
+    "analgesia",
+    "eap",
+    "iam-supra",
+    "sca-ssst",
+    "has-emerg",
+    "vasoativas"
+   ]
   },
   {
    "id": "PS-03-01",
