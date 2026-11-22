@@ -244,7 +244,24 @@
    "paginas": "10–38",
    "fonte": "READ",
    "alvo": "esporte",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Tópico novo 'Calor, frio, altitude e viagens no esporte' (insolação, hiponatremia, colapso pós-prova, hipotermia, altitude, jet lag). 26 notas READ (9 diverge, 16 acrescenta, 1 concorda): diverge em teste ergométrico de rotina, repouso total no overtraining, amenorreia, supercompensação clássica, cafeína e doping, altitude/calor/aspirina em voo; acrescenta em doença e treino, retorno após inatividade, jovens, kit e regra do sangue, alongamentos a evitar, corrida.",
+   "ids": [
+    "l-ambiente",
+    "f-triagem",
+    "l-overtraining",
+    "f-idosos",
+    "f-mulher",
+    "n-cho",
+    "n-suplementos",
+    "n-hidratacao",
+    "f-flexibilidade",
+    "f-pliometria",
+    "b-corrida",
+    "f-principios",
+    "r-equipe-campo"
+   ]
   },
   {
    "id": "PS-01-01",

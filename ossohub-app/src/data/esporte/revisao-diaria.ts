@@ -12,9 +12,12 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "diverge", texto: "FNP: o livro descreve contração isométrica de 7–10 s a 25–40% da força máxima antes do alongamento; o site usa 3–6 s de contração submáxima. As duas faixas aparecem na literatura; o ganho vem da sequência contrair → relaxar → alongar. A variante com contração do antagonista (contrai-relaxa-contrai o antagonista) tende a dar mais ganho de amplitude." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Duração do estático: 30 s parece o ponto ótimo (3 repetições, até 3x/dia na reabilitação); manter mais que 30 s não trouxe ganho extra. Após lesão muscular, alongamento passivo no fim da amplitude só depois de ≥ 72 h (7–10 dias se for grave) — ver 'Lesão muscular: tipos, cicatrização e tratamento'." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Liberação miofascial com rolo de espuma: pressão lenta sobre o ponto sensível por 20–90 s ou até a dor diminuir bem. Junto com o alongamento, fortalecer os sinergistas fracos no fim da amplitude — amplitude passiva sem força ativa não serve ao gesto." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Evitar o 'alongamento do barreirista' (uma perna dobrada para trás e a outra estendida à frente, puxando o tronco): há relatos de avulsão da origem dos isquiotibiais. O balanço controlado da perna estendida para a frente (começar devagar, aumentar amplitude e velocidade conforme a dor permite) é um bom aquecimento para isquiotibiais, inclusive após lesão." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Hipermobilidade (cotovelo e joelho em recurvato, polegar que toca o punho) aumenta o risco de subluxação e lesão ligamentar: o foco é força e controle, não mais amplitude. Quem tem ligamentos rígidos pode ganhar amplitude, mas não deve forçar para igualar um colega frouxo." },
   ],
   "f-principios": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Síndrome geral de adaptação (Selye) para dosar a progressão: alarme (estímulo novo → dor muscular tardia, rigidez, queda de desempenho), resistência (adaptação — fase em que se ganha) e exaustão (fadiga, platô e lesão). A exaustão vem de volume alto demais ou de saltos de intensidade grandes ou rápidos; trocar o estímulo antes de chegar nela." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Crianças e adolescentes: nos esportes de contato, formar grupos por tamanho e habilidade, não só por idade. Treino variado (multiesportivo) até passar o estirão; no pico do crescimento, reduzir a carga — as cartilagens de crescimento são o ponto fraco (apofisites, lesões epifisárias). Especializar e aumentar o treino específico só depois, aos poucos." },
   ],
   "f-periodizacao": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Bloco clássico de 4 semanas (Matveyev): carga sobe até a 3ª semana e a 4ª é de descarga — cai o volume, não a intensidade. Um mesociclo costuma ter 1 ou 2 desses blocos (4–8 semanas). Até a semana de descarga o atleta acumula fadiga; a recuperação completa pode só vir nela." },
@@ -40,6 +43,7 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "acrescenta", texto: "Drop jump começa como treino de aterrissagem: foco em absorver a força com boa técnica. Progredir pela altura da plataforma e depois para unipodal. Durante a pliometria completa, manter algum treino de força para não perder o que foi ganho." },
     { fonte: "SRIP", tipo: "diverge", texto: "Pré-requisito de força: o livro cita como mínimo agachar 60% do peso corporal por 5 repetições em ≤ 5 s (para iniciar pliometria na reabilitação). O site usa ~1,5x o peso corporal — referência para pliometria intensa (de alta altura/unipodal). Usar o mínimo para saltos de baixa intensidade e exigir mais força para progredir." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Pliometria na água (piscina) reduz o impacto e permite começar mais cedo na reabilitação. Antes de iniciar, checar controle lombopélvico e da aterrissagem, amplitude e equilíbrio adequados." },
+    { fonte: "READ", tipo: "acrescenta", texto: "O livro recomenda abolir os saltos a partir do agachamento completo (bunny hops / 'saltos de sapo' em sequência): carga alta no menisco com pouca transferência para o esporte. Preferir saltos com agachamento parcial e boa técnica de aterrissagem." },
   ],
   "r-lca": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Hop tests no retorno (comparar com o lado sadio): salto unipodal à distância, triplo à distância, triplo cruzado (cruzando uma fita de ≥ 8 m) e 6 m cronometrado. Mãos no quadril, aterrissagem estável e medir até o calcanhar. Os de distância são muito reprodutíveis (erro de medida ~5 cm no simples e ~11–18 cm nos triplos); o de 6 m com cronômetro manual é bem menos confiável — usar fotocélulas." },
@@ -110,6 +114,8 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "f-triagem": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "A avaliação pré-participação (estado físico e mental) deve ser feita antes de o atleta começar a competir — é também uma das principais áreas de responsabilidade legal da equipe. Não ter dados de base do atleta sem lesão está entre os erros mais comuns: sem eles, fica difícil provar e decidir quando ele voltou ao normal." },
+    { fonte: "READ", tipo: "diverge", texto: "O livro considera indispensável um check-up com teste ergométrico antes de começar qualquer esporte. As diretrizes atuais (ACSM, PAR-Q+) não pedem teste de esforço de rotina para quem não tem sintomas: o teste fica para quem tem sintomas, doença cardiovascular, metabólica ou renal conhecida, ou vai fazer esforço intenso partindo do sedentarismo." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Doença e treino: com febre ou dores no corpo de gripe, não treinar (risco de piora e de miocardite viral). Resfriado só com sintomas leves de nariz e garganta, sem febre, com FC de repouso normal → pode fazer treino leve. Voltar ao normal só quando temperatura e FC de repouso estiverem de volta ao habitual." },
   ],
   "r-principios": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Liberar para jogar com lesão ainda presente é um dilema ético frequente (pressão do clube, do técnico e do próprio atleta). A decisão de aptidão deve seguir a prática clínica atual, ser registrada e, na dúvida, o atleta deve ser afastado e encaminhado a um profissional mais experiente — continuar jogando e agravar a lesão gera responsabilidade para quem liberou." },
@@ -209,12 +215,42 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "r-equipe-campo": [
     { fonte: "SRIP", tipo: "diverge", texto: "No roteiro SALTAPS o livro admite que o atleta tente 'correr para passar' a dor. Isso não vale para suspeita de concussão (afastar no mesmo dia, sem exceção) nem para suspeita de lesão da coluna (não mover; imobilizar e chamar resgate). Na dúvida, tirar do jogo." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Regra do sangue: atleta sangrando ou com uniforme manchado sai de campo até a ferida ser limpa e coberta e a roupa trocada. Quem atende usa luvas; materiais com sangue vão para descarte próprio ou esterilização; tatame, piso e trampolim são limpos com papel e depois hipoclorito diluído 1:10." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Kit montado por nível: casa (curativos, gaze, atadura, tala de dedo, pinça, tesoura, antisséptico, bolsa de gelo, analgésico); treino/recreação (esparadrapo e fita de bandagem, underwrap, spray resfriador, protetor de bolhas); evento (DEA, oxigênio com bolsa-válvula-máscara, colar cervical, prancha/maca tipo scoop, talas infláveis, kit de sutura, hidratação, medicações conferidas pelo médico). Lista do conteúdo por fora da bolsa, conferida com regularidade, com os telefones de emergência." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Pequenas emergências: sangramento nasal → sentar, cabeça inclinada para a frente e apertar a parte mole do nariz (não deitar nem inclinar para trás); repetido ou após trauma, avaliar. Orelha em couve-flor → drenar o hematoma cedo e usar protetor de cabeça. Protetor bucal sob medida (dentista) em esportes de contato e óculos de proteção em squash e badminton." },
   ],
   "l-menisco": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "No exame passivo, o menisco preso entre as superfícies dá um bloqueio 'em mola' (springy): resistência firme que cede um pouco e volta ao soltar, típica no fim da extensão. Diferente do bloqueio duro ósseo e do bloqueio por espasmo, que muda de ponto a cada tentativa." },
   ],
   "r-capsulite": [
     { fonte: "SRIP", tipo: "acrescenta", texto: "Capsulite é o exemplo clássico de padrão capsular (Cyriax): a cápsula inflamada retrai e limita o movimento sempre na mesma ordem — no ombro, rotação externa mais limitada, depois abdução e por último rotação interna, com sensação final firme. Perda que não segue essa ordem (padrão não capsular) aponta outra causa (bursite, bloqueio mecânico, lesão do manguito)." },
+  ],
+  "l-overtraining": [
+    { fonte: "READ", tipo: "diverge", texto: "O livro sugere 3 semanas de repouso total quando o excesso de treino causa fadiga. Hoje se prefere repouso relativo: cortar bem volume e intensidade, manter atividade leve e voltar aos poucos, monitorando sintomas; repouso total fica para casos graves ou com doença associada." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Sinal simples de alerta: FC de repouso medida ao acordar, ainda deitado, 5–10 bpm acima do habitual → não fazer treino pesado naquele dia. Planejar pelo menos um dia de descanso por semana e não 'treinar através da dor'." },
+  ],
+  "f-idosos": [
+    { fonte: "READ", tipo: "acrescenta", texto: "Quem volta após anos parado: prever cerca de 1 mês de treino progressivo para cada ano de inatividade antes de buscar o nível antigo. 10–15 min por dia rendem mais e lesionam menos que uma sessão longa por semana — ficar em forma para jogar, e não jogar para ficar em forma. Trocar velocidade por técnica e experiência; em golfe e raquete, manter a força do ombro." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Artrose: preferir bicicleta, natação e remo; evitar impacto repetido e paradas/saltos bruscos; musculação com carga leve e mais repetições é bem tolerada. Artrites inflamatórias (reumatoide, psoriásica) pedem orientação do reumatologista, pois a fase da doença muda o que é permitido." },
+  ],
+  "f-mulher": [
+    { fonte: "READ", tipo: "diverge", texto: "O livro trata a falta de menstruação em corredoras e o atraso da menarca em ginastas como 'não sendo um problema em si', só alertando para a perda óssea. Hoje a amenorreia da atleta é sinal de deficiência energética (RED-S) e exige investigação e ajuste de energia — ver 'RED-S'. Cálcio sozinho não resolve." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Adiar a menstruação para uma competição: com orientação médica, emendar as cartelas do anticoncepcional combinado sem a pausa de 7 dias; planejar com meses de antecedência e testar antes. Na gestação, parar o exercício e procurar o obstetra se houver sangramento ou dor no baixo ventre ou na lombar." },
+  ],
+  "n-cho": [
+    { fonte: "READ", tipo: "diverge", texto: "O livro descreve a supercompensação clássica: 3–4 dias de treino forte com dieta pobre em carboidrato e depois 3 dias de treino leve com dieta rica. A fase de depleção caiu em desuso (mal-estar, risco de lesão, sem ganho extra): hoje basta 10–12 g/kg/dia por 36–48 h com redução do treino, como na tabela." },
+    { fonte: "READ", tipo: "concorda", texto: "Refeição pré-jogo cerca de 3 h antes (nunca menos de 1–2 h), rica em carboidrato e pobre em gordura; em torneios de vários dias, repor carboidrato logo após cada jogo (nas primeiras 2 h)." },
+  ],
+  "n-suplementos": [
+    { fonte: "READ", tipo: "diverge", texto: "O livro alerta que café demais pode dar exame antidoping positivo. Desde 2004 a cafeína não é proibida pela WADA — está só no programa de monitoramento. O limite real é o efeito adverso (taquicardia, arritmia, tremor, insônia)." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Remédios comuns e doping: o mesmo nome comercial pode ter composição diferente em outro país — conferir o princípio ativo, não a marca. Pseudoefedrina e efedrina (antigripais, descongestionantes, ginseng contaminado) são proibidas em competição acima do limite. Salbutamol inalado é permitido dentro da dose máxima da WADA; corticoide inalado também. Se o atleta precisa de uma substância proibida sem alternativa, pedir a autorização de uso terapêutico (AUT/TUE) com antecedência." },
+  ],
+  "n-hidratacao": [
+    { fonte: "READ", tipo: "acrescenta", texto: "Checagem simples pela cor da urina: amarelo-claro = hidratado; amarelo-escuro = beber mais; sem urinar há horas = desidratação importante. Atenção redobrada a partir de ~27 °C. Álcool e ar-condicionado de avião desidratam. Ver 'Calor, frio, altitude e viagens no esporte' para hiponatremia, insolação e colapso pós-prova." },
+  ],
+  "b-corrida": [
+    { fonte: "READ", tipo: "acrescenta", texto: "Dismetria e estrada: diferença pequena de comprimento das pernas quase não incomoda no dia a dia, mas no corredor pode dar dor na perna e lombar — palmilha/elevação no lado curto ajuda. Ruas abauladas criam uma dismetria aparente: alternar o lado da via. Conferir o tênis por trás, sobre a mesa: se o contraforte tomba para dentro ou para fora, trocar mesmo com a sola boa. Nunca estrear tênis em prova." },
+    { fonte: "READ", tipo: "acrescenta", texto: "Postura 'correr alto': olhar à frente, ombros soltos e baixos, quadril levemente à frente alinhado com tronco e cabeça, abdome ativo e respiração diafragmática." },
   ],
 };
 
@@ -249,7 +285,7 @@ export const NOVOS_DIARIA: Topico[] = [
       { t: "Registro (prontuário)", itens: ["Registrar a lesão, a avaliação, o tratamento, a evolução e as orientações dadas (inclusive explicação de cada recurso terapêutico).", "Nunca alterar ou 'corrigir' registros depois; manter os registros protegidos.", "Em lesão grave ou catastrófica, a documentação precisa ser bem mais detalhada do que se costuma imaginar."] },
       { t: "Onde mais surgem processos", itens: ["Avaliação pré-participação ausente ou mal feita.", "Liberação para jogar sem critério atual.", "Atendimento inadequado de lesão grave no campo.", "Quebra de sigilo.", "Também: piso/equipamento inseguro, falta de equipamento de proteção ou de ensino de técnica segura, demora em encaminhar."] },
     ],
-    ver: ["f-triagem", "r-principios", "l-concussao", "r-agudo", "f-avaliacao-msk"],
+    ver: ["f-triagem", "r-principios", "l-concussao", "r-agudo", "f-avaliacao-msk", "l-ambiente"],
     fontes: ["SRIP"],
   },
   {
@@ -397,5 +433,28 @@ export const NOVOS_DIARIA: Topico[] = [
     ],
     ver: ["f-triagem", "f-triagem-msk", "r-equipe-campo", "f-neurodinamica", "l-menisco", "r-capsulite"],
     fontes: ["SRIP"],
+  },
+  {
+    id: "l-ambiente", titulo: "Calor, frio, altitude e viagens no esporte", area: "lesoes", grupo: "Geral",
+    tags: ["calor", "insolação", "hipertermia", "hiponatremia", "colapso pós-prova", "hipotermia", "frio", "congelamento", "altitude", "mal da montanha", "acetazolamida", "jet lag", "viagem", "trombose", "rabdomiólise"],
+    resumo: "O ambiente adoece o atleta tanto quanto o trauma: reconhecer cedo insolação, hiponatremia, hipotermia e mal da altitude, e preparar viagens.",
+    secoes: [
+      { t: "Calor: prevenção", itens: ["Aclimatação: 10–14 dias de exposição progressiva ao calor (sessões de 60–90 min) antes de competir em ambiente quente.", "Roupa leve e clara, cobrir cabeça e nuca; ajustar ou suspender treinos pelo IBUTG (WBGT) do local.", "Beber conforme a taxa de sudorese e checar a cor da urina — ver 'Hidratação e eletrólitos'."] },
+      { t: "Insolação de esforço (emergência)", itens: ["Suspeitar em quem colapsa ou fica confuso, agitado ou convulsiona durante esforço no calor; temperatura retal > 40 °C.", "Medir a temperatura retal: oral, axilar, timpânica e na testa não são confiáveis no atleta em esforço.", "Resfriar primeiro, transportar depois: imersão em água gelada até a temperatura retal chegar a ~39 °C, de preferência nos primeiros 30 min. Sem banheira: toalhas geladas giratórias, gelo em todo o corpo e ventilação.", "Depois do resfriamento, encaminhar ao hospital (função renal, CK, coagulação)."] },
+      { t: "Hiponatremia associada ao exercício", itens: ["Típica do corredor lento de maratona e ultramaratona que bebe muito: ganha peso durante a prova.", "Sinais: confusão, cefaleia, vômitos, convulsão — com temperatura normal ou pouco elevada.", "Não dar mais água nem bebida hipotônica. Sintomas graves: salina 3% 100 mL IV em bolus, repetindo até 2 vezes a cada 10 min se não melhorar, e remoção ao hospital."] },
+      { t: "Colapso logo após a prova", itens: ["A causa mais comum é queda da pressão ao parar de repente (a panturrilha para de bombear o sangue): deitar e elevar as pernas acima do coração; melhora em 15–30 min.", "Prevenção: volta à calma andando, sem parar de uma vez.", "Se não melhora, está confuso ou a temperatura retal está alta: pensar em insolação, hiponatremia ou causa cardíaca."] },
+      { t: "Frio", itens: ["Várias camadas finas, a de dentro que tire o suor, e uma externa impermeável e corta-vento; gorro, luvas e proteção de orelhas; proteger também as pernas.", "Hipotermia (temperatura central < 35 °C): tremor, confusão, fala lenta, descoordenação; sem tremor e com rebaixamento = moderada a grave.", "Conduta: tirar do frio e da água, trocar a roupa molhada, isolar (saco de dormir, manta aluminizada), aquecer o tronco aos poucos; manusear com delicadeza e manter deitado nos casos moderados/graves (risco de arritmia). Nada de álcool. Calor intenso e súbito na pele é perigoso.", "Na água sem resgate próximo: ficar parado para conservar calor — nadar aquece os membros, mas esfria o centro do corpo.", "Congelamento de extremidades: não esfregar; reaquecer em água a 37–39 °C só quando não houver risco de congelar de novo.", "Asma induzida pelo frio: aquecer o ar com máscara ou cachecol, além da medicação."] },
+      { t: "Altitude", itens: ["Mal agudo da montanha pode surgir acima de ~2.500 m, mesmo em quem está muito em forma: cefaleia, náusea, fadiga, insônia.", "Edema cerebral de altitude: ataxia, confusão, sonolência. Edema pulmonar de altitude: falta de ar em repouso, tosse, queda grande do desempenho.", "Subida gradual: acima de 3.000 m, aumentar a altitude onde se dorme no máximo 500 m por dia, com um dia de descanso a cada 3–4 dias.", "Profilaxia em quem tem risco: acetazolamida 125 mg VO 12/12 h, começando na véspera da subida. É diurético proibido pela WADA — atleta em competição precisa de autorização de uso terapêutico.", "Edema cerebral ou pulmonar: descer já (300–1.000 m ou até melhorar) e oxigênio. Edema cerebral: dexametasona 8 mg, depois 4 mg 6/6 h. Edema pulmonar: nifedipino de liberação prolongada 30 mg 12/12 h.", "Sol refletido na neve, ar seco e roupa pesada desidratam: beber mais e usar protetor solar e óculos."] },
+      { t: "Viagens e fuso horário", itens: ["Jet lag: contar ~1 dia de adaptação por fuso atravessado (viagem para o leste é pior). Já viajar comendo e dormindo no horário do destino e buscar luz natural no horário certo; melatonina pode ajudar com orientação médica.", "Voo longo: roupa folgada, água em vez de refrigerante e álcool, levantar e andar, mexer as panturrilhas sentado. Meia de compressão para quem tem risco de trombose."] },
+      { t: "Sinais que pedem avaliação", itens: ["Urina vermelha ou escura após esforço muito intenso ou longo: pode ser mioglobina (rabdomiólise) — hidratar e avaliar (CK, função renal, exame de urina), com urgência se houver dor muscular forte, inchaço ou pouca urina.", "Diarreia com sangue ou fezes pretas em corredor de longa distância: avaliar; anti-inflamatório é causa comum.", "Desmaio durante o esforço (não depois): avaliação cardiológica antes de voltar."] },
+    ],
+    notas: [
+      { fonte: "READ", tipo: "diverge", texto: "O livro situa o mal da altitude a partir de ~3.000 m e manda descer ~500–600 m; hoje se considera risco a partir de ~2.500 m e a descida é de 300–1.000 m, guiada pela melhora. Também sugere acetazolamida antes da subida sem lembrar que ela é proibida para atletas em competição." },
+      { fonte: "READ", tipo: "diverge", texto: "Para a febre após prova, o livro propõe medir na orelha ou no reto e procurar o médico acima de 39 °C, e para quem passa de 40 °C resfriar cabeça e pernas. Hoje só vale a temperatura retal e a insolação de esforço se trata no local, com imersão em água gelada antes do transporte." },
+      { fonte: "READ", tipo: "diverge", texto: "O livro diz que o corpo leva 2–3 dias para se ajustar ao calor; a aclimatação completa leva 10–14 dias. Ele também sugere meio comprimido de aspirina 300 mg para idosos em voos longos — as diretrizes atuais não recomendam aspirina para prevenir trombose de viagem (meia de compressão e movimento para quem tem risco)." },
+      { fonte: "READ", tipo: "diverge", texto: "O livro chama a urina vermelha após corrida longa de 'não perigosa'. Pode ser rabdomiólise ou sangue de origem urinária: merece avaliação, sobretudo se repetir ou vier com dor muscular forte." },
+    ],
+    ver: ["n-hidratacao", "r-equipe-campo", "f-triagem", "n-suplementos", "n-recuperacao"],
+    fontes: ["READ"],
   },
 ];
