@@ -33,13 +33,14 @@ export const ADULTO_1: Condicao[] = [
       "Sem pulso: protocolo de PCR (desfibrilação).",
       "Estável: amiodarona EV em ataque e manutenção; corrigir K e Mg.",
       "Procurar isquemia e distúrbio eletrolítico; ECG pós-reversão.",
+      "Suspender a amiodarona se surgir BAV; se a droga falhar, cardioversão elétrica sincronizada.",
     ],
     rx: [
       { t: "No PS — ataque", itens: [
         { m: "Amiodarona 150 mg/3 mL", p: "150 mg (1 ampola) diluída em 100 mL de SG 5% EV em 10 min; pode repetir uma vez.", o: "Diluir sempre em SG 5%." },
       ]},
       { t: "Manutenção (24 h)", itens: [
-        { m: "Amiodarona 150 mg/3 mL — 6 ampolas (900 mg)", p: "6 ampolas em 500 mL de SG 5% em BIC: 1 mg/min (≈ 33 mL/h) por 6 h, depois 0,5 mg/min (≈ 17 mL/h) por 18 h." },
+        { m: "Amiodarona 150 mg/3 mL — 6 ampolas (900 mg)", p: "6 ampolas em 500 mL de SG 5% em BIC: 1 mg/min (≈ 34 mL/h) por 6 h, depois 0,5 mg/min (≈ 17 mL/h) por 18 h." },
         { m: "Sulfato de magnésio 10% (1 g/10 mL)", p: "2 g EV em 10–20 min se hipomagnesemia ou torsades de pointes." },
       ]},
     ],
@@ -52,7 +53,8 @@ export const ADULTO_1: Condicao[] = [
     manejo: [
       "Instável: cardioversão elétrica sincronizada (FA 120–200 J; flutter 50–100 J).",
       "Estável: controle de frequência com betabloqueador, BCC (sem IC) ou digital/amiodarona (com IC).",
-      "Cardioversão química/elétrica eletiva só se início < 48 h ou após ECO transesofágico/3 semanas de anticoagulação.",
+      "Cardioversão química/elétrica eletiva só se início < 24 h (ESC 2024; diretrizes americanas ainda aceitam < 48 h em baixo risco) ou após ECO transesofágico sem trombo / 3 semanas de anticoagulação efetiva.",
+      "Prótese valvar mecânica ou estenose mitral moderada/grave: anticoagular com varfarina (DOAC contraindicado).",
       "Calcular CHA₂DS₂-VASc (≥ 2 homens / ≥ 3 mulheres → anticoagular) e HAS-BLED.",
       "Investigar gatilhos: infecção, tireoide, álcool, isquemia, distúrbio eletrolítico.",
     ],
@@ -60,7 +62,11 @@ export const ADULTO_1: Condicao[] = [
       { t: "Controle de frequência (PS)", itens: [
         { m: "Metoprolol 5 mg/5 mL", p: "5 mg EV em 2–5 min; repetir a cada 5 min até 15 mg." },
         { m: "Deslanosídeo 0,4 mg/2 mL", p: "0,4 mg EV em bolus; pode repetir até 1,6 mg/24 h.", o: "Preferir na IC com FE reduzida/hipotensão limítrofe." },
-        { m: "Amiodarona 150 mg/3 mL", p: "300 mg em 250 mL de SG 5% EV em 1 h, seguida de 900 mg/24 h em BIC.", o: "Controle de ritmo/frequência em cardiopatas." },
+        { m: "Verapamil 5 mg/2 mL", p: "5 mg EV em 2–5 min; sem resposta, 10 mg EV 30 min depois. Manutenção VO: iniciar 40 mg 8/8 h e ajustar.", o: "Contraindicado na IC com FE reduzida e na pré-excitação." },
+        { m: "Amiodarona 150 mg/3 mL", p: "300 mg em 250 mL de SG 5% EV em 30–60 min, seguida de 900 mg/24 h em BIC.", o: "Controle de ritmo/frequência em cardiopatas." },
+      ]},
+      { t: "Após a reversão — impregnação oral", itens: [
+        { m: "Amiodarona 200 mg", p: "200 mg VO 8/8 h por 10 dias → 200 mg 12/12 h por 10 dias → 200 mg 1x/dia.", o: "Meta de impregnação ≈ 10 g (600–800 mg/dia)." },
       ]},
       { t: "Anticoagulação oral (alta)", itens: [
         { m: "Rivaroxabana 20 mg", p: "1 cp VO 1x/dia com refeição.", o: "ClCr 15–50 mL/min: 15 mg/dia." },
@@ -79,6 +85,7 @@ export const ADULTO_1: Condicao[] = [
       "Monitor, O₂ se SpO₂ < 94%, acesso venoso, ECG de 12 derivações.",
       "Atropina é a 1ª linha (pouco eficaz em BAV de 2º grau Mobitz II e BAV total).",
       "Sem resposta: dopamina ou adrenalina em BIC e/ou marcapasso transcutâneo, ponte para transvenoso.",
+      "BAV total: a atropina costuma falhar — já preparar marcapasso. Transcutâneo exige analgesia/sedação e transferência para transvenoso o quanto antes.",
       "Rever drogas (betabloqueador, BCC, digital), hipercalemia e isquemia inferior.",
     ],
     rx: [
@@ -101,7 +108,7 @@ export const ADULTO_1: Condicao[] = [
       "O₂ apenas se SpO₂ < 90%. Nitrato só sem hipotensão, IAM de VD ou uso de inibidor de PDE-5.",
       "Morfina com parcimônia, só para dor refratária.",
     ],
-    alarme: ["IAM de parede inferior: pesquisar VD (V3R/V4R) — evitar nitrato e diurético.", "Contraindicações absolutas à trombólise: AVCh prévio, AVCi < 3 meses, neoplasia intracraniana, sangramento ativo, dissecção de aorta."],
+    alarme: ["IAM de parede inferior: pesquisar VD (V3R/V4R) — evitar nitrato e diurético.", "Contraindicações absolutas à trombólise: AVCh prévio, AVCi < 3 meses, lesão estrutural do SNC (malformação vascular, neoplasia), cirurgia intracraniana ou medular < 2 meses, TCE grave ou trauma facial < 3 meses, sangramento ativo (exceto menstruação), suspeita de dissecção de aorta, HAS grave sem controle."],
     rx: [
       { t: "Angioplastia primária", itens: [
         { m: "AAS 100 mg", p: "300 mg (3 cp) VO mastigados, dose única; depois 100 mg/dia." },
@@ -148,7 +155,9 @@ export const ADULTO_1: Condicao[] = [
     manejo: [
       "Cabeceira elevada, O₂/VNI (CPAP/BiPAP) precoce se desconforto ou SpO₂ < 90%.",
       "Hipertenso: nitrato SL e nitroglicerina/nitroprussiato EV — é o principal tratamento do EAP hipertensivo.",
-      "Furosemida EV: virgem de diurético 0,5–1 mg/kg; usuário crônico, dose EV ≥ dose oral diária (40 mg VO ≈ 20 mg EV).",
+      "Furosemida EV (no EAP a absorção VO é imprevisível): virgem de diurético 0,5–1 mg/kg (PSZ usa 1–1,5 mg/kg); usuário crônico, dose EV ≥ dose oral diária (40 mg VO ≈ 20 mg EV).",
+      "EAP hiperagudo hipertensivo (SCAPE, sem excesso de volume): VNI + nitroglicerina em alta dose são o centro; diurético tem papel menor.",
+      "Não usar morfina de rotina no EAP (sem benefício, risco de hipotensão e depressão respiratória).",
       "Perfil C (hipoperfusão): dobutamina; se PAS < 90, associar noradrenalina.",
       "Buscar fator de descompensação: isquemia, arritmia, infecção, má adesão, sal.",
     ],
@@ -157,6 +166,7 @@ export const ADULTO_1: Condicao[] = [
         { m: "Mononitrato de isossorbida 5 mg", p: "5 mg SL; repetir a cada 5 min até 3 doses se PAS > 100." },
         { m: "Furosemida 20 mg/2 mL", p: "40–80 mg EV (0,5–1 mg/kg) em bolus; reavaliar diurese em 2 h e dobrar se < 100–150 mL/h.", k: { d: [0.5, 1], max: 80, c: 10, f: "mL" } },
         { m: "Nitroglicerina 50 mg/10 mL (Tridil®)", p: "50 mg em 240 mL de SF (200 mcg/mL) em BIC: iniciar 3–5 mL/h, subir 3–6 mL/h a cada 5–10 min conforme PA." },
+        { m: "Nitroglicerina 200 mcg/mL — bolus no SCAPE", p: "Bolus EV conforme PAS: 160–179 → 3 mL (600 mcg); 180–199 → 4 mL (800 mcg); ≥ 200 → 5 mL (1.000 mcg). Seguir com BIC e reavaliar PA em minutos.", o: "Só no EAP hipertensivo hiperagudo; evitar se IAM de VD, estenose aórtica grave ou PDE-5 recente." },
         { m: "Nitroprussiato 50 mg/2 mL (Nipride®)", p: "50 mg em 248 mL de SF (200 mcg/mL), protegido da luz, em BIC: 0,25–0,5 mcg/kg/min até máx. 10 mcg/kg/min.", o: "Opção para EAP hipertensivo grave." },
       ]},
       { t: "Hipoperfusão (perfil C)", itens: [

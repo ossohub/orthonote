@@ -270,7 +270,18 @@
    "paginas": "1–20",
    "fonte": "PSZ",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Corrigido: limite de reversão da FA sem anticoagulação para < 24 h, infusão de amiodarona (≈ 34 mL/h; ataque na FA em 30–60 min) e lista completa de contraindicações absolutas à trombólise. Acrescentados verapamil e impregnação oral de amiodarona na FA, varfarina em prótese mecânica/estenose mitral, marcapasso no BAVT, bolus de nitroglicerina no SCAPE e morfina fora do EAP. 14 notas PSZ (4 diverge, 10 acrescenta).",
+   "ids": [
+    "tsv",
+    "tv",
+    "fa",
+    "bradi",
+    "iam-supra",
+    "sca-ssst",
+    "eap"
+   ]
   },
   {
    "id": "PS-02-01",
