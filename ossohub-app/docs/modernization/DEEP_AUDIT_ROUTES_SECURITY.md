@@ -111,3 +111,15 @@ Há divergência entre a documentação SQL legada e o estado real; alguns scrip
 - O endpoint de cron não aceita mais segredo pela query string; somente `Authorization: Bearer`.
 
 Essas alterações estão na branch de auditoria e devem passar pelo Preview/build antes de qualquer merge. Referência da migração de middleware para Proxy: https://nextjs.org/docs/app/api-reference/file-conventions/proxy.
+
+
+## 11. Dependências e qualidade de build
+
+- O Preview identificou o advisory HIGH `GHSA-mrhx-c7xc-m3w5` em Zod < 4.6.6. O advisory não possui correção na linha Zod 3; a correção disponível é Zod 4.6.6+. A branch foi atualizada para Zod 4.6.7 e `@hookform/resolvers` 7.0.8.
+- A execução de `npm audit --audit-level=high` após a atualização reportou **0 vulnerabilidades** (build de Preview, sem publicação em produção).
+- ESLint foi alinhado ao Next 16 com flat config e versão 10.15.0. O script `prebuild` passou a executar audit, lint e typecheck antes do build.
+- A primeira lintagem encontrou 32 erros e 31 avisos, majoritariamente regras novas do React Compiler aplicadas a padrões antigos. As regras de sincronização de estado em effects, imutabilidade, pureza e bibliotecas incompatíveis foram mantidas como warnings transitórios. O uso de `watch()` no formulário de cadastro foi trocado por `useWatch()` para remover uma incompatibilidade concreta com o React Compiler.
+- Permanecem warnings de variáveis não utilizadas, imagens `<img>` e padrões antigos de efeitos. Não foram silenciados globalmente.
+- O repositório ainda não contém lockfile; o Vercel executa `npm install`. Gerar e revisar `package-lock.json` é pendência antes de exigir builds reproduzíveis com `npm ci`.
+
+Advisory: https://github.com/advisories/GHSA-mrhx-c7xc-m3w5.
