@@ -13,6 +13,7 @@ export default defineConfig([
       "react-hooks/set-state-in-effect": "warn",
       "react-hooks/immutability": "warn",
       "react-hooks/purity": "warn",
+      "react-hooks/incompatible-library": "warn",
     },
   },
   globalIgnores([
