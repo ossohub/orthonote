@@ -123,3 +123,12 @@ Essas alterações estão na branch de auditoria e devem passar pelo Preview/bui
 - O repositório ainda não contém lockfile; o Vercel executa `npm install`. Gerar e revisar `package-lock.json` é pendência antes de exigir builds reproduzíveis com `npm ci`.
 
 Advisory: https://github.com/advisories/GHSA-mrhx-c7xc-m3w5.
+
+
+### Atualização final da validação de Preview
+
+- ESLint foi fixado em `9.39.5`, compatível com os peer ranges atuais dos plugins usados por `eslint-config-next@16.4.6`; ESLint 10 gerava conflitos de peer com os plugins de import, JSX accessibility e React.
+- O relatório de lint permanece não bloqueante e mostra warnings de imagens `<img>`, variáveis não utilizadas e regras do React Compiler em padrões legados. Isso é dívida técnica visível, não um lint limpo; a refatoração será gradual.
+- `npm audit --audit-level=high` reportou 0 vulnerabilidades; `tsc --noEmit` e `next build` concluíram com sucesso no Preview do commit `59d3653`.
+- Next.js 16.4.6 sinaliza que React 18 está depreciado e será removido no Next 17. A migração para React 19 deve ser uma etapa separada, com regressão de formulários, auth e componentes Radix, não uma atualização oportunista junto destas correções de segurança.
+- O repositório continua sem lockfile; gerar e revisar `package-lock.json` permanece pendente.
