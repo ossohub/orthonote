@@ -1,16 +1,14 @@
--- PROPOSTA DE HARDENING — NÃO EXECUTADA
--- Projeto: tgmnyhwcvhoatwxwidlq
--- Revisar em ambiente Supabase de desenvolvimento antes de aplicar em produção.
--- O bucket orthonote-assets tem 0 objetos e nenhuma referência no código pesquisado.
--- A remoção preserva a leitura pública do bucket e remove apenas upload anônimo.
--- A função limita a consulta de associação ao próprio residente ou ao preceptor da equipe.
+-- HARDENING VALIDADO EM DESENVOLVIMENTO — NÃO APLICADO EM PRODUÇÃO
+-- Projeto de desenvolvimento: jcotcvxopmlwzkopmply
+-- Produção: tgmnyhwcvhoatwxwidlq (inalterada)
+-- Migração canônica versionada em:
+-- supabase/migrations/20261123030744_ossohub_security_performance_hardening.sql
+-- Relatório: DATABASE_VALIDATION_2026-11-23.md
 
 begin;
 
 drop policy if exists orthonote_assets_temp_upload on storage.objects;
 
--- A função é usada por uma policy de INSERT de resident_evaluations.
--- Restringe o booleano ao próprio residente ou ao preceptor da equipe.
 create or replace function public.is_team_active_resident(
   p_team_id uuid,
   p_resident_id uuid
@@ -34,12 +32,9 @@ as $function$
   );
 $function$;
 
--- Cobertura da FK created_by (advisor de performance).
 create index if not exists rx_images_created_by_idx
   on public.rx_images (created_by);
 
--- Evita duas policies permissivas de SELECT sobrepostas para authenticated.
--- anon continua vendo somente as imagens explicitamente públicas.
 drop policy if exists procedure_images_select_admin on public.procedure_images;
 drop policy if exists procedure_images_select_public on public.procedure_images;
 
@@ -60,15 +55,16 @@ create policy procedure_images_select_authenticated
 
 commit;
 
--- Verificações pós-aplicação esperadas:
--- 1) anon não consegue INSERT em storage.objects para bucket orthonote-assets.
--- 2) authenticated que seja o próprio residente pode consultar sua associação.
--- 3) authenticated que seja preceptor da equipe pode validar membros da equipe.
--- 4) authenticated fora da equipe recebe false para qualquer combinação alheia.
--- 5) INSERT em resident_evaluations continua funcionando para o preceptor legítimo.
--- 6) SELECT público de orthonote-assets permanece inalterado; validar se realmente desejado.
+-- RESULTADOS VERIFICADOS NO BANCO DE DESENVOLVIMENTO:
+-- 1) orthonote_assets_temp_upload removida; orthonote_assets_public_read preservada.
+-- 2) is_team_active_resident: anon sem EXECUTE; authenticated com EXECUTE para policies.
+-- 3) rx_images_created_by_idx existe.
+-- 4) procedure_images tem SELECT separado para anon e authenticated/admin.
+-- 5) RLS habilitado em teams, team_members, procedure_images e rx_images.
+-- 6) Advisors executados; avisos preexistentes/fora do escopo documentados no relatório.
 
--- Notas de cautela:
--- - Não remover índices marcados como unused sem observar um período de carga representativo.
--- - Não remover a policy RLS de public.vh_conexao sem definir o modelo de acesso; atualmente RLS sem policy bloqueia clientes comuns.
--- - A proteção contra senhas vazadas deve ser habilitada em Supabase Auth > Security and Protection após validar impacto no cadastro/recuperação.
+-- ATENÇÃO:
+-- A branch de desenvolvimento ainda não tem paridade integral com produção.
+-- Não executar esta proposta em produção sem revisão e aprovação do PR.
+-- Não remover índices unused sem período de observação representativo.
+-- Não remover a RLS sem policy de public.vh_conexao sem modelo de acesso aprovado.
