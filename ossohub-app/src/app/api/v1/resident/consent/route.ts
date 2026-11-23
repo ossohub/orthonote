@@ -29,7 +29,7 @@ export const runtime = "nodejs";
 function jsonNoStore(body: unknown, init?: ResponseInit) {
   const headers = new Headers(init?.headers);
   headers.set("Cache-Control", "private, no-store");
-  return jsonNoStore(body, { ...init, headers });
+  return NextResponse.json(body, { ...init, headers });
 }
 
 const CONSENT_TYPE = "analise_preditiva" as const;
