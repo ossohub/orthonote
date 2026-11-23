@@ -180,7 +180,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Budesonida spray 200 mcg (ou beclometasona)", p: "Manter corticoide inalatório e encaminhar ao seguimento." },
       ]},
     ],
-    fontes: ["GPP", "PSZ"],
+    fontes: ["GPP", "PSZ", "MPP"],
   },
   {
     id: "p-bronquiolite", titulo: "Bronquiolite viral aguda", area: "pediatria", sistema: "Respiratório",
@@ -340,7 +340,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Secnidazol 450 mg/15 mL", p: "30 mg/kg VO dose única (giárdia; máx. 2 g).", k: { d: 30, max: 2000, c: 30, f: "mL" } },
       ]},
     ],
-    fontes: ["GPP"],
+    fontes: ["GPP", "MPP"],
   },
   {
     id: "p-estomatite", titulo: "Estomatite / aftas / herpangina", area: "pediatria", sistema: "Otorrino",
@@ -415,7 +415,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Rifampicina 20 mg/mL", p: "< 1 mês: 5 mg/kg; ≥ 1 mês: 10 mg/kg VO 12/12 h por 2 dias (máx. 600 mg/dose).", k: { d: 10, max: 600, c: 20, f: "mL" } },
       ]},
     ],
-    fontes: ["PSZ", "GPP"],
+    fontes: ["PSZ", "GPP", "MPP"],
   },
   {
     id: "p-tsv", titulo: "Taquicardia supraventricular", area: "pediatria", sistema: "Cardiovascular",
@@ -444,6 +444,7 @@ export const PEDIATRIA: Condicao[] = [
     rx: [
       { t: "PCR", itens: [
         { m: "Adrenalina 1 mg/mL diluída 1:10 (0,1 mg/mL)", p: "0,01 mg/kg = 0,1 mL/kg da solução diluída, EV/IO a cada 3–5 min (máx. 1 mg).", k: { d: 0.01, max: 1, c: 0.1, f: "mL" } },
+        { m: "Adrenalina 1 mg/mL (pura) — via endotraqueal", p: "0,1 mg/kg = 0,1 mL/kg pelo tubo, só se não houver acesso EV/IO (máx. 2,5 mg); depois 3–5 mL de SF e ventilar.", k: { d: 0.1, max: 2.5, c: 1, f: "mL" } },
         { m: "Amiodarona 50 mg/mL", p: "5 mg/kg EV/IO em bolus (FV/TV sem pulso), até 3 doses (máx. 300 mg).", k: { d: 5, max: 300, c: 50, f: "mL" } },
         { m: "Atropina 0,5 mg/mL", p: "0,02 mg/kg (mín. 0,1 mg; máx. 0,5 mg) — bradicardia vagal.", k: { d: 0.02, max: 0.5, c: 0.5, f: "mL" } },
       ]},
@@ -455,6 +456,6 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Succinilcolina 10 mg/mL (reconstituída)", p: "Lactente 2 mg/kg; criança 1–1,5 mg/kg EV.", k: { d: [1, 2], c: 10, f: "mL" } },
       ]},
     ],
-    fontes: ["PSZ", "GPP"],
+    fontes: ["PSZ", "GPP", "MPP"],
   },
 ];

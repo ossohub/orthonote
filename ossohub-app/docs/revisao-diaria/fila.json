@@ -372,7 +372,19 @@
    "paginas": "1–11",
    "fonte": "MPP",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-23",
+   "resumo": "Adrenalina endotraqueal pediátrica entrou na prescrição de reanimação. 10 notas MPP (3 diverge, 6 acrescenta, 1 concorda): erro de digitação da cefalexina no guia, tramadol abaixo de 12 anos, ipratrópio por peso, teto da fenitoína, benzatina por kg, ibuprofeno > 30 kg, ampicilina na meningite, albendazol e metronidazol por esquema.",
+   "ids": [
+    "p-iot",
+    "p-febre",
+    "p-faringo",
+    "p-asma",
+    "p-convulsao",
+    "p-itu",
+    "p-meningite",
+    "p-parasitose"
+   ]
   },
   {
    "id": "PED-03-01",

@@ -77,6 +77,9 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "MDR", tipo: "acrescenta", texto: "Ibuprofeno em gotas tem 10 gotas/mL (bula do Alivium®): 1 gota = 5 mg na de 50 mg/mL e 10 mg na de 100 mg/mL. O cálculo de gotas do site usava 20 gotas/mL e dava o dobro de gotas; foi corrigido. A bula limita a 200 mg por dose abaixo de 12 anos." },
     { fonte: "MDR", tipo: "diverge", texto: "O guia escreve cetoprofeno gotas 50 mg/mL; a apresentação é 20 mg/mL (1 gota = 1 mg). A posologia por gota (1 gota/kg; 25 gotas de 7 a 11 anos) está certa." },
     { fonte: "MDR", tipo: "diverge", texto: "Diclofenaco gotas: o guia conta 1 gota = 0,75 mg e usa 2–3 mg/kg/dia. Pela bula do Cataflam®, 1 gota ≈ 0,5 mg, 1–4 gotas/kg/dia (0,5–2 mg/kg/dia) em 2–3 tomadas, a partir de 1 ano. Diclofenaco IM não é para criança." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "acrescenta", texto: "Ibuprofeno: além do teto de 40 mg/kg/dia, o guia limita a 1.200 mg/dia na criança acima de 30 kg (dose de venda livre). Doses maiores, só com indicação anti-inflamatória e acompanhamento." },
+    { fonte: "MPP", tipo: "diverge", texto: "O guia lista tramadol para crianças (1–2 mg/kg/dose de 4/4–6/6 h, máx. 400 mg/dia). Hoje se evita tramadol abaixo de 12 anos e após amigdalectomia até 18 anos (metabolizadores rápidos podem ter depressão respiratória grave). O site não o inclui na pediatria." },
   ],
   "paracetamol-intox": [
     // PED-01-01 (MPP)
@@ -96,14 +99,20 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   ],
   "p-faringo": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia troca a dose da penicilina benzatina em 20 kg (até 20 kg: 600.000 UI; acima: 1.200.000 UI), como muitos protocolos brasileiros. O site usa o corte de 27 kg (AHA). Entre 20 e 27 kg, os dois esquemas são aceitos." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "acrescenta", texto: "Penicilina benzatina na criança pequena: o guia calcula 50.000 UI/kg em dose única até 27 kg, sem passar de 600.000 UI; acima de 27 kg, 1.200.000 UI. Na prática dá o mesmo teto do site, com dose menor no lactente e pré-escolar de baixo peso." },
   ],
   "p-itu": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Cistite sem febre (criança maior): nitrofurantoína 5–7 mg/kg/dia ÷ 4 por 7–10 dias. Não serve para ITU febril nem pielonefrite (não atinge o rim)." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Sulfametoxazol-trimetoprima (≥ 6 semanas), se o germe for sensível: suspensão 200+40 mg/5 mL = 1 mL/kg/dia ÷ 2 (cerca de 8 mg/kg/dia de trimetoprima). A resistência da E. coli é alta: não usar às cegas." },
     { fonte: "GPP", tipo: "diverge", texto: "O guia ainda lista ácido nalidíxico. Ele está em desuso (pouca ação e resistência alta); o site não o inclui." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "diverge", texto: "Cefalexina acima de 20 kg: a tabela do guia traz 500 mg/kg/dia de 6/6 h, o que é erro de digitação. O correto é 500 mg por dose de 6/6 h (máx. 4 g/dia). Abaixo de 20 kg, 50–100 mg/kg/dia ÷ 4, como no site." },
   ],
   "p-meningite": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia escreve ceftriaxona 50–100 mg/kg por dose de 12/12 h (até 200 mg/kg/dia). O site mantém 100 mg/kg/dia (÷ 1–2; máx. 4 g/dia), que é a dose de meningite das diretrizes." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "acrescenta", texto: "Ampicilina na meningite (lactente e criança, ou para cobrir Listeria no < 3 meses): 200–400 mg/kg/dia EV ÷ 4 (6/6 h), máx. 12 g/dia. Fora da meningite, o guia usa 100–200 mg/kg/dia ÷ 4." },
   ],
   "p-pneumonia": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Alternativa à azitromicina na suspeita de atípica: claritromicina 15 mg/kg/dia ÷ 12/12 h (7,5 mg/kg/dose; máx. 500 mg/dose), a partir de 6 meses." },
@@ -115,6 +124,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "acrescenta", texto: "Montelucaste (se indicado pelo seguimento), à noite: 6 meses–5 anos 4 mg (sachê ou mastigável); 6–14 anos 5 mg." },
     { fonte: "MDR", tipo: "concorda", texto: "Nebulização com fenoterol 1 gota a cada 3 kg + ipratrópio (10 gotas < 1 ano; 20 gotas de 1 a 6 anos; 20–40 gotas > 6 anos), a cada 20 min, como no site." },
     { fonte: "MDR", tipo: "diverge", texto: "O guia divide a prednisolona em 12/12 h e aceita até 60 mg/dia. Na crise de asma, dose única diária com teto de 40 mg funciona igual e é o que o site usa." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "diverge", texto: "Ipratrópio: o guia calcula pelo peso (2 gotas a cada 3 kg, máx. 20 gotas = 0,25 mg). O site usa faixa de idade, chegando a 40 gotas (0,5 mg) acima de 6 anos, como as diretrizes de asma. As duas formas são seguras; acima de 6 anos o teto do site é o usual." },
   ],
   "p-convulsao": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia permite até 3 doses de diazepam com 15–30 min entre elas. O site segue as diretrizes de estado de mal: no máximo 2 doses de benzodiazepínico, com 5 min de intervalo, e depois a 2ª linha. Mais doses aumentam a depressão respiratória e atrasam o controle." },
@@ -122,6 +133,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "diverge", texto: "Manutenção (se internar): o guia escreve fenitoína 5 mg/kg por dose de 8/8–12/12 h. O total usual é 5–8 mg/kg/dia ÷ 2–3, a partir de 12–24 h do ataque. Fenobarbital: 3–5 mg/kg/dia ÷ 2, 12 h após o ataque." },
     { fonte: "MDR", tipo: "diverge", texto: "A tabela de PS do guia traz fenitoína 5–8 mg/kg EV de 8/8 h (15–24 mg/kg/dia) e velocidade de 1 mg/kg/hora. O ataque é 20 mg/kg a até 1 mg/kg/min (máx. 50 mg/min); a manutenção é 5–8 mg/kg/dia, dividida." },
     { fonte: "MDR", tipo: "diverge", texto: "Diazepam retal: o guia dobra a dose EV (0,6 mg/kg). O site usa 0,5 mg/kg, máx. 20 mg." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "diverge", texto: "Fenitoína de ataque: o guia aceita até 1.500 mg (20 mg/kg, no máximo 1 mg/kg/min). O site limita a 1 g na criança; no adolescente pesado, o teto de 1.500 mg (o mesmo do adulto) também é usado." },
   ],
   "p-anafilaxia": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia associa a adrenalina IM à anafilaxia com cianose ou estridor. As diretrizes indicam adrenalina IM em toda anafilaxia, logo no início, sem esperar sinais graves: é o que mais reduz a mortalidade." },
@@ -142,6 +155,9 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "acrescenta", texto: "Nitazoxanida 20 mg/mL (≥ 1 ano): 7,5 mg/kg/dose VO 12/12 h por 3 dias (≈ 0,4 mL/kg/dose), após refeição. Cobre giárdia, criptosporídio e alguns helmintos; pode escurecer a urina." },
     { fonte: "MDR", tipo: "acrescenta", texto: "Mebendazol 100 mg (5 mL) de 12/12 h por 3 dias, a partir de 1 ano e sem depender do peso; repetir em 7–10 dias. Oxiúros: pamoato de pirvínio 10 mg/mL, 1 mL/kg em dose única, repetir em 2–3 semanas (tinge as fezes de vermelho)." },
     { fonte: "MDR", tipo: "concorda", texto: "Secnidazol 30 mg/kg (1 mL/kg da suspensão 30 mg/mL) em dose única, máx. 2 g." },
+    // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
+    { fonte: "MPP", tipo: "acrescenta", texto: "Albendazol (≥ 2 anos) por 3 dias, 400 mg/dia, também para Hymenolepis nana e larva migrans. Giardíase: 400 mg/dia por 5 dias é alternativa ao metronidazol. Opistorquíase: 800 mg/dia por 3 dias." },
+    { fonte: "MPP", tipo: "acrescenta", texto: "Benzoilmetronidazol 40 mg/mL em esquema fixo para giárdia: 1–5 anos 5 mL 12/12 h; 5–10 anos 5 mL 8/8 h, por 5 dias. Amebíase: 0,5 mL/kg 6/6 h (cerca de 50 mg/kg/dia de metronidazol), 5–7 dias se intestinal e até 10 dias se abscesso hepático." },
   ],
   "p-estomatite": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Aftas: tópicos são só para alívio (ex.: pomada bucal com anestésico, 3x/dia por poucos dias). Benzidamina em bochecho só acima de 6 anos (precisa saber cuspir). O guia não indica triancinolona em orabase na criança." },
@@ -174,6 +190,11 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "PRV", tipo: "acrescenta", texto: "Dor moderada no PS: o guia monta dipirona 1 g EV + dexametasona 10 mg EV + diclofenaco 75 mg IM. O corticoide é só dose única no PS, nunca na receita de casa. Dipirona EV pode ser diluída até 20 mL de AD." },
     { fonte: "PRV", tipo: "diverge", texto: "Na receita de alta, o guia usa tramadol 50 mg de 6/6 h só se dor intensa que não cedeu ao esquema inicial; o site usa 8/8 h por até 3 dias. Os dois ficam abaixo de 400 mg/dia; usar pelo menor tempo possível." },
     { fonte: "PRV", tipo: "acrescenta", texto: "Alta para dor leve a moderada: dipirona 500 mg 1–2 cp 6/6 h se dor, e, se preciso, diclofenaco 50 mg 8/8 h por no máximo 5 dias." },
+  ],
+  // PED-02-01 (MPP) — reanimação pediátrica
+  "p-iot": [
+    { fonte: "MPP", tipo: "acrescenta", texto: "Adrenalina por via endotraqueal (só se não houver acesso EV/IO): 0,1 mg/kg = 0,1 mL/kg da ampola 1 mg/mL, sem diluir na seringa, 10 vezes a dose EV. Depois, 3–5 mL de SF pelo tubo e 5 ventilações. Entrou na prescrição do site." },
+    { fonte: "MPP", tipo: "concorda", texto: "Adrenalina EV/IO diluída (1 mL + 9 mL de SF, 0,1 mL/kg), amiodarona 5 mg/kg e atropina 0,02 mg/kg (mín. 0,1 mg; máx. 0,5 mg), como no site." },
   ],
 };
 
