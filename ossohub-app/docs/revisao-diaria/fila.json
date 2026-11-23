@@ -393,7 +393,10 @@
    "paginas": "1–2",
    "fonte": "HGWA",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-23",
+   "resumo": "Tabela HGWA comparada com a pediatria do PS: sem erro de dose no site. 14 notas HGWA (6 diverge, 8 acrescenta): soro de manutenção hipotônico × isotônico (AAP) e teto de volume, corte de 20 × 27 kg da benzatina, intervalos de penicilina/oxacilina, salina 3% à beira do leito, manutenção do fenobarbital, diluições de ceftriaxona/penicilina/midazolam, bromoprida EV, cetoprofeno, mebendazol e albendazol abaixo de 2 anos.",
+   "ids": ["p-febre", "p-desidratacao", "p-vomitos", "p-faringo", "p-pneumonia", "p-bronquiolite", "p-asma", "p-convulsao", "p-meningite", "p-anafilaxia", "p-parasitose"]
   },
   {
    "id": "ESP-03-01",

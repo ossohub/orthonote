@@ -80,6 +80,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "acrescenta", texto: "Ibuprofeno: além do teto de 40 mg/kg/dia, o guia limita a 1.200 mg/dia na criança acima de 30 kg (dose de venda livre). Doses maiores, só com indicação anti-inflamatória e acompanhamento." },
     { fonte: "MPP", tipo: "diverge", texto: "O guia lista tramadol para crianças (1–2 mg/kg/dose de 4/4–6/6 h, máx. 400 mg/dia). Hoje se evita tramadol abaixo de 12 anos e após amigdalectomia até 18 anos (metabolizadores rápidos podem ter depressão respiratória grave). O site não o inclui na pediatria." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Cetoprofeno gotas 20 mg/mL (1 gota ≈ 1 mg): 1 gota/kg/dose VO de 8/8 h, a partir de 1 ano. Mesmos cuidados do ibuprofeno (desidratação, dengue, varicela)." },
   ],
   "paracetamol-intox": [
     // PED-01-01 (MPP)
@@ -91,6 +93,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "MDR", tipo: "diverge", texto: "O guia ainda lista metoclopramida, e o número de dose do resumo do PS está errado (30–40 mg/kg). Se usar, é 0,1–0,15 mg/kg por dose, acima de 1 ano e como 2ª linha; o site prefere ondansetrona." },
     { fonte: "MDR", tipo: "diverge", texto: "Dimenidrinato: o guia libera desde o nascimento e indica a solução 12,5 mg/mL a 0,5 mL/kg (cerca de 6 mg/kg, dose 5 vezes maior que a usual de 1–1,25 mg/kg). A bula do Dramin® B6 libera a partir de 2 anos." },
     { fonte: "MDR", tipo: "concorda", texto: "Bromoprida a partir de 1 ano: gotas 4 mg/mL, 3–5 gotas/kg/dia divididas (cerca de 0,5–0,8 mg/kg/dia), máx. 30 gotas por dose." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Bromoprida EV (5 mg/mL): 0,1 mg/kg/dose = 0,02 mL/kg, até de 8/8 h. As gotas (1 gota/kg/dose 8/8 h) dão a mesma faixa do site. Vale o mesmo alerta de distonia; ondansetrona segue como 1ª escolha." },
   ],
   "p-oma": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia usa amoxicilina 50 mg/kg/dia (até 90). O site parte de 80–90 mg/kg/dia (dose alta, pela resistência do pneumococo). Em região de baixa resistência e sem fatores de risco, 50 mg/kg/dia é aceito." },
@@ -101,6 +105,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "diverge", texto: "O guia troca a dose da penicilina benzatina em 20 kg (até 20 kg: 600.000 UI; acima: 1.200.000 UI), como muitos protocolos brasileiros. O site usa o corte de 27 kg (AHA). Entre 20 e 27 kg, os dois esquemas são aceitos." },
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "acrescenta", texto: "Penicilina benzatina na criança pequena: o guia calcula 50.000 UI/kg em dose única até 27 kg, sem passar de 600.000 UI; acima de 27 kg, 1.200.000 UI. Na prática dá o mesmo teto do site, com dose menor no lactente e pré-escolar de baixo peso." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "diverge", texto: "O hospital usa corte de 20 kg para a benzatina (600.000 UI até 20 kg; 1.200.000 UI acima), como a diretriz brasileira de febre reumática. O site segue o corte de 27 kg (AHA). As duas formas são aceitas." },
   ],
   "p-itu": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Cistite sem febre (criança maior): nitrofurantoína 5–7 mg/kg/dia ÷ 4 por 7–10 dias. Não serve para ITU febril nem pielonefrite (não atinge o rim)." },
@@ -113,9 +119,14 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "diverge", texto: "O guia escreve ceftriaxona 50–100 mg/kg por dose de 12/12 h (até 200 mg/kg/dia). O site mantém 100 mg/kg/dia (÷ 1–2; máx. 4 g/dia), que é a dose de meningite das diretrizes." },
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "acrescenta", texto: "Ampicilina na meningite (lactente e criança, ou para cobrir Listeria no < 3 meses): 200–400 mg/kg/dia EV ÷ 4 (6/6 h), máx. 12 g/dia. Fora da meningite, o guia usa 100–200 mg/kg/dia ÷ 4." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Ceftriaxona EV: reconstituir a 100 mg/mL, rediluir a 10 mg/mL em SF e correr em 30 min. O hospital faz 100 mg/kg/dia em dose única diária." },
   ],
   "p-pneumonia": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Alternativa à azitromicina na suspeita de atípica: claritromicina 15 mg/kg/dia ÷ 12/12 h (7,5 mg/kg/dose; máx. 500 mg/dose), a partir de 6 meses." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "diverge", texto: "Penicilina cristalina 200.000 UI/kg/dia e oxacilina 200 mg/kg/dia: a tabela divide de 4/4 h (6 doses); o site divide de 6/6 h. Ambos os intervalos são usados; nos casos graves, preferir 4/4 h. Tempo de tratamento da pneumonia: 7–10 dias." },
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Diluição da penicilina cristalina: rediluir a 50.000 UI/mL abaixo de 1 ano e a 100.000 UI/mL acima de 1 ano. Sem acesso venoso, a penicilina procaína 50.000 UI/kg/dia IM 1x/dia é opção." },
   ],
   "p-asma": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia propõe adrenalina nebulizada na asma grave. As diretrizes de asma não a recomendam (ela é do crupe): na crise grave, manter beta-2 + ipratrópio, corticoide e sulfato de magnésio. Adrenalina/terbutalina SC 0,01 mg/kg só se não houver como inalar." },
@@ -126,6 +137,8 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "MDR", tipo: "diverge", texto: "O guia divide a prednisolona em 12/12 h e aceita até 60 mg/dia. Na crise de asma, dose única diária com teto de 40 mg funciona igual e é o que o site usa." },
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "diverge", texto: "Ipratrópio: o guia calcula pelo peso (2 gotas a cada 3 kg, máx. 20 gotas = 0,25 mg). O site usa faixa de idade, chegando a 40 gotas (0,5 mg) acima de 6 anos, como as diretrizes de asma. As duas formas são seguras; acima de 6 anos o teto do site é o usual." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "diverge", texto: "A tabela mantém prednisolona 1–2 mg/kg/dia por 5–7 dias na asma; o site usa 3–5 dias (GINA). Ela também nebuliza o fenoterol com 5 mL de SF e traz beclometasona nebulizada (Clenil A®) 1 mL + 5 mL de SF de 12/12 h como manutenção; o spray com espaçador continua sendo a escolha." },
   ],
   "p-convulsao": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia permite até 3 doses de diazepam com 15–30 min entre elas. O site segue as diretrizes de estado de mal: no máximo 2 doses de benzodiazepínico, com 5 min de intervalo, e depois a 2ª linha. Mais doses aumentam a depressão respiratória e atrasam o controle." },
@@ -135,9 +148,13 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "MDR", tipo: "diverge", texto: "Diazepam retal: o guia dobra a dose EV (0,6 mg/kg). O site usa 0,5 mg/kg, máx. 20 mg." },
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "diverge", texto: "Fenitoína de ataque: o guia aceita até 1.500 mg (20 mg/kg, no máximo 1 mg/kg/min). O site limita a 1 g na criança; no adolescente pesado, o teto de 1.500 mg (o mesmo do adulto) também é usado." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Fenobarbital: o ataque vai de 10 a 20 mg/kg EV; a manutenção é 3–4 mg/kg/dia EV ou IM, 1x/dia ou de 12/12 h, começando 12–24 h depois. Midazolam: diluir 1 mL (5 mg) em 4 mL de AD (fica 1 mg/mL) facilita medir a dose de 0,1–0,3 mg/kg." },
   ],
   "p-anafilaxia": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia associa a adrenalina IM à anafilaxia com cianose ou estridor. As diretrizes indicam adrenalina IM em toda anafilaxia, logo no início, sem esperar sinais graves: é o que mais reduz a mortalidade." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "diverge", texto: "A tabela permite difenidramina 1–2 mg/kg/dose EV de 6/6 h. O site mantém 1 mg/kg (máx. 50 mg por dose), faixa usual mais segura (sedação e efeito paradoxal)." },
   ],
   "p-alergia": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Dexclorfeniramina 0,4 mg/mL (≥ 2 anos): 0,15–0,2 mg/kg/dia ÷ 3 (máx. 3 mg/dia de 2 a 6 anos; 6 mg/dia de 6 a 12). Dá sono, como prometazina e hidroxizina." },
@@ -158,6 +175,9 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     // PED-02-01 — Guia Rápido de Medicamentos em Pediatria (MPP)
     { fonte: "MPP", tipo: "acrescenta", texto: "Albendazol (≥ 2 anos) por 3 dias, 400 mg/dia, também para Hymenolepis nana e larva migrans. Giardíase: 400 mg/dia por 5 dias é alternativa ao metronidazol. Opistorquíase: 800 mg/dia por 3 dias." },
     { fonte: "MPP", tipo: "acrescenta", texto: "Benzoilmetronidazol 40 mg/mL em esquema fixo para giárdia: 1–5 anos 5 mL 12/12 h; 5–10 anos 5 mL 8/8 h, por 5 dias. Amebíase: 0,5 mL/kg 6/6 h (cerca de 50 mg/kg/dia de metronidazol), 5–7 dias se intestinal e até 10 dias se abscesso hepático." },
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "diverge", texto: "O hospital não usa albendazol abaixo de 2 anos e faz 400 mg/dia por 3 dias. O site segue a OMS: 200 mg de 1 a 2 anos. Metronidazol: a tabela usa 40 mg/kg/dia ÷ 8/8 h por 5–7 dias para ameba e giárdia; na giárdia, 15 mg/kg/dia já basta (site)." },
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Mebendazol (100 mg/5 mL ou cp 100 mg): 100 mg VO de 12/12 h por 3 dias, com novo ciclo após 7 dias. Opção ao albendazol para ascaris, ancilostomo e oxiúros (não trata giárdia)." },
   ],
   "p-estomatite": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Aftas: tópicos são só para alívio (ex.: pomada bucal com anestésico, 3x/dia por poucos dias). Benzidamina em bochecho só acima de 6 anos (precisa saber cuspir). O guia não indica triancinolona em orabase na criança." },
@@ -195,6 +215,15 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   "p-iot": [
     { fonte: "MPP", tipo: "acrescenta", texto: "Adrenalina por via endotraqueal (só se não houver acesso EV/IO): 0,1 mg/kg = 0,1 mL/kg da ampola 1 mg/mL, sem diluir na seringa, 10 vezes a dose EV. Depois, 3–5 mL de SF pelo tubo e 5 ventilações. Entrou na prescrição do site." },
     { fonte: "MPP", tipo: "concorda", texto: "Adrenalina EV/IO diluída (1 mL + 9 mL de SF, 0,1 mL/kg), amiodarona 5 mg/kg e atropina 0,02 mg/kg (mín. 0,1 mg; máx. 0,5 mg), como no site." },
+  ],
+  "p-desidratacao": [
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "A expansão de 20 mL/kg de SF 0,9% pode correr em 20–60 min conforme o quadro: mais rápido no choque, mais devagar em cardiopata ou desnutrido grave. Reavaliar após cada bolus." },
+    { fonte: "HGWA", tipo: "diverge", texto: "Na hidratação de manutenção, o hospital acrescenta ao soro glicosado NaCl 20% (3,4 mEq/mL) para 3 mEq de Na e KCl 10% (1,34 mEq/mL) para 2–3 mEq de K a cada 100 mL do volume de Holliday-Segar, com teto de 2.000 mL/dia. Isso dá um soro hipotônico (≈ 30 mEq/L de Na). A AAP (2018) prefere soro isotônico (Na 130–154 mEq/L, com glicose e K) de 28 dias a 18 anos, pelo risco de hiponatremia. A calculadora do site não aplica teto: acima de ~45 kg, limitar em 2.000–2.400 mL/dia." },
+  ],
+  "p-bronquiolite": [
+    // PED-03-01 — HGWA (tabela de diluição do Hosp. Waldemar Alcântara)
+    { fonte: "HGWA", tipo: "acrescenta", texto: "Para fazer salina 3% à beira do leito: 2,8 mL de água destilada + 0,5 mL de NaCl 20%, nebulizar de 8/8 h. O hospital junta fenoterol (1 gota/3 kg, máx. 10) para evitar broncoespasmo pela solução hipertônica. Uso só em internados, como o site já orienta." },
   ],
 };
 

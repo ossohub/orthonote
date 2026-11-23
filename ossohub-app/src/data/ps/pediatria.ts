@@ -27,7 +27,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Dipirona 500 mg/mL — ampola 2 mL", p: "15–25 mg/kg EV diluída em 10 mL SF/AD ou IM (máx. 1 g).", k: { d: [15, 25], max: 1000, c: 500, f: "mL" } },
       ]},
     ],
-    fontes: ["GPP", "MPP", "PSZ"],
+    fontes: ["GPP", "MPP", "PSZ", "HGWA"],
   },
   {
     id: "p-desidratacao", titulo: "Diarreia aguda e desidratação (Planos A, B e C)", area: "pediatria", sistema: "Gastrointestinal",
@@ -60,7 +60,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Ceftriaxona 1 g", p: "50–100 mg/kg/dia EV/IM 1x/dia por 3–5 dias (internação).", k: { d: [50, 100], max: 2000 } },
       ]},
     ],
-    fontes: ["GPP", "MPP"],
+    fontes: ["GPP", "MPP", "HGWA"],
   },
   {
     id: "p-vomitos", titulo: "Vômitos", area: "pediatria", sistema: "Gastrointestinal",
@@ -77,7 +77,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Bromoprida gotas 4 mg/mL (24 gotas/mL)", p: "0,5–1 mg/kg/dia ÷ 3 VO (> 1 ano).", k: { d: [0.5, 1], por: "dia", n: 3, max: 10, c: 4, f: "gotas", gpm: 24 }, o: "Risco de distonia." },
       ]},
     ],
-    fontes: ["GPP", "MPP"],
+    fontes: ["GPP", "MPP", "HGWA"],
   },
   {
     id: "p-oma", titulo: "Otite média aguda", area: "pediatria", sistema: "Otorrino",
@@ -114,7 +114,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Azitromicina 200 mg/5 mL", p: "12 mg/kg/dia VO 1x/dia por 5 dias.", k: { d: 12, max: 500, c: 40, f: "mL" }, o: "Alérgicos." },
       ]},
     ],
-    fontes: ["GPP", "MPP"],
+    fontes: ["GPP", "MPP", "HGWA"],
   },
   {
     id: "p-sinusite", titulo: "Rinossinusite bacteriana", area: "pediatria", sistema: "Otorrino",
@@ -152,7 +152,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Oxacilina 500 mg", p: "150–200 mg/kg/dia EV ÷ 4 (suspeita de estafilococo/empiema).", k: { d: [150, 200], por: "dia", n: 4, max: 2000 } },
       ]},
     ],
-    fontes: ["GPP", "PSZ"],
+    fontes: ["GPP", "PSZ", "HGWA"],
   },
   {
     id: "p-asma", titulo: "Crise de asma / sibilância", area: "pediatria", sistema: "Respiratório",
@@ -180,7 +180,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Budesonida spray 200 mcg (ou beclometasona)", p: "Manter corticoide inalatório e encaminhar ao seguimento." },
       ]},
     ],
-    fontes: ["GPP", "PSZ", "MPP"],
+    fontes: ["GPP", "PSZ", "MPP", "HGWA"],
   },
   {
     id: "p-bronquiolite", titulo: "Bronquiolite viral aguda", area: "pediatria", sistema: "Respiratório",
@@ -198,7 +198,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Paracetamol gotas 200 mg/mL", p: "10–15 mg/kg/dose se febre.", k: { d: [10, 15], max: 750, c: 200, f: "gotas", gpm: 15 } },
       ]},
     ],
-    fontes: ["GPP"],
+    fontes: ["GPP", "HGWA"],
   },
   {
     id: "p-crupe", titulo: "Laringite viral (crupe)", area: "pediatria", sistema: "Respiratório",
@@ -239,7 +239,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Soro glicosado 10%", p: "2–5 mL/kg EV em bolus.", k: { d: [2, 5], u: "mL" } },
       ]},
     ],
-    fontes: ["GPP", "PSZ", "MPP"],
+    fontes: ["GPP", "PSZ", "MPP", "HGWA"],
   },
   {
     id: "p-itu", titulo: "Infecção do trato urinário", area: "pediatria", sistema: "Genitourinário",
@@ -281,7 +281,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Hidrocortisona 100 mg", p: "5–10 mg/kg EV (máx. 500 mg).", k: { d: [5, 10], max: 500 } },
       ]},
     ],
-    fontes: ["GPP", "PSZ"],
+    fontes: ["GPP", "PSZ", "HGWA"],
   },
   {
     id: "p-alergia", titulo: "Urticária / reação alérgica leve", area: "pediatria", sistema: "Alergia",
@@ -340,7 +340,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Secnidazol 450 mg/15 mL", p: "30 mg/kg VO dose única (giárdia; máx. 2 g).", k: { d: 30, max: 2000, c: 30, f: "mL" } },
       ]},
     ],
-    fontes: ["GPP", "MPP"],
+    fontes: ["GPP", "MPP", "HGWA"],
   },
   {
     id: "p-estomatite", titulo: "Estomatite / aftas / herpangina", area: "pediatria", sistema: "Otorrino",
@@ -415,7 +415,7 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Rifampicina 20 mg/mL", p: "< 1 mês: 5 mg/kg; ≥ 1 mês: 10 mg/kg VO 12/12 h por 2 dias (máx. 600 mg/dose).", k: { d: 10, max: 600, c: 20, f: "mL" } },
       ]},
     ],
-    fontes: ["PSZ", "GPP", "MPP"],
+    fontes: ["PSZ", "GPP", "MPP", "HGWA"],
   },
   {
     id: "p-tsv", titulo: "Taquicardia supraventricular", area: "pediatria", sistema: "Cardiovascular",
