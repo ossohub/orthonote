@@ -46,7 +46,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 2. Buckets com leitura pública incluem `post-images`, `post-videos`, `question-images) e `orthonote-assets`. A classificação de dados e a possibilidade de mídia clínica identificável devem ser revisadas.
 3. Buckets privados incluem `post-media`, `procedimento-figuras` e `room-images`; validar policies de leitura, upload, atualização e remoção por papel e vínculo.
 4. RLS está habilitado nas tabelas públicas inspecionadas, mas isso não comprova a correção das policies. Algumas tabelas têm somente uma policy; revisar cada operação e relações entre usuário, equipe, preceptor e proprietário.
-5. Existem funções PostgreSQL com `SECURITY DEFINER`. Auditar owner, `search_path`, grants de EXECUTE e validação de identidade/ownership.
+5. Foram identificadas 21 funções `SECURITY DEFINER`, todas pertencentes a `postgres`, com `search_path=public`; `anon` não possui EXECUTE e `authenticated` possui EXECUTE. Os papéis `anon` e `authenticated` não têm privilégio CREATE no schema `public`, reduzindo o risco de shadowing por esses papéis, mas ainda é recomendável revisar a lógica de ownership e considerar `search_path` mais restrito/objetos qualificados.
 
 **Ação:** produzir matriz de acesso por tabela e bucket; não alterar policies ou arquivos existentes antes de testes de regressão e classificação de dados.
 
