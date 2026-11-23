@@ -26,39 +26,37 @@ A policy `rx_images_select_all` permite SELECT público (`USING true`). Dado o m
 
 Bucket público, sem limite de tamanho ou MIME configurado; a policy `orthonote_assets_temp_upload` permite INSERT para `anon` sem prefixo ou ownership. A inspeção do catálogo encontrou **zero objetos** no bucket, e a busca de código no repositório não encontrou referência a `orthonote-assets`. Isso sugere que a permissão é legada e atualmente sem uso, mas não prova que não existam clientes externos.
 
-**Ação recomendada:** remover a policy anônima após confirmar que nenhuma integração externa depende dela. Preservar o bucket e sua leitura pública até verificar consumidores. O SQL de remoção foi preparado como proposta, não executado.
+**Ação executada em desenvolvimento:** removida a policy anônima de INSERT; a policy pública de SELECT foi preservada. A mudança foi testada no projeto de desenvolvimento e não foi aplicada em produção.
 
 ### P1 — segredo de cron aceito em query string
 
-`src/app/api/internal/cron/resident-risk/route.ts` aceita `?secret=...` como alternativa ao header Bearer. Segredos em URL podem aparecer em logs, histórico, observabilidade e sistemas intermediários.
+`src/app/api/internal/cron/resident-risk/route.ts` aceitava `?secret=...` como alternativa ao header Bearer. Segredos em URL podem aparecer em logs, histórico, observabilidade e sistemas intermediários.
 
-**Ação recomendada:** aceitar somente `Authorization: Bearer`, manter comparação em tempo constante e rotacionar o segredo após remover a compatibilidade, se houver uso anterior de query string.
+**Ação executada na branch:** o endpoint aceita somente `Authorization: Bearer`. A correção está no Preview, sem publicação em produção.
 
 ### P1 — superfície de privilégio de funções SECURITY DEFINER
 
 Foram identificadas 21 funções SECURITY DEFINER no schema `public`, todas com owner `postgres`, `search_path=public` e EXECUTE concedido a `authenticated`; a verificação efetiva confirmou EXECUTE negado a `anon` nas 21. Nenhuma das 21 usa SQL dinâmico. A maioria valida `auth.uid()` diretamente ou delega a helpers que o fazem. `get_pending_posts` e `moderate_post` usam `app_private.is_admin()`.
 
-Foi identificado um caso específico: `is_team_active_resident(p_team_id, p_resident_id)` retorna apenas se o residente está ativo na equipe, sem restringir quem pode consultar esse booleano. A função é usada pela policy de INSERT de `resident_evaluations`, que também exige `preceptor_id = auth.uid()` e `is_team_preceptor(team_id)`. A busca no repositório não encontrou chamadas diretas do frontend. Recomenda-se reforçar a função para só responder `true` quando o chamador for o próprio residente ou o preceptor da equipe; a mudança precisa ser testada contra a policy antes de aplicar.
+Foi identificado um caso específico: `is_team_active_resident(p_team_id, p_resident_id)` retornava apenas se o residente estava ativo na equipe, sem restringir quem podia consultar esse booleano. A função é usada pela policy de INSERT de `resident_evaluations`, que também exige `preceptor_id = auth.uid()` e `is_team_preceptor(team_id)`.
 
-As outras funções auxiliares sem `auth.uid()` direto (`browse_teams_directory`, `get_pending_posts`, `is_room_participant`, `is_room_preceptor`) têm gates/delegações específicos e não foram classificadas como vulneráveis apenas pela ausência textual de `auth.uid()`. `search_path=public` merece endurecimento, mas `anon` e `authenticated` não possuem CREATE em `public` nem em `app_private`, reduzindo o risco de shadowing por esses papéis.
-
-**Ação recomendada:** corrigir `is_team_active_resident`, manter revisão de cada RPC e testar grants/ownership. Não foram alterados privilégios.
+**Ação executada em desenvolvimento:** a função agora só retorna verdadeiro quando o chamador é o próprio residente ou o preceptor da equipe e o vínculo está ativo. A verificação de privilégios confirmou que `anon` não pode executar a função e `authenticated` mantém EXECUTE para uso pelas policies. Os demais RPCs SECURITY DEFINER não foram revogados em massa.
 
 ### P2 — middleware e autenticação por cliente
 
-O middleware usa `pathname.startsWith()` para os seis prefixos listados e não cobre explicitamente todas as rotas privadas. O layout principal não valida sessão no servidor. Páginas como edição de perfil e moderação fazem checagem client-side; no caso de moderação, o próprio código documenta que a RPC `moderate_post` é a barreira real.
+O middleware inicial usava `pathname.startsWith()` para os seis prefixos listados e não cobria explicitamente todas as rotas privadas. O layout principal não validava sessão no servidor. Páginas como edição de perfil e moderação faziam checagem client-side; no caso de moderação, o próprio código documentava que a RPC `moderate_post` é a barreira real.
 
-**Ação recomendada:** centralizar validação de sessão no servidor para áreas privadas, mantendo RLS/RPC como autorização final. Construir matriz por rota com estado anônimo/autenticado/autor/admin e testar acesso direto por URL e chamada direta de API.
+**Ação executada na branch:** `src/middleware.ts` foi substituído por `src/proxy.ts`, protegendo as rotas do grupo `(main)` com comparação por segmento. O callback OAuth valida o destino de redirecionamento e rejeita destinos externos e caminhos com barras invertidas. A matriz completa de rotas ainda exige revisão individual.
 
 ## 3. APIs inspecionadas
 
 | Endpoint | Controle observado | Observação |
 |---|---|---|
 | `POST /api/automation/posts` | Bearer `AUTOMATION_API_KEY`, comparação timing-safe, payload Zod, autor fixo em env | Usa service_role; manter segredo fora do cliente e validar URLs de mídia conforme política de conteúdo |
-| `GET/POST /api/internal/cron/resident-risk` | Bearer `CRON_SECRET` + fallback query string | Remover fallback de query string |
+| `GET/POST /api/internal/cron/resident-risk` | Bearer `CRON_SECRET` | Fallback por query string removido na branch |
 | `GET /api/v1/resident/[user_id]/risk` | `auth.getUser()`, comparação do ID com sessão, consentimento antes do admin client | Fluxo de autorização explícito; monitorar exposição/retorno de inferências sensíveis |
 | `GET/POST /api/v1/resident/consent` | identidade derivada da sessão; escrita com service_role filtrada por user.id | Validar versionamento do termo e evitar aceitar versão arbitrária do cliente |
-| `GET /auth/callback` | troca code por sessão; lê CRM do próprio user.id | Validar allowlist de destinos de redirect e cobrir testes de OAuth |
+| `GET /auth/callback` | troca code por sessão; lê CRM do próprio user.id | Redirect agora validado contra destinos externos |
 
 ## 4. Storage — estado consultado
 
@@ -66,69 +64,67 @@ Buckets públicos: `mensuracao-figuras`, `orthonote-assets`, `post-images`, `pos
 
 Buckets privados: `post-media`, `procedimento-figuras`, `room-images`.
 
-A policy `question-images` permite INSERT apenas quando `auth.role() = authenticated`; leitura pública é coerente com o bucket público. `procedure_images_select_public` restringe a leitura às imagens marcadas como públicas e não ocultas. A policy anônima de `orthonote-assets` é o ponto de maior atenção.
+A policy `question-images` permite INSERT apenas quando `auth.role() = authenticated`; leitura pública é coerente com o bucket público. A policy `procedure_images_select_public` restringe a leitura às imagens marcadas como públicas e não ocultas. A policy anônima de `orthonote-assets` foi removida apenas em desenvolvimento.
 
 A classificação pública do bucket e a policy SQL são controles distintos: ambos precisam ser considerados. Não foram testadas URLs individuais nem baixados objetos.
 
 ## 5. RLS — leitura de metadados
 
-Na consulta atual foram retornadas 105 policies em `public` e 19 em `storage`. Há policies atribuídas ao papel PostgreSQL `public`, o que inclui solicitações anon e authenticated; isso não significa acesso irrestrito quando a expressão usa `auth.uid()` ou `auth.role()`. As condições efetivas precisam ser avaliadas por tabela.
+Na consulta inicial foram retornadas 105 policies em `public` e 19 em `storage`. Há policies atribuídas ao papel PostgreSQL `public`, o que inclui solicitações anon e authenticated; isso não significa acesso irrestrito quando a expressão usa `auth.uid()` ou `auth.role()`. As condições efetivas precisam ser avaliadas por tabela.
 
-Exceção concreta identificada: `rx_images_select_all` usa `USING (true)` para `anon` e `authenticated`.
-
-A consulta anterior também indicou grants SQL amplos para os papéis de API. Grants não substituem RLS: a segurança depende da combinação de privilégios, RLS, policies e funções SECURITY DEFINER.
+Exceção concreta identificada: `rx_images_select_all` usa `USING (true)` para `anon` e `authenticated`, comportamento mantido para as figuras de mensuração.
 
 ## 6. Migrações e integridade do histórico
 
-Foram localizados seis scripts SQL legados em `ossohub-app/supabase/`: `schema.sql` e cinco arquivos `migration_*.sql`. Eles não representam o histórico real do projeto. O Supabase registra **60 migrações aplicadas** entre 2026-07-16 e 2026-11-20, incluindo hardening de RLS, Storage, funções e módulos posteriores. Não há diretório `supabase/migrations/` no repositório atual.
+Foram localizados scripts SQL legados em `ossohub-app/supabase/`, incluindo `schema.sql` e arquivos `migration_*.sql`. Eles não representam o histórico real do projeto. O Supabase registra 60 migrações aplicadas entre 2026-07-16 e 2026-11-20. Não havia diretório `supabase/migrations/` no repositório.
 
-Há divergência entre a documentação SQL legada e o estado real; alguns scripts antigos não são idempotentes. Não executar esses arquivos diretamente nem usá-los como fonte única de reconstrução. A modernização precisa primeiro estabelecer uma linha de base versionada e reconciliar o schema real com as 60 entradas do histórico.
+A branch de desenvolvimento recém-criada não reproduziu integralmente o schema de produção porque existem objetos criados fora do histórico versionado. A recuperação controlada foi suficiente para testar o escopo desta migração, mas **não estabelece paridade integral de schema**. Antes de novas migrações que dependam do módulo de provas/questões, deve-se versionar e reconciliar os scripts legados `migration_banco_questoes.sql`, `migration_desempenho.sql` e `migration_residencias_salas_provas.sql` com o histórico real.
 
-## 7. Plano de correção — sem execução nesta etapa
+## 7. Plano de correção remanescente
 
-1. Validar conteúdo e finalidade de `rx_images`; tratar como potencial dado sensível.
-2. Planejar substituição do upload anônimo em `orthonote-assets`.
-3. Remover segredo por query string no cron após confirmar consumidores e rotacionar credencial.
-4. Revisar as 21 funções SECURITY DEFINER e grants de EXECUTE individualmente.
-5. Completar matriz de 47 rotas, layouts, Server Actions e Route Handlers.
-6. Reconciliar os seis SQL versionados com o catálogo e histórico real de migrations.
-7. Adicionar testes automatizados de autorização/RLS e fluxos críticos antes de mudanças funcionais.
+1. Inspecionar visualmente os ativos de mensuração em ambiente controlado e confirmar a classificação pública.
+2. Completar matriz de 47 rotas, layouts, Server Actions e Route Handlers.
+3. Revisar as demais funções SECURITY DEFINER e seus grants individualmente; não revogar em massa.
+4. Reconciliar os scripts SQL legados com o catálogo e o histórico real de migrations.
+5. Adicionar testes automatizados de autorização/RLS e fluxos críticos.
+6. Gerar e revisar `package-lock.json` para builds reproduzíveis.
 
-## 8. Garantias desta auditoria
+## 8. Garantias e limites
 
-- Nenhuma escrita no banco ou Storage.
-- Nenhuma policy, função, tabela ou bucket alterado.
-- Nenhuma variável de ambiente, segredo, domínio ou alias alterado.
-- Nenhuma alteração na branch main ou deployment de produção.
-- Este documento é uma análise técnica, não um pentest completo; não foram executados testes de exploração nem acessados dados pessoais de pacientes.
+- Nenhuma escrita no banco ou Storage de produção.
+- Nenhuma policy, função, tabela ou bucket alterado em produção.
+- Nenhuma variável de ambiente, segredo, domínio ou alias de produção alterado.
+- Nenhum merge realizado; nenhuma implantação de produção disparada.
+- Este documento é uma auditoria técnica, não um pentest completo; não foram executados testes de exploração nem acessados dados pessoais de pacientes.
 
-
-## 9. Correções aplicadas no código da branch (não publicadas)
+## 9. Correções de código na branch e Preview
 
 - `src/middleware.ts` foi substituído por `src/proxy.ts`, conforme a convenção do Next.js 16.
-- O Proxy agora protege as rotas do grupo `(main)` e usa comparação por segmento (`/rota` ou `/rota/...`) para evitar falsos positivos como `/profile-public`.
-- O callback OAuth agora valida o destino de redirecionamento e rejeita destinos externos e caminhos com barras invertidas.
-- O endpoint de cron não aceita mais segredo pela query string; somente `Authorization: Bearer`.
-
-Essas alterações estão na branch de auditoria e devem passar pelo Preview/build antes de qualquer merge. Referência da migração de middleware para Proxy: https://nextjs.org/docs/app/api-reference/file-conventions/proxy.
-
-
-## 11. Dependências e qualidade de build
-
-- O Preview identificou o advisory HIGH `GHSA-mrhx-c7xc-m3w5` em Zod < 4.6.6. O advisory não possui correção na linha Zod 3; a correção disponível é Zod 4.6.6+. A branch foi atualizada para Zod 4.6.7 e `@hookform/resolvers` 7.0.8.
-- A execução de `npm audit --audit-level=high` após a atualização reportou **0 vulnerabilidades** (build de Preview, sem publicação em produção).
-- ESLint foi alinhado ao Next 16 com flat config e versão 10.15.0. O script `prebuild` passou a executar audit, lint e typecheck antes do build.
-- A primeira lintagem encontrou 32 erros e 31 avisos, majoritariamente regras novas do React Compiler aplicadas a padrões antigos. As regras de sincronização de estado em effects, imutabilidade, pureza e bibliotecas incompatíveis foram mantidas como warnings transitórios. O uso de `watch()` no formulário de cadastro foi trocado por `useWatch()` para remover uma incompatibilidade concreta com o React Compiler.
-- Permanecem warnings de variáveis não utilizadas, imagens `<img>` e padrões antigos de efeitos. Não foram silenciados globalmente.
-- O repositório ainda não contém lockfile; o Vercel executa `npm install`. Gerar e revisar `package-lock.json` é pendência antes de exigir builds reproduzíveis com `npm ci`.
-
-Advisory: https://github.com/advisories/GHSA-mrhx-c7xc-m3w5.
-
-
-### Atualização final da validação de Preview
-
-- ESLint foi fixado em `9.39.5`, compatível com os peer ranges atuais dos plugins usados por `eslint-config-next@16.4.6`; ESLint 10 gerava conflitos de peer com os plugins de import, JSX accessibility e React.
-- O relatório de lint permanece não bloqueante e mostra warnings de imagens `<img>`, variáveis não utilizadas e regras do React Compiler em padrões legados. Isso é dívida técnica visível, não um lint limpo; a refatoração será gradual.
-- `npm audit --audit-level=high` reportou 0 vulnerabilidades; `tsc --noEmit` e `next build` concluíram com sucesso no Preview do commit `59d3653`.
-- Next.js 16.4.6 sinaliza que React 18 está depreciado e será removido no Next 17. A migração para React 19 deve ser uma etapa separada, com regressão de formulários, auth e componentes Radix, não uma atualização oportunista junto destas correções de segurança.
+- O Proxy protege as rotas do grupo `(main)` e usa comparação por segmento (`/rota` ou `/rota/...`) para evitar falsos positivos como `/profile-public`.
+- O callback OAuth valida o destino de redirecionamento e rejeita destinos externos e caminhos com barras invertidas.
+- O endpoint de cron não aceita segredo pela query string; somente `Authorization: Bearer`.
+- O advisory HIGH `GHSA-mrhx-c7xc-m3w5` em Zod < 4.6.6 foi corrigido com Zod 4.6.7 e `@hookform/resolvers` 7.0.8.
+- `npm audit --audit-level=high` reportou 0 vulnerabilidades.
+- ESLint foi fixado em `9.39.5`, compatível com os plugins atuais. O lint permanece não bloqueante e ainda mostra warnings legados de imagens `<img>`, variáveis não utilizadas e regras do React Compiler; não é um lint limpo.
+- `tsc --noEmit` e `next build` concluíram com sucesso no Preview do commit `a9b81fca6f4718f163720ef5c15d1aa3ac7843cd`.
+- Next.js 16.4.6 sinaliza que React 18 está depreciado e será removido no Next 17. A migração para React 19 deve ser uma etapa separada, com regressão de formulários, auth e componentes Radix.
 - O repositório continua sem lockfile; gerar e revisar `package-lock.json` permanece pendente.
+
+## 10. Validação final de hardening no banco de desenvolvimento — 23/11/2026
+
+A proposta de hardening foi aplicada e verificada somente no Supabase `ossohub-development` (project ref `jcotcvxopmlwzkopmply`). A migração `ossohub_security_performance_hardening` foi registrada como `20261123030744` e também foi versionada no repositório em `supabase/migrations/20261123030744_ossohub_security_performance_hardening.sql`.
+
+Verificações:
+- `orthonote_assets_temp_upload` não aparece mais em `pg_policies`; `orthonote_assets_public_read` permanece.
+- `procedure_images` tem policy SELECT separada para `anon` (somente pública e não oculta) e `authenticated` (pública ou admin).
+- `rx_images_created_by_idx` existe.
+- RLS está habilitado em `teams`, `team_members`, `procedure_images` e `rx_images`.
+- `anon` não tem EXECUTE em `is_team_active_resident`; `authenticated` mantém EXECUTE para uso pelas policies.
+- Advisors foram executados após a mudança. O alerta de RLS sem policy em `vh_conexao` permaneceu sem alteração por falta de modelo de acesso aprovado. Alertas de SECURITY DEFINER para authenticated e índices não utilizados foram preservados para revisão individual; nenhum privilégio ou índice foi removido em massa.
+- O advisor de performance não reporta mais ausência de índice para `rx_images.created_by`.
+
+A branch não tem paridade integral de schema com produção. Objetos do módulo de residências/questões foram criados fora do histórico de migrações e a sincronização automática falhou ao tentar reconstruí-los. A validação usou estrutura mínima de desenvolvimento sem dados de produção para os objetos necessários ao escopo desta correção. A tabela `rx_images` foi recriada sem os 58 registros de referência; a validação foi estrutural e de políticas, não visual.
+
+**Produção permanece intacta.** Nenhuma migração foi aplicada ao projeto `tgmnyhwcvhoatwxwidlq`, nenhum merge foi realizado e nenhuma implantação de produção foi disparada.
+
+Relatório complementar: `DATABASE_VALIDATION_2026-11-23.md`.
