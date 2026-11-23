@@ -454,15 +454,20 @@ alter table public.resident_evaluations enable row level security;
 create or replace function public.is_team_active_resident(p_team_id uuid, p_resident_id uuid)
 returns boolean
 language sql
-security definer
-set search_path = public
 stable
-as $$
-  select exists (
-    select 1 from public.team_members
-    where team_id = p_team_id and resident_id = p_resident_id and status = 'active'
-  );
-$$;
+security definer
+set search_path = pg_catalog, public
+as $
+  select
+    (auth.uid() = p_resident_id or public.is_team_preceptor(p_team_id))
+    and exists (
+      select 1
+      from public.team_members
+      where team_id = p_team_id
+        and resident_id = p_resident_id
+        and status = 'active'
+    );
+$;
 
 create policy "Residente ou preceptor que avaliou vê a avaliação"
   on public.resident_evaluations for select
