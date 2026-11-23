@@ -18,11 +18,12 @@ A branch recebeu a migração `ossohub_security_performance_hardening`, registra
 - `orthonote_assets_temp_upload` não aparece mais em `pg_policies`.
 - `orthonote_assets_public_read` permanece, sem alteração.
 - `procedure_images` tem duas policies SELECT separadas por papel: uma para `anon`, outra para `authenticated`.
-- `rx_images_created_by_idx` existe e cobre `created_by`.
+- `rx_images_created_by_idx` e `procedure_images_created_by_idx` existem.
 - RLS continua habilitado em `teams`, `team_members`, `procedure_images` e `rx_images`.
 - `anon` não tem EXECUTE em `is_team_active_resident`; `authenticated` mantém EXECUTE para uso pelas policies.
+- Teste direto da função sem sessão e com IDs não relacionados retornou `false`.
 - Advisors foram executados após as alterações. O alerta de RLS sem policy em `vh_conexao` permanece intencionalmente sem alteração até existir modelo de acesso aprovado. Alertas de SECURITY DEFINER para authenticated foram mantidos para RPCs que fazem parte do fluxo da aplicação e exigem revisão individual; não houve revogação em massa.
-- O advisor de performance não reportou mais ausência de índice para `rx_images.created_by`. Permanecem avisos de índices não utilizados e outras FKs em tabelas fora do escopo; nenhum índice existente foi removido.
+- O advisor de performance não reporta mais ausência de índice para `rx_images.created_by`.
 
 ## Divergência entre produção e branch de desenvolvimento
 
@@ -39,6 +40,10 @@ Por essa razão, esta entrega fecha a correção específica de segurança/perfo
 - Nenhuma implantação de produção foi disparada.
 - A migração está versionada na branch `feature/audit-baseline` e aguarda revisão no PR #1.
 - O Preview de aplicação permanece: https://ossohub-mh7b9ml0z-ossohub-s-projects.vercel.app
+
+## Controle de custo
+
+Após concluir e verificar os testes, solicitei a pausa do projeto de desenvolvimento para interromper o consumo contínuo de compute. A API de gerenciamento confirmou a solicitação; a última consulta ainda mostrava o estado transitório `PAUSING`. O banco pode ser retomado quando for necessário continuar a homologação. O custo já incorrido durante as horas ativas permanece no ciclo de faturamento.
 
 ## Próxima etapa
 
