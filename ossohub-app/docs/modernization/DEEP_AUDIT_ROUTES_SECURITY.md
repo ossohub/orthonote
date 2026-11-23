@@ -16,21 +16,17 @@ Consequência: o middleware não é uma barreira global para o conjunto de pági
 
 ## 2. Achados prioritários
 
-### P0 — leitura pública irrestrita em `public.rx_images`
+### Revisão de `public.rx_images` — leitura pública aparentemente intencional
 
-A policy ativa `rx_images_select_all` permite SELECT com expressão `true` para `anon` e `authenticated`. O nome da tabela indica imagens relacionadas a prescrições. Se houver imagens clínicas, prescrições ou identificadores pessoais armazenados nela, qualquer visitante pode consultá-las pela API pública do Supabase.
+A primeira leitura classificou incorretamente a tabela como imagens de prescrições. A inspeção do schema e da migração `20261120201029_rx_images_mensuracao` mostrou que ela armazena figuras de referência para o módulo de mensuração: `medida_id`, `src_static`, `storage_path`, `caption`, dimensões, ordenação e `created_by`. O banco contém 58 registros. Não foram lidos os valores das linhas nem baixados arquivos.
 
-A classificação P0 é preventiva, baseada no caráter potencialmente sensível dos dados e na policy efetiva. É necessário confirmar finalidade, conteúdo e uso da tabela. Não foi feita leitura dos registros nem alteração da policy.
-
-**Ação recomendada:** interromper novas gravações de dados pessoais nessa tabela até validar o conteúdo; inventariar URLs e consumidores; definir acesso autenticado e ownership explícito; migrar dados/arquivos se necessário. Não revogar acesso sem plano de compatibilidade e autorização.
+A policy `rx_images_select_all` permite SELECT público (`USING true`). Dado o modelo de dados e o contexto de mensuração, essa leitura pode ser necessária para exibir figuras de referência e não há evidência atual de dados de pacientes. **Retirar a classificação P0:** não alterar essa policy sem inspeção visual controlada das figuras e confirmação funcional. Se alguma figura contiver paciente identificável, mover o ativo e restringir acesso individualmente.
 
 ### P1 — upload anônimo no bucket `orthonote-assets`
 
-Bucket marcado como público, sem limite de tamanho ou MIME configurado no cadastro consultado. A policy `orthonote_assets_temp_upload` permite INSERT ao papel `anon` para qualquer objeto desse bucket (`bucket_id = 'orthonote-assets'`), sem condição de pasta/usuário.
+Bucket público, sem limite de tamanho ou MIME configurado; a policy `orthonote_assets_temp_upload` permite INSERT para `anon` sem prefixo ou ownership. A inspeção do catálogo encontrou **zero objetos** no bucket, e a busca de código no repositório não encontrou referência a `orthonote-assets`. Isso sugere que a permissão é legada e atualmente sem uso, mas não prova que não existam clientes externos.
 
-A leitura pública pode ser intencional para assets estáticos; o upload anônimo amplo, porém, abre possibilidade de abuso de armazenamento, conteúdo indevido e custos.
-
-**Ação recomendada:** identificar fluxo consumidor e objetos existentes; mover upload para endpoint autenticado/assinado; limitar tipo, tamanho, prefixo e frequência; remover a permissão anônima somente após validar o fluxo substituto.
+**Ação recomendada:** remover a policy anônima após confirmar que nenhuma integração externa depende dela. Preservar o bucket e sua leitura pública até verificar consumidores. O SQL de remoção foi preparado como proposta, não executado.
 
 ### P1 — segredo de cron aceito em query string
 
@@ -40,11 +36,13 @@ A leitura pública pode ser intencional para assets estáticos; o upload anônim
 
 ### P1 — superfície de privilégio de funções SECURITY DEFINER
 
-Foram identificadas 21 funções SECURITY DEFINER no schema `public`, todas com owner `postgres` e `search_path=public`. Exemplos incluem `moderate_post`, `get_pending_posts`, `award_self_xp`, `start_question_test`, `answer_question_item`, `invite_resident_to_team` e `start_conversation`.
+Foram identificadas 21 funções SECURITY DEFINER no schema `public`, todas com owner `postgres`, `search_path=public` e EXECUTE concedido a `authenticated`; a verificação efetiva confirmou EXECUTE negado a `anon` nas 21. Nenhuma das 21 usa SQL dinâmico. A maioria valida `auth.uid()` diretamente ou delega a helpers que o fazem. `get_pending_posts` e `moderate_post` usam `app_private.is_admin()`.
 
-O owner privilegiado e SECURITY DEFINER não constituem, isoladamente, uma vulnerabilidade. Entretanto, cada função precisa ser revisada quanto a validação de `auth.uid()`, autorização por papel/ownership, SQL dinâmico, objetos qualificados e EXECUTE grants. `search_path=public` merece endurecimento com schema confiável e referências qualificadas.
+Foi identificado um caso específico: `is_team_active_resident(p_team_id, p_resident_id)` retorna apenas se o residente está ativo na equipe, sem restringir quem pode consultar esse booleano. A função é usada pela policy de INSERT de `resident_evaluations`, que também exige `preceptor_id = auth.uid()` e `is_team_preceptor(team_id)`. A busca no repositório não encontrou chamadas diretas do frontend. Recomenda-se reforçar a função para só responder `true` quando o chamador for o próprio residente ou o preceptor da equipe; a mudança precisa ser testada contra a policy antes de aplicar.
 
-**Ação recomendada:** auditar individualmente as 21 definições e grants antes de qualquer mudança. Não foram revogados privilégios.
+As outras funções auxiliares sem `auth.uid()` direto (`browse_teams_directory`, `get_pending_posts`, `is_room_participant`, `is_room_preceptor`) têm gates/delegações específicos e não foram classificadas como vulneráveis apenas pela ausência textual de `auth.uid()`. `search_path=public` merece endurecimento, mas `anon` e `authenticated` não possuem CREATE em `public` nem em `app_private`, reduzindo o risco de shadowing por esses papéis.
+
+**Ação recomendada:** corrigir `is_team_active_resident`, manter revisão de cada RPC e testar grants/ownership. Não foram alterados privilégios.
 
 ### P2 — middleware e autenticação por cliente
 
@@ -82,9 +80,9 @@ A consulta anterior também indicou grants SQL amplos para os papéis de API. Gr
 
 ## 6. Migrações e integridade do histórico
 
-Foram localizados seis arquivos SQL versionados em `ossohub-app/supabase/`: `schema.sql` e cinco arquivos `migration_*.sql`. Eles documentam a estrutura de perfis/comunidade, questões, flashcards, desempenho/equipes e análise preditiva.
+Foram localizados seis scripts SQL legados em `ossohub-app/supabase/`: `schema.sql` e cinco arquivos `migration_*.sql`. Eles não representam o histórico real do projeto. O Supabase registra **60 migrações aplicadas** entre 2026-07-16 e 2026-11-20, incluindo hardening de RLS, Storage, funções e módulos posteriores. Não há diretório `supabase/migrations/` no repositório atual.
 
-A inspeção inicial confirma que há migrações com `DROP CONSTRAINT` seguido de recriação de CHECK, triggers e policies. Antes de automatizar deploy de schema, comparar cada arquivo com o catálogo real do banco, identificar ordem/dependências e confirmar quais scripts foram efetivamente aplicados. Não executar esses arquivos diretamente: alguns não são idempotentes e o histórico real de aplicação ainda precisa ser reconciliado.
+Há divergência entre a documentação SQL legada e o estado real; alguns scripts antigos não são idempotentes. Não executar esses arquivos diretamente nem usá-los como fonte única de reconstrução. A modernização precisa primeiro estabelecer uma linha de base versionada e reconciliar o schema real com as 60 entradas do histórico.
 
 ## 7. Plano de correção — sem execução nesta etapa
 
@@ -103,3 +101,13 @@ A inspeção inicial confirma que há migrações com `DROP CONSTRAINT` seguido 
 - Nenhuma variável de ambiente, segredo, domínio ou alias alterado.
 - Nenhuma alteração na branch main ou deployment de produção.
 - Este documento é uma análise técnica, não um pentest completo; não foram executados testes de exploração nem acessados dados pessoais de pacientes.
+
+
+## 9. Correções aplicadas no código da branch (não publicadas)
+
+- `src/middleware.ts` foi substituído por `src/proxy.ts`, conforme a convenção do Next.js 16.
+- O Proxy agora protege as rotas do grupo `(main)` e usa comparação por segmento (`/rota` ou `/rota/...`) para evitar falsos positivos como `/profile-public`.
+- O callback OAuth agora valida o destino de redirecionamento e rejeita destinos externos e caminhos com barras invertidas.
+- O endpoint de cron não aceita mais segredo pela query string; somente `Authorization: Bearer`.
+
+Essas alterações estão na branch de auditoria e devem passar pelo Preview/build antes de qualquer merge. Referência da migração de middleware para Proxy: https://nextjs.org/docs/app/api-reference/file-conventions/proxy.
