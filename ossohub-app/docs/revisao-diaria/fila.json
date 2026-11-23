@@ -432,7 +432,10 @@
    "fonte": "METAB",
    "alvo": "esporte",
    "arquivo": "ESP-05.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-23",
+   "resumo": "Capítulo histórico; 4 notas METAB (acrescenta): mistura de combustíveis, fadiga por glicogênio + hipoglicemia, efeito do treino, idade, sexo e obesidade/DM2, e custo energético da dieta rica em gordura. Item sobre fadiga no exercício longo incluído no corpo do tópico.",
+   "ids": ["n-metabolismo", "n-cho"]
   },
   {
    "id": "ESP-06-01",

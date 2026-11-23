@@ -117,7 +117,7 @@ export const NUTRICAO: Topico[] = [
     id: "n-metabolismo", titulo: "Metabolismo energético no exercício", area: "nutricao", grupo: "Energia",
     tags: ["fosfocreatina", "glicólise", "oxidativo", "limiar de lactato", "vo2max"],
     resumo: "Sistemas ATP-CP (segundos), glicolítico (até ~2 min) e oxidativo (prolongado) atuam juntos em proporções diferentes.",
-    secoes: [{ t: "Conceitos", itens: ["ATP-CP: esforços máximos de até ~10 s; recupera ~50% em 30 s e quase tudo em 3–5 min.", "Glicolítico: 10 s–2 min; produz lactato (que é combustível, não 'vilão').", "Oxidativo: carboidrato e gordura; a proporção de gordura cai com a intensidade (crossover).", "Limiar de lactato e VO₂máx definem desempenho de resistência; treino aeróbio aumenta mitocôndrias e capilarização."] }],
+    secoes: [{ t: "Conceitos", itens: ["ATP-CP: esforços máximos de até ~10 s; recupera ~50% em 30 s e quase tudo em 3–5 min.", "Glicolítico: 10 s–2 min; produz lactato (que é combustível, não 'vilão').", "Oxidativo: carboidrato e gordura; a proporção de gordura cai com a intensidade (crossover).", "Fadiga no exercício longo: falta de glicogênio muscular somada à queda da glicose no sangue — carboidrato durante a prova ajuda.", "Limiar de lactato e VO₂máx definem desempenho de resistência; treino aeróbio aumenta mitocôndrias e capilarização."] }],
     fontes: ["METAB", "HAFF"],
   },
 ];
