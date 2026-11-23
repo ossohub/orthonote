@@ -12,7 +12,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 - Branch de produção do Vercel: `main`.
 - Deployment de produção verificado: `dpl_4Fz5L42CTMzn746L3Bj4EFYYpTZ9`.
 - SHA atualmente publicado em produção: `4a3dc38fc293a5736a961dd0ede13828087e99e2`.
-- HEAD de `main) no início da modernização: `27faad401ad2405d591cac29588f574bc66b44d5`.
+- HEAD de `main` no início da modernização: `27faad401ad2405d591cac29588f574bc66b44d5`.
 - A branch `main` está sem proteção de branch no GitHub (API retornou `protected: false`).
 - Nenhum Pull Request de modernização estava aberto no momento da verificação.
 
@@ -44,7 +44,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 
 1. O bucket `orthonote-assets` está público para leitura e possui policy de INSERT para role `anon`. Confirmar finalidade, origem e abuso potencial antes de qualquer mudança.
 2. Buckets com leitura pública incluem `post-images`, `post-videos`, `question-images) e `orthonote-assets`. A classificação de dados e a possibilidade de mídia clínica identificável devem ser revisadas.
-3. Buckets privados incluem `post-media), `procedimento-figuras) e `room-images`; validar policies de leitura, upload, atualização e remoção por papel e vínculo.
+3. Buckets privados incluem `post-media`, `procedimento-figuras` e `room-images`; validar policies de leitura, upload, atualização e remoção por papel e vínculo.
 4. RLS está habilitado nas tabelas públicas inspecionadas, mas isso não comprova a correção das policies. Algumas tabelas têm somente uma policy; revisar cada operação e relações entre usuário, equipe, preceptor e proprietário.
 5. Existem funções PostgreSQL com `SECURITY DEFINER`. Auditar owner, `search_path`, grants de EXECUTE e validação de identidade/ownership.
 
@@ -52,7 +52,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 
 ### P1 — Autenticação e autorização
 
-1. `src/middleware.ts` usa `middleware()` e protege explicitamente apenas os prefixos `/feed`, `/explore`, `/network`, `/notifications`, `/profile) e `/post/new`.
+1. `src/middleware.ts` usa `middleware()` e protege explicitamente apenas os prefixos `/feed`, `/explore`, `/network`, `/notifications`, `/profile` e `/post/new`.
 2. Há páginas que fazem verificação server-side com `auth.getUser()`; a cobertura das demais páginas e APIs ainda precisa ser inventariada.
 3. O callback OAuth usa cliente administrativo para ler o CRM do próprio usuário autenticado. A justificativa está documentada, mas a leitura deve preferir cliente de sessão se possível.
 4. O hook `useUser` registra listener de auth e faz consulta ao perfil; avaliar estabilidade do client, tratamento de erros, loading e condições de corrida.
