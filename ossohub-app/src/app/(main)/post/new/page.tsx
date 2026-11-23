@@ -188,7 +188,7 @@ export default function NewPostPage() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { router.push("/login"); return; }
 
-    let image_urls: string[] = [];
+    const image_urls: string[] = [];
     let video_url: string | null = null;
 
     if (hasMedia) {
