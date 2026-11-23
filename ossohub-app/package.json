@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "prebuild": "npm run audit && npm run typecheck",
-    "audit": "npm audit --audit-level=high"
+    "prebuild": "npm run audit && npm run lint:report && npm run typecheck",
+    "audit": "npm audit --audit-level=high",
+    "lint:report": "eslint src || true"
   },
   "dependencies": {
     "@hookform/resolvers": "7.0.8",
