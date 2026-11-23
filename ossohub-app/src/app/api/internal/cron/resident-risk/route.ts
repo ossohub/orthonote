@@ -19,8 +19,8 @@ import { recomputeAllResidentsRisk } from "@/lib/residentRisk";
 // sem precisar de nenhuma configuração extra de header por job.
 // https://vercel.com/docs/cron-jobs/manage-cron-jobs#securing-cron-jobs
 // Comparação em tempo constante, mesmo padrão de
-// src/app/api/automation/posts/route.ts. Também aceita ?secret=... na
-// querystring como fallback pra chamada manual durante teste.
+// src/app/api/automation/posts/route.ts. Segredos nunca são aceitos
+// pela query string para evitar exposição em logs e históricos.
 //
 // Esse endpoint NUNCA deve ser exposto sem segredo: ele dispara N
 // leituras/escritas usando a service_role key (via
@@ -33,9 +33,7 @@ function isAuthorized(req: NextRequest): boolean {
   if (!expected) return false;
 
   const header = req.headers.get("authorization") ?? "";
-  const fromHeader = header.startsWith("Bearer ") ? header.slice(7) : "";
-  const fromQuery = req.nextUrl.searchParams.get("secret") ?? "";
-  const provided = fromHeader || fromQuery;
+  const provided = header.startsWith("Bearer ") ? header.slice(7) : "";
   if (!provided) return false;
 
   const a = Buffer.from(provided);
