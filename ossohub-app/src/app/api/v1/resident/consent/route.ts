@@ -26,6 +26,12 @@ import { createAdminClient } from "@/lib/supabase/admin";
 // pra decidir se mostra o gate de consentimento ou o conteúdo).
 export const runtime = "nodejs";
 
+function jsonNoStore(body: unknown, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set("Cache-Control", "private, no-store");
+  return jsonNoStore(body, { ...init, headers });
+}
+
 const CONSENT_TYPE = "analise_preditiva" as const;
 const CURRENT_POLICY_VERSION = "1.0";
 
@@ -41,13 +47,20 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    return NextResponse.json({ error: "unauthorized", message: "Faça login para continuar." }, { status: 401 });
+    return jsonNoStore({ error: "unauthorized", message: "Faça login para continuar." }, { status: 401 });
   }
 
   const rawBody = await request.json().catch(() => ({}));
   const parsed = bodySchema.safeParse(rawBody);
   if (!parsed.success) {
-    return NextResponse.json({ error: "invalid_body", message: parsed.error.message }, { status: 400 });
+    return jsonNoStore({ error: "invalid_body", message: parsed.error.message }, { status: 400 });
+  }
+
+  if (parsed.data.policy_version && parsed.data.policy_version !== CURRENT_POLICY_VERSION) {
+    return jsonNoStore(
+      { error: "invalid_policy_version", message: "A versão do termo não corresponde à versão vigente." },
+      { status: 400 }
+    );
   }
 
   const admin = createAdminClient();
@@ -58,10 +71,10 @@ export async function POST(request: NextRequest) {
   });
 
   if (error) {
-    return NextResponse.json({ error: "internal_error", message: error.message }, { status: 500 });
+    return jsonNoStore({ error: "internal_error", message: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true });
+  return jsonNoStore({ ok: true });
 }
 
 export async function GET() {
@@ -72,7 +85,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    return NextResponse.json({ error: "unauthorized", message: "Faça login para continuar." }, { status: 401 });
+    return jsonNoStore({ error: "unauthorized", message: "Faça login para continuar." }, { status: 401 });
   }
 
   const admin = createAdminClient();
@@ -86,8 +99,8 @@ export async function GET() {
     .maybeSingle();
 
   if (error) {
-    return NextResponse.json({ error: "internal_error", message: error.message }, { status: 500 });
+    return jsonNoStore({ error: "internal_error", message: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ consented: !!data, accepted_at: data?.accepted_at ?? null });
+  return jsonNoStore({ consented: !!data, accepted_at: data?.accepted_at ?? null });
 }
