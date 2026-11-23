@@ -458,7 +458,7 @@ stable
 security definer
 set search_path = pg_catalog, public
 as $
-  select
+  select coalesce(
     (auth.uid() = p_resident_id or public.is_team_preceptor(p_team_id))
     and exists (
       select 1
