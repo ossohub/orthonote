@@ -457,7 +457,7 @@ language sql
 stable
 security definer
 set search_path = pg_catalog, public
-as $
+as $function$
   select coalesce(
     (auth.uid() = p_resident_id or public.is_team_preceptor(p_team_id))
     and exists (
@@ -466,8 +466,10 @@ as $
       where team_id = p_team_id
         and resident_id = p_resident_id
         and status = 'active'
-    );
-$;
+    ),
+    false
+  );
+$function$;
 
 create policy "Residente ou preceptor que avaliou vê a avaliação"
   on public.resident_evaluations for select
