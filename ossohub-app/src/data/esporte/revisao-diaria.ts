@@ -8,6 +8,12 @@ import type { Nota, Topico } from "./types";
 // e registrados no resumo da fila.
 
 export const NOTAS_DIARIA: Record<string, Nota[]> = {
+  "n-energia": [
+    { fonte: "INTEG", tipo: "acrescenta", texto: "Antes de calcular calorias e macros, perguntar pela saúde: cólica ou desconforto intestinal frequente, cansaço, sono ruim, gripes de repetição e estresse de trabalho mudam a conduta. Dois atletas com a mesma ingestão e a mesma prova podem precisar de planos diferentes. O amador com trabalho longo e pouco tempo para comer e dormir costuma ter carga total de vida maior que a do atleta de elite." },
+  ],
+  "n-composicao": [
+    { fonte: "INTEG", tipo: "acrescenta", texto: "Jejum intermitente tem estudos favoráveis (peso, sensibilidade à insulina), mas não serve para todos: em atleta muito cansado, com carga alta de treino e estresse, ou com sinais de deficiência energética, pode piorar a fadiga, o eixo hormonal e o desempenho. Avaliar o contexto antes de indicar." },
+  ],
   "f-flexibilidade": [
     { fonte: "SRIP", tipo: "diverge", texto: "FNP: o livro descreve contração isométrica de 7–10 s a 25–40% da força máxima antes do alongamento; o site usa 3–6 s de contração submáxima. As duas faixas aparecem na literatura; o ganho vem da sequência contrair → relaxar → alongar. A variante com contração do antagonista (contrai-relaxa-contrai o antagonista) tende a dar mais ganho de amplitude." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Duração do estático: 30 s parece o ponto ótimo (3 repetições, até 3x/dia na reabilitação); manter mais que 30 s não trouxe ganho extra. Após lesão muscular, alongamento passivo no fim da amplitude só depois de ≥ 72 h (7–10 dias se for grave) — ver 'Lesão muscular: tipos, cicatrização e tratamento'." },
@@ -167,6 +173,7 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   ],
   "n-proteina": [
     { fonte: "SRIP", tipo: "diverge", texto: "O livro afirma que dieta rica em proteína reduz as reservas de cálcio por aumentar a perda urinária. Estudos mais recentes mostram que, com cálcio adequado na dieta, proteína alta não prejudica o osso e pode até favorecê-lo — mantemos as doses indicadas aqui." },
+    { fonte: "INTEG", tipo: "diverge", texto: "Faixa para quem treina citada de forma mais ampla: de ~1,2 até mais de 2,2 g/kg/dia (posicionamentos ACSM e ISSN). O resumo acima (1,4–2,0) fica no meio dela. Dieta vegana dificulta chegar até ao piso da faixa: planejar fontes e quantidades com cuidado. A meta final é individual." },
   ],
   "n-gordura": [
     { fonte: "SRIP", tipo: "diverge", texto: "Cita 800–1.200 mg/dia de cálcio. Usamos 1.000–1.500 mg/dia (mais alto na baixa disponibilidade energética e na amenorreia), em linha com as recomendações atuais para atletas. Álcool, excesso de fibra/gordura, megadoses de zinco ou vitamina A, heparina e corticoide podem reduzir o aproveitamento do cálcio; a vitamina D regula sua absorção." },
@@ -240,10 +247,12 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "n-cho": [
     { fonte: "READ", tipo: "diverge", texto: "O livro descreve a supercompensação clássica: 3–4 dias de treino forte com dieta pobre em carboidrato e depois 3 dias de treino leve com dieta rica. A fase de depleção caiu em desuso (mal-estar, risco de lesão, sem ganho extra): hoje basta 10–12 g/kg/dia por 36–48 h com redução do treino, como na tabela." },
     { fonte: "READ", tipo: "concorda", texto: "Refeição pré-jogo cerca de 3 h antes (nunca menos de 1–2 h), rica em carboidrato e pobre em gordura; em torneios de vários dias, repor carboidrato logo após cada jogo (nas primeiras 2 h)." },
+    { fonte: "INTEG", tipo: "acrescenta", texto: "Além da quantidade, olhar a qualidade da fonte: a mesma porção de carboidrato vinda de alimento integral (abóbora, raízes, grãos) sobe menos a glicose e traz fibra, vitaminas e fitonutrientes, ao contrário de pão branco e ultraprocessados. Dieta cetogênica/low-carb no endurance segue controversa: não há uma dieta única comprovada para todos — individualizar e testar no treino." },
   ],
   "n-suplementos": [
     { fonte: "READ", tipo: "diverge", texto: "O livro alerta que café demais pode dar exame antidoping positivo. Desde 2004 a cafeína não é proibida pela WADA — está só no programa de monitoramento. O limite real é o efeito adverso (taquicardia, arritmia, tremor, insônia)." },
     { fonte: "READ", tipo: "acrescenta", texto: "Remédios comuns e doping: o mesmo nome comercial pode ter composição diferente em outro país — conferir o princípio ativo, não a marca. Pseudoefedrina e efedrina (antigripais, descongestionantes, ginseng contaminado) são proibidas em competição acima do limite. Salbutamol inalado é permitido dentro da dose máxima da WADA; corticoide inalado também. Se o atleta precisa de uma substância proibida sem alternativa, pedir a autorização de uso terapêutico (AUT/TUE) com antecedência." },
+    { fonte: "INTEG", tipo: "diverge", texto: "Para o livro, só cafeína, creatina e bicarbonato têm efeito ergogênico consistente; os demais (incluindo beta-alanina e nitrato, que o site mantém com base no consenso do COI de 2018) funcionam em contextos específicos. Suplemento é o topo da pirâmide: antes vêm qualidade da comida, saúde dos sistemas (intestino, imunidade, sono) e calorias/macros/horários adequados. Se houver risco de contaminação, usar produto testado por terceira parte (ex.: Informed Sport)." },
   ],
   "n-hidratacao": [
     { fonte: "READ", tipo: "acrescenta", texto: "Checagem simples pela cor da urina: amarelo-claro = hidratado; amarelo-escuro = beber mais; sem urinar há horas = desidratação importante. Atenção redobrada a partir de ~27 °C. Álcool e ar-condicionado de avião desidratam. Ver 'Calor, frio, altitude e viagens no esporte' para hiponatremia, insolação e colapso pós-prova." },

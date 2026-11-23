@@ -419,7 +419,10 @@
    "fonte": "INTEG",
    "alvo": "esporte",
    "arquivo": "ESP-04.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-23",
+   "resumo": "Capítulo conceitual (nutrição integrativa); nenhum erro no site. 5 notas INTEG: faixa de proteína mais ampla, qualidade do carboidrato e low-carb, suplementos como topo da pirâmide, cautela com jejum intermitente e triagem de saúde antes de calcular macros.",
+   "ids": ["n-energia", "n-composicao", "n-proteina", "n-cho", "n-suplementos"]
   },
   {
    "id": "ESP-05-01",
