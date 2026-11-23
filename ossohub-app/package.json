@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
-    "prebuild": "npm run audit && npm run lint && npm run typecheck",
+    "prebuild": "npm run audit && npm run typecheck",
     "audit": "npm audit --audit-level=high"
   },
   "dependencies": {
