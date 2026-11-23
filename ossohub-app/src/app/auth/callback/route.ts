@@ -22,7 +22,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export const runtime = "nodejs";
 
 function getSafeRedirectPath(value: string | null, origin: string): string {
-  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\\\")) {
+  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
     return "/feed";
   }
 
