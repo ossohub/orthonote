@@ -10,13 +10,13 @@
 Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma variável de ambiente, domínio, deployment, dado, schema, policy, bucket ou configuração de produção foi alterado.
 
 - Branch de produção do Vercel: `main`.
-- Deployment de produção verificado: `dpl_4Fz5L42CTMzn746L3Bj4EFYYpTZ9`.
-- SHA atualmente publicado em produção: `4a3dc38fc293a5736a961dd0ede13828087e99e2`.
+- Deployment de produção verificado: `dpl_DKzmBtPYoV1LXBofiPuKzSqx8Fwv`.
+- SHA atualmente publicado em produção: `27faad401ad2405d591cac29588f574bc66b44d5`.
 - HEAD de `main` no início da modernização: `27faad401ad2405d591cac29588f574bc66b44d5`.
 - A branch `main` está sem proteção de branch no GitHub (API retornou `protected: false`).
 - Nenhum Pull Request de modernização estava aberto no momento da verificação.
 
-**Observação de release:** o HEAD de `main` está um commit à frente do SHA publicado no deployment de produção. O novo commit é uma revisão de conteúdo pediátrico. Isso precisa ser tratado como diferença entre código-fonte e release publicado; não realizar deploy automático como parte desta auditoria.
+**Observação de release:** a listagem completa de deployments confirmou que o deployment de produção mais recente e READY (`dpl_DKzmBtPYoV1LXBofiPuKzSqx8Fwv`) já publica o HEAD atual de `main` (`27faad4`). Um deployment anterior, também marcado como histórico de produção, usa o SHA `4a3dc38`; ele não é o deployment mais recente. Portanto, não há divergência entre o HEAD atual de `main` e a release de produção mais recente.
 
 ## 2. Estrutura e stack identificadas
 
