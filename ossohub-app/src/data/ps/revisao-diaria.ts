@@ -65,6 +65,17 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   "p-febre": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia libera o ibuprofeno a partir de 12 meses; o site usa 6 meses, como a bula. Abaixo de 1 ano, preferir paracetamol ou dipirona quando houver dúvida." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Dipirona IM dói e caiu em desuso: no PS, preferir VO ou EV. Cetoprofeno gotas 50 mg/mL é outra opção a partir de 1 ano (1 gota/kg/dose de 6/6 a 8/8 h)." },
+    // PED-01-01 — Manual de Prescrição Pediátrica (MPP): analgésicos
+    { fonte: "MPP", tipo: "diverge", texto: "Dipirona VO: o manual escalona pela idade (lactente 10, pré-escolar 15, escolar 25 mg/kg/dose 6/6 h; > 12 anos 500–1.000 mg) e lembra que a SBP prefere 10–12 mg/kg/dose. Como 1 gota da solução de 500 mg/mL tem 25 mg, a regra de 1 gota/kg já é a dose máxima. O site mantém 15–25 mg/kg (faixa da bula); no lactente pequeno, ficar na parte baixa." },
+    { fonte: "MPP", tipo: "acrescenta", texto: "Dipirona: não usar em porfiria hepática, deficiência de G6PD e discrasias sanguíneas. Junto com clorpromazina pode causar hipotermia grave. Agranulocitose é rara, mas grave: febre com dor de garganta ou aftas durante o uso pede hemograma." },
+    { fonte: "MPP", tipo: "acrescenta", texto: "Paracetamol pode ser dado a cada 4–6 h, sem passar de 5 doses em 24 h (o que dá o teto de 75 mg/kg/dia do site). Adolescente: até 4 g/dia." },
+    { fonte: "MPP", tipo: "diverge", texto: "O manual escreve ibuprofeno 5–10 mg/kg por dia, dividido em 3–4 doses. A dose usual é 5–10 mg/kg por dose (máx. 40 mg/kg/dia), como no site; por dia, a criança recebe muito pouco. Adolescente: 200–400 mg por dose." },
+    { fonte: "MPP", tipo: "diverge", texto: "O manual ainda lista AAS como analgésico infantil (10–15 mg/kg 4/4–6/6 h). Hoje se evita AAS para dor e febre em menores de 12–16 anos pelo risco de síndrome de Reye, e ele é proibido em dengue, gripe e varicela. Uso pediátrico fica para indicações específicas (ex.: Kawasaki)." },
+    { fonte: "MPP", tipo: "acrescenta", texto: "Avaliar a dor antes e depois de medicar: escala de faces a partir de 3–4 anos; nos menores, observar choro, expressão facial, agitação, FC e FR. Dor intensa de crise falciforme ou neoplasia merece analgesia precoce e reavaliação." },
+  ],
+  "paracetamol-intox": [
+    // PED-01-01 (MPP)
+    { fonte: "MPP", tipo: "diverge", texto: "O manual pediátrico cita lavagem gástrica ou indução de vômito na intoxicação por paracetamol. As diretrizes atuais não usam vômito induzido e só raramente lavagem: o site usa carvão ativado (1 g/kg) até 1–2 h e NAC conforme o nível sérico. A NAC VO do manual (140 mg/kg → 70 mg/kg 4/4 h, 17 doses) é igual à do site e funciona melhor se começar até 8 h." },
   ],
   "p-vomitos": [
     { fonte: "GPP", tipo: "diverge", texto: "Para vômitos fora do contexto de quimioterapia, o guia usa ondansetrona EV 0,1 mg/kg; o site usa 0,15 mg/kg (máx. 4 mg). As duas faixas são aceitas." },

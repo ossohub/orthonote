@@ -357,7 +357,13 @@
    "paginas": "1–18",
    "fonte": "MPP",
    "alvo": "ps",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-22",
+   "resumo": "Analgésicos pediátricos: notas sobre a dose de dipirona (SBP 10–12 mg/kg), suas contraindicações, paracetamol até 5 doses/dia, erro do manual no ibuprofeno (por dia × por dose), AAS e escala de dor. Febre/dor passou a alertar contra AAS; nota sobre descontaminação na intoxicação por paracetamol.",
+   "ids": [
+    "p-febre",
+    "paracetamol-intox"
+   ]
   },
   {
    "id": "PED-02-01",

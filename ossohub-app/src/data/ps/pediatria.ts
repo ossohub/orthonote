@@ -12,6 +12,7 @@ export const PEDIATRIA: Condicao[] = [
       "Alternar antitérmicos não é necessário; preferir um só, na dose certa.",
       "Ibuprofeno a partir de 6 meses; evitar em desidratação, dengue e varicela.",
       "Dipirona a partir de 3 meses ou > 5 kg; paracetamol desde o nascimento.",
+      "Não usar AAS para febre ou dor na criança (risco de síndrome de Reye).",
       "Sinais de alerta: prostração entre picos, petéquias, rigidez de nuca, desconforto respiratório.",
     ],
     rx: [
