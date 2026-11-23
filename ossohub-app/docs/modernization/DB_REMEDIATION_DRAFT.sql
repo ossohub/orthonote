@@ -21,7 +21,7 @@ stable
 security definer
 set search_path = pg_catalog, public
 as $function$
-  select
+  select coalesce(
     (auth.uid() = p_resident_id or public.is_team_preceptor(p_team_id))
     and exists (
       select 1
@@ -29,7 +29,9 @@ as $function$
       where team_id = p_team_id
         and resident_id = p_resident_id
         and status = 'active'
-    );
+    ),
+    false
+  );
 $function$;
 
 -- Cobertura da FK created_by (advisor de performance).
