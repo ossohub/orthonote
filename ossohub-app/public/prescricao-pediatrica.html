@@ -178,6 +178,12 @@ button { cursor: pointer; touch-action: manipulation; }
 .bloco.contra h3 { color: var(--danger); }
 .bloco.risco h3 { color: var(--warn); }
 .fontes { font-size: 13.5px; color: var(--muted); }
+.bloco.comp { grid-column: 1 / -1; }
+.bloco.comp li { list-style: none; margin-left: -18px; }
+.tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; border: 1px solid; border-radius: 5px; padding: 1px 6px; margin-right: 6px; }
+.tag.concorda { color: #6EE7B7; border-color: rgba(16,185,129,.5); }
+.tag.diverge { color: var(--warn); border-color: rgba(251,191,36,.55); }
+.tag.acrescenta { color: #7DD3FC; border-color: rgba(56,189,248,.5); }
 
 .bloqueado { display: grid; gap: 10px; }
 .override { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; min-height: 44px; }
@@ -293,7 +299,7 @@ button { cursor: pointer; touch-action: manipulation; }
   </section>
 
   <footer class="rodape">
-    <p><b>Fontes:</b> Manual de Prescrição Pediátrica (Oliveira, Aguiar et al., Pasteur/FAMINAS, 2024); Medicamentos mais usados em pediatria (Hospital Geral Dr. Waldemar Alcântara); Guia Rápido de Medicamentos em Pediatria (RioSaúde, 2025); bulas ANVISA dos produtos de referência; Pediatric Injectable Drugs — Teddy Bear Book (ASHP, 2018); diretrizes citadas em cada medicamento.</p>
+    <p><b>Fontes:</b> Manual de Prescrição Pediátrica (Oliveira, Aguiar et al., Pasteur/FAMINAS, 2024); Medicamentos mais usados em pediatria (Hospital Geral Dr. Waldemar Alcântara); Guia Rápido de Medicamentos em Pediatria (RioSaúde, 2025); Guia do Plantonista 2013 — Medicações e posologias em pediatria (MedResumos, A. Ugulino Netto), usado para conferência; bulas ANVISA dos produtos de referência; Pediatric Injectable Drugs — Teddy Bear Book (ASHP, 2018); diretrizes citadas em cada medicamento.</p>
     <p>Nomes comerciais são exemplos de referência no mercado brasileiro e não constituem indicação de marca. Gotejamento e volumes de reconstituição variam entre fabricantes: confira a bula do produto em uso.</p>
   </footer>
 </div>
@@ -638,7 +644,8 @@ var MEDS = [
     'Hipotensão e choque, sobretudo na aplicação EV rápida. Administrar com o paciente deitado, em pelo menos 5 min.',
     'Hipotermia intensa quando associada à clorpromazina.'
   ],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Bula Novalgina®']
+  comp: [{ t: 'concorda', x: 'Mesma faixa (10–25 mg/kg/dose), a partir de 3 meses; 20 mg/kg IM ou EV no PS.' }, { t: 'diverge', x: 'O guia ainda usa 1 gota/kg (25 mg/kg). Aqui a dose padrão é 15 mg/kg, como recomenda a SBP.' }, { t: 'acrescenta', x: 'Supositório 300 mg a partir de 18 kg; comprimido 500 mg a partir de 30 kg.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Bula Novalgina®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'paracetamol', nome: 'Paracetamol', cat: 'dor',
@@ -660,7 +667,8 @@ var MEDS = [
     'Hepatotoxicidade dependente da dose. Some o paracetamol presente em antigripais e analgésicos combinados.',
     'Na intoxicação, o antídoto é a N-acetilcisteína. Dosar o nível sérico a partir de 4 h da ingestão.'
   ],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Bula Tylenol®']
+  comp: [{ t: 'concorda', x: '10–15 mg/kg/dose; gotas 200 mg/mL ≈ 1 gota/kg de 6/6 a 8/8 h.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Bula Tylenol®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'ibuprofeno', nome: 'Ibuprofeno', cat: 'dor',
@@ -691,7 +699,8 @@ var MEDS = [
     'Nefrotoxicidade aumentada na desidratação e com diuréticos.',
     'Correção da fonte: o Manual 2024 cita “5–10 mg/kg/dia”; a dose correta é por dose.'
   ],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Alivium®']
+  comp: [{ t: 'diverge', x: 'O guia libera a partir de 12 meses; a bula do Alivium® libera a partir de 6 meses (abaixo de 2 anos, só com orientação médica).' }, { t: 'diverge', x: 'O guia fala em 1,5 gota/kg na apresentação 50 mg/mL. Pela bula, essa apresentação tem 10 gotas/mL (1 gota = 5 mg): 1 gota/kg = 5 mg/kg e 2 gotas/kg = 10 mg/kg.' }, { t: 'acrescenta', x: 'A bula do Alivium® limita a 200 mg por dose (20 gotas de 100 mg/mL ou 40 gotas de 50 mg/mL) e 800 mg/dia em menores de 12 anos.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 2', 'HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Alivium®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'cetoprofeno', nome: 'Cetoprofeno', cat: 'dor',
@@ -705,7 +714,8 @@ var MEDS = [
   ],
   contra: ['Mesmas do ibuprofeno: dengue, desidratação, sangramento, úlcera, insuficiência renal, asma induzida por AINE.'],
   riscos: ['Irritação gástrica e nefrotoxicidade. A apresentação EV não é liberada para crianças.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Bula Profenid®']
+  comp: [{ t: 'concorda', x: '1 gota/kg (1 mg/kg) de 6/6 ou 8/8 h a partir de 1 ano; 25 gotas para 7 a 11 anos.' }, { t: 'diverge', x: 'O guia escreve gotas 50 mg/mL. A apresentação de gotas (Profenid®) é 20 mg/mL, 1 gota = 1 mg. Calcular em mg com 50 mg/mL daria 2,5 vezes menos gotas que o devido.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Bula Profenid®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'tramadol', nome: 'Tramadol', cat: 'dor',
@@ -854,7 +864,8 @@ var MEDS = [
   ],
   contra: ['Síndrome do QT longo congênito.', 'Uso concomitante de apomorfina.'],
   riscos: ['Prolongamento do QT: cuidado com hipocalemia, hipomagnesemia e outras drogas que alargam o QT.', 'Cefaleia e constipação.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'Freedman et al., NEJM 2006', 'Bula Zofran®']
+  comp: [{ t: 'concorda', x: '0,1 mg/kg EV nos vômitos fora da quimioterapia (o calculador usa 0,1–0,15 mg/kg, máx. 4 mg).' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'Freedman et al., NEJM 2006', 'Bula Zofran®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'bromoprida', nome: 'Bromoprida', cat: 'gastro',
@@ -872,7 +883,8 @@ var MEDS = [
   ],
   contra: ['Menores de 1 ano.', 'Feocromocitoma.', 'Epilepsia.', 'Hemorragia, obstrução ou perfuração digestiva.', 'Uso de neurolépticos.'],
   riscos: ['Reação extrapiramidal (distonia aguda): tratar com difenidramina 1 mg/kg EV.', 'Sonolência.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'HGWA — Medicamentos mais usados', 'Bula Digesan®']
+  comp: [{ t: 'concorda', x: 'A partir de 1 ano. Solução 1 mg/mL: 0,5–1 mL/kg/dia; gotas 4 mg/mL: 3–5 gotas/kg/dia (≈ 0,5–0,8 mg/kg/dia), máx. 30 gotas por dose.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'HGWA — Medicamentos mais usados', 'Bula Digesan®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'dimenidrinato', nome: 'Dimenidrinato + piridoxina', cat: 'gastro',
@@ -891,7 +903,8 @@ var MEDS = [
   ],
   contra: ['Menores de 2 anos.', 'Porfiria.', 'Glaucoma de ângulo fechado e retenção urinária.', 'Apresentação DL: intolerância hereditária à frutose (contém glicose e frutose).'],
   riscos: ['Sonolência e efeitos anticolinérgicos.', 'Pode mascarar sinais de ototoxicidade de outros fármacos.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'Bula Dramin® B6']
+  comp: [{ t: 'diverge', x: 'O guia libera desde o nascimento (gotas a partir de 3 meses); a bula brasileira do Dramin® B6 libera a partir de 2 anos.' }, { t: 'diverge', x: 'O guia indica a solução 12,5 mg/mL a 0,5 mL/kg/dose, que dá cerca de 6 mg/kg: muito acima da dose usual (1–1,25 mg/kg/dose). Não usar esse cálculo.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 4', 'Bula Dramin® B6', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'omeprazol', nome: 'Omeprazol', cat: 'gastro',
@@ -906,7 +919,8 @@ var MEDS = [
   ],
   contra: ['Uso de nelfinavir ou atazanavir.', 'Hipersensibilidade a benzimidazóis.'],
   riscos: ['Hipomagnesemia e diarreia com uso prolongado.', 'Correção da fonte: a tabela HGWA indica 40 mg/mL; o frasco reconstituído fica com 4 mg/mL.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Losec®']
+  comp: [{ t: 'diverge', x: 'O guia dá 0,5–3,5 mg/kg/dose EV. Doses acima de 1 mg/kg/dose (máx. 40 mg) não são o padrão para proteção gástrica no PS.' }, { t: 'acrescenta', x: 'O guia ainda lista ranitidina. Ela saiu do mercado em vários países em 2020 (contaminação por NDMA) e teve lotes recolhidos no Brasil: preferir omeprazol.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Losec®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 
 /* ============================== ANTIBIÓTICOS ============================== */
@@ -962,7 +976,8 @@ var MEDS = [
   ],
   contra: ['Alergia a cefalosporinas.', 'Neonatos (excluídos desta ferramenta): hiperbilirrubinemia e cálcio EV.'],
   riscos: ['Pseudolitíase biliar em doses altas ou uso prolongado.', 'Diarreia e colite por C. difficile.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Rocefin®']
+  comp: [{ t: 'diverge', x: 'O guia escreve 50–100 mg/kg por dose de 12/12 h (até 200 mg/kg/dia). O usual é 50–100 mg/kg/dia, com teto de 4 g/dia.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Rocefin®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'cefuroxima', nome: 'Cefuroxima', cat: 'atb',
@@ -1003,7 +1018,8 @@ var MEDS = [
   ],
   contra: ['Alergia a penicilinas.', 'Icterícia ou disfunção hepática prévia associada à amoxicilina-clavulanato.'],
   riscos: ['Diarreia (frequente). Hepatotoxicidade rara.'],
-  fontes: ['Guia Rápido RioSaúde', 'Bula Clavulin®']
+  comp: [{ t: 'diverge', x: 'O guia usa 25 mg/kg/dia de 8/8 h. É dose baixa para otite e sinusite: usar 45 mg/kg/dia ou mais (até 90 mg/kg/dia com 400/57 mg/5 mL).' }],
+  fontes: ['Guia Rápido RioSaúde', 'Bula Clavulin®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'clindamicina', nome: 'Clindamicina', cat: 'atb',
@@ -1088,7 +1104,8 @@ var MEDS = [
   ],
   contra: ['Anafilaxia a cefalosporinas ou penicilinas.'],
   riscos: ['Diarreia e reação alérgica cutânea.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Keflex®']
+  comp: [{ t: 'concorda', x: '50 (até 100) mg/kg/dia de 6/6 h. Atalho: suspensão 250 mg/5 mL → peso ÷ 4 = mL por dose. Cápsula 500 mg a partir de 40 kg.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Keflex®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'amoxicilina', nome: 'Amoxicilina', cat: 'atb',
@@ -1106,7 +1123,8 @@ var MEDS = [
   ],
   contra: ['Alergia a penicilinas.', 'Mononucleose (exantema).'],
   riscos: ['Diarreia e exantema.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Amoxil®']
+  comp: [{ t: 'concorda', x: '50 (até 90) mg/kg/dia. Atalhos: 250 mg/5 mL → peso ÷ 3 = mL de 8/8 h; 400 mg/5 mL → peso ÷ 5 = mL de 8/8 h (≈ 50 mg/kg/dia).' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Amoxil®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'smxtmp', nome: 'Sulfametoxazol + trimetoprima', cat: 'atb',
@@ -1122,7 +1140,8 @@ var MEDS = [
   ],
   contra: ['Menores de 2 meses.', 'Deficiência de G6PD.', 'Anemia megaloblástica por folato.', 'Insuficiência renal ou hepática grave.', 'Alergia a sulfas.'],
   riscos: ['Exantema e síndrome de Stevens-Johnson: suspender ao primeiro sinal.', 'Hipercalemia e mielossupressão.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Bactrim®']
+  comp: [{ t: 'concorda', x: 'Atalho da suspensão 200 + 40 mg/5 mL: 1 mL/kg/dia dividido de 12/12 h (≈ 8 mg/kg/dia de TMP).' }, { t: 'diverge', x: 'O guia libera a partir de 6 semanas; este calculador bloqueia abaixo de 2 meses, por segurança (kernicterus).' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Bactrim®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'azitromicina', nome: 'Azitromicina', cat: 'atb',
@@ -1134,7 +1153,8 @@ var MEDS = [
   ],
   contra: ['Hepatopatia prévia por macrolídeo.', 'QT longo.'],
   riscos: ['Prolongamento do QT e diarreia.'],
-  fontes: ['Guia Rápido RioSaúde', 'Bula Zitromax®']
+  comp: [{ t: 'concorda', x: '10 mg/kg 1x/dia por 3 dias. Atalho da suspensão 200 mg/5 mL: peso ÷ 4 = mL. Comprimido 500 mg a partir de 45 kg.' }],
+  fontes: ['Guia Rápido RioSaúde', 'Bula Zitromax®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'benzatina', nome: 'Penicilina G benzatina', cat: 'atb',
@@ -1152,7 +1172,8 @@ var MEDS = [
   ],
   contra: ['Alergia a penicilinas.', 'NUNCA aplicar por via EV (embolia e parada cardiorrespiratória).'],
   riscos: ['Anafilaxia: aplicar em serviço com adrenalina disponível e observar por 30 min.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'AHA — Febre reumática (2009)']
+  comp: [{ t: 'diverge', x: 'O guia troca a dose em 20 kg (600.000 UI até 20 kg) e diz que só existe o frasco de 1.200.000 UI. Aqui o corte é 27 kg (AHA); entre 20 e 27 kg as duas condutas são aceitas.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'AHA — Febre reumática (2009)', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 
 /* =============================== CORTICOIDES =============================== */
@@ -1174,7 +1195,8 @@ var MEDS = [
   ],
   contra: ['Infecção fúngica sistêmica.', 'Hipersensibilidade.'],
   riscos: ['Hiperglicemia.', 'Prurido perineal transitório com bolus rápido.', 'Pode mascarar sinais de infecção.'],
-  fontes: ['Guia Rápido RioSaúde', 'Bula Decadron®']
+  comp: [{ t: 'concorda', x: '0,15 mg/kg EV ou IM como dose do PS.' }, { t: 'diverge', x: 'O guia cita dexametasona oral 2 mg/kg/dia. É um erro de dose: o usual é 0,15–0,6 mg/kg por dose (máx. 10–16 mg).' }],
+  fontes: ['Guia Rápido RioSaúde', 'Bula Decadron®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'hidrocortisona', nome: 'Hidrocortisona', cat: 'cort',
@@ -1195,7 +1217,8 @@ var MEDS = [
   ],
   contra: ['Infecção fúngica sistêmica não tratada.'],
   riscos: ['Hiperglicemia e hipertensão.', 'Na anafilaxia, não substitui a adrenalina IM.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Solu-Cortef®']
+  comp: [{ t: 'concorda', x: '5 mg/kg EV ou IM.' }, { t: 'acrescenta', x: 'Na asma grave, o guia faz ataque de 10 mg/kg e mantém 1–5 mg/kg de 6/6 a 12/12 h.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Guia Rápido RioSaúde', 'Bula Solu-Cortef®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'prednisolona', nome: 'Prednisolona', cat: 'cort',
@@ -1209,7 +1232,8 @@ var MEDS = [
   ],
   contra: ['Infecção fúngica sistêmica.', 'Varicela ou herpes ativos (relativa).', 'Vacinas de vírus vivo durante dose imunossupressora.'],
   riscos: ['Hiperglicemia, hipertensão e alteração de humor.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Manual de Prescrição Pediátrica 2024, cap. 6', 'Bula Predsim®']
+  comp: [{ t: 'diverge', x: 'O guia divide 1–2 mg/kg/dia de 12/12 h, com teto de 60 mg/dia. Aqui a dose é única pela manhã e o teto é 40 mg abaixo de 12 anos (como na asma); as duas formas funcionam.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Manual de Prescrição Pediátrica 2024, cap. 6', 'Bula Predsim®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 
 /* ============================ ANTI-HISTAMÍNICOS ============================ */
@@ -1244,7 +1268,8 @@ var MEDS = [
   ],
   contra: ['Menores de 2 anos.', 'Via EV: risco de necrose tecidual e gangrena por extravasamento ou injeção intra-arterial. Usar apenas IM.'],
   riscos: ['Sedação e depressão respiratória.', 'Síndrome neuroléptica maligna (rara).'],
-  fontes: ['Guia Rápido RioSaúde', 'FDA Boxed Warning — prometazina']
+  comp: [{ t: 'concorda', x: 'Só a partir de 2 anos e só IM.' }, { t: 'diverge', x: 'O guia usa 1 mg/kg IM; aqui a faixa é 0,25–0,5 mg/kg (máx. 25 mg), por causa da sedação e da depressão respiratória.' }],
+  fontes: ['Guia Rápido RioSaúde', 'FDA Boxed Warning — prometazina', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'loratadina', nome: 'Loratadina', cat: 'alergia',
@@ -1259,7 +1284,8 @@ var MEDS = [
   ],
   contra: ['Menores de 2 anos.', 'Hipersensibilidade.'],
   riscos: ['Sonolência rara.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Bula Claritin®']
+  comp: [{ t: 'concorda', x: 'A partir de 2 anos: 5 mL/dia abaixo de 30 kg e 10 mL/dia acima.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Bula Claritin®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'dexclorfeniramina', nome: 'Dexclorfeniramina', cat: 'alergia',
@@ -1277,7 +1303,8 @@ var MEDS = [
   ],
   contra: ['Menores de 2 anos.', 'Glaucoma de ângulo fechado e retenção urinária.'],
   riscos: ['Sonolência e efeitos anticolinérgicos.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 7', 'Bula Polaramine®']
+  comp: [{ t: 'concorda', x: '0,2 mg/kg/dia de 8/8 h, a partir de 2 anos, com teto de 3 mg (2–6 anos), 6 mg (6–12) e 12 mg/dia (> 12).' }, { t: 'acrescenta', x: 'O guia lista a associação com betametasona (Celestamine®). Ela carrega corticoide a cada dose: evitar como anti-histamínico de rotina.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 7', 'Bula Polaramine®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'hidroxizina', nome: 'Hidroxizina', cat: 'alergia',
@@ -1292,7 +1319,8 @@ var MEDS = [
   ],
   contra: ['QT longo conhecido.', 'Porfiria.'],
   riscos: ['Sonolência e prolongamento do QT.'],
-  fontes: ['HGWA — Medicamentos mais usados', 'Bula Hixizine®']
+  comp: [{ t: 'concorda', x: 'A tabela por peso do guia fica perto de 2 mg/kg/dia, como aqui.' }],
+  fontes: ['HGWA — Medicamentos mais usados', 'Bula Hixizine®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 
 /* =============================== EMERGÊNCIA =============================== */
@@ -1327,7 +1355,7 @@ var MEDS = [
     { id: 'ev', nome: 'Crise convulsiva EV', vias: ['EV'], mgkg: 0.3, faixa: [0.2, 0.3], unica: true,
       freq: 'pode repetir 1x após 5–10 min', maxDose: 10 },
     { id: 'vr', nome: 'Crise convulsiva via retal', vias: ['VR'], mgkg: 0.5, faixa: [0.3, 0.5], unica: true,
-      freq: 'pode repetir 1x após 10 min', maxDose: 10 }
+      freq: 'pode repetir 1x após 10 min', maxDose: 20 }
   ],
   apres: [
     { id: 'ev', via: 'EV', forma: 'amp', rotulo: 'Ampola 5 mg/mL', rx: '10 mg/2 mL, ampola', conc: 5, marca: 'Valium®',
@@ -1337,7 +1365,8 @@ var MEDS = [
   ],
   contra: ['Insuficiência respiratória grave.', 'Miastenia gravis.', 'Glaucoma de ângulo fechado.'],
   riscos: ['Apneia, principalmente após segunda dose ou associação com fenobarbital.', 'Flebite.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'Guia Rápido RioSaúde', 'HGWA — Medicamentos mais usados']
+  comp: [{ t: 'concorda', x: '0,3 mg/kg EV sem diluir, seguido de flush de SF, máx. 10 mg.' }, { t: 'diverge', x: 'O guia permite repetir a cada 15–30 min. As diretrizes atuais fazem no máximo 2 doses, com 5–10 min entre elas, e depois passam à 2ª linha.' }, { t: 'diverge', x: 'Via retal: o guia dobra a dose EV (0,6 mg/kg). Aqui usamos 0,5 mg/kg, máx. 20 mg.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'Guia Rápido RioSaúde', 'HGWA — Medicamentos mais usados', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'fenitoina', nome: 'Fenitoína', cat: 'emerg',
@@ -1354,7 +1383,8 @@ var MEDS = [
   ],
   contra: ['Bradicardia sinusal, bloqueio sinoatrial ou BAV de 2º e 3º graus.', 'Hipersensibilidade a hidantoínas.'],
   riscos: ['Arritmia e hipotensão com infusão rápida.', 'Lesão grave por extravasamento (síndrome da luva púrpura).', 'Muitas interações (anticonvulsivantes, corticoides, varfarina).'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'Guia Rápido RioSaúde', 'AES Status Epilepticus Guideline (2016)']
+  comp: [{ t: 'concorda', x: 'Ataque de 20 mg/kg EV.' }, { t: 'diverge', x: 'A tabela de PS do guia escreve 5–8 mg/kg EV de 8/8 h, o que dá 15–24 mg/kg/dia. A manutenção usual é 5–8 mg/kg/dia, dividida.' }, { t: 'diverge', x: 'O guia diz velocidade máxima de 1 mg/kg/hora; o correto é 1 mg/kg/min (máx. 50 mg/min).' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'Guia Rápido RioSaúde', 'AES Status Epilepticus Guideline (2016)', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'fenobarbital', nome: 'Fenobarbital', cat: 'emerg',
@@ -1362,7 +1392,8 @@ var MEDS = [
   marcas: ['Fenocris®', 'Gardenal®', 'Fenobarbital sódico (genérico)'],
   controle: 'Uso ambulatorial exige Receita de Controle Especial.',
   regimes: [{ id: 'ataque', nome: 'Dose de ataque (estado de mal)', mgkg: 20, faixa: [15, 20], unica: true, freq: 'dose de ataque',
-    maxDose: 1000 }],
+    maxDose: 1000,
+    extra: function (p) { return 'Manutenção, 12–24 h após o ataque: ' + fmt(p * 3, 0) + '–' + fmt(p * 5, 0) + ' mg/dia (3–5 mg/kg/dia) divididos de 12/12 h.'; } }],
   apres: [
     { id: 'ev', via: 'EV', forma: 'amp', rotulo: 'Ampola 100 mg/mL', rx: '200 mg/2 mL, ampola', conc: 100, marca: 'Fenocris®',
       prep: { tipo: 'diluir', diluente: 'SF 0,9% ou SG 5%', concAlvo: 10, concMax: 20, volMin: 10,
@@ -1371,7 +1402,8 @@ var MEDS = [
   ],
   contra: ['Porfiria.', 'Insuficiência respiratória grave sem suporte.', 'Hepatopatia grave.'],
   riscos: ['Depressão respiratória e hipotensão, sobretudo após benzodiazepínico.', 'Sedação prolongada.'],
-  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'HGWA — Medicamentos mais usados']
+  comp: [{ t: 'concorda', x: 'Mal convulsivo: 15–20 mg/kg EV.' }, { t: 'acrescenta', x: 'Manutenção de 3–5 mg/kg/dia de 12/12 h, começando 12–24 h após o ataque.' }],
+  fontes: ['Manual de Prescrição Pediátrica 2024, cap. 8', 'HGWA — Medicamentos mais usados', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 },
 {
   id: 'tranexamico', nome: 'Ácido tranexâmico', cat: 'emerg',
@@ -1388,6 +1420,156 @@ var MEDS = [
   contra: ['Trombose venosa ou arterial ativa.', 'Coagulação intravascular disseminada.', 'Hematúria macroscópica (risco de obstrução ureteral).'],
   riscos: ['Convulsões em doses altas.', 'Hipotensão com infusão rápida. Ajustar na insuficiência renal.'],
   fontes: ['PED-TRAX / CRASH-2', 'Bula Transamin®']
+},
+/* ====================== ACRESCENTADOS (Guia do Plantonista 2013) ====================== */
+{
+  id: 'diclofenaco', nome: 'Diclofenaco (gotas)', cat: 'dor',
+  classe: 'Anti-inflamatório não esteroidal (AINE)',
+  marcas: ['Cataflam® gotas', 'Diclofenaco resinato (genérico)'],
+  idade: [
+    { ate: 12, tipo: 'bloqueio', msg: 'Gotas liberadas pela bula apenas a partir de 1 ano.' },
+    { ate: 168, tipo: 'alerta', msg: 'Em criança, preferir ibuprofeno ou cetoprofeno; usar diclofenaco por poucos dias.' }
+  ],
+  regimes: [{ id: 'dor', nome: 'Dor ou inflamação', mgkg: 1.5, faixa: [0.5, 2], porDia: true, intervalo: 8, freq: '8/8 h',
+    sn: 'se dor', maxDia: 150, duracao: 'por até 5 dias',
+    nota: 'Bula: 1 a 4 gotas/kg/dia (0,5–2 mg/kg/dia) divididas em 2 ou 3 tomadas; máximo 300 gotas por dia.' }],
+  apres: [
+    { id: 'gt', via: 'VO', forma: 'gotas', rotulo: 'Gotas 15 mg/mL', rx: '15 mg/mL, suspensão oral em gotas', conc: 15, gotasMl: 30, marca: 'Cataflam®', nota: '1 gota ≈ 0,5 mg.' }
+  ],
+  contra: ['Mesmas do ibuprofeno: dengue, desidratação, sangramento, úlcera, insuficiência renal, asma induzida por AINE.'],
+  riscos: ['Irritação gástrica e nefrotoxicidade.'],
+  comp: [{ t: 'diverge', x: 'O guia considera 1 gota = 0,75 mg e propõe 2–3 mg/kg/dia (“peso = nº de gotas de 6/6 h”). Pela bula, 1 gota ≈ 0,5 mg e o teto é 2 mg/kg/dia; com o atalho do guia, a dose real fica em cerca de 2 mg/kg/dia.' },
+    { t: 'diverge', x: 'O guia ainda cita diclofenaco IM (2,5 mg/kg) a partir de 12 anos. A apresentação injetável não é liberada para crianças; evitar.' }],
+  fontes: ['Bula Cataflam® gotas', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'claritromicina', nome: 'Claritromicina', cat: 'atb',
+  classe: 'Macrolídeo',
+  marcas: ['Klaricid®', 'Clamicin®', 'Claritromicina (genérico)'],
+  idade: [{ ate: 6, tipo: 'bloqueio', msg: 'Suspensão liberada a partir de 6 meses.' }],
+  regimes: [{ id: 'hab', nome: 'Vias aéreas, pele (alternativa a betalactâmico)', mgkg: 7.5, faixa: [7.5, 7.5], intervalo: 12, freq: '12/12 h',
+    maxDose: 500, duracao: 'por 7 a 10 dias' }],
+  apres: [
+    { id: 's125', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 125 mg/5 mL', rx: '125 mg/5 mL, suspensão oral', conc: 25, marca: 'Klaricid®' },
+    { id: 's250', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 250 mg/5 mL', rx: '250 mg/5 mL, suspensão oral', conc: 50, marca: 'Klaricid®' },
+    { id: 'cp', via: 'VO', forma: 'comp', rotulo: 'Comprimido 500 mg', rx: '500 mg, comprimido', mgUnit: 500, frac: false, marca: 'Klaricid®',
+      idade: [{ ate: 144, tipo: 'alerta', msg: 'Comprimido de 500 mg só para quem pesa cerca de 50 kg ou mais; abaixo disso, usar a suspensão.' }] }
+  ],
+  contra: ['QT longo ou uso de drogas que alargam o QT.', 'Uso de colchicina, ergotamina ou estatinas metabolizadas pelo CYP3A4.'],
+  riscos: ['Gosto amargo, diarreia e prolongamento do QT. Muitas interações (inibidor do CYP3A4).'],
+  comp: [{ t: 'concorda', x: '7,5 mg/kg/dose de 12/12 h, a partir de 6 meses; comprimido 500 mg a partir de cerca de 50 kg.' }],
+  fontes: ['Bula Klaricid®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'desloratadina', nome: 'Desloratadina', cat: 'alergia',
+  classe: 'Anti-histamínico H1 (2ª geração)',
+  marcas: ['Desalex®', 'Desloratadina (genérico)'],
+  idade: [{ ate: 6, tipo: 'bloqueio', msg: 'Xarope liberado a partir de 6 meses.' }],
+  regimes: [{ id: 'hab', nome: 'Urticária ou rinite', intervalo: 24, freq: '1x/dia', duracao: 'por 5 a 7 dias',
+    fixo: function (p, m) {
+      if (m < 12) return { dose: 1, nota: '6–11 meses: 1 mg (2 mL)' };
+      if (m < 72) return { dose: 1.25, nota: '1–5 anos: 1,25 mg (2,5 mL)' };
+      if (m < 144) return { dose: 2.5, nota: '6–11 anos: 2,5 mg (5 mL)' };
+      return { dose: 5, nota: '12 anos ou mais: 5 mg' };
+    } }],
+  apres: [
+    { id: 'xpe', via: 'VO', forma: 'liquido', rotulo: 'Xarope 0,5 mg/mL', rx: '0,5 mg/mL, xarope', conc: 0.5, marca: 'Desalex®' }
+  ],
+  contra: ['Hipersensibilidade à desloratadina ou à loratadina.'],
+  riscos: ['Pouca sedação; cefaleia e boca seca.'],
+  comp: [{ t: 'diverge', x: 'O guia dá 2 mL de 6 meses a 2 anos e 2,5 mL de 2 a 6 anos. A bula separa em 1 ano: 6–11 meses 2 mL; 1–5 anos 2,5 mL. O calculador segue a bula.' }],
+  fontes: ['Bula Desalex®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'fexofenadina', nome: 'Fexofenadina', cat: 'alergia',
+  classe: 'Anti-histamínico H1 (2ª geração)',
+  marcas: ['Allegra® Pediátrico', 'Fexofenadina (genérico)'],
+  idade: [{ ate: 6, tipo: 'bloqueio', msg: 'Suspensão liberada a partir de 6 meses.' }],
+  regimes: [{ id: 'hab', nome: 'Urticária ou rinite', intervalo: 12, freq: '12/12 h', duracao: 'por 5 a 7 dias',
+    fixo: function (p, m) {
+      if (m < 24) return { dose: 15, nota: '6 meses a 2 anos: 15 mg (2,5 mL)' };
+      if (m < 144) return { dose: 30, nota: '2 a 11 anos: 30 mg (5 mL)' };
+      return { dose: 60, nota: '12 anos ou mais: 60 mg de 12/12 h (ou 120 mg 1x/dia)' };
+    } }],
+  apres: [
+    { id: 'sus', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 6 mg/mL', rx: '6 mg/mL, suspensão oral', conc: 6, marca: 'Allegra® Pediátrico' }
+  ],
+  contra: ['Hipersensibilidade à fexofenadina.'],
+  riscos: ['Quase sem sedação. Não tomar junto com antiácido ou suco de frutas (reduzem a absorção).'],
+  comp: [{ t: 'concorda', x: '6 meses–2 anos 2,5 mL; 2–11 anos 5 mL de 12/12 h; acima de 11 anos 120 mg 1x/dia.' }],
+  fontes: ['Bula Allegra® Pediátrico', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'albendazol', nome: 'Albendazol', cat: 'parasita',
+  classe: 'Anti-helmíntico (benzimidazol)',
+  marcas: ['Zentel®', 'Albendazol (genérico)'],
+  idade: [{ ate: 12, tipo: 'bloqueio', msg: 'Não usar abaixo de 1 ano.' }],
+  regimes: [{ id: 'hab', nome: 'Helmintos intestinais (ascaris, oxiúros, ancilóstomo)', unica: true, freq: 'dose única; repetir em 14 dias na oxiuríase',
+    fixo: function (p, m) { return m < 24 ? { dose: 200, nota: '1 a 2 anos: 200 mg' } : { dose: 400, nota: '2 anos ou mais: 400 mg' }; },
+    nota: 'Estrongiloidíase e teníase: 400 mg/dia por 3 dias.' }],
+  apres: [
+    { id: 'sus', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 40 mg/mL', rx: '400 mg/10 mL, suspensão oral', conc: 40, marca: 'Zentel®' },
+    { id: 'cp', via: 'VO', forma: 'comp', rotulo: 'Comprimido mastigável 400 mg', rx: '400 mg, comprimido mastigável', mgUnit: 400, frac: true, marca: 'Zentel®' }
+  ],
+  contra: ['Gestação.', 'Hipersensibilidade a benzimidazóis.'],
+  riscos: ['Dor abdominal e náusea leves.'],
+  comp: [{ t: 'concorda', x: '400 mg (10 mL) em dose única a partir de 2 anos, repetir em 14 dias.' },
+    { t: 'acrescenta', x: 'Entre 1 e 2 anos, a OMS usa 200 mg. O guia também lista mebendazol 100 mg (5 mL) de 12/12 h por 3 dias, a partir de 1 ano, sem depender do peso.' }],
+  fontes: ['OMS — desparasitação em crianças', 'Bula Zentel®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'nitazoxanida', nome: 'Nitazoxanida', cat: 'parasita',
+  classe: 'Antiparasitário de amplo espectro',
+  marcas: ['Annita®', 'Nitazoxanida (genérico)'],
+  idade: [{ ate: 12, tipo: 'bloqueio', msg: 'Suspensão liberada a partir de 1 ano.' }],
+  regimes: [{ id: 'hab', nome: 'Giárdia, criptosporídio, helmintos', mgkg: 7.5, faixa: [7.5, 7.5], intervalo: 12, freq: '12/12 h',
+    maxDose: 500, duracao: 'por 3 dias, após as refeições' }],
+  apres: [
+    { id: 'sus', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 20 mg/mL', rx: '20 mg/mL, pó para suspensão oral', conc: 20, marca: 'Annita®', nota: 'Atalho: 0,4 mL × peso, de 12/12 h.' },
+    { id: 'cp', via: 'VO', forma: 'comp', rotulo: 'Comprimido 500 mg', rx: '500 mg, comprimido', mgUnit: 500, frac: false, marca: 'Annita®',
+      idade: [{ ate: 144, tipo: 'bloqueio', msg: 'Comprimido de 500 mg só a partir de 12 anos.' }] }
+  ],
+  contra: ['Hipersensibilidade à nitazoxanida.'],
+  riscos: ['Pode escurecer a urina e causar dor abdominal leve.'],
+  comp: [{ t: 'concorda', x: '7,5 mg/kg/dose (0,4 mL × peso) de 12/12 h por 3 dias.' },
+    { t: 'diverge', x: 'O guia passa a comprimidos de 100 mg acima de 45 kg. A partir de 12 anos, a bula usa 500 mg de 12/12 h.' }],
+  fontes: ['Bula Annita®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'secnidazol', nome: 'Secnidazol', cat: 'parasita',
+  classe: 'Nitroimidazólico (protozoários)',
+  marcas: ['Secnidal®', 'Secnidazol (genérico)'],
+  idade: [{ ate: 12, tipo: 'alerta', msg: 'O guia usa a partir de 1 ano.' }],
+  regimes: [{ id: 'hab', nome: 'Giardíase ou amebíase intestinal', mgkg: 30, faixa: [30, 30], unica: true, freq: 'dose única', maxDose: 2000 }],
+  apres: [
+    { id: 'sus', via: 'VO', forma: 'liquido', rotulo: 'Suspensão 30 mg/mL', rx: '450 mg/15 mL, suspensão oral', conc: 30, marca: 'Secnidal®', nota: 'Atalho: 1 mL/kg (máx. 2 g).' }
+  ],
+  contra: ['Hipersensibilidade a nitroimidazóis.', 'Não ingerir álcool (efeito dissulfiram).'],
+  riscos: ['Gosto metálico, náusea e urina escura.'],
+  comp: [{ t: 'concorda', x: '30 mg/kg (1 mL/kg) em dose única, máx. 2 g; acima de 12 anos, 2 g.' }],
+  fontes: ['Bula Secnidal®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
+},
+{
+  id: 'ivermectina', nome: 'Ivermectina', cat: 'parasita',
+  classe: 'Antiparasitário (escabiose, piolho, estrongiloide)',
+  marcas: ['Revectina®', 'Ivermectina (genérico)'],
+  pesoMin: { kg: 15, msg: 'Não usar abaixo de 15 kg.' },
+  regimes: [{ id: 'hab', nome: 'Escabiose, pediculose ou estrongiloidíase', unica: true, freq: 'dose única; repetir em 7–14 dias',
+    fixo: function (p) {
+      if (p <= 24) return { dose: 3, nota: '15–24 kg: ½ comprimido' };
+      if (p <= 35) return { dose: 6, nota: '25–35 kg: 1 comprimido' };
+      if (p <= 50) return { dose: 9, nota: '36–50 kg: 1½ comprimido' };
+      if (p <= 65) return { dose: 12, nota: '51–65 kg: 2 comprimidos' };
+      if (p <= 79) return { dose: 15, nota: '66–79 kg: 2½ comprimidos' };
+      return { dose: Math.round(p * 0.2 / 3) * 3, nota: '80 kg ou mais: 200 mcg/kg' };
+    } }],
+  apres: [
+    { id: 'cp', via: 'VO', forma: 'comp', rotulo: 'Comprimido 6 mg', rx: '6 mg, comprimido', mgUnit: 6, frac: true, marca: 'Revectina®' }
+  ],
+  contra: ['Menos de 15 kg.', 'Gestação e amamentação.', 'Doença do SNC que altere a barreira hematoencefálica.'],
+  riscos: ['Tontura e prurido transitório (morte dos parasitas). Tomar em jejum.'],
+  comp: [{ t: 'diverge', x: 'O guia dá ½ comprimido de 15 a 30 kg e 1 comprimido de 30 a 45 kg. A bula sobe para 1 comprimido a partir de 25 kg e 1½ a partir de 36 kg; a faixa do guia subdosa a criança de 25–30 kg e de 36–45 kg.' }],
+  fontes: ['Bula Revectina®', 'Guia do Plantonista 2013 — MedResumos (Medicações em pediatria)']
 }
 ];
 
@@ -1399,6 +1581,7 @@ var CATEGORIAS = [
   { id: 'gastro', nome: 'Antieméticos' },
   { id: 'cort', nome: 'Corticoides' },
   { id: 'alergia', nome: 'Anti-histamínicos' },
+  { id: 'parasita', nome: 'Antiparasitários' },
   { id: 'emerg', nome: 'Emergência' }
 ];
 
@@ -1635,6 +1818,13 @@ var CATEGORIAS = [
     h += '<div class="bloco risco"><h3>Riscos e cuidados</h3><ul>' + med.riscos.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') +
       (med.idade || []).filter(function (x) { return x.tipo === 'alerta'; }).map(function (x) { return '<li>Idade: ' + esc(x.msg) + '</li>'; }).join('') + '</ul></div>';
     if (notas.length) h += '<div class="bloco"><h3>Observações</h3><ul>' + notas.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul></div>';
+    if (med.comp && med.comp.length) {
+      var ordem = { diverge: 0, acrescenta: 1, concorda: 2 };
+      h += '<div class="bloco comp"><h3>Comparação com o Guia do Plantonista 2013</h3><ul>' +
+        med.comp.slice().sort(function (a, b) { return ordem[a.t] - ordem[b.t]; }).map(function (c) {
+          return '<li><span class="tag ' + c.t + '">' + c.t + '</span>' + esc(c.x) + '</li>';
+        }).join('') + '</ul></div>';
+    }
     h += '<div class="bloco"><h3>Fontes</h3><div class="fontes">' + med.fontes.map(esc).join(' · ') + '</div></div>';
     return h + '</div>';
   }

@@ -64,7 +64,7 @@ export interface NotaPS {
   texto: string;
 }
 
-export type FonteId = "PSZ" | "PRV" | "GPP" | "MPP" | "HGWA";
+export type FonteId = "PSZ" | "PRV" | "GPP" | "MPP" | "HGWA" | "MDR";
 
 export const FONTES: Record<FonteId, string> = {
   PSZ: "Guia de Prescrições da Emergência — PS Zerado (2ª ed., 2025; e 1ª ed.)",
@@ -72,4 +72,5 @@ export const FONTES: Record<FonteId, string> = {
   GPP: "Guia do Plantonista — Pediatria",
   MPP: "Manuais de Prescrição Pediátrica (Oliveira Aguiar 2024; Guia Rápido de Medicamentos em Pediatria)",
   HGWA: "HGWA — Medicamentos mais utilizados em Pediatria (tabela de diluição)",
+  MDR: "Guia do Plantonista 2013 — Medicações e posologias em pediatria (MedResumos)",
 };

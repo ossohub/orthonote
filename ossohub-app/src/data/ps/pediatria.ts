@@ -20,8 +20,8 @@ export const PEDIATRIA: Condicao[] = [
         { m: "Dipirona gotas 500 mg/mL (20 gotas/mL)", p: "15–25 mg/kg/dose VO de 6/6 h (≈ 1 gota/kg; máx. 40 gotas = 1 g).", k: { d: [15, 25], max: 1000, c: 500, f: "gotas", gpm: 20 } },
         { m: "Dipirona solução oral 50 mg/mL", p: "15–25 mg/kg/dose VO 6/6 h.", k: { d: [15, 25], max: 1000, c: 50, f: "mL" } },
         { m: "Paracetamol gotas 200 mg/mL (≈ 15 gotas/mL)", p: "10–15 mg/kg/dose VO 6/6 h (≈ 1 gota/kg; máx. 75 mg/kg/dia).", k: { d: [10, 15], max: 750, c: 200, f: "gotas", gpm: 15 } },
-        { m: "Ibuprofeno gotas 50 mg/mL (20 gotas/mL)", p: "5–10 mg/kg/dose VO 6/6–8/8 h (≈ 2 gotas/kg; máx. 40 mg/kg/dia).", k: { d: [5, 10], max: 400, c: 50, f: "gotas", gpm: 20 } },
-        { m: "Ibuprofeno gotas 100 mg/mL (20 gotas/mL)", p: "5–10 mg/kg/dose VO 6/6–8/8 h (≈ 1 gota/kg).", k: { d: [5, 10], max: 400, c: 100, f: "gotas", gpm: 20 } },
+        { m: "Ibuprofeno gotas 50 mg/mL (10 gotas/mL; 1 gota = 5 mg)", p: "5–10 mg/kg/dose VO 6/6–8/8 h (1–2 gotas/kg; máx. 40 mg/kg/dia).", k: { d: [5, 10], max: 400, c: 50, f: "gotas", gpm: 10 } },
+        { m: "Ibuprofeno gotas 100 mg/mL (10 gotas/mL; 1 gota = 10 mg)", p: "5–10 mg/kg/dose VO 6/6–8/8 h (½–1 gota/kg).", k: { d: [5, 10], max: 400, c: 100, f: "gotas", gpm: 10 } },
       ]},
       { t: "Parenteral (PS)", itens: [
         { m: "Dipirona 500 mg/mL — ampola 2 mL", p: "15–25 mg/kg EV diluída em 10 mL SF/AD ou IM (máx. 1 g).", k: { d: [15, 25], max: 1000, c: 500, f: "mL" } },
@@ -350,7 +350,7 @@ export const PEDIATRIA: Condicao[] = [
     rx: [
       { t: "Receita", itens: [
         { m: "Paracetamol gotas 200 mg/mL", p: "10–15 mg/kg/dose VO 6/6 h.", k: { d: [10, 15], max: 750, c: 200, f: "gotas", gpm: 15 } },
-        { m: "Ibuprofeno gotas 50 mg/mL", p: "5–10 mg/kg/dose VO 8/8 h.", k: { d: [5, 10], max: 400, c: 50, f: "gotas", gpm: 20 } },
+        { m: "Ibuprofeno gotas 50 mg/mL (1 gota = 5 mg)", p: "5–10 mg/kg/dose VO 8/8 h (1–2 gotas/kg).", k: { d: [5, 10], max: 400, c: 50, f: "gotas", gpm: 10 } },
         { m: "Aciclovir 200 mg/5 mL", p: "15 mg/kg/dose VO 5x/dia por 7 dias (máx. 200 mg/dose).", k: { d: 15, max: 200, c: 40, f: "mL" } },
       ]},
     ],

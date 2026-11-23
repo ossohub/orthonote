@@ -62,7 +62,7 @@ vai no prompt da tarefa agendada). Cabeçalho de cada arquivo:
    - Doses, números e critérios são fatos: podem entrar, sempre com a fonte.
    - Sem dados de pacientes. Sem número de página no texto do site.
    - Fonte de cada nota = campo `fonte` da unidade em `fila.json`
-     (`SRIP`, `READ`, `PSZ`, `PRV`, `GPP`, `MPP`, `HGWA`).
+     (`SRIP`, `READ`, `PSZ`, `PRV`, `GPP`, `MPP`, `HGWA`, `MDR`).
    - Tópico novo da esporte: id com prefixo da área (`l-`, `r-`, `f-`, `b-`,
      `a-`, `n-`), `ver` apontando para tópicos existentes.
    - Condição nova do PS: id único, `area` `adulto`/`pediatria`, `sistema`

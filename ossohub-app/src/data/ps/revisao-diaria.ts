@@ -64,7 +64,7 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   // PS-03-01 — Guia do Plantonista Pediatria (GPP): doses de bolso, antibióticos, anti-histamínicos, asma e convulsão
   "p-febre": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia libera o ibuprofeno a partir de 12 meses; o site usa 6 meses, como a bula. Abaixo de 1 ano, preferir paracetamol ou dipirona quando houver dúvida." },
-    { fonte: "GPP", tipo: "acrescenta", texto: "Dipirona IM dói e caiu em desuso: no PS, preferir VO ou EV. Cetoprofeno gotas 50 mg/mL é outra opção a partir de 1 ano (1 gota/kg/dose de 6/6 a 8/8 h)." },
+    { fonte: "GPP", tipo: "acrescenta", texto: "Dipirona IM dói e caiu em desuso: no PS, preferir VO ou EV. Cetoprofeno gotas 20 mg/mL (1 gota = 1 mg) é outra opção a partir de 1 ano: 1 gota/kg/dose de 6/6 a 8/8 h." },
     // PED-01-01 — Manual de Prescrição Pediátrica (MPP): analgésicos
     { fonte: "MPP", tipo: "diverge", texto: "Dipirona VO: o manual escalona pela idade (lactente 10, pré-escolar 15, escolar 25 mg/kg/dose 6/6 h; > 12 anos 500–1.000 mg) e lembra que a SBP prefere 10–12 mg/kg/dose. Como 1 gota da solução de 500 mg/mL tem 25 mg, a regra de 1 gota/kg já é a dose máxima. O site mantém 15–25 mg/kg (faixa da bula); no lactente pequeno, ficar na parte baixa." },
     { fonte: "MPP", tipo: "acrescenta", texto: "Dipirona: não usar em porfiria hepática, deficiência de G6PD e discrasias sanguíneas. Junto com clorpromazina pode causar hipotermia grave. Agranulocitose é rara, mas grave: febre com dor de garganta ou aftas durante o uso pede hemograma." },
@@ -72,6 +72,11 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "MPP", tipo: "diverge", texto: "O manual escreve ibuprofeno 5–10 mg/kg por dia, dividido em 3–4 doses. A dose usual é 5–10 mg/kg por dose (máx. 40 mg/kg/dia), como no site; por dia, a criança recebe muito pouco. Adolescente: 200–400 mg por dose." },
     { fonte: "MPP", tipo: "diverge", texto: "O manual ainda lista AAS como analgésico infantil (10–15 mg/kg 4/4–6/6 h). Hoje se evita AAS para dor e febre em menores de 12–16 anos pelo risco de síndrome de Reye, e ele é proibido em dengue, gripe e varicela. Uso pediátrico fica para indicações específicas (ex.: Kawasaki)." },
     { fonte: "MPP", tipo: "acrescenta", texto: "Avaliar a dor antes e depois de medicar: escala de faces a partir de 3–4 anos; nos menores, observar choro, expressão facial, agitação, FC e FR. Dor intensa de crise falciforme ou neoplasia merece analgesia precoce e reavaliação." },
+    // Guia do Plantonista 2013 (MedResumos) — conferência das doses pediátricas
+    { fonte: "MDR", tipo: "concorda", texto: "Paracetamol 10–15 mg/kg/dose e dipirona 10–25 mg/kg/dose (a partir de 3 meses), como no site. Dipirona supositório 300 mg só a partir de 18 kg." },
+    { fonte: "MDR", tipo: "acrescenta", texto: "Ibuprofeno em gotas tem 10 gotas/mL (bula do Alivium®): 1 gota = 5 mg na de 50 mg/mL e 10 mg na de 100 mg/mL. O cálculo de gotas do site usava 20 gotas/mL e dava o dobro de gotas; foi corrigido. A bula limita a 200 mg por dose abaixo de 12 anos." },
+    { fonte: "MDR", tipo: "diverge", texto: "O guia escreve cetoprofeno gotas 50 mg/mL; a apresentação é 20 mg/mL (1 gota = 1 mg). A posologia por gota (1 gota/kg; 25 gotas de 7 a 11 anos) está certa." },
+    { fonte: "MDR", tipo: "diverge", texto: "Diclofenaco gotas: o guia conta 1 gota = 0,75 mg e usa 2–3 mg/kg/dia. Pela bula do Cataflam®, 1 gota ≈ 0,5 mg, 1–4 gotas/kg/dia (0,5–2 mg/kg/dia) em 2–3 tomadas, a partir de 1 ano. Diclofenaco IM não é para criança." },
   ],
   "paracetamol-intox": [
     // PED-01-01 (MPP)
@@ -80,6 +85,9 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   "p-vomitos": [
     { fonte: "GPP", tipo: "diverge", texto: "Para vômitos fora do contexto de quimioterapia, o guia usa ondansetrona EV 0,1 mg/kg; o site usa 0,15 mg/kg (máx. 4 mg). As duas faixas são aceitas." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Dimenidrinato gotas 25 mg/mL (Dramin®): 1 gota/kg/dose até 6/6 h. Dá sono; a bula brasileira libera a partir de 2 anos. Metoclopramida: evitar na criança (risco de distonia), como o site já orienta." },
+    { fonte: "MDR", tipo: "diverge", texto: "O guia ainda lista metoclopramida, e o número de dose do resumo do PS está errado (30–40 mg/kg). Se usar, é 0,1–0,15 mg/kg por dose, acima de 1 ano e como 2ª linha; o site prefere ondansetrona." },
+    { fonte: "MDR", tipo: "diverge", texto: "Dimenidrinato: o guia libera desde o nascimento e indica a solução 12,5 mg/mL a 0,5 mL/kg (cerca de 6 mg/kg, dose 5 vezes maior que a usual de 1–1,25 mg/kg). A bula do Dramin® B6 libera a partir de 2 anos." },
+    { fonte: "MDR", tipo: "concorda", texto: "Bromoprida a partir de 1 ano: gotas 4 mg/mL, 3–5 gotas/kg/dia divididas (cerca de 0,5–0,8 mg/kg/dia), máx. 30 gotas por dose." },
   ],
   "p-oma": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia usa amoxicilina 50 mg/kg/dia (até 90). O site parte de 80–90 mg/kg/dia (dose alta, pela resistência do pneumococo). Em região de baixa resistência e sem fatores de risco, 50 mg/kg/dia é aceito." },
@@ -105,11 +113,15 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
     { fonte: "GPP", tipo: "diverge", texto: "O guia inclui salbutamol em xarope na alta. Beta-2 oral age menos e dá mais tremor e taquicardia; o site prefere o spray com espaçador." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Corticoide EV, se a criança não aceita VO: hidrocortisona (o guia faz ataque de 10 mg/kg e mantém 5 mg/kg 6/6–8/8 h) ou dexametasona 0,3–0,6 mg/kg. Na alta, o guia usa prednisolona 1 mg/kg/dia por 5 dias." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Montelucaste (se indicado pelo seguimento), à noite: 6 meses–5 anos 4 mg (sachê ou mastigável); 6–14 anos 5 mg." },
+    { fonte: "MDR", tipo: "concorda", texto: "Nebulização com fenoterol 1 gota a cada 3 kg + ipratrópio (10 gotas < 1 ano; 20 gotas de 1 a 6 anos; 20–40 gotas > 6 anos), a cada 20 min, como no site." },
+    { fonte: "MDR", tipo: "diverge", texto: "O guia divide a prednisolona em 12/12 h e aceita até 60 mg/dia. Na crise de asma, dose única diária com teto de 40 mg funciona igual e é o que o site usa." },
   ],
   "p-convulsao": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia permite até 3 doses de diazepam com 15–30 min entre elas. O site segue as diretrizes de estado de mal: no máximo 2 doses de benzodiazepínico, com 5 min de intervalo, e depois a 2ª linha. Mais doses aumentam a depressão respiratória e atrasam o controle." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Fenobarbital injetável tem mais de uma apresentação no Brasil: 200 mg/mL (ampola de 1 mL) e 100 mg/mL (ampola de 200 mg/2 mL). Confirmar a ampola antes de converter mg em mL; o cálculo do site usa 100 mg/mL." },
     { fonte: "GPP", tipo: "diverge", texto: "Manutenção (se internar): o guia escreve fenitoína 5 mg/kg por dose de 8/8–12/12 h. O total usual é 5–8 mg/kg/dia ÷ 2–3, a partir de 12–24 h do ataque. Fenobarbital: 3–5 mg/kg/dia ÷ 2, 12 h após o ataque." },
+    { fonte: "MDR", tipo: "diverge", texto: "A tabela de PS do guia traz fenitoína 5–8 mg/kg EV de 8/8 h (15–24 mg/kg/dia) e velocidade de 1 mg/kg/hora. O ataque é 20 mg/kg a até 1 mg/kg/min (máx. 50 mg/min); a manutenção é 5–8 mg/kg/dia, dividida." },
+    { fonte: "MDR", tipo: "diverge", texto: "Diazepam retal: o guia dobra a dose EV (0,6 mg/kg). O site usa 0,5 mg/kg, máx. 20 mg." },
   ],
   "p-anafilaxia": [
     { fonte: "GPP", tipo: "diverge", texto: "O guia associa a adrenalina IM à anafilaxia com cianose ou estridor. As diretrizes indicam adrenalina IM em toda anafilaxia, logo no início, sem esperar sinais graves: é o que mais reduz a mortalidade." },
@@ -117,14 +129,19 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   "p-alergia": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Dexclorfeniramina 0,4 mg/mL (≥ 2 anos): 0,15–0,2 mg/kg/dia ÷ 3 (máx. 3 mg/dia de 2 a 6 anos; 6 mg/dia de 6 a 12). Dá sono, como prometazina e hidroxizina." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Fexofenadina 6 mg/mL (≥ 6 meses), quase sem sedação: 6 meses–2 anos 2,5 mL 12/12 h; 2–11 anos 5 mL 12/12 h; > 11 anos 120 mg 1x/dia." },
+    { fonte: "MDR", tipo: "concorda", texto: "Loratadina 5 mL/dia abaixo de 30 kg e 10 mL acima; dexclorfeniramina 0,2 mg/kg/dia de 8/8 h (≥ 2 anos); fexofenadina e desloratadina por faixa de idade; prometazina só IM e só a partir de 2 anos." },
+    { fonte: "MDR", tipo: "diverge", texto: "O guia lista dexclorfeniramina com betametasona (Celestamine®) como anti-histamínico. Cada dose leva corticoide: evitar de rotina na urticária leve." },
   ],
   "p-impetigo": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Alternativa tópica à mupirocina: ácido fusídico 2% creme 2–3x/dia por 5–7 dias." },
     { fonte: "GPP", tipo: "diverge", texto: "O guia inclui neomicina + bacitracina (Nebacetim®) para impetigo. Essa associação tem eficácia menor e causa dermatite de contato; as diretrizes preferem mupirocina ou ácido fusídico." },
+    { fonte: "MDR", tipo: "diverge", texto: "O guia sugere ácido fusídico com betametasona (Verutex® B). No impetigo, o corticoide não ajuda e pode piorar a infecção: usar só o antibiótico tópico." },
   ],
   "p-parasitose": [
     { fonte: "GPP", tipo: "acrescenta", texto: "A suspensão pediátrica de metronidazol é benzoilmetronidazol 40 mg/mL, que equivale a 25 mg/mL de metronidazol. O cálculo do site usava 40 mg/mL e dava volume menor que o devido; foi corrigido." },
     { fonte: "GPP", tipo: "acrescenta", texto: "Nitazoxanida 20 mg/mL (≥ 1 ano): 7,5 mg/kg/dose VO 12/12 h por 3 dias (≈ 0,4 mL/kg/dose), após refeição. Cobre giárdia, criptosporídio e alguns helmintos; pode escurecer a urina." },
+    { fonte: "MDR", tipo: "acrescenta", texto: "Mebendazol 100 mg (5 mL) de 12/12 h por 3 dias, a partir de 1 ano e sem depender do peso; repetir em 7–10 dias. Oxiúros: pamoato de pirvínio 10 mg/mL, 1 mL/kg em dose única, repetir em 2–3 semanas (tinge as fezes de vermelho)." },
+    { fonte: "MDR", tipo: "concorda", texto: "Secnidazol 30 mg/kg (1 mL/kg da suspensão 30 mg/mL) em dose única, máx. 2 g." },
   ],
   "p-estomatite": [
     { fonte: "GPP", tipo: "acrescenta", texto: "Aftas: tópicos são só para alívio (ex.: pomada bucal com anestésico, 3x/dia por poucos dias). Benzidamina em bochecho só acima de 6 anos (precisa saber cuspir). O guia não indica triancinolona em orabase na criança." },
@@ -144,6 +161,13 @@ export const NOTAS_PS: Record<string, NotaPS[]> = {
   vertigem: [
     { fonte: "PSZ", tipo: "diverge", texto: "O guia prescreve meclizina 50 mg 8/8 h (150 mg/dia). A bula vai até 100 mg/dia, divididos; o site mantém 25–50 mg/dia por poucos dias." },
     { fonte: "PSZ", tipo: "acrescenta", texto: "Benzodiazepínico em dose baixa também suprime o vestíbulo e pode ajudar na crise intensa, junto com antiemético. Usar só por 1–3 dias: atrasa a compensação e dá sono e queda em idoso." },
+  ],
+  // Guia do Plantonista 2013 (MedResumos) — pediatria
+  "p-crupe": [
+    { fonte: "MDR", tipo: "diverge", texto: "O guia cita dexametasona oral 2 mg/kg/dia. É erro de dose: no crupe, 0,15–0,6 mg/kg em dose única (máx. 10 mg), como no site. Elixir 0,1 mg/mL (0,5 mg/5 mL)." },
+  ],
+  "p-escabiose": [
+    { fonte: "MDR", tipo: "diverge", texto: "Ivermectina: o guia dá ½ comprimido de 15 a 30 kg e 1 comprimido de 30 a 45 kg. A bula sobe para 1 comprimido a partir de 25 kg e 1½ a partir de 36 kg (cerca de 200 mcg/kg), como no site." },
   ],
   // PS-02-01 — Prescrevendo (Ficha Verde): analgesia
   analgesia: [
