@@ -1,6 +1,6 @@
 # OssoHUB — baseline da modernização
 
-**Data da auditoria:** 2026-11-23  
+**Data da auditoria:** 2026-11-22  
 **Repositório:** `ossohub/orthonote`  
 **Aplicação principal:** `ossohub-app/`  
 **Estratégia aprovada:** Hub central de produtos · identidade visual preservada · migração gradual.
@@ -26,7 +26,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 - Supabase: PostgreSQL, Auth, Storage e Realtime.
 - Vercel: deploy em região GRU (São Paulo).
 - 154 arquivos sob `ossohub-app/src/`.
-- 47 páginas/rotas de página e 5 Route Handlers identificados na árvore atual.
+- 45 páginas (`page.tsx`) e 5 Route Handlers (`route.ts`) identificados na árvore atual, totalizando 50 arquivos de entrada de rota.
 - 6 arquivos SQL de schema/migrations no diretório `ossohub-app/supabase/`.
 - Não foram encontrados testes automatizados, configuração de Playwright/Vitest ou lockfile no pacote da aplicação durante a inspeção da árvore.
 
@@ -35,7 +35,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 ### P0 — Integridade do fluxo de release
 
 1. A branch `main` não está protegida. Não há exigência de Pull Request nem status checks obrigatórios configurados.
-2. A produção está no SHA `4a3dc38`, enquanto `main` está no SHA `27faad4`.
+2. A release de produção mais recente está no SHA `27faad4`, igual ao HEAD de `main`. O SHA `4a3dc38` pertence a um deployment histórico, não à release atual.
 3. A configuração atual do projeto Vercel instala com `npm install`; não foi localizado lockfile da aplicação para instalação reprodutível.
 
 **Ação:** manter a produção congelada durante a modernização; propor proteção de `main`, checks obrigatórios e deploy de produção somente após aprovação explícita.
@@ -52,7 +52,7 @@ Esta auditoria é somente leitura em relação à Vercel e ao Supabase. Nenhuma 
 
 ### P1 — Autenticação e autorização
 
-1. `src/middleware.ts` usa `middleware()` e protege explicitamente apenas os prefixos `/feed`, `/explore`, `/network`, `/notifications`, `/profile` e `/post/new`.
+1. No baseline, `src/middleware.ts` protegia explicitamente apenas alguns prefixos. Na branch de correção, foi substituído por `src/proxy.ts` (convenção do Next.js 16) e a cobertura foi ampliada para as páginas do grupo `(main)`.
 2. Há páginas que fazem verificação server-side com `auth.getUser()`; a cobertura das demais páginas e APIs ainda precisa ser inventariada.
 3. O callback OAuth usa cliente administrativo para ler o CRM do próprio usuário autenticado. A justificativa está documentada, mas a leitura deve preferir cliente de sessão se possível.
 4. O hook `useUser` registra listener de auth e faz consulta ao perfil; avaliar estabilidade do client, tratamento de erros, loading e condições de corrida.
@@ -127,3 +127,8 @@ Cada módulo será migrado com testes e comparação funcional antes de avançar
 
 ---
 **Status:** baseline inicial registrada; nenhuma mudança funcional ou de banco aplicada.
+
+
+## 9. Atualização de remediação em branch
+
+As correções de navegação/auth e o endurecimento de SQL estão sendo preparados somente em `feature/audit-baseline`. A branch não é a produção. Ver `DEEP_AUDIT_ROUTES_SECURITY.md`, `ROUTE_ACCESS_MATRIX.md` e `DB_REMEDIATION_DRAFT.sql` para os detalhes e limites de homologação.
