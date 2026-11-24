@@ -161,7 +161,7 @@ export default function SignupPage() {
                 Nome completo *
               </label>
               <input
-                {...register("full_name")}
+                {...register("full_name")}\n                id="signup-name"
                 placeholder="Dr. João Silva"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
@@ -172,7 +172,7 @@ export default function SignupPage() {
             <div>
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Email *</label>
               <input
-                {...register("email")}
+                {...register("email")}\n                id="signup-email"
                 type="email"
                 placeholder="seu@email.com"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
@@ -185,7 +185,7 @@ export default function SignupPage() {
               <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Senha *</label>
               <div className="relative">
                 <input
-                  {...register("password")}
+                  {...register("password")}\n                id="signup-password"
                   type={showPass ? "text" : "password"}
                   placeholder="Mínimo 8 caracteres"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
@@ -203,7 +203,7 @@ export default function SignupPage() {
               <div>
                 <label className="block text-sm font-medium text-ossohub-navy mb-1.5">CRM *</label>
                 <input
-                  {...register("crm")}
+                  {...register("crm")}\n                id="signup-crm"
                   placeholder="12345/SP"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
@@ -214,7 +214,7 @@ export default function SignupPage() {
                   RQE <span className="text-slate-400">(opcional)</span>
                 </label>
                 <input
-                  {...register("rqe")}
+                  {...register("rqe")}\n                  id="signup-rqe"
                   placeholder="12345"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
@@ -226,7 +226,7 @@ export default function SignupPage() {
               <label className="block text-sm font-medium text-ossohub-navy mb-2">
                 Especialidades *
               </label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Especialidades">
                 {SPECIALTIES.map((s) => {
                   const selected = selectedSpecialties.includes(s);
                   return (
@@ -257,7 +257,7 @@ export default function SignupPage() {
                 Cidade/Estado <span className="text-slate-400">(opcional)</span>
               </label>
               <input
-                {...register("city_state")}
+                {...register("city_state")}\n                id="signup-city-state"
                 placeholder="São Paulo, SP"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
@@ -269,7 +269,7 @@ export default function SignupPage() {
                 Bio curta <span className="text-slate-400">(opcional)</span>
               </label>
               <textarea
-                {...register("bio")}
+                {...register("bio")}\n                id="signup-bio"
                 rows={2}
                 placeholder="Ortopedista especialista em Joelho. Hospital..."
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"
