@@ -113,14 +113,16 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
 
         {/* Feed principal */}
         <main className="lg:col-span-2 space-y-4">
-          {/* Filtros */}
-          <div className="ossohub-card p-3">
-            <div className="flex gap-1 flex-wrap">
-              {FILTER_BUTTONS.map(({ type, label, icon: Icon }) => (
+          {/* Filtros — grade simétrica: "Todos" em cima, 2×2 abaixo */}
+          <div className="ossohub-card p-3 space-y-2.5">
+            <div className="grid grid-cols-2 gap-1.5">
+              {FILTER_BUTTONS.map(({ type, label, icon: Icon }, i) => (
                 <button
                   key={type}
                   onClick={() => setFilter(type)}
-                  className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+                  className={`flex items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-xs font-medium transition-colors ${
+                    i === 0 ? "col-span-2" : ""
+                  } ${
                     filter === type
                       ? "bg-ossohub-green text-white"
                       : "text-ossohub-slate hover:bg-slate-100"
@@ -130,20 +132,21 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
                   {label}
                 </button>
               ))}
+            </div>
 
-              <div className="ml-auto flex gap-1">
-                {(["recent", "popular", "featured"] as SortType[]).map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSort(s)}
-                    className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
-                      sort === s ? "bg-slate-200 text-ossohub-navy" : "text-ossohub-slate hover:bg-slate-100"
-                    }`}
-                  >
-                    {{ recent: "Recentes", popular: "Populares", featured: "Destaques" }[s]}
-                  </button>
-                ))}
-              </div>
+            {/* Ordenação — 3 colunas iguais */}
+            <div className="grid grid-cols-3 gap-1 border-t border-[var(--line)] pt-2.5">
+              {(["recent", "popular", "featured"] as SortType[]).map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSort(s)}
+                  className={`rounded-lg px-2 py-1.5 text-center text-xs font-medium transition-colors ${
+                    sort === s ? "bg-slate-200 text-ossohub-navy" : "text-ossohub-slate hover:bg-slate-100"
+                  }`}
+                >
+                  {{ recent: "Recentes", popular: "Populares", featured: "Destaques" }[s]}
+                </button>
+              ))}
             </div>
           </div>
 
