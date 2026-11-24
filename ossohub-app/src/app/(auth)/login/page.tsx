@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -119,7 +120,7 @@ function LoginForm() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center">
             <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
-              <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+              <Image src="/logo.webp" alt="OssoHub" width={150} height={68} priority sizes="150px" className="ossohub-logo h-8 w-auto" />
             </div>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Entrar na plataforma</h1>
