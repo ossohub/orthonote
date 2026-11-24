@@ -68,8 +68,19 @@ export default function SignupPage() {
       password: data.password,
       options: {
         data: {
-          full_name: data.full_name,
-          crm: data.crm,
+          // Metadados usados pelo trigger app_private.handle_new_user.
+          full_name: data.full_name.trim(),
+          professional_role: "medico_ortopedista",
+          specialty: data.specialties.join(", "),
+          workplace: data.city_state?.trim() ?? "",
+          crm_number: data.crm.trim().match(/^(\\d+)\\s*\\/\\s*([A-Za-z]{2})$/)?.[1] ?? data.crm.trim(),
+          crm_state: data.crm.trim().match(/^(\\d+)\\s*\\/\\s*([A-Za-z]{2})$/)?.[2]?.toUpperCase() ?? "",
+          // Campos do perfil atual, sincronizados quando houver sessão autenticada.
+          crm: data.crm.trim(),
+          rqe: data.rqe?.trim() ?? "",
+          specialties: data.specialties,
+          city_state: data.city_state?.trim() ?? "",
+          bio: data.bio?.trim() ?? "",
         },
       },
     });
@@ -79,31 +90,32 @@ export default function SignupPage() {
       return;
     }
 
-    // 2. Atualizar perfil com dados extras (o trigger já criou o registro básico)
-    //    O gatilho não recebe o CRM (só nome/professional_role/etc via
-    //    raw_user_meta_data), então é aqui que ele é gravado de fato.
+    if (!authData.session) {
+      // Sem sessão, as políticas RLS impedem a atualização do perfil pelo cliente.
+      // Os metadados enviados acima permitem ao trigger criar os campos legados;
+      // os campos atuais serão sincronizados após a confirmação e o primeiro login.
+      toast.success("Conta criada! Confira seu email para confirmar antes de entrar.");
+      router.push("/login");
+      return;
+    }
+
+    // Com sessão ativa, sincroniza os campos atuais do perfil sob RLS.
     if (authData.user) {
       const { error: profileError } = await supabase
         .from("profiles")
         .update({
-          crm: data.crm,
-          rqe: data.rqe ?? null,
+          crm: data.crm.trim(),
+          rqe: data.rqe?.trim() || null,
           specialties: data.specialties,
-          city_state: data.city_state ?? null,
-          bio: data.bio ?? null,
+          city_state: data.city_state?.trim() || null,
+          bio: data.bio?.trim() || null,
         })
         .eq("id", authData.user.id);
 
       if (profileError) {
         console.error("Erro ao atualizar perfil:", profileError);
+        toast.error("Conta criada, mas alguns dados profissionais ainda precisam ser sincronizados no perfil.");
       }
-    }
-
-    if (!authData.session) {
-      // Confirmação de email exigida — ainda não há sessão ativa.
-      toast.success("Conta criada! Confira seu email para confirmar antes de entrar.");
-      router.push("/login");
-      return;
     }
 
     toast.success("Conta criada! Bem-vindo ao OssoHub 🦴");
