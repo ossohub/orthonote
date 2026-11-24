@@ -32,6 +32,12 @@ import { getResidentRisk, getResidentRiskHistory } from "@/lib/residentRisk";
 //                          de evolução do dashboard.
 export const runtime = "nodejs";
 
+function jsonNoStore(body: unknown, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set("Cache-Control", "private, no-store");
+  return NextResponse.json(body, { ...init, headers });
+}
+
 interface RouteParams {
   params: Promise<{ user_id: string }>;
 }
@@ -46,14 +52,14 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    return NextResponse.json(
+    return jsonNoStore(
       { error: "unauthorized", message: "Faça login para acessar sua Análise Preditiva de Desempenho." },
       { status: 401 }
     );
   }
 
   if (user.id !== userId) {
-    return NextResponse.json(
+    return jsonNoStore(
       { error: "forbidden", message: "Você só pode acessar a sua própria Análise Preditiva de Desempenho." },
       { status: 403 }
     );
@@ -72,7 +78,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     .single();
 
   if (profileError || !profile) {
-    return NextResponse.json({ error: "not_found", message: "Perfil não encontrado." }, { status: 404 });
+    return jsonNoStore({ error: "not_found", message: "Perfil não encontrado." }, { status: 404 });
   }
 
   const { data: consent, error: consentError } = await admin
@@ -84,11 +90,11 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     .maybeSingle();
 
   if (consentError) {
-    return NextResponse.json({ error: "internal_error", message: consentError.message }, { status: 500 });
+    return jsonNoStore({ error: "internal_error", message: consentError.message }, { status: 500 });
   }
 
   if (!consent) {
-    return NextResponse.json(
+    return jsonNoStore(
       {
         error: "consent_required",
         message: "É necessário aceitar o termo de consentimento (LGPD) para ver sua Análise Preditiva de Desempenho.",
@@ -99,7 +105,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
   try {
     const [row, history] = await Promise.all([getResidentRisk(userId), getResidentRiskHistory(userId, 90)]);
-    return NextResponse.json({
+    return jsonNoStore({
       risk_score: row.risk_score,
       risk_level: row.risk_level,
       top_reasons: row.top_reasons,
@@ -117,7 +123,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       })),
     });
   } catch (err) {
-    return NextResponse.json(
+    return jsonNoStore(
       { error: "internal_error", message: err instanceof Error ? err.message : "Falha ao calcular risco." },
       { status: 500 }
     );
