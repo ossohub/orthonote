@@ -172,9 +172,9 @@ export function sectionForPath(pathname: string): NavSection | undefined {
 
 // Cores de cada seção dentro do tema Negatoscópio.
 export const TONES: Record<NavTone, { text: string; chip: string; ring: string; glow: string }> = {
-  cyan:  { text: "text-[#7FE7EE]", chip: "bg-[#38D5E0]/10 text-[#7FE7EE]", ring: "border-[#38D5E0]/35", glow: "rgba(56,213,224,0.18)" },
+  cyan:  { text: "text-[#FFD477]", chip: "bg-[#E9AE3B]/10 text-[#FFD477]", ring: "border-[#E9AE3B]/35", glow: "rgba(233,174,59,0.18)" },
   bone:  { text: "text-[#EADFC8]", chip: "bg-[#EADFC8]/10 text-[#EADFC8]", ring: "border-[#EADFC8]/30", glow: "rgba(234,223,200,0.14)" },
-  sky:   { text: "text-[#93C5FD]", chip: "bg-[#60A5FA]/10 text-[#93C5FD]", ring: "border-[#60A5FA]/35", glow: "rgba(96,165,250,0.16)" },
-  green: { text: "text-[#6EE7B7]", chip: "bg-[#10B981]/15 text-[#6EE7B7]", ring: "border-[#10B981]/35", glow: "rgba(16,185,129,0.16)" },
+  sky:   { text: "text-[#EADFC8]", chip: "bg-[#EADFC8]/10 text-[#EADFC8]", ring: "border-[#EADFC8]/30", glow: "rgba(234,223,200,0.14)" },
+  green: { text: "text-[#F3C96E]", chip: "bg-[#E9AE3B]/10 text-[#F3C96E]", ring: "border-[#E9AE3B]/30", glow: "rgba(233,174,59,0.16)" },
   red:   { text: "text-[#FCA5A5]", chip: "bg-[#EF4444]/10 text-[#FCA5A5]", ring: "border-[#EF4444]/35", glow: "rgba(239,68,68,0.14)" },
 };
