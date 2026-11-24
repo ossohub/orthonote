@@ -3233,7 +3233,7 @@ export default function ConteudoPediatriaPage() {
         <div>
           <h1 className="text-xl font-bold text-white">Conteúdo Pediatria</h1>
           <p className="text-sm text-slate-500 mt-0.5">
-            Resumo didático baseado em Rockwood – Fraturas em Crianças, Tachdjian's, Campbell's e Lovell &amp; Winter's
+            Resumo didático baseado em Rockwood – Fraturas em Crianças, Tachdjian&apos;s, Campbell&apos;s e Lovell &amp; Winter&apos;s
           </p>
         </div>
       </div>
