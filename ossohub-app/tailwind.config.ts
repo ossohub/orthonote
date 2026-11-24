@@ -50,12 +50,12 @@ const config: Config = {
           navy: "#08111F",
           "navy-deep": "#050A14",
           "navy-card": "#0D192C",
-          teal: "#38D5E0",
-          glow: "#38D5E0",
+          teal: "#E9AE3B",
+          glow: "#E9AE3B",
           bone: "#EADFC8",
-          green: "#10B981",
-          "green-dark": "#10B981",   /* brightened — era #059669, ilegível no fundo dark */
-          "green-light": "rgba(16,185,129,0.15)", /* era #D1FAE5, muito claro */
+          green: "#E9AE3B",
+          "green-dark": "#E9AE3B",   /* dourado da identidade OssoHub */
+          "green-light": "rgba(233,174,59,0.15)", /* destaque dourado discreto */
           slate: "#A3B1C6",          /* texto secundário legível (≈8:1) */
           "bg-light": "#0D192C",     /* era #F8FAFC — invertido para dark */
         },
