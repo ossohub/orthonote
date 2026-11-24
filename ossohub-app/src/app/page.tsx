@@ -56,10 +56,10 @@ function LightboxFilm() {
           <div className="absolute left-3 bottom-3 right-3 flex items-end justify-between">
             <div className="flex gap-[3px]">
               {Array.from({ length: 14 }).map((_, k) => (
-                <span key={k} className="w-px bg-[#7FE7EE]/60" style={{ height: k % 5 === 0 ? 12 : 6 }} />
+                <span key={k} className="w-px bg-[#FFD477]/60" style={{ height: k % 5 === 0 ? 12 : 6 }} />
               ))}
             </div>
-            <span className="oh-mono text-[10px] text-[#7FE7EE]">5 cm</span>
+            <span className="oh-mono text-[10px] text-[#FFD477]">5 cm</span>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ function AreasSection() {
           {AREAS.map(({ marker, icon: Icon, title, desc }) => (
             <div key={title} className="oh-hub-card oh-section-reveal">
               <div className="flex items-center justify-between">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-[rgba(56,213,224,0.1)] text-[#7FE7EE]">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-[rgba(233,174,59,0.1)] text-[#FFD477]">
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="oh-marker bg-white/[0.06] text-[#EADFC8]">{marker}</span>
@@ -208,7 +208,7 @@ function HowItWorksSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map(({ step, icon: Icon, title, desc }) => (
             <div key={step} className="ossohub-card oh-section-reveal p-6 group cursor-default">
-              <div className="oh-mono text-4xl font-bold mb-4 leading-none text-[rgba(127,231,238,0.28)]">
+              <div className="oh-mono text-4xl font-bold mb-4 leading-none text-[rgba(255,212,119,0.28)]">
                 {step}
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-xl mb-4"
@@ -294,7 +294,7 @@ function BenefitsSection() {
                     <div className="font-medium text-white text-sm">{name}</div>
                     <div className="text-xs text-[#A3B1C6]">{xp}</div>
                   </div>
-                  <Bone className="h-4 w-4 text-[rgba(127,231,238,0.4)]" />
+                  <Bone className="h-4 w-4 text-[rgba(255,212,119,0.4)]" />
                 </div>
               ))}
             </div>
