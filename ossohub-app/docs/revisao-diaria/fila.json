@@ -484,7 +484,10 @@
    "fonte": "WOMEN",
    "alvo": "esporte",
    "arquivo": "ESP-09.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-24",
+   "resumo": "Sem alterações necessárias. Capítulo de abertura do livro (conceitos de desenvolvimento do esporte feminino e organização das seções), sem conteúdo clínico.",
+   "ids": []
   },
   {
    "id": "ESP-10-01",
