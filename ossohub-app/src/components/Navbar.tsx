@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Bell, User, Menu, X, LogOut, Pencil, Plus, Home, Bone, Baby, Siren,
 } from "lucide-react";
@@ -28,6 +28,8 @@ export function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const drawerCloseRef = useRef<HTMLButtonElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const { user, profile, signOut } = useUser();
 
   const isAuthenticated = !!user;
@@ -54,6 +56,42 @@ export function Navbar() {
   useEffect(() => {
     document.documentElement.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.documentElement.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  // Acessibilidade do menu: foco inicial, tecla Esc e navegação por Tab contida na gaveta.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    drawerCloseRef.current?.focus();
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const drawer = document.querySelector<HTMLElement>("[data-oh-drawer]");
+      const focusable = drawer?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      menuTriggerRef.current?.focus();
+    };
   }, [mobileOpen]);
 
   return (
@@ -117,7 +155,7 @@ export function Navbar() {
                   <Link href="/notifications" aria-label="Notificações"
                     className={cn(
                       "md:hidden grid h-9 w-9 place-items-center rounded-full hover:bg-white/10",
-                      isActive(pathname, "/notifications") ? "text-[#7FE7EE]" : "text-[#DCE3EE]"
+                      isActive(pathname, "/notifications") ? "text-[#FFD477]" : "text-[#DCE3EE]"
                     )}>
                     <Bell className="h-[18px] w-[18px]" />
                   </Link>
@@ -183,8 +221,9 @@ export function Navbar() {
               </Link>
             );
           })}
-          <button type="button" onClick={() => setMobileOpen(true)}
-            className={cn("oh-tab", mobileOpen && "is-active")} aria-label="Abrir menu completo">
+          <button ref={menuTriggerRef} type="button" onClick={() => setMobileOpen(true)}
+            className={cn("oh-tab", mobileOpen && "is-active")} aria-label="Abrir menu completo"
+            aria-expanded={mobileOpen} aria-controls="ossohub-mobile-drawer">
             <Menu className="h-5 w-5" />
             <span>Menu</span>
           </button>
@@ -193,12 +232,12 @@ export function Navbar() {
 
       {/* ── Celular: menu completo (gaveta) ──────────────────────── */}
       {isAuthenticated && mobileOpen && (
-        <div className="md:hidden fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Menu">
+        <div id="ossohub-mobile-drawer" data-oh-drawer className="md:hidden fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Menu">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="oh-drawer absolute inset-y-0 right-0 w-[min(88vw,360px)] flex flex-col">
             <div className="flex h-16 items-center justify-between px-4 border-b border-white/[0.07]">
               <span className="oh-mono text-[11px] uppercase tracking-[0.18em] text-[#A3B1C6]">Menu</span>
-              <button onClick={() => setMobileOpen(false)} aria-label="Fechar menu"
+              <button ref={drawerCloseRef} type="button" onClick={() => setMobileOpen(false)} aria-label="Fechar menu"
                 className="grid h-9 w-9 place-items-center rounded-full text-[#DCE3EE] hover:bg-white/10">
                 <X className="h-5 w-5" />
               </button>
@@ -214,7 +253,7 @@ export function Navbar() {
                       <Link key={href} href={href} onClick={() => setMobileOpen(false)}
                         className={cn(
                           "flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium",
-                          active ? "border-[#38D5E0]/40 bg-[#38D5E0]/10 text-[#7FE7EE]" : "border-white/[0.07] text-[#DCE3EE]"
+                          active ? "border-[#E9AE3B]/40 bg-[#E9AE3B]/10 text-[#FFD477]" : "border-white/[0.07] text-[#DCE3EE]"
                         )}>
                         <Icon className="h-4 w-4" /> {label}
                       </Link>

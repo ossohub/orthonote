@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -135,7 +136,7 @@ export default function SignupPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center">
             <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
-              <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+              <Image src="/logo.webp" alt="OssoHub" width={150} height={68} priority sizes="150px" className="ossohub-logo h-8 w-auto" />
             </div>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Criar sua conta</h1>
@@ -156,11 +157,12 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Nome completo */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-name" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Nome completo *
               </label>
               <input
                 {...register("full_name")}
+                id="signup-name"
                 placeholder="Dr. João Silva"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
@@ -169,9 +171,10 @@ export default function SignupPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Email *</label>
+              <label htmlFor="signup-email" className="block text-sm font-medium text-ossohub-navy mb-1.5">Email *</label>
               <input
                 {...register("email")}
+                id="signup-email"
                 type="email"
                 placeholder="seu@email.com"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
@@ -181,15 +184,17 @@ export default function SignupPage() {
 
             {/* Senha */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Senha *</label>
+              <label htmlFor="signup-password" className="block text-sm font-medium text-ossohub-navy mb-1.5">Senha *</label>
               <div className="relative">
                 <input
                   {...register("password")}
+                id="signup-password"
                   type={showPass ? "text" : "password"}
                   placeholder="Mínimo 8 caracteres"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 <button type="button" onClick={() => setShowPass((v) => !v)}
+                  aria-label={showPass ? "Ocultar senha" : "Mostrar senha"} aria-pressed={showPass}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                   {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -200,20 +205,22 @@ export default function SignupPage() {
             {/* CRM + RQE */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-ossohub-navy mb-1.5">CRM *</label>
+                <label htmlFor="signup-crm" className="block text-sm font-medium text-ossohub-navy mb-1.5">CRM *</label>
                 <input
                   {...register("crm")}
+                id="signup-crm"
                   placeholder="12345/SP"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 {errors.crm && <p className="mt-1 text-xs text-red-500">{errors.crm.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+                <label htmlFor="signup-rqe" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                   RQE <span className="text-slate-400">(opcional)</span>
                 </label>
                 <input
                   {...register("rqe")}
+                  id="signup-rqe"
                   placeholder="12345"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
@@ -225,7 +232,7 @@ export default function SignupPage() {
               <label className="block text-sm font-medium text-ossohub-navy mb-2">
                 Especialidades *
               </label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Especialidades">
                 {SPECIALTIES.map((s) => {
                   const selected = selectedSpecialties.includes(s);
                   return (
@@ -252,11 +259,12 @@ export default function SignupPage() {
 
             {/* Cidade/Estado */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-city-state" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Cidade/Estado <span className="text-slate-400">(opcional)</span>
               </label>
               <input
                 {...register("city_state")}
+                id="signup-city-state"
                 placeholder="São Paulo, SP"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
               />
@@ -264,11 +272,12 @@ export default function SignupPage() {
 
             {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-bio" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Bio curta <span className="text-slate-400">(opcional)</span>
               </label>
               <textarea
                 {...register("bio")}
+                id="signup-bio"
                 rows={2}
                 placeholder="Ortopedista especialista em Joelho. Hospital..."
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition resize-none"

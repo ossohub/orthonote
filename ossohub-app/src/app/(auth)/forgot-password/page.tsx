@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -44,7 +45,7 @@ export default function ForgotPasswordPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center">
             <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
-              <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+              <Image src="/logo.webp" alt="OssoHub" width={150} height={68} priority sizes="150px" className="ossohub-logo h-8 w-auto" />
             </div>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Recuperar senha</h1>
@@ -66,9 +67,10 @@ export default function ForgotPasswordPage() {
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-ossohub-navy mb-1.5">Email</label>
+                <label htmlFor="forgot-email" className="block text-sm font-medium text-ossohub-navy mb-1.5">Email</label>
                 <input
                   {...register("email")}
+                  id="forgot-email"
                   type="email"
                   placeholder="seu@email.com"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"

@@ -2,28 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronDown, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/hooks/useUser";
 import {
   NAV_SECTIONS, TONES, isActive, sectionForPath, type NavSection,
 } from "@/lib/navigation";
-
-const STORAGE_KEY = "ossohub.sidebar.abertas";
-
-function readOpen(): string[] | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as string[]) : null;
-  } catch {
-    return null;
-  }
-}
-
-function writeOpen(ids: string[]) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(ids)); } catch { /* sem armazenamento: ok */ }
-}
 
 /** Lista de links de uma seção — usada na barra lateral e no menu do celular. */
 export function SectionLinks({
@@ -76,20 +61,12 @@ export function Sidebar() {
   const isAdmin = profile?.app_role === "admin";
   const current = sectionForPath(pathname);
 
-  // Seções abertas: lembra a escolha do usuário; a seção da página atual
-  // sempre aparece aberta.
+  // Estado local evita leitura síncrona do navegador durante a hidratação.
+  // A seção correspondente à rota atual permanece sempre aberta.
   const [open, setOpen] = useState<string[]>(["consultorio"]);
-  useEffect(() => {
-    const saved = readOpen();
-    if (saved) setOpen(saved);
-  }, []);
 
   function toggle(id: string) {
-    setOpen((prev) => {
-      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
-      writeOpen(next);
-      return next;
-    });
+    setOpen((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   }
 
   return (

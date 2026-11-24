@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -119,7 +120,7 @@ function LoginForm() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center">
             <div className="flex items-center rounded-xl bg-ossohub-navy px-3 py-2">
-              <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+              <Image src="/logo.webp" alt="OssoHub" width={150} height={68} priority sizes="150px" className="ossohub-logo h-8 w-auto" />
             </div>
           </Link>
           <h1 className="mt-6 text-2xl font-bold text-ossohub-navy">Entrar na plataforma</h1>
@@ -141,11 +142,12 @@ function LoginForm() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="login-email" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Email
               </label>
               <input
                 {...register("email")}
+                id="login-email"
                 type="email"
                 placeholder="seu@email.com"
                 className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
@@ -158,7 +160,7 @@ function LoginForm() {
             {/* Senha */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-sm font-medium text-ossohub-navy">
+                <label htmlFor="login-password" className="block text-sm font-medium text-ossohub-navy">
                   Senha
                 </label>
                 <Link href="/forgot-password" className="text-xs font-medium text-ossohub-green hover:underline">
@@ -168,6 +170,7 @@ function LoginForm() {
               <div className="relative">
                 <input
                   {...register("password")}
+                  id="login-password"
                   type={showPass ? "text" : "password"}
                   placeholder="••••••••"
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
@@ -175,6 +178,8 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={() => setShowPass((v) => !v)}
+                  aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
+                  aria-pressed={showPass}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}

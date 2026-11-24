@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Bone,
   BookOpen,
@@ -15,17 +16,16 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 // --- Visual do herói: filme de raio-X na caixa de luz ---
 function LightboxFilm() {
   return (
-    <div className="relative mx-auto w-full max-w-[420px] aspect-[4/5]" aria-hidden>
+    <div className="oh-hero-visual relative mx-auto w-full max-w-[420px] aspect-[4/5]" aria-hidden>
       {/* caixa de luz */}
       <div className="absolute -inset-6 rounded-[36px] blur-2xl"
-        style={{ background: "radial-gradient(closest-side, rgba(56,213,224,0.28), transparent)" }} />
-      <div className="relative h-full rounded-[28px] border border-[rgba(127,231,238,0.25)] p-3"
-        style={{ background: "linear-gradient(180deg,#DDF7F8 0%,#BFEFF2 100%)", boxShadow: "0 30px 80px -20px rgba(56,213,224,0.45)" }}>
+        style={{ background: "radial-gradient(closest-side, rgba(233,174,59,0.28), transparent)" }} />
+      <div className="oh-xray-shell relative h-full rounded-[28px] border border-[rgba(255,212,119,0.28)] p-3"
+        style={{ background: "linear-gradient(145deg,#F6DFA8 0%,#C58C2D 48%,#5A421E 100%)", boxShadow: "0 30px 80px -20px rgba(233,174,59,0.28)" }}>
         {/* filme */}
         <div className="relative h-full overflow-hidden rounded-[20px]"
           style={{ background: "radial-gradient(120% 90% at 50% 40%, #1A2A40 0%, #070D18 75%)" }}>
@@ -57,10 +57,10 @@ function LightboxFilm() {
           <div className="absolute left-3 bottom-3 right-3 flex items-end justify-between">
             <div className="flex gap-[3px]">
               {Array.from({ length: 14 }).map((_, k) => (
-                <span key={k} className="w-px bg-[#7FE7EE]/60" style={{ height: k % 5 === 0 ? 12 : 6 }} />
+                <span key={k} className="w-px bg-[#FFD477]/60" style={{ height: k % 5 === 0 ? 12 : 6 }} />
               ))}
             </div>
-            <span className="oh-mono text-[10px] text-[#7FE7EE]">5 cm</span>
+            <span className="oh-mono text-[10px] text-[#FFD477]">5 cm</span>
           </div>
         </div>
       </div>
@@ -72,10 +72,10 @@ function LightboxFilm() {
 function HeroSection() {
   return (
     <section className="relative overflow-hidden pt-14 pb-20 sm:pt-20 sm:pb-28">
-      <div className="ossohub-container relative">
+      <div className="oh-hero-orb -left-24 top-10 h-72 w-72" aria-hidden="true" /><div className="oh-hero-orb right-0 top-24 h-56 w-56" aria-hidden="true" /><div className="ossohub-container relative">
         <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(127,231,238,0.3)] bg-[rgba(56,213,224,0.08)] px-4 py-1.5 text-sm text-[#7FE7EE] mb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,212,119,0.3)] bg-[rgba(233,174,59,0.08)] px-4 py-1.5 text-sm text-[#FFD477] mb-8">
               <Star className="h-3.5 w-3.5" />
               A rede que a ortopedia brasileira precisava
             </div>
@@ -108,12 +108,12 @@ function HeroSection() {
 
             <div className="mt-12 grid grid-cols-3 gap-4 border-t border-[var(--line)] pt-8 max-w-xl mx-auto lg:mx-0">
               {[
-                { value: "100%", label: "Verificados por CRM" },
+                { value: "CRM", label: "Perfil profissional" },
                 { value: "Gratuito", label: "Para sempre" },
-                { value: "LGPD", label: "Compliant" },
+                { value: "LGPD", label: "Privacidade em foco" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
-                  <div className="oh-mono text-xl sm:text-2xl font-bold text-[#7FE7EE]">{stat.value}</div>
+                  <div className="oh-mono text-xl sm:text-2xl font-bold text-[#FFD477]">{stat.value}</div>
                   <div className="text-xs sm:text-sm text-[#A3B1C6] mt-1">{stat.label}</div>
                 </div>
               ))}
@@ -147,9 +147,9 @@ function AreasSection() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {AREAS.map(({ marker, icon: Icon, title, desc }) => (
-            <div key={title} className="oh-hub-card">
+            <div key={title} className="oh-hub-card oh-section-reveal">
               <div className="flex items-center justify-between">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-[rgba(56,213,224,0.1)] text-[#7FE7EE]">
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-[rgba(233,174,59,0.1)] text-[#FFD477]">
                   <Icon className="h-5 w-5" />
                 </span>
                 <span className="oh-marker bg-white/[0.06] text-[#EADFC8]">{marker}</span>
@@ -208,13 +208,13 @@ function HowItWorksSection() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {STEPS.map(({ step, icon: Icon, title, desc }) => (
-            <div key={step} className="ossohub-card p-6 group cursor-default">
-              <div className="oh-mono text-4xl font-bold mb-4 leading-none text-[rgba(127,231,238,0.28)]">
+            <div key={step} className="ossohub-card oh-section-reveal p-6 group cursor-default">
+              <div className="oh-mono text-4xl font-bold mb-4 leading-none text-[rgba(255,212,119,0.28)]">
                 {step}
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-xl mb-4"
-                style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.2)" }}>
-                <Icon className="h-5 w-5 text-emerald-400" />
+                style={{ background: "rgba(233,174,59,0.12)", border: "1px solid rgba(233,174,59,0.22)" }}>
+                <Icon className="h-5 w-5 text-[#FFD477]" />
               </div>
               <h3 className="font-semibold text-white mb-2 text-sm">
                 {title}
@@ -295,7 +295,7 @@ function BenefitsSection() {
                     <div className="font-medium text-white text-sm">{name}</div>
                     <div className="text-xs text-[#A3B1C6]">{xp}</div>
                   </div>
-                  <Bone className="h-4 w-4 text-[rgba(127,231,238,0.4)]" />
+                  <Bone className="h-4 w-4 text-[rgba(255,212,119,0.4)]" />
                 </div>
               ))}
             </div>
@@ -315,7 +315,7 @@ function CTASection() {
         <div className="relative inline-block w-full">
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-96 h-96 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(56,213,224,0.10) 0%, transparent 70%)" }} />
+              style={{ background: "radial-gradient(circle, rgba(233,174,59,0.10) 0%, transparent 70%)" }} />
           </div>
           <div className="relative">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -345,7 +345,7 @@ function Footer() {
       <div className="ossohub-container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[#A3B1C6]">
         {/* Logo original mantida */}
         <div className="flex items-center">
-          <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+          <Image src="/logo.webp" alt="OssoHub" width={150} height={68} sizes="150px" className="ossohub-logo h-8 w-auto" />
         </div>
         <p className="text-[#8C9AB0]">© {new Date().getFullYear()} OssoHub — Todos os direitos reservados</p>
         <div className="flex gap-4">

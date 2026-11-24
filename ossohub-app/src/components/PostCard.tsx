@@ -16,7 +16,7 @@ import type { Post } from "@/lib/types";
 const POST_TYPE_CONFIG = {
   clinical_case:      { label: "Caso Clínico",  icon: Stethoscope, color: "bg-purple-900/60 text-purple-300 border border-purple-700/50" },
   scientific_article: { label: "Artigo",         icon: BookOpen,     color: "bg-sky-900/60 text-sky-300 border border-sky-700/50"         },
-  experience:         { label: "Experiência",    icon: MessageCircle,color: "bg-teal-900/60 text-teal-300 border border-teal-700/50"       },
+  experience:         { label: "Experiência",    icon: MessageCircle,color: "bg-amber-900/40 text-amber-200 border border-amber-700/40"       },
   question:           { label: "Pergunta",       icon: HelpCircle,   color: "bg-amber-900/60 text-amber-300 border border-amber-700/50"   },
 };
 
@@ -74,7 +74,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <Link href={`/profile/${post.user_id}`} className="font-semibold text-white hover:text-emerald-400 transition-colors text-sm truncate">
+            <Link href={`/profile/${post.user_id}`} className="font-semibold text-white hover:text-[#FFD477] transition-colors text-sm truncate">
               {author?.full_name ?? "Ortopedista"}
             </Link>
             {author && (
@@ -101,7 +101,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
 
       {/* Título + preview */}
       <Link href={`/post/${post.id}`} className="block group">
-        <h2 className="font-semibold text-white group-hover:text-emerald-400 transition-colors mb-2 line-clamp-2"
+        <h2 className="font-semibold text-white group-hover:text-[#FFD477] transition-colors mb-2 line-clamp-2"
           style={{ fontFamily: "var(--font-display), var(--font-inter), sans-serif" }}>
           {post.title}
         </h2>
