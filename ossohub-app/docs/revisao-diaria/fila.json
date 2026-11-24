@@ -507,7 +507,13 @@
    "fonte": "MOVBODY",
    "alvo": "esporte",
    "arquivo": "ESP-11.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-24",
+   "resumo": "Capítulo introdutório (terminologia, tecidos e crânio): nada errado no site. Notas \"acrescenta\" em terminologia do movimento e coluna cervical (articulação atlanto-occipital e pontos palpáveis da base do crânio) e nota \"diverge\" sobre o termo isotônica × concêntrica/excêntrica.",
+   "ids": [
+    "a-planos",
+    "a-cervical"
+   ]
   },
   {
    "id": "ESP-12-01",

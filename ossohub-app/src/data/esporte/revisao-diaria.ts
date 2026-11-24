@@ -281,6 +281,13 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
   "r-concussao": [
     { fonte: "PTR", tipo: "acrescenta", texto: "Além do aeróbio graduado, o capítulo destaca treino de equilíbrio, vestibular e de dupla tarefa (andar ou fazer o gesto enquanto resolve uma tarefa mental) — ajudam a recuperar atenção, função executiva e independência. Começar quando o quadro estiver clinicamente estável e progredir pelos sintomas. Ver 'Exercício nas doenças neurológicas'." },
   ],
+  "a-planos": [
+    { fonte: "MOVBODY", tipo: "acrescenta", texto: "Termos que completam a tabela: tudo parte da posição anatômica (de pé, palmas para a frente). Proximal e distal só se usam nos membros (mais perto ou mais longe da raiz). Circundução = flexão, abdução, extensão e adução em sequência. Hiperextensão = passar do alinhamento neutro. No punho, desvio ulnar e radial acontecem no plano frontal; oposição é o polegar indo ao encontro dos dedos." },
+    { fonte: "MOVBODY", tipo: "diverge", texto: "O livro chama de 'isotônica' a contração em que o músculo encurta e de 'isométrica' a que não vence a resistência. Na prática do esporte é melhor separar concêntrica (encurta), excêntrica (alonga sob carga) e isométrica: tensão realmente constante quase nunca ocorre no gesto. Ver 'Tipos de contração e relações mecânicas do músculo'." },
+  ],
+  "a-cervical": [
+    { fonte: "MOVBODY", tipo: "acrescenta", texto: "Transição crânio-cervical: os côndilos do occipital, um de cada lado do forame magno, apoiam-se no atlas e formam a articulação atlanto-occipital, que faz sobretudo o 'sim' (aceno); a rotação fica com C1–C2. Pontos palpáveis úteis: protuberância occipital externa (onde se fixam os extensores superficiais do pescoço) e processo mastoide, logo atrás do lóbulo da orelha (inserção do esternocleidomastóideo)." },
+  ],
 };
 
 export const NOVOS_DIARIA: Topico[] = [
