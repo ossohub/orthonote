@@ -117,7 +117,7 @@ export function Navbar() {
                   <Link href="/notifications" aria-label="Notificações"
                     className={cn(
                       "md:hidden grid h-9 w-9 place-items-center rounded-full hover:bg-white/10",
-                      isActive(pathname, "/notifications") ? "text-[#7FE7EE]" : "text-[#DCE3EE]"
+                      isActive(pathname, "/notifications") ? "text-[#FFD477]" : "text-[#DCE3EE]"
                     )}>
                     <Bell className="h-[18px] w-[18px]" />
                   </Link>
@@ -214,7 +214,7 @@ export function Navbar() {
                       <Link key={href} href={href} onClick={() => setMobileOpen(false)}
                         className={cn(
                           "flex items-center gap-2 rounded-lg border px-3 py-2.5 text-sm font-medium",
-                          active ? "border-[#38D5E0]/40 bg-[#38D5E0]/10 text-[#7FE7EE]" : "border-white/[0.07] text-[#DCE3EE]"
+                          active ? "border-[#E9AE3B]/40 bg-[#E9AE3B]/10 text-[#FFD477]" : "border-white/[0.07] text-[#DCE3EE]"
                         )}>
                         <Icon className="h-4 w-4" /> {label}
                       </Link>
