@@ -76,24 +76,24 @@ function LoginForm() {
     // user_metadata nunca é usado para permissões, verificação ou papéis administrativos.
     const metadata = authData.user?.user_metadata ?? {};
     const profilePatch: {
-      crm?: string | null;
-      rqe?: string | null;
+      crm?: string;
+      rqe?: string;
       specialties?: string[];
-      city_state?: string | null;
-      bio?: string | null;
+      city_state?: string;
+      bio?: string;
     } = {};
 
-    if (typeof metadata.crm === "string") profilePatch.crm = metadata.crm.trim() || null;
-    if (typeof metadata.rqe === "string") profilePatch.rqe = metadata.rqe.trim() || null;
+    if (typeof metadata.crm === "string") profilePatch.crm = metadata.crm.trim();
+    if (typeof metadata.rqe === "string") profilePatch.rqe = metadata.rqe.trim();
     if (Array.isArray(metadata.specialties)) {
       profilePatch.specialties = metadata.specialties.filter(
         (value): value is string => typeof value === "string"
       );
     }
     if (typeof metadata.city_state === "string") {
-      profilePatch.city_state = metadata.city_state.trim() || null;
+      profilePatch.city_state = metadata.city_state.trim();
     }
-    if (typeof metadata.bio === "string") profilePatch.bio = metadata.bio.trim() || null;
+    if (typeof metadata.bio === "string") profilePatch.bio = metadata.bio.trim();
 
     if (authData.user && Object.keys(profilePatch).length > 0) {
       const { error: profileError } = await supabase
