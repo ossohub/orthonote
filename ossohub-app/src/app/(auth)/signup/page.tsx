@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, Plus, X, Eye, EyeOff } from "lucide-react";
@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { GoogleAuthButton } from "@/components/GoogleAuthButton";
 import { createClient } from "@/lib/supabase/client";
-import type { SignupForm } from "@/lib/types";
 
 const SPECIALTIES = [
   "Ombro e Cotovelo", "Joelho", "Coluna", "Quadril",
@@ -44,7 +43,6 @@ export default function SignupPage() {
     register,
     handleSubmit,
     control,
-    watch,
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
@@ -52,7 +50,7 @@ export default function SignupPage() {
     defaultValues: { specialties: [] },
   });
 
-  const selectedSpecialties = watch("specialties") ?? [];
+  const selectedSpecialties = useWatch({ control, name: "specialties" }) ?? [];
 
   function toggleSpecialty(s: string) {
     const current = selectedSpecialties;
