@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Flame, Clock, Star, Users, Stethoscope, BookOpen, MessageCircle, HelpCircle } from "lucide-react";
+import { Plus, Flame, Star, Users, Stethoscope, BookOpen, MessageCircle, HelpCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PostCard } from "@/components/PostCard";
-import { PostCardSkeleton } from "@/components/PostCardSkeleton";
 import { UserLevelBadge } from "@/components/UserLevelBadge";
 import { XPProgressBar } from "@/components/XPProgressBar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -115,7 +114,7 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
         <main className="lg:col-span-2 space-y-4">
           {/* Filtros */}
           <div className="ossohub-card p-3">
-            <div className="flex gap-1 flex-wrap">
+            <div className="flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {FILTER_BUTTONS.map(({ type, label, icon: Icon }) => (
                 <button
                   key={type}
@@ -131,13 +130,13 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
                 </button>
               ))}
 
-              <div className="ml-auto flex gap-1">
+              <div className="ml-auto flex shrink-0 gap-1 border-l border-white/10 pl-2">
                 {(["recent", "popular", "featured"] as SortType[]).map((s) => (
                   <button
                     key={s}
                     onClick={() => setSort(s)}
                     className={`rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors ${
-                      sort === s ? "bg-slate-200 text-ossohub-navy" : "text-ossohub-slate hover:bg-slate-100"
+                      sort === s ? "bg-white/10 text-[#FFD477]" : "text-[#8C9AB0] hover:bg-white/[0.06] hover:text-white"
                     }`}
                   >
                     {{ recent: "Recentes", popular: "Populares", featured: "Destaques" }[s]}
@@ -172,20 +171,20 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
         {/* Sidebar direita — Sugestões */}
         <aside className="hidden lg:block lg:col-span-1">
           <div className="ossohub-card p-5 sticky top-20">
-            <h3 className="text-sm font-semibold text-ossohub-navy mb-4 flex items-center gap-2">
-              <Users className="h-4 w-4 text-ossohub-green" /> Conecte-se
+            <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+              <Users className="h-4 w-4 text-[#FFD477]" /> Conecte-se
             </h3>
             <p className="text-xs text-ossohub-slate">
               Explore perfis e especialidades na aba{" "}
-              <Link href="/explore" className="text-ossohub-green hover:underline font-medium">Explorar</Link>.
+              <Link href="/explore" className="text-[#FFD477] hover:underline font-medium">Explorar</Link>.
             </p>
             <div className="mt-4 pt-4 border-t border-slate-100">
-              <h3 className="text-sm font-semibold text-ossohub-navy mb-2 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
                 <Star className="h-4 w-4 text-amber-500" /> Em Destaque
               </h3>
               {posts.filter((p) => p.is_featured).slice(0, 3).map((p) => (
                 <Link key={p.id} href={`/post/${p.id}`}
-                  className="block py-2 text-xs text-ossohub-slate hover:text-ossohub-navy transition-colors line-clamp-2 border-b border-slate-50 last:border-0">
+                  className="block py-2 text-xs text-[#A3B1C6] hover:text-white transition-colors line-clamp-2 border-b border-slate-50 last:border-0">
                   ⭐ {p.title}
                 </Link>
               ))}
