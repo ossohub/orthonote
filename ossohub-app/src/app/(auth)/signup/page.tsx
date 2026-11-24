@@ -157,7 +157,7 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Nome completo */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-name" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Nome completo *
               </label>
               <input
@@ -194,6 +194,7 @@ export default function SignupPage() {
                   className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 pr-11 text-sm outline-none focus:border-ossohub-green-dark focus:ring-4 focus:ring-ossohub-green/10 transition"
                 />
                 <button type="button" onClick={() => setShowPass((v) => !v)}
+                  aria-label={showPass ? "Ocultar senha" : "Mostrar senha"} aria-pressed={showPass}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                   {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -214,7 +215,7 @@ export default function SignupPage() {
                 {errors.crm && <p className="mt-1 text-xs text-red-500">{errors.crm.message}</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+                <label htmlFor="signup-rqe" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                   RQE <span className="text-slate-400">(opcional)</span>
                 </label>
                 <input
@@ -258,7 +259,7 @@ export default function SignupPage() {
 
             {/* Cidade/Estado */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-city-state" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Cidade/Estado <span className="text-slate-400">(opcional)</span>
               </label>
               <input
@@ -271,7 +272,7 @@ export default function SignupPage() {
 
             {/* Bio */}
             <div>
-              <label className="block text-sm font-medium text-ossohub-navy mb-1.5">
+              <label htmlFor="signup-bio" className="block text-sm font-medium text-ossohub-navy mb-1.5">
                 Bio curta <span className="text-slate-400">(opcional)</span>
               </label>
               <textarea
