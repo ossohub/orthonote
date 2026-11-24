@@ -458,7 +458,10 @@
    "fonte": "PTR",
    "alvo": "esporte",
    "arquivo": "ESP-07.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-24",
+   "resumo": "Capítulo sobre a base neural do exercício; nenhum erro no site. Novo tópico 'Exercício nas doenças neurológicas' (AVC, Parkinson, esclerose múltipla, lesão medular, TCE, dose FITT e barreiras). 6 notas PTR (acrescenta): base neural do ganho inicial de força e do treino sensório-motor, coordenação/dupla tarefa, efeitos do aeróbio no cérebro, no autônomo e na depressão, e treino vestibular após concussão.",
+   "ids": ["f-neuro", "f-adaptada", "f-forca", "f-proprio", "f-aerobio", "r-concussao"]
   },
   {
    "id": "ESP-08-01",

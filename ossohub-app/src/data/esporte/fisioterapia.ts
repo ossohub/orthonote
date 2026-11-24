@@ -121,6 +121,7 @@ export const FISIOTERAPIA: Topico[] = [
     secoes: [
       { t: "Pontos práticos", itens: ["Lesão medular: atenção a disreflexia autonômica (lesões acima de T6) e termorregulação.", "Amputados: cuidado com pele do coto, assimetrias e sobrecarga do membro remanescente.", "Paralisia cerebral: espasticidade — combinar força, alongamento e controle motor.", "Deficiência intelectual: instruções curtas, demonstração e rotina previsível."] },
     ],
+    ver: ["f-neuro"],
     fontes: ["WINNICK"],
   },
 ];
