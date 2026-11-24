@@ -29,6 +29,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const drawerCloseRef = useRef<HTMLButtonElement>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const { user, profile, signOut } = useUser();
 
   const isAuthenticated = !!user;
@@ -87,7 +88,10 @@ export function Navbar() {
     }
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      menuTriggerRef.current?.focus();
+    };
   }, [mobileOpen]);
 
   return (
@@ -217,7 +221,7 @@ export function Navbar() {
               </Link>
             );
           })}
-          <button type="button" onClick={() => setMobileOpen(true)}
+          <button ref={menuTriggerRef} type="button" onClick={() => setMobileOpen(true)}
             className={cn("oh-tab", mobileOpen && "is-active")} aria-label="Abrir menu completo"
             aria-expanded={mobileOpen} aria-controls="ossohub-mobile-drawer">
             <Menu className="h-5 w-5" />
