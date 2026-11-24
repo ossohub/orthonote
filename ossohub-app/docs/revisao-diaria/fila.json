@@ -445,7 +445,10 @@
    "fonte": "EXSCI",
    "alvo": "esporte",
    "arquivo": "ESP-06.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-23",
+   "resumo": "Sem alterações necessárias",
+   "ids": []
   },
   {
    "id": "ESP-07-01",
