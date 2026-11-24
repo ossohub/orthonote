@@ -98,7 +98,7 @@ const REGIOES: Regiao[] = [
           "Lesão do plexo braquial (muito rara — fraturas mediais com desvio posterior)",
           "Lesão do nervo supraclavicular (formigamento ombro anterior — neuropraxia por tração)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "umero-proximal",
@@ -176,7 +176,7 @@ const REGIOES: Regiao[] = [
           "Não união: rara com placa (<5%); mais frequente com intramedular",
           "Proeminência de placa/parafusos — irritação subcromial exige remoção",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "umero-distal",
@@ -241,7 +241,7 @@ const REGIOES: Regiao[] = [
           "Ossificação heterotópica — incidência ~3% com RAFI; maior em politrauma + TCE",
           "Falha de fixação da osteotomia de olécrano (5–10%)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "cabeca-radio",
@@ -294,7 +294,7 @@ const REGIOES: Regiao[] = [
           "Sinovite por prótese de silicone (substituída por metal modular)",
           "Instabilidade valgus crônica (lesão LCM associada não tratada)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "radio-distal",
@@ -374,7 +374,7 @@ const REGIOES: Regiao[] = [
           "Rigidez do punho e dedos (imobilização prolongada, edema)",
           "Síndrome compartimental (raro — alta energia)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "escafoide",
@@ -435,7 +435,7 @@ const REGIOES: Regiao[] = [
           "CRPS tipo I",
           "Fratura do estiloide radial associada (não diagnosticada)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "diafise-radio-ulna",
@@ -471,7 +471,7 @@ const REGIOES: Regiao[] = [
           "Instabilidade do DRUJ residual: indica reparo do TFCC ou reconstrução tardia",
           "Lesão do nervo interósseo posterior (ramo motor do radial): risco na abordagem posterior — monitorar extensão dos dedos",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fraturas-carpo",
@@ -516,7 +516,7 @@ const REGIOES: Regiao[] = [
           "Não-união do gancho do hamato: tendinite/ruptura dos tendões flexores dos 4° e 5° dedos",
           "Artrose pancarpal: sequela tardia das luxações perilunonas tratadas tardiamente",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "mao-adulto",
@@ -562,7 +562,7 @@ const REGIOES: Regiao[] = [
           "Artrose da IFP/IFD: sequela de fraturas intra-articulares — limitação da flexão",
           "Síndrome do nódulo de Stener crônica: instabilidade residual do polegar se não operado",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "instabilidade-glenoumeral",
@@ -622,7 +622,7 @@ const REGIOES: Regiao[] = [
           "Falha do Latarjet: não-união do coracoide, reabsorção, lesão do nervo musculocutâneo (2%)",
           "Rigidez (Bankart aberto): abertura excessiva da subsescapular → limitação de rotação externa",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "diafise-umeral",
@@ -675,7 +675,7 @@ const REGIOES: Regiao[] = [
           "Falha do implante/re-fratura: após retirada prematura do haste",
           "Fratura patológica não reconhecida: metástase ou mieloma — biópsia antes de fixação definitiva",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "periprotetica-ms",
@@ -728,7 +728,7 @@ const REGIOES: Regiao[] = [
           "Rigidez pós-cirúrgica: principal limitação funcional; fisioterapia precoce obrigatória",
           "Falha do implante: revisão para implante de haste longa com aloenxerto cortical",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "luxacao-cotovelo",
@@ -789,7 +789,7 @@ const REGIOES: Regiao[] = [
           "Lesão do nervo ulnar: 10–15% nas luxações medianas ou com valgização",
           "Ossificação heterotópica: alta energia + retardo de mobilização → limitação grave de arco",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "olecranon",
@@ -845,7 +845,7 @@ const REGIOES: Regiao[] = [
           "Lesão do nervo interósseo posterior (PIN): RAFI da cabeça do rádio — pronação do antebraço durante acesso",
           "Artrose radiocapitelar tardia: após Mason III mal tratado ou ressecção em paciente jovem",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "acromio-esternoclavicular",
@@ -901,7 +901,7 @@ const REGIOES: Regiao[] = [
           "Lesão neurovascular (EC posterior): compressão de traqueia, esôfago, vasos subclávios — redução urgente",
           "Recorrência de instabilidade EC: tecido frouxo em jovens skeletalmente imaturos",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fratura-escapula",
@@ -961,7 +961,7 @@ const REGIOES: Regiao[] = [
           "Pseudoartrose do corpo: rara; mais comum em fraturas cominutivas não tratadas cirurgicamente",
           "Artrose glenoumeral tardia: fraturas intra-articulares da glenóide com passo residual",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
     ],
   },
@@ -1034,7 +1034,7 @@ const REGIOES: Regiao[] = [
           "TEP/TVP: reduzido com profilaxia (HBPM, TED, mobilização precoce)",
           "Afundamento do componente femoral (hemiprótese não cimentada em osteoporose)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "intertrocanterica",
@@ -1098,7 +1098,7 @@ const REGIOES: Regiao[] = [
           "Infecção: <2% com cirurgia fechada",
           "Necrose avascular: rara (<1%) — região metafisária bem irrigada",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "planalto-tibial",
@@ -1169,7 +1169,7 @@ const REGIOES: Regiao[] = [
           "Síndrome compartimental (principalmente alta energia, Schatzker V–VI)",
           "Infecção profunda (partes moles comprometidas — esperar 5–10 dias pós-trauma para cirurgia definitiva)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "tornozelo",
@@ -1238,7 +1238,7 @@ const REGIOES: Regiao[] = [
           "Problemas de implante (proeminência — 1/3 tubular tem alta taxa de remoção)",
           "Rigidez da articulação subtalar (imobilização prolongada)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "calcaneo",
@@ -1292,7 +1292,7 @@ const REGIOES: Regiao[] = [
           "Síndrome compartimental do pé (alta pressão de compartimento — fasciotomia urgente)",
           "Discrepância de altura do calcanhar (perda de Böhler) → dificuldade de calçado",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "talus",
@@ -1344,7 +1344,7 @@ const REGIOES: Regiao[] = [
           "Lesão do nervo tibial posterior",
           "Infecção (osteonecrose + infecção = amputação inevitável em muitos casos)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "femur-distal",
@@ -1380,7 +1380,7 @@ const REGIOES: Regiao[] = [
           "Não união: <5% com boa fixação inicial; risk factors: osteoporose, tabagismo, DAOP",
           "Infecção periimplante: risco maior com placas extensas; protocolo antibiótico perioperatório rigoroso",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "periprotetica-mi",
@@ -1426,7 +1426,7 @@ const REGIOES: Regiao[] = [
           "Mortalidade pós-operatória elevada: paciente idoso frágil — otimização pré-operatória multidisciplinar essencial",
           "Lesão do nervo ciático/femoral: risco em revisão com cimento ou impacção de haste longa",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "patela",
@@ -1463,7 +1463,7 @@ const REGIOES: Regiao[] = [
           "Fraqueza permanente do quadríceps: inevitável após patelectomia total; evitar sempre que possível",
           "Infecção: maior risco em fraturas expostas; protocolo antibiótico e cobertura adequada",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "luxacao-joelho",
@@ -1509,7 +1509,7 @@ const REGIOES: Regiao[] = [
           "Artrose precoce: lesão condral associada + instabilidade crônica",
           "Rigidez: imobilização prolongada e lesão grave de partes moles",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "tibia-diafise",
@@ -1553,7 +1553,7 @@ const REGIOES: Regiao[] = [
           "Rigidez do tornozelo: fraturas distais ou imobilização prolongada; fisioterapia intensiva",
           "Pé caído: lesão do nervo fibular na fíbula proximal — monitorar extensão dos artelhos",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "pilon-tibial",
@@ -1594,7 +1594,7 @@ const REGIOES: Regiao[] = [
           "Rigidez do tornozelo: reabilitação precoce após consolidação articular",
           "Síndrome compartimental da perna: monitorar pressões no pós-operatório imediato",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "medio-antepé",
@@ -1638,7 +1638,7 @@ const REGIOES: Regiao[] = [
           "Metatarsalgia de transferência: após correção de hálux valgo ou fratura de 1° MTT não reduzida",
           "CRPS tipo I: dor desproporcional + alterações autonômicas após fratura de médio/antepé",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "luxacao-quadril",
@@ -1695,7 +1695,7 @@ const REGIOES: Regiao[] = [
           "Heterotopic ossification (HO): comum após RAFI — profilaxia com indometacina ou radioterapia",
           "Lesão arterial (rara): lesão da artéria femoral nas luxações anteriores — avaliar pulso",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "subtrocanterica",
@@ -1745,7 +1745,7 @@ const REGIOES: Regiao[] = [
           "Infecção: rara mas grave; bisfosfonato-associadas têm maior risco de retardo de consolidação",
           "TVP/TEP: profilaxia anticoagulante obrigatória",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fratura-atipica-femur",
@@ -1799,7 +1799,7 @@ const REGIOES: Regiao[] = [
           "Falha do implante: redução inadequada + biologia precária",
           "Diagnóstico tardio: AFFs frequentemente não relatadas como 'atípicas' na leitura radiológica primária",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "diafise-femoral",
@@ -1849,7 +1849,7 @@ const REGIOES: Regiao[] = [
           "Não-união (2–5%): mais comum nas fraturas transversas e distrativas",
           "Fratura ipsilateral do colo femoral não reconhecida: 2–9% — TC de todo o fêmur pré-op",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
     ],
   },
@@ -1923,7 +1923,7 @@ const REGIOES: Regiao[] = [
           "Lesão da artéria vertebral (parafusos transarticulares C1-C2 de Magerl — 4%)",
           "Lesão do nervo C2 (raiz dorsal grande — dor / parestesia occipital)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "coluna-toracolombar",
@@ -2003,7 +2003,7 @@ const REGIOES: Regiao[] = [
           "Embolia gordurosa (múltiplas fraturas vertebrais osteoporóticas)",
           "Dor axial crônica (lesão dos músculos paravertebrais)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fratura-pelve",
@@ -2079,7 +2079,7 @@ const REGIOES: Regiao[] = [
           "Disfunção sexual masculina (lesão nervos pudendos, artérias pudendas internas)",
           "Impotência / infertilidade em jovens (nerve-sparing nem sempre possível)",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "parede-toracica",
@@ -2116,7 +2116,7 @@ const REGIOES: Regiao[] = [
           "Dor crônica pós-fratura: neuralgia intercostal — pode necessitar bloqueio intercostal ou radiofrequência tardia",
           "Lesão de órgãos abdominais (costelas inferiores 9–12): baço esquerdo, fígado direito — FAST ultrassonografia obrigatória",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fratura-acetabulo",
@@ -2187,7 +2187,7 @@ const REGIOES: Regiao[] = [
           "Infecção profunda (2–5%): grave — lavagem + remoção do material se necessário",
           "Falha do implante: mal-redução + cominutiva → conversão para ATQ",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
     ],
   },
@@ -2242,7 +2242,7 @@ const REGIOES: Regiao[] = [
           "Perda de membro: Grau IIIC com isquemia prolongada ou falha do reparo vascular",
           "Retardo de fechamento: infecção da ferida, déficit nutricional, tabagismo",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "sindrome-compartimental",
@@ -2287,7 +2287,7 @@ const REGIOES: Regiao[] = [
           "Infecção das feridas de fasciotomia: exposição prolongada — requer cobertura precoce",
           "Falso-negativo clínico: anestesia regional ou sedação mascaram a dor — monitorização da pressão é mandatória",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fraturas-estresse",
@@ -2341,7 +2341,7 @@ const REGIOES: Regiao[] = [
           "Recidiva: por não correção dos fatores de risco (treino excessivo, Tríade, baixa DMO)",
           "Síndrome compartimental crônica: confundida clinicamente com fratura por estresse tibial",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "fraturas-patologicas",
@@ -2398,7 +2398,7 @@ const REGIOES: Regiao[] = [
           "Recidiva local: RT pós-op (30 Gy) reduz recorrência local mesmo após fixação",
           "Avulsão do trocânter menor: sinal de alerta de fratura iminente — encaminhar urgente para oncologia ortopédica",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "tev-trauma",
@@ -2450,7 +2450,7 @@ const REGIOES: Regiao[] = [
           "Trombose do filtro VCI: filtros permanentes aumentam risco de TVP em longo prazo",
           "Hipertensão pulmonar tromboembólica crônica (HTPTEC): sequela de EP não resolvido",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "srdc",
@@ -2500,7 +2500,7 @@ const REGIOES: Regiao[] = [
           "Impacto psicossocial grave: ansiedade, depressão, isolamento social, afastamento laboral",
           "Amputação com persistência da síndrome: risco de dor no membro fantasma e SRDC recorrente no coto",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "osteomielite",
@@ -2556,7 +2556,7 @@ const REGIOES: Regiao[] = [
           "Toxicidade antibiótica: nefrotoxicidade (vancomicina), ototoxicidade (aminoglicosídeos) — monitorizar níveis séricos",
           "Deformidade pós-Ilizarov: angulação, discrepância de comprimento, fratura após remoção do anel",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "nao-uniao",
@@ -2612,7 +2612,7 @@ const REGIOES: Regiao[] = [
           "Morbidade do sítio doador: dor crônica, hematoma e lesão nervosa no sítio da crista ilíaca (~25% em séries)",
           "Rigidez articular e atrofia muscular: imobilização prolongada em não-uniões de longa evolução",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "biomecanica-fraturas",
@@ -2666,7 +2666,7 @@ const REGIOES: Regiao[] = [
           "Infecção periimplante: contaminação intraoperatória, maior risco em haste fresada em fratura exposta",
           "Consolidação viciosa: perda de redução não detectada → deformidade angular ou rotacional",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "cicatrizacao-ossea",
@@ -2724,7 +2724,7 @@ const REGIOES: Regiao[] = [
           "Rotura do reparo tendinoso: falha precoce por tensão excessiva ou reabilitação inadequada — re-ruptura do Aquiles em 3–5%",
           "Rigidez articular: imobilização prolongada → aderências capsulares e encurtamento miofascial",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "tecnologias-biologicas",
@@ -2783,7 +2783,7 @@ const REGIOES: Regiao[] = [
           "Falha de incorporação do aloenxerto: rejeição imune subclínica, necrose avascular do enxerto, infecção tardia",
           "Recorrência de não-união após augmentação biofísica: fatores sistêmicos não corrigidos (tabagismo, diabetes, desnutrição) → nova falha",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "osteoporose",
@@ -2854,7 +2854,7 @@ const REGIOES: Regiao[] = [
           "Falha de implante por osteoporose grave: pull-out de parafusos, cut-through de lâmina/parafuso cefálico — prevenção com LCP e augmentação com cimento",
           "Fratura patológica de Paget: osso deformado com menor resistência mecânica — fratura em galho verde na convexidade; fixação seguida de bisfosfonato IV",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "classificacao-fraturas",
@@ -2920,7 +2920,7 @@ const REGIOES: Regiao[] = [
           "Artrose pós-traumática: step-off articular residual >2 mm — mesmo após classificação e fixação adequadas",
           "Síndrome compartimental: fraturas tipo C de alta energia — monitorar pressão intracompartimental nas primeiras 24–48h",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
       {
         id: "imagem-trauma",
@@ -2977,7 +2977,7 @@ const REGIOES: Regiao[] = [
           "Nefropatia por contraste iodado: TC com contraste em pacientes com DRC ou desidratados — hidratação prévia e minimizar volume",
           "Falso-negativo angiográfico: sangramento venoso pélvico não detectado — monitorização hemodinâmica contínua mesmo após embolização arterial",
         ],
-        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell's Operative Orthopaedics, 15ª ed. (2026)"],
+        fontes: ["Rockwood & Green — Fraturas em Adultos, 10ª ed. (2025)", "Campbell&apos;s Operative Orthopaedics, 15ª ed. (2026)"],
       },
     ],
   },
@@ -3095,7 +3095,7 @@ export default function OrtopediaAdultoPage() {
         <div>
           <h1 className="text-xl font-bold text-white">Ortopedia Adulto</h1>
           <p className="text-sm text-slate-500 mt-0.5">
-            Resumo baseado em Rockwood & Green — Fraturas em Adultos (10ª ed.) e Campbell's Operative Orthopaedics (15ª ed.)
+            Resumo baseado em Rockwood & Green — Fraturas em Adultos (10ª ed.) e Campbell&apos;s Operative Orthopaedics (15ª ed.)
           </p>
         </div>
       </div>
