@@ -107,9 +107,9 @@ function HeroSection() {
 
             <div className="mt-12 grid grid-cols-3 gap-4 border-t border-[var(--line)] pt-8 max-w-xl mx-auto lg:mx-0">
               {[
-                { value: "100%", label: "Verificados por CRM" },
+                { value: "CRM", label: "Perfil profissional" },
                 { value: "Gratuito", label: "Para sempre" },
-                { value: "LGPD", label: "Compliant" },
+                { value: "LGPD", label: "Privacidade em foco" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
                   <div className="oh-mono text-xl sm:text-2xl font-bold text-[#FFD477]">{stat.value}</div>
