@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Bone,
   BookOpen,
@@ -344,7 +345,7 @@ function Footer() {
       <div className="ossohub-container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[#A3B1C6]">
         {/* Logo original mantida */}
         <div className="flex items-center">
-          <img src="/logo.webp" alt="OssoHub" className="ossohub-logo h-8 w-auto" />
+          <Image src="/logo.webp" alt="OssoHub" width={150} height={68} sizes="150px" className="ossohub-logo h-8 w-auto" />
         </div>
         <p className="text-[#8C9AB0]">© {new Date().getFullYear()} OssoHub — Todos os direitos reservados</p>
         <div className="flex gap-4">
