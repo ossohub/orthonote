@@ -73,8 +73,8 @@ export default function SignupPage() {
           professional_role: "medico_ortopedista",
           specialty: data.specialties.join(", "),
           workplace: data.city_state?.trim() ?? "",
-          crm_number: data.crm.trim().match(/^(\\d+)\\s*\\/\\s*([A-Za-z]{2})$/)?.[1] ?? data.crm.trim(),
-          crm_state: data.crm.trim().match(/^(\\d+)\\s*\\/\\s*([A-Za-z]{2})$/)?.[2]?.toUpperCase() ?? "",
+          crm_number: data.crm.trim().match(/^(\d+)\s*\\/\s*([A-Za-z]{2})$/)?.[1] ?? data.crm.trim(),
+          crm_state: data.crm.trim().match(/^(\d+)\s*\\/\s*([A-Za-z]{2})$/)?.[2]?.toUpperCase() ?? "",
           // Campos do perfil atual, sincronizados quando houver sessão autenticada.
           crm: data.crm.trim(),
           rqe: data.rqe?.trim() ?? "",
