@@ -64,8 +64,13 @@ export function Sidebar() {
   // Estado local evita leitura síncrona do navegador durante a hidratação.
   // A seção correspondente à rota atual permanece sempre aberta.
   const [open, setOpen] = useState<string[]>(["consultorio"]);
+  const [collapsedCurrent, setCollapsedCurrent] = useState<string[]>([]);
 
-  function toggle(id: string) {
+  function toggle(id: string, isCurrent: boolean) {
+    if (isCurrent) {
+      setCollapsedCurrent((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
+      return;
+    }
     setOpen((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   }
 
@@ -78,13 +83,17 @@ export function Sidebar() {
         {NAV_SECTIONS.filter((s) => !s.adminOnly || isAdmin).map((section) => {
           const tone = TONES[section.tone];
           const isCurrent = current?.id === section.id;
-          const isOpen = isCurrent || open.includes(section.id);
+          const isOpen = isCurrent
+            ? !collapsedCurrent.includes(section.id)
+            : open.includes(section.id);
+          const linksId = `sidebar-section-${section.id}`;
           return (
             <div key={section.id} className="pb-1">
               <button
                 type="button"
-                onClick={() => toggle(section.id)}
+                onClick={() => toggle(section.id, isCurrent)}
                 aria-expanded={isOpen}
+                aria-controls={linksId}
                 className="group flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left hover:bg-white/[0.03]"
               >
                 <span className={cn("oh-marker", tone.chip)}>{section.marker}</span>
@@ -100,7 +109,7 @@ export function Sidebar() {
                 />
               </button>
               {isOpen && (
-                <div className="mt-0.5 mb-2">
+                <div id={linksId} className="mt-0.5 mb-2">
                   <SectionLinks section={section} pathname={pathname} />
                 </div>
               )}
