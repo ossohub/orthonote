@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
@@ -7,7 +8,7 @@ export default function NotFound() {
       <div className="text-center">
         <div className="flex justify-center mb-4">
           <div className="inline-flex items-center rounded-xl bg-ossohub-navy px-4 py-3 opacity-40">
-            <img src="/logo.webp" alt="OssoHub" className="h-10 w-auto" />
+            <Image src="/logo.webp" alt="OssoHub" width={150} height={68} sizes="150px" className="h-10 w-auto" />
           </div>
         </div>
         <h1 className="text-4xl font-bold text-ossohub-navy mb-2">404</h1>
