@@ -19,6 +19,20 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+function getSafeRedirectPath(value: string | null): string {
+  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
+    return "/feed";
+  }
+
+  try {
+    const target = new URL(value, window.location.origin);
+    if (target.origin !== window.location.origin) return "/feed";
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return "/feed";
+  }
+}
+
 export default function LoginPage() {
   return (
     <Suspense fallback={null}>
@@ -30,7 +44,7 @@ export default function LoginPage() {
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") ?? "/feed";
+  const redirect = getSafeRedirectPath(searchParams.get("redirect"));
   const [showPass, setShowPass] = useState(false);
   const supabase = createClient();
 
