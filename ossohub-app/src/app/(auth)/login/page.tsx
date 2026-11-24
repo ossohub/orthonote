@@ -75,7 +75,13 @@ function LoginForm() {
     // Sincroniza dados profissionais guardados nos metadados durante o cadastro.
     // user_metadata nunca é usado para permissões, verificação ou papéis administrativos.
     const metadata = authData.user?.user_metadata ?? {};
-    const profilePatch: Record<string, unknown> = {};
+    const profilePatch: {
+      crm?: string | null;
+      rqe?: string | null;
+      specialties?: string[];
+      city_state?: string | null;
+      bio?: string | null;
+    } = {};
 
     if (typeof metadata.crm === "string") profilePatch.crm = metadata.crm.trim() || null;
     if (typeof metadata.rqe === "string") profilePatch.rqe = metadata.rqe.trim() || null;
