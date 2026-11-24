@@ -83,8 +83,31 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
     });
 
   return (
-    <div className="ossohub-container py-6">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div className="ossohub-container py-5 sm:py-7">
+      <div className="mb-5 sm:mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="oh-eyebrow mb-2"><Sparkles className="h-3.5 w-3.5" /> Comunidade profissional</div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Feed da comunidade</h1>
+          <p className="mt-1 text-sm text-[#A3B1C6]">Conhecimento clínico, discussão científica e experiências entre colegas.</p>
+        </div>
+        <Button className="w-full sm:w-auto" asChild>
+          <Link href="/post/new"><Plus className="h-4 w-4" /> Nova publicação</Link>
+        </Button>
+      </div>
+      {profile && (
+        <div className="ossohub-card mb-4 flex items-center gap-3 p-3 lg:hidden">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src={profile.photo_url ?? undefined} />
+            <AvatarFallback>{getInitials(profile.full_name)}</AvatarFallback>
+          </Avatar>
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-sm font-semibold text-white">{profile.full_name}</div>
+            <UserLevelBadge xp={profile.total_xp} size="sm" showName />
+          </div>
+          <Link href="/profile/edit" className="text-xs font-medium text-[#FFD477]">Meu perfil</Link>
+        </div>
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-6">
 
         {/* Sidebar esquerda — Perfil resumido */}
         <aside className="hidden lg:block lg:col-span-1">
@@ -121,8 +144,8 @@ export function FeedClient({ initialPosts, currentUserId, profile }: FeedClientP
                   onClick={() => setFilter(type)}
                   className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                     filter === type
-                      ? "bg-ossohub-green text-white"
-                      : "text-ossohub-slate hover:bg-slate-100"
+                      ? "bg-[#E9AE3B] text-[#171108] shadow-[0_5px_16px_-8px_rgba(233,174,59,.65)]"
+                      : "text-[#A3B1C6] hover:bg-white/[0.06] hover:text-white"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
