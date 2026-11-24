@@ -56,7 +56,7 @@ function LoginForm() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   async function onSubmit(data: FormData) {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: authData, error } = await supabase.auth.signInWithPassword({
       email: data.email,
       password: data.password,
     });
@@ -70,6 +70,35 @@ function LoginForm() {
         toast.error(error.message || "Erro ao entrar. Tente novamente.");
       }
       return;
+    }
+
+    // Sincroniza dados profissionais guardados nos metadados durante o cadastro.
+    // user_metadata nunca é usado para permissões, verificação ou papéis administrativos.
+    const metadata = authData.user?.user_metadata ?? {};
+    const profilePatch: Record<string, unknown> = {};
+
+    if (typeof metadata.crm === "string") profilePatch.crm = metadata.crm.trim() || null;
+    if (typeof metadata.rqe === "string") profilePatch.rqe = metadata.rqe.trim() || null;
+    if (Array.isArray(metadata.specialties)) {
+      profilePatch.specialties = metadata.specialties.filter(
+        (value): value is string => typeof value === "string"
+      );
+    }
+    if (typeof metadata.city_state === "string") {
+      profilePatch.city_state = metadata.city_state.trim() || null;
+    }
+    if (typeof metadata.bio === "string") profilePatch.bio = metadata.bio.trim() || null;
+
+    if (authData.user && Object.keys(profilePatch).length > 0) {
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .update(profilePatch)
+        .eq("id", authData.user.id);
+
+      if (profileError) {
+        console.error("Erro ao sincronizar perfil após login:", profileError);
+        toast.error("Login realizado, mas não foi possível sincronizar todos os dados do perfil.");
+      }
     }
 
     toast.success("Bem-vindo de volta!");
