@@ -321,7 +321,7 @@ body .bg-gray-100               { background-color: #111F35 !important; }
 body .bg-slate-200,
 body .bg-gray-200               { background-color: #16263F !important; }
 body .bg-ossohub-bg-light       { background-color: #0D192C !important; }
-body .bg-ossohub-green-light    { background-color: rgba(16,185,129,0.12) !important; }
+body .bg-ossohub-green-light    { background-color: rgba(233,174,59,0.12) !important; }
 
 /* --- Texto — tornar legível no fundo escuro --- */
 body .text-gray-900,
@@ -338,7 +338,7 @@ body .text-gray-400,
 body .text-slate-400            { color: #A3B1C6 !important; }
 body .text-ossohub-slate        { color: #A3B1C6 !important; }
 body .text-ossohub-navy         { color: #E2E8F0 !important; }
-body .text-ossohub-green-dark   { color: #10B981 !important; }
+body .text-ossohub-green-dark   { color: #FFD477 !important; }
 body .hover\:text-ossohub-navy:hover { color: #CBD5E1 !important; }
 body .bg-red-50                 { background-color: rgba(239,68,68,0.1) !important; }
 body .hover\:bg-slate-100:hover { background-color: rgba(255,255,255,0.06) !important; }
@@ -362,7 +362,7 @@ body .text-red-500              { color: #F87171 !important; }
 /* --- Verde preenchido: tinta escura (contraste 8:1 em vez de 2,5:1) --- */
 body .bg-ossohub-green.text-white,
 body .bg-primary.text-white,
-body .bg-ossohub-green .text-white { color: #04140D !important; }
+body .bg-ossohub-green .text-white { color: #171108 !important; }
 
 /* --- Bordas --- */
 body .border-white              { border-color: rgba(255,255,255,0.08) !important; }
@@ -372,7 +372,7 @@ body .border-gray-200,
 body .border-slate-200          { border-color: rgba(255,255,255,0.08) !important; }
 body .border-gray-300,
 body .border-slate-300          { border-color: rgba(255,255,255,0.12) !important; }
-body .border-ossohub-green-dark { border-color: rgba(16,185,129,0.35) !important; }
+body .border-ossohub-green-dark { border-color: rgba(233,174,59,0.35) !important; }
 
 /* --- Dividers --- */
 body .divide-gray-100 > * + *,
