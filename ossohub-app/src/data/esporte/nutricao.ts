@@ -73,7 +73,7 @@ export const NUTRICAO: Topico[] = [
         ["Proteína em pó (whey)", "20–40 g/dose", "Praticidade para atingir a meta diária"],
       ],
     },
-    secoes: [{ t: "Atenção", itens: ["Contaminação com substâncias proibidas: preferir produtos com certificação de terceira parte.", "Atletas de competição: consultar a lista da WADA/ABCD."] }],
+    secoes: [{ t: "Atenção", itens: ["Contaminação com substâncias proibidas: preferir produtos com certificação de terceira parte.", "Atletas de competição: consultar a lista da WADA/ABCD.", "Responsabilidade objetiva: o atleta responde por qualquer substância achada na amostra, mesmo vinda de suplemento contaminado.", "Fugir de rótulos com 'queima gordura', 'pré-treino', 'esteroide legal', 'aprovado pela WADA' (a WADA não aprova produtos) e de fórmulas com muitos ingredientes."] }],
     fontes: ["NUTRI", "INTEG", "METAB"],
   },
   {

@@ -471,7 +471,10 @@
    "fonte": "SUPPAZ",
    "alvo": "esporte",
    "arquivo": "ESP-08.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-24",
+   "resumo": "Acrescentados no corpo de Suplementos a responsabilidade objetiva do atleta e os sinais de alerta no rótulo. 5 notas SUPPAZ (acrescenta): taxa de contaminação (estudo do COI), roteiro para reduzir risco de doping inadvertido, critérios da lista proibida, segurança de micronutrientes (limite superior, lipossolúveis, ferro) e ajuste à saúde de base.",
+   "ids": ["n-suplementos", "n-gordura"]
   },
   {
    "id": "ESP-09-01",
