@@ -1,10 +1,37 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = ["/feed", "/explore", "/network", "/notifications", "/profile", "/post/new"];
+// Todas as páginas do grupo (main) dependem de uma sessão autenticada.
+// A autorização real de dados continua sendo aplicada por RLS e pelas
+// verificações das APIs/RPCs; o Proxy é uma primeira barreira de navegação.
+const PROTECTED = [
+  "/feed",
+  "/explore",
+  "/network",
+  "/notifications",
+  "/profile",
+  "/post",
+  "/desempenho",
+  "/esporte",
+  "/estudos",
+  "/flashcards",
+  "/mensuracao",
+  "/moderacao",
+  "/ortopedia",
+  "/pediatria",
+  "/procedimentos",
+  "/pronto-socorro",
+  "/questions",
+  "/referencia",
+  "/tools",
+];
 const AUTH_ROUTES = ["/login", "/signup"];
 
-export async function middleware(request: NextRequest) {
+function matchesPath(pathname: string, root: string): boolean {
+  return pathname === root || pathname.startsWith(`${root}/`);
+}
+
+export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(
@@ -16,9 +43,7 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
@@ -28,21 +53,24 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   const pathname = request.nextUrl.pathname;
 
-  const isProtected = PROTECTED.some((p) => pathname.startsWith(p));
+  const isProtected = PROTECTED.some((root) => matchesPath(pathname, root));
   if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
-    url.searchParams.set("redirect", pathname);
+    url.searchParams.set("redirect", pathname + request.nextUrl.search);
     return NextResponse.redirect(url);
   }
 
-  const isAuthRoute = AUTH_ROUTES.some((p) => pathname.startsWith(p));
+  const isAuthRoute = AUTH_ROUTES.some((root) => matchesPath(pathname, root));
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/feed";
+    url.search = "";
     return NextResponse.redirect(url);
   }
 

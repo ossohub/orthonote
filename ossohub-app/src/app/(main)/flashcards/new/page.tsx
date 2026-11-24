@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, ArrowLeft, Globe2, Lock } from "lucide-react";
@@ -30,12 +30,12 @@ export default function NewFlashcardPage() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues: { area: "", front: "", back: "" } });
 
-  const front = watch("front");
-  const back = watch("back");
+  const front = useWatch({ control, name: "front" });
+  const back = useWatch({ control, name: "back" });
 
   async function onSubmit(data: FormData) {
     if (!user) { router.push("/login"); return; }

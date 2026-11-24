@@ -391,7 +391,7 @@ export default function ClassificacoesPediatricasPage() {
         <div>
           <h1 className="text-xl font-bold text-white">Classificações Pediátricas</h1>
           <p className="text-sm text-slate-500 mt-0.5">
-            Sistemas de classificação em ortopedia pediátrica — Rockwood, Tachdjian's e Campbell's
+            Sistemas de classificação em ortopedia pediátrica — Rockwood, Tachdjian&apos;s e Campbell&apos;s
           </p>
         </div>
       </div>

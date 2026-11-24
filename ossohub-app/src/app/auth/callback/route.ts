@@ -21,10 +21,24 @@ import { createAdminClient } from "@/lib/supabase/admin";
 // de seguir pro feed.
 export const runtime = "nodejs";
 
+function getSafeRedirectPath(value: string | null, origin: string): string {
+  if (!value || !value.startsWith("/") || value.startsWith("//") || value.includes("\\")) {
+    return "/feed";
+  }
+
+  try {
+    const target = new URL(value, origin);
+    if (target.origin !== origin) return "/feed";
+    return `${target.pathname}${target.search}${target.hash}`;
+  } catch {
+    return "/feed";
+  }
+}
+
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const redirectTo = searchParams.get("redirect") ?? "/feed";
+  const redirectTo = getSafeRedirectPath(searchParams.get("redirect"), origin);
 
   if (code) {
     const supabase = await createClient();
