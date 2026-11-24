@@ -25,8 +25,9 @@ function getSafeRedirectPath(value: string | null): string {
   }
 
   try {
-    const target = new URL(value, window.location.origin);
-    if (target.origin !== window.location.origin) return "/feed";
+    const baseOrigin = "https://ossohub.invalid";
+    const target = new URL(value, baseOrigin);
+    if (target.origin !== baseOrigin) return "/feed";
     return `${target.pathname}${target.search}${target.hash}`;
   } catch {
     return "/feed";
