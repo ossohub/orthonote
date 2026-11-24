@@ -448,3 +448,9 @@ body .ring-ossohub-green-dark\/10 { --tw-ring-color: rgba(16,185,129,0.1); }
   .oh-hero-visual > .oh-xray-shell, .oh-hero-orb, .oh-section-reveal { animation:none !important; }
   .oh-hub-card:hover { transform:none; }
 }
+
+/* Brand utility compatibility for older feature screens */
+body .bg-ossohub-green { background-color: #E9AE3B !important; }
+body .text-ossohub-green { color: #FFD477 !important; }
+body .border-ossohub-green { border-color: rgba(233,174,59,.35) !important; }
+body .ring-ossohub-green { --tw-ring-color: rgba(233,174,59,.35) !important; }
