@@ -258,24 +258,27 @@ function renderFrame(){
 }
 
 function apply(){
+  const activeRegion=typeof REGIONS!=="undefined"&&REGIONS.includes(selected);
   ORDER.forEach(k=>{
     const m=meshes[k];if(!m)return;
     const sel=k===selected;
-    m.visible=!m.userData.hidden&&(!isolate||!selected||sel);
+    m.visible=!activeRegion&&!m.userData.hidden&&(!isolate||!selected||sel);
     m.material.color.setHex(sel?SEL:BONE);
     m.material.opacity=(selected&&!sel&&!isolate)?0.38:1;
     m.material.transparent=m.material.opacity<1;
     m.material.depthWrite=!m.material.transparent;
     m.renderOrder=sel?0:1;
   });
-  if(typeof DATA_EXTRA!=="undefined"&&typeof REGIONS!=="undefined"){
-    const isReg=REGIONS.includes(selected);
-    if(isReg)ORDER.forEach(k=>{const m=meshes[k];if(m)m.visible=false;});
+  if(typeof REGIONS!=="undefined"){
     REGIONS.forEach(k=>{
       const m=meshes[k];if(!m)return;
-      m.visible=(k===selected);
-      m.material.color.setHex(SEL);
-      m.material.opacity=1;m.material.transparent=false;m.material.depthWrite=true;
+      const sel=activeRegion&&k===selected;
+      m.visible=sel;
+      m.material.color.setHex(sel?SEL:BONE);
+      m.material.opacity=1;
+      m.material.transparent=false;
+      m.material.depthWrite=true;
+      m.renderOrder=sel?0:1;
     });
   }
   $("#b-iso").setAttribute("aria-pressed",isolate);
@@ -348,7 +351,7 @@ function init(){
     down=null;const r=renderer.domElement.getBoundingClientRect();
     pt.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height*2-1));
     ray.setFromCamera(pt,camera);
-    const hit=ray.intersectObjects(ORDER.map(k=>meshes[k]).filter(m=>m.visible),false)[0];
+    const hit=ray.intersectObjects(Object.values(meshes).filter(m=>m.visible),false)[0];
     select(hit?(hit.object.name===selected?null:hit.object.name):null);
   });
 
