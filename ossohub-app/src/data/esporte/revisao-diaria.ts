@@ -120,6 +120,8 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "acrescenta", texto: "Antes de manipular a coluna cervical: anamnese completa para afastar sintomas de dissecção da artéria vertebral (tontura, diplopia, disartria, disfagia, queda súbita, cefaleia/cervicalgia súbita e intensa). Começar por técnicas não provocativas; os testes funcionais pré-manipulação não são confiáveis para excluir o risco." },
   ],
   "r-lombar": [
+    { fonte: "CORE50", tipo: "acrescenta", texto: "Progressão do treino de estabilização do tronco em 4 etapas: (1) aprender a contrair a musculatura profunda; (2) ganhar resistência dela; (3) manter o controle enquanto os braços se movem; (4) desafios progressivos. Avançar pelas posições deitado de costas → de bruços → ajoelhado → em pé → movimento dinâmico. Incluir alongamento de isquiotibiais, quadríceps, iliopsoas e banda iliotibial, cujo encurtamento contribui para o desequilíbrio lombar. Sem carga pesada no início: o objetivo é controle automático." },
+    { fonte: "CORE50", tipo: "diverge", texto: "O livro trata a ativação isolada do transverso do abdome como peça central da estabilização lombar. Os estudos atuais mostram que exercícios específicos de controle motor não são superiores a exercício geral (força, caminhada, Pilates) para dor e função na lombalgia crônica — servem como uma opção, não como requisito. O próprio livro já reconhece que diafragma e musculatura profunda agem em conjunto." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "Valores de referência úteis para resistência do tronco em pessoas sem lombalgia: prancha ventral (apoio em antebraços) ≈ 72 ± 33 s e ponte em decúbito dorsal com uma perna estendida ≈ 170 ± 43 s. Interromper o teste se surgir dor lombar ou na coxa posterior." },
   ],
   "f-triagem": [
@@ -217,6 +219,7 @@ export const NOTAS_DIARIA: Record<string, Nota[]> = {
     { fonte: "SRIP", tipo: "acrescenta", texto: "Diferenciar da síndrome do túnel do tarso: na fasciopatia a dor é localizada e não há alteração de sensibilidade; no túnel do tarso há formigamento/queimação no calcanhar medial, arco ou planta e Tinel positivo atrás do maléolo medial." },
   ],
   "a-lombar": [
+    { fonte: "CORE50", tipo: "acrescenta", texto: "Camada superficial do core: eretor da espinha (iliocostal, longuíssimo e espinal — extensão e postura ereta), reto do abdome (flexão do tronco e estabilização da pelve na marcha) e oblíquos interno e externo (rotação e inclinação). O transverso é a camada mais profunda e funciona como 'cinta' ao comprimir o abdome; o diafragma ajuda pela pressão intra-abdominal (como a manobra de 'trancar a respiração' no levantamento pesado)." },
     { fonte: "SRIP", tipo: "acrescenta", texto: "No slump e na elevação da perna estendida, a diferenciação estrutural confirma a origem neural: mexer uma região distante (soltar a flexão cervical no slump; acrescentar dorsiflexão na perna estendida) muda os sintomas. Na perna estendida, dorsiflexão + eversão sensibiliza o nervo tibial; flexão plantar + inversão, o fibular." },
   ],
   "l-concussao": [

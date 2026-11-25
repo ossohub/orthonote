@@ -523,7 +523,13 @@
    "fonte": "CORE50",
    "alvo": "esporte",
    "arquivo": "ESP-12.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-24",
+   "resumo": "Capítulo introdutório (conceito de core): nada errado no site. Em Lombalgia mecânica, nota com a progressão em 4 etapas da estabilização do tronco e nota de divergência sobre a ênfase no transverso (exercício geral tem eficácia semelhante); em Coluna lombar, pelve e core, nota com a camada superficial do core e o papel do diafragma.",
+   "ids": [
+    "r-lombar",
+    "a-lombar"
+   ]
   },
   {
    "id": "ESP-13-01",
