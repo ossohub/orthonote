@@ -257,12 +257,12 @@ function renderRegions(){
 function renderClassificationIndex(){
   const root=$("#classification-results");if(!root)return;
   root.innerHTML="";
-  const entries=Object.entries(INFO).flatMap(([key,info])=>info.cls.map(cls=>({key,name:info.nome,system:cls.sistema,terms:cls.itens.join(" ")})));
+  const entries=Object.entries(INFO).flatMap(([key,info])=>info.cls.map(cls=>({key,name:info.nome,system:cls.sistema,terms:cls.itens.join(" "),count:cls.itens.length})));
   const matches=entries.filter(entry=>(entry.system+" "+entry.name+" "+entry.terms).toLocaleLowerCase("pt-BR").includes(classificationQuery));
   matches.slice(0,60).forEach(entry=>{
     const button=document.createElement("button");button.type="button";button.className="classification-result";
     const title=document.createElement("strong");title.textContent=entry.system;
-    const meta=document.createElement("small");meta.textContent=entry.name+" · "+entry.terms.split(" ").length+" palavras de referência";
+    const meta=document.createElement("small");meta.textContent=entry.name+" · "+entry.count+" itens de referência";
     button.append(title,meta);
     button.setAttribute("aria-label","Abrir "+entry.system+" em "+entry.name);
     button.addEventListener("click",()=>{
