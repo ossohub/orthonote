@@ -1,0 +1,267 @@
+import type { Infiltracao } from "./types";
+
+// Ombro. Doses em triamcinolona acetonida (40 mg/mL) — usar a dose equivalente se for outro corticoide.
+
+export const OMBRO: Infiltracao[] = [
+  {
+    id: "glenoumeral-posterior", titulo: "Glenoumeral — via posterior", secao: "ombro", guia: "palpacao",
+    guiaNota: "US útil em obesos ou após falha por palpação; hidrodistensão costuma ser guiada.",
+    resumo: "Capsulite adesiva, artrose ou artrite do ombro. Agulha entra logo abaixo do ângulo posterior do acrômio e segue em direção ao processo coracoide até tocar a cartilagem; 40 mg em 5 mL, em bolus.",
+    indicacoes: [
+      "Capsulite adesiva (fase dolorosa) — quanto mais cedo e menos irradiada a dor, melhor a resposta.",
+      "Artrose ou artrite inflamatória glenoumeral; capsulite pós-traumática.",
+      "Padrão capsular: perda maior da rotação lateral, depois abdução, depois rotação medial, com final duro.",
+    ],
+    material: ["Seringa de 5 mL", "Agulha 21G de 40–50 mm"],
+    medicacao: ["Triamcinolona 40 mg + lidocaína 1% 4 mL (total 5 mL).", "Ombro grande: triamcinolona 10 mg/mL — 4 mL + 4 mL de lidocaína 1%. Paciente pequeno: 30 mg."],
+    posicao: ["Sentado, braços cruzados sobre o abdome (abre a parte posterior da articulação)."],
+    etapas: [
+      { t: "Referências", passos: [
+        "Polegar no ângulo posterior do acrômio e indicador no processo coracoide — a linha oblíqua entre os dois atravessa a articulação.",
+        "Trajeto: deltoide → infraespinal → cápsula posterior. Não há grandes vasos ou nervos nessa via.",
+      ] },
+      { t: "Técnica", passos: [
+        "Entrar logo abaixo do ângulo posterior do acrômio e avançar obliquamente para a frente, mirando o coracoide.",
+        "Parar ao sentir a cartilagem ('pegajosa') da cabeça umeral ou da glenoide.",
+        "Injetar em bolus. Resistência = agulha muito lateral → redirecionar mais medial. Leve resistência ao cruzar a cápsula é normal.",
+      ] },
+      { t: "Via anterior (alternativa)", passos: [
+        "Braço em leve rotação lateral; entrar entre o coracoide e o tubérculo menor, mirando póstero-medialmente a espinha da escápula.",
+        "Mesma dose. Desvantagens: paciente vê a agulha, pele mais sensível e mais estruturas neurovasculares anteriores.",
+      ] },
+    ],
+    posop: [
+      "Exercícios pendulares e alongamento dentro da faixa sem dor; alongamento mais forte quando a dor ceder.",
+      "Fisioterapia a partir de ~1 semana para aproveitar a janela de analgesia; depois fortalecimento, estabilização e postura.",
+    ],
+    perolas: [
+      "Na capsulite inicial costuma bastar uma injeção; em casos avançados podem ser necessárias várias com intervalos crescentes (1 sem, 10 dias, 2 sem…).",
+      "Corticoide + fisioterapia é superior à fisioterapia isolada no curto prazo, sobretudo quando a dor predomina.",
+      "Capsulite que não responde: considerar bloqueio supraescapular ou hidrodistensão guiada.",
+      "Diabéticos têm mais capsulite e mais hiperglicemia pós-injeção — orientar monitorização.",
+    ],
+    fontes: ["SAUNDERS p. 57–58", "MSK p. 70"],
+    tags: ["capsulite adesiva", "ombro congelado", "artrose", "intra-articular"],
+  },
+  {
+    id: "supraescapular", titulo: "Bloqueio do nervo supraescapular", secao: "ombro", guia: "palpacao",
+    guiaNota: "Pode ser feito por US; radiofrequência pulsada prolonga o efeito.",
+    resumo: "Para dor glenoumeral que não respondeu à infiltração intra-articular, ou lesão do manguito irreparável/sem condição cirúrgica. Ponto: um terço medial ao longo da espinha da escápula, um dedo acima, na fossa supraespinal, até tocar osso.",
+    indicacoes: [
+      "Capsulite adesiva ou artropatia glenoumeral refratária à injeção intra-articular.",
+      "Rotura do manguito em paciente sem condição cirúrgica; dor crônica do ombro.",
+    ],
+    material: ["Seringa de 1 mL", "Agulha 21G de 40 mm"],
+    medicacao: ["Triamcinolona 20 mg sem anestésico (0,5 mL) — alguns associam anestésico de longa duração."],
+    posicao: ["Sentado, apoiado, braço em posição neutra."],
+    etapas: [
+      { t: "Anatomia", passos: [
+        "O nervo passa pela incisura supraescapular, cruza a fossa supraespinal, contorna o colo da espinha e termina na fossa infraespinal.",
+        "Inerva supra e infraespinal e manda ramos articulares para glenoumeral e acromioclavicular.",
+      ] },
+      { t: "Técnica", passos: [
+        "Localizar a extremidade lateral da espinha da escápula; andar um terço medialmente e marcar um dedo acima, na fossa supraespinal.",
+        "Inserir perpendicular à fossa até tocar osso e injetar em bolus.",
+        "Parestesia ou queimação = agulha no nervo → recuar um pouco antes de injetar.",
+      ] },
+    ],
+    posop: ["Manter mobilidade sem dor; alongamento e mobilização quando a dor permitir."],
+    perolas: [
+      "Ensaio pequeno em atenção primária mostrou segurança e eficácia na capsulite.",
+      "Radiofrequência pulsada guiada por US (2 lesões de 42 °C por 2–3 min) + fisioterapia deu alívio mais rápido que fisioterapia isolada, com efeito até ~12 semanas.",
+    ],
+    fontes: ["SAUNDERS p. 59", "MSK p. 256–257"],
+    tags: ["supraescapular", "bloqueio", "capsulite", "radiofrequência pulsada"],
+  },
+  {
+    id: "acromioclavicular", titulo: "Acromioclavicular", secao: "ombro", guia: "palpacao",
+    guiaNota: "Articulação estreita; US ajuda quando há osteófitos.",
+    resumo: "Dor na ponta do ombro, dor no 'scarf test' (adução horizontal). Entrar um polegar medial à borda lateral do acrômio, angulando ~30° medialmente; 10 mg em 1 mL, em bolus.",
+    indicacoes: ["Capsulite/artrose AC (trauma ou sobrecarga em ombro degenerado).", "Dor no fim de todas as amplitudes passivas, sobretudo adução horizontal; às vezes arco doloroso no fim da elevação."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,75 mL (total 1 mL)."],
+    posicao: ["Sentado, braço pendente ao lado do corpo (afasta levemente as superfícies)."],
+    etapas: [
+      { t: "Referências", passos: [
+        "A interlinha fica no plano sagital, ~1 polegar medial à borda lateral do acrômio; costuma haver um degrau palpável ou um pequeno 'V' na margem anterior.",
+        "A interlinha é oblíqua, de cima-lateral para baixo-medial, e contém um pequeno menisco. Deslizar o acrômio para baixo sobre a clavícula ajuda a achar a fenda.",
+      ] },
+      { t: "Técnica", passos: [
+        "Marcar o ponto médio da interlinha e entrar angulando ~30° medialmente em relação à vertical, atravessando a cápsula.",
+        "Injetar em bolus.",
+        "Difícil de entrar: tracionar o braço para abrir a fenda e infiltrar a cápsula em 'peppering' (anestesia) enquanto procura o espaço.",
+      ] },
+      { t: "Alternativa", passos: ["Entrada anterior e horizontal pelo 'V' da margem anterior quando a via superior falha."] },
+    ],
+    posop: ["Repouso de 1 semana e depois mobilização suave; gelo, bandagem e analgésico nos casos agudos."],
+    perolas: ["Articulação instável/subluxante: considerar esclerosante ou cirurgia."],
+    fontes: ["SAUNDERS p. 61"],
+    tags: ["acromioclavicular", "AC", "scarf test", "artrose"],
+  },
+  {
+    id: "esternoclavicular", titulo: "Esternoclavicular", secao: "ombro", guia: "palpacao",
+    resumo: "Dor sobre a articulação ao protrair/retrair o ombro ou elevar o braço. Localizar a interlinha medial à extremidade da clavícula durante protração/retração e entrar perpendicular; 10 mg em 0,75 mL.",
+    indicacoes: ["Capsulite por trauma, sobrecarga ou artrite (inclusive AR).", "Estalido/subluxação pós-traumática dolorosa."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,5 mL (total 0,75 mL)."],
+    posicao: ["Sentado, apoiado, braço em leve rotação lateral."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Palpar a interlinha (oblíqua, de cima-medial para baixo-lateral) enquanto o paciente protrai e retrai o ombro.",
+        "Marcar o ponto médio, entrar perpendicular atravessando a cápsula e injetar em bolus.",
+        "Superficial: não aprofundar — estruturas mediastinais e grandes vasos estão logo atrás.",
+      ] },
+    ],
+    posop: ["Repouso 1 semana, depois mobilização, postura e exercícios; bandagem ajuda na fase aguda pós-trauma."],
+    perolas: ["Lesão incomum, mas costuma responder bem a uma infiltração."],
+    fontes: ["SAUNDERS p. 63"],
+    tags: ["esternoclavicular", "menisco", "subluxação"],
+  },
+  {
+    id: "subacromial", titulo: "Bursa subacromial (subdeltoide)", secao: "ombro", guia: "palpacao",
+    guiaNota: "Guiada por US tende a melhorar a função; útil em falha prévia.",
+    resumo: "Lesão injetável mais comum do ombro. Entrar no ponto médio da borda lateral do acrômio, angulando levemente para cima até o fim da agulha, e injetar em bolus enquanto recua onde não houver resistência. 20 mg em 5 mL.",
+    indicacoes: [
+      "Bursite subacromial crônica / síndrome do impacto (dor deltoidea, arco doloroso, 'confusão' de sinais nos testes resistidos).",
+      "Bursite aguda: dor intensa de instalação rápida, irradiada até o punho — mesma técnica com volume total de 2 mL.",
+    ],
+    material: ["Seringa de 5 mL", "Agulha 21G de 40 mm"],
+    medicacao: ["Triamcinolona 20 mg + lidocaína 1% 4,5 mL (total 5 mL)."],
+    posicao: ["Sentado, braço pendente (afasta o úmero do acrômio)."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Localizar a borda lateral do acrômio e entrar no seu ponto médio.",
+        "Angular levemente para cima, sob o acrômio, até o comprimento total da agulha.",
+        "Recuar lentamente injetando em bolus onde não houver resistência.",
+        "Bursa crônica pode estar loculada ('injetar numa esponja'): abrir em leque sob o acrômio e preencher os compartimentos.",
+        "Se a dor à palpação for anterior ou posterior ao acrômio, pode-se entrar por esses pontos.",
+      ] },
+    ],
+    posop: [
+      "Até 2 semanas: manter ombros retraídos/deprimidos e evitar elevar o braço acima do ombro; bandagem e orientação postural ajudam.",
+      "Sem dor: rotação lateral resistida e retração, depois fortalecimento de abdução; retreinar gestos acima da cabeça.",
+    ],
+    perolas: [
+      "Persistência após 2 injeções: investigar rotura do manguito (US/RM).",
+      "Calcificação na bursa dá resistência dura — tentar desbridar com agulha grossa e anestésico; se falhar, considerar barbotagem guiada ou cirurgia.",
+      "Em magros, o líquido pode abaular visivelmente a borda do acrômio.",
+      "Bursite + tendinopatia do supraespinal: tratar primeiro a bursa e reavaliar.",
+    ],
+    fontes: ["SAUNDERS p. 65–66", "MSK p. 171–173"],
+    tags: ["subacromial", "impacto", "bursite", "manguito"],
+  },
+  {
+    id: "supraespinal", titulo: "Tendão do supraespinal (inserção)", secao: "ombro", guia: "palpacao",
+    guiaNota: "Idoso com dor pós-traumática: US antes para excluir rotura.",
+    resumo: "Dor à abdução resistida e arco doloroso. Rotação medial com a mão atrás das costas traz o tendão à frente do acrômio; peppering perpendicular na inserção. 10 mg em 1 mL.",
+    indicacoes: ["Tendinopatia crônica do supraespinal por sobrecarga (abdução resistida dolorosa, arco)."],
+    contraindicacoes: ["Suspeita de rotura (idoso com trauma) sem exame de imagem."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,75 mL (total 1 mL)."],
+    posicao: ["Semissentado a ~45°, antebraço em rotação medial atrás das costas."],
+    etapas: [
+      { t: "Referências", passos: [
+        "Insere-se na faceta superior do tubérculo maior, alinhada com o epicôndilo lateral; tem ~a largura do dedo médio na inserção.",
+        "Na posição descrita, o tendão arredondado fica no sulco entre o acrômio e o tubérculo.",
+      ] },
+      { t: "Técnica", passos: [
+        "Entrar perpendicular através do tendão até tocar o osso.",
+        "Distribuir em peppering pela inserção (uma só punção).",
+      ] },
+    ],
+    posop: ["Repouso relativo até 2 semanas; depois exercícios progressivos e controle postural."],
+    perolas: [
+      "Na dúvida entre bursite e tendinopatia, infiltrar a bursa primeiro e o tendão ~1 semana depois se a abdução resistida continuar dolorosa.",
+      "Calcificação dá resistência dura: considerar barbotagem guiada por US.",
+    ],
+    fontes: ["SAUNDERS p. 67"],
+    tags: ["supraespinal", "tendinopatia", "manguito", "peppering"],
+  },
+  {
+    id: "infraespinal", titulo: "Tendão do infraespinal", secao: "ombro", guia: "palpacao",
+    resumo: "Dor à rotação lateral resistida. Braço fletido a 90°, aduzido e em rotação lateral; ponto 45° ínfero-lateral ao ângulo posterior do acrômio; peppering em duas fileiras na junção tendão-osso. 20 mg em 2 mL.",
+    indicacoes: ["Tendinopatia crônica do infraespinal/redondo menor (rotação lateral resistida dolorosa, arco)."],
+    material: ["Seringa de 2 mL", "Agulha 23G de 30 mm"],
+    medicacao: ["Triamcinolona 20 mg + lidocaína 2% 1,5 mL (total 2 mL)."],
+    posicao: ["Sentado ou deitado, braço apoiado em 90° de flexão, adução completa e rotação lateral (tira o tendão de baixo do deltoide e o tensiona)."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Localizar o ângulo posterior do acrômio; a inserção fica 45° abaixo e lateral, alinhada ao epicôndilo lateral (~3 dedos de largura).",
+        "Entrar no meio da inserção, atravessar o tendão e tocar osso.",
+        "Peppering em duas fileiras, para cima e para baixo, na junção tendão-osso.",
+        "Sem arco doloroso, a lesão tende a ser no corpo do tendão: entrar mais medial, no ponto doloroso, com a mesma técnica.",
+      ] },
+    ],
+    posop: ["Repouso relativo até 2 semanas; depois exercícios e correção postural."],
+    perolas: ["Pode coexistir com bursite subacromial — bursa primeiro, tendão depois se persistir."],
+    fontes: ["SAUNDERS p. 69"],
+    tags: ["infraespinal", "redondo menor", "manguito"],
+  },
+  {
+    id: "subescapular", titulo: "Subescapular — tendão ou bursa", secao: "ombro", guia: "palpacao",
+    resumo: "Dor à rotação medial resistida (tendão) ou mais dor no scarf test e palpação muito dolorosa (bursa). Ponto: borda medial do tubérculo menor. Tendão 10 mg/1 mL em peppering; bursa 20 mg/2 mL em bolus profundo ao tendão.",
+    indicacoes: ["Tendinopatia do subescapular por sobrecarga ou trauma.", "Bursite subescapular (pode ser hemorrágica após trauma direto)."],
+    material: ["Tendão: seringa de 1 mL; bursa: 2 mL", "Agulha 23G de 30 mm"],
+    medicacao: ["Tendão: triamcinolona 10 mg + lidocaína 2% 0,75 mL (1 mL).", "Bursa: triamcinolona 20 mg + lidocaína 2% 1,5 mL (2 mL).", "Ambos juntos: 30 mg em 3 mL."],
+    posicao: ["Sentado, braço ao lado do corpo em 45° de rotação lateral."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Localizar o coracoide e deslizar lateralmente até a saliência do tubérculo menor (rodar passivamente o braço ajuda). Marcar sua borda medial.",
+        "Tendão: angular levemente lateral, tocar osso na inserção e fazer peppering (~2 dedos de largura).",
+        "Bursa: entrar no plano sagital atravessando o tendão e injetar em bolus profundo a ele.",
+        "Lesão dupla: peppering no tendão e, pela mesma punção, avançar até a bursa.",
+      ] },
+    ],
+    posop: ["Repouso relativo 1 semana; depois alongamento e fortalecimento progressivos; corrigir o gesto esportivo."],
+    perolas: ["A região é sempre dolorosa à palpação, mesmo normal — comparar com o outro lado.", "A bursa costuma comunicar com a glenoumeral."],
+    fontes: ["SAUNDERS p. 71"],
+    tags: ["subescapular", "bursa", "tubérculo menor"],
+  },
+  {
+    id: "biceps-cabo-longo", titulo: "Cabo longo do bíceps (bainha)", secao: "ombro", guia: "palpacao",
+    guiaNota: "US permite confirmar a distensão da bainha e evitar injeção intratendínea.",
+    resumo: "Dor na face anterior do úmero à flexão do cotovelo com supinação resistida. Entrar no ponto mais doloroso do sulco intertubercular e deslizar paralelo ao tendão; 10 mg em 1 mL entre tendão e bainha.",
+    indicacoes: ["Tendinopatia/tenossinovite do cabo longo do bíceps (diagnóstico menos frequente do que parece)."],
+    contraindicacoes: ["Injeção dentro do tendão (risco de rotura)."],
+    material: ["Seringa de 1 mL", "Agulha 23G de 25–30 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,75 mL (total 1 mL)."],
+    posicao: ["Sentado, cotovelo apoiado a 90°."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Palpar o tendão no sulco pedindo contração do bíceps sob o dedo; marcar o ponto mais doloroso.",
+        "Entrar perpendicular e então inclinar a agulha para baixo, paralela ao tendão.",
+        "Injetar em bolus entre tendão e bainha — deve distender a bainha, sem resistência.",
+        "Por US: eixo curto do tendão no sulco, agulha em plano; distensão uniforme da bainha confirma a posição.",
+      ] },
+    ],
+    posop: ["Repouso relativo 1 semana; depois tratar a causa."],
+    perolas: [
+      "Dor à palpação do sulco é comum em ombros normais — descartar dor referida cervical, glenoumeral ou do manguito.",
+      "Dor súbita com abaulamento no meio do braço = rotura do cabo longo; a função costuma ser boa depois.",
+    ],
+    fontes: ["SAUNDERS p. 73", "MSK p. 167–168"],
+    tags: ["bíceps", "cabo longo", "tenossinovite", "sulco bicipital"],
+  },
+  {
+    id: "barbotagem-calcaria", titulo: "Barbotagem da tendinite calcária (US)", secao: "ombro", guia: "us",
+    resumo: "Tendinopatia calcária do manguito com dor persistente: sob US, agulha 22G no centro do depósito, lavagem repetida com anestésico até sair material 'giz'; depois corticoide na bursa subacromial com outra agulha.",
+    indicacoes: ["Tendinite calcária sintomática do supraespinal (ou glúteos) refratária ao tratamento conservador."],
+    material: ["Agulha 22G (uma para a barbotagem e outra para a bursa)", "Seringas sem ar (bolhas atrapalham a imagem)", "Ultrassom com transdutor linear"],
+    medicacao: ["Anestésico local para lavagem do depósito.", "Ao final: corticoide + anestésico na bursa subacromial."],
+    posicao: ["Braço ao lado do corpo, palma para baixo (alguma rotação interna)."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Agulha em plano com o transdutor, ponta sempre visível até o centro do depósito.",
+        "Injetar pequena quantidade de anestésico no cálcio e soltar o êmbolo repetidamente, girando a agulha.",
+        "Ver os grumos brancos flutuando na seringa = cálcio extraído.",
+        "Trocar a agulha (a da barbotagem entope) e injetar corticoide + anestésico na bursa.",
+      ] },
+    ],
+    perolas: [
+      "O resultado depende do tamanho e da consistência: cálcio mole (mal definido, pouca sombra) sai melhor que o duro (brilhante, com sombra acústica).",
+      "A doença costuma ser autolimitada (reabsorção espontânea); reservar para dor/limitação persistente.",
+    ],
+    fontes: ["MSK p. 169–172"],
+    tags: ["tendinite calcária", "barbotagem", "lavagem", "ultrassom", "hidroxiapatita"],
+  },
+];

@@ -14,6 +14,7 @@ import { ADULTO, PEDIATRIA, FONTES } from "../src/data/ps";
 import { NOTAS_PS } from "../src/data/ps/revisao-diaria";
 import { MEDIDAS, REGIOES_RX } from "../src/data/radiologia";
 import { PROCEDIMENTOS, SECOES_CIR } from "../src/data/cirurgia";
+import { INFILTRACOES, SECOES_INJ, FONTES_INJ, GUIA_INJ } from "../src/data/infiltracoes";
 
 const erros: string[] = [];
 const avisos: string[] = [];
@@ -101,6 +102,23 @@ for (const p of PROCEDIMENTOS) {
   }
 }
 
+// ---------- Infiltrações ----------
+const idsInj = new Map<string, number>();
+for (const p of INFILTRACOES) idsInj.set(p.id, (idsInj.get(p.id) ?? 0) + 1);
+idsInj.forEach((n, id) => { if (n > 1) erros.push(`infiltracao: id duplicado "${id}" (${n}x)`); });
+const secoesInj = new Set(SECOES_INJ.map((s) => s.id));
+for (const s of SECOES_INJ) if (!INFILTRACOES.some((p) => p.secao === s.id)) erros.push(`infiltracao: seção "${s.id}" vazia`);
+for (const p of INFILTRACOES) {
+  if (!secoesInj.has(p.secao)) erros.push(`infiltracao: "${p.id}" com seção inválida "${p.secao}"`);
+  if (!GUIA_INJ[p.guia]) erros.push(`infiltracao: "${p.id}" com guia inválida "${p.guia}"`);
+  if (!p.titulo || !p.resumo) erros.push(`infiltracao: "${p.id}" sem título/resumo`);
+  if (!/^[a-z0-9-]+$/.test(p.id)) erros.push(`infiltracao: id "${p.id}" fora do formato`);
+  if (!p.indicacoes.length || !p.etapas.length) erros.push(`infiltracao: "${p.id}" sem indicações ou etapas`);
+  for (const e of p.etapas) if (!e.t || !e.passos.length) erros.push(`infiltracao: "${p.id}" etapa vazia`);
+  if (!p.fontes.length) erros.push(`infiltracao: "${p.id}" sem fonte`);
+  for (const f of p.fontes) if (!FONTES_INJ[f.split(" ")[0]]) erros.push(`infiltracao: "${p.id}" fonte desconhecida "${f}"`);
+}
+
 // ---------- Fila da revisão diária ----------
 type ItemFila = { id: string; status: string; data?: string; resumo?: string; ids?: string[]; fonte: string; alvo: string };
 try {
@@ -132,7 +150,7 @@ try {
   }
 } catch { avisos.push("repo: não consegui listar arquivos com git"); }
 
-avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria · radiologia: ${MEDIDAS.length} itens · cirurgia: ${PROCEDIMENTOS.length} procedimentos`);
+avisos.push(`esporte: ${TODOS_TOPICOS.length} tópicos · ps: ${ADULTO.length} adulto + ${PEDIATRIA.length} pediatria · radiologia: ${MEDIDAS.length} itens · cirurgia: ${PROCEDIMENTOS.length} procedimentos · infiltrações: ${INFILTRACOES.length}`);
 for (const a of avisos) console.log("•", a);
 if (erros.length) {
   console.error(`\n${erros.length} erro(s):`);

@@ -645,6 +645,28 @@ export interface RxImage {
   updated_at: string;
 }
 
+// Figuras da aba Infiltrações (tabela injection_images; bucket PRIVADO infiltracao-figuras)
+export interface InjectionImage {
+  id: string;
+  injection_id: string;
+  step_index: number | null;
+  sort: number;
+  caption: string | null;
+  fig_ref: string | null;
+  book: string | null;
+  page: number | null;
+  source: "livro" | "upload";
+  visibility: "admin" | "public";
+  hidden: boolean;
+  storage_path: string;
+  thumb_path: string | null;
+  width: number | null;
+  height: number | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -733,6 +755,7 @@ export interface Database {
       ] };
       procedure_images: { Row: Loose<ProcedureImage>; Insert: Partial<Loose<ProcedureImage>>; Update: Partial<Loose<ProcedureImage>>; Relationships: [] };
       rx_images: { Row: Loose<RxImage>; Insert: Partial<Loose<RxImage>>; Update: Partial<Loose<RxImage>>; Relationships: [] };
+      injection_images: { Row: Loose<InjectionImage>; Insert: Partial<Loose<InjectionImage>>; Update: Partial<Loose<InjectionImage>>; Relationships: [] };
     };
     Views: Record<string, never>;
     Functions: {

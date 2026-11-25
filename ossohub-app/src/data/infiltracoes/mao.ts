@@ -1,0 +1,197 @@
+import type { Infiltracao } from "./types";
+
+// Punho e mão. Doses em triamcinolona acetonida (40 mg/mL).
+
+export const MAO: Infiltracao[] = [
+  {
+    id: "radiocarpal", titulo: "Punho (radiocarpal / mediocárpica)", secao: "mao", guia: "palpacao",
+    guiaNota: "US ajuda em punhos muito edemaciados.",
+    resumo: "Capsulite do punho (AR, trauma). A cápsula tem septos, então uma punção dorsal no meio do carpo distribui a solução em vários pontos, nos ligamentos e intra-articular. 20 mg em 2 mL.",
+    indicacoes: [
+      "Artrite reumatoide e outras sinovites do punho (calor, espessamento sinovial, derrame).",
+      "Padrão capsular: perda igual de flexão e extensão passivas, com final duro.",
+    ],
+    contraindicacoes: ["Trauma sem excluir fratura (sobretudo do escafoide)."],
+    material: ["Seringa de 2 mL", "Agulha 23G de 30 mm"],
+    medicacao: ["Triamcinolona 20 mg + lidocaína 2% 1,5 mL (total 2 mL)."],
+    posicao: ["Mão espalmada para baixo, punho em leve flexão."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Localizar o meio do carpo, proximal à depressão do capitato, no dorso.",
+        "Entrar nesse ponto e, sem retirar a agulha, injetar em leque em vários pontos do dorso — nos ligamentos e dentro da cápsula quando possível.",
+        "Punho muito edemaciado: agulha mais longa ou mais de um ponto de entrada.",
+      ] },
+    ],
+    posop: ["Órtese de repouso até a dor ceder; depois mobilização suave dentro da faixa sem dor (parafina é útil)."],
+    perolas: ["Fora da AR (trauma, sobrecarga, artrose), órtese + analgesia + mobilização costumam bastar antes de infiltrar."],
+    fontes: ["SAUNDERS p. 85"],
+    tags: ["punho", "radiocarpal", "artrite reumatoide", "sinovite"],
+  },
+  {
+    id: "radioulnar-distal", titulo: "Radioulnar distal / complexo da fibrocartilagem triangular", secao: "mao", guia: "palpacao",
+    resumo: "Dor ulnar do punho; dor no fim da prono-supinação ou no 'scoop test' (lesão da fibrocartilagem). Entrar logo distal ao estiloide ulnar, transversalmente em direção ao rádio, atravessando o ligamento colateral ulnar; 10 mg em 1,25 mL.",
+    indicacoes: [
+      "Capsulite da RUD (artrose, AR).",
+      "Lesão da fibrocartilagem triangular (queda com a mão espalmada, tração/torção, pós-fratura de Colles) — estalidos dolorosos, às vezes bloqueio.",
+    ],
+    material: ["Seringa de 2 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 1 mL (total 1,25 mL)."],
+    posicao: ["Sentado, mão espalmada para baixo."],
+    etapas: [
+      { t: "Referências", passos: [
+        "A RUD é em forma de L, com ~1 dedo de comprimento, logo medial à saliência da cabeça da ulna.",
+        "Achar a fenda deslizando rádio contra ulna ou palpando entre o estiloide ulnar e o piramidal.",
+      ] },
+      { t: "Técnica", passos: [
+        "Entrar logo distal ao estiloide ulnar, apontando transversalmente para o rádio.",
+        "Atravessar o colateral ulnar, penetrar a cápsula e injetar em bolus.",
+      ] },
+    ],
+    posop: ["Repouso 1 semana evitando flexão com desvio ulnar; mobilização com distração ajuda na lesão meniscal."],
+    perolas: [
+      "Scoop test: comprimir o punho supinado em desvio ulnar e 'varrer' em semicírculo para flexão.",
+      "Muitas vezes explicação, órtese e evitar o gesto bastam; a injeção é útil na fase aguda.",
+    ],
+    fontes: ["SAUNDERS p. 87"],
+    tags: ["RUD", "TFCC", "fibrocartilagem triangular", "dor ulnar"],
+  },
+  {
+    id: "rizartrose", titulo: "Trapeziometacarpal (rizartrose)", secao: "mao", guia: "palpacao",
+    guiaNota: "Articulação pequena com osteófitos — US ou fluoroscopia aumentam a precisão.",
+    resumo: "Excelente resultado, às vezes por anos. Entrada no ápice da tabaqueira anatômica, no dorso, com o paciente tracionando o polegar; 10 mg em 1 mL em bolus. A artéria radial fica na base da tabaqueira.",
+    indicacoes: ["Rizartrose / capsulite da base do polegar (mulheres mais velhas, sobrecarga, AR)."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm (ou 27–30G se muito estreita)"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,75 mL (total ~1 mL)."],
+    posicao: ["Mão em posição neutra, polegar para cima; o próprio paciente traciona o polegar."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Achar a fenda entre trapézio e 1º metacarpo no ápice da tabaqueira, fletindo e estendendo passivamente o polegar.",
+        "Entrar perpendicular na fenda (longe da artéria radial, que passa na base da tabaqueira) e injetar em bolus.",
+        "Difícil por osteófitos: anestesiar a cápsula com parte da solução enquanto procura a fenda; abrir o lado de entrada com tração/desvio.",
+      ] },
+    ],
+    posop: ["Bandagem em spica por alguns dias; depois mobilização ativa/passiva sem dor e evitar sobrecarga do polegar."],
+    perolas: ["Repetições costumam ser espaçadas em anos se o paciente evitar sobrecarga."],
+    fontes: ["SAUNDERS p. 89"],
+    tags: ["rizartrose", "CMC1", "trapeziometacarpal", "polegar"],
+  },
+  {
+    id: "if-mcf", titulo: "Pequenas articulações dos dedos (MCF e IF)", secao: "mao", guia: "palpacao",
+    guiaNota: "US melhora muito a precisão nas IF.",
+    resumo: "Sinovite/artrose de MCF e IF: entrar pela face medial ou lateral na interlinha, com tração do dedo; 10 mg em 0,75 mL. Agulha 25–30G.",
+    indicacoes: ["Artrite reumatoide, psoriática ou artrose sintomática das MCF/IF; capsulite pós-traumática."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm (30G em articulações muito pequenas)"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,5 mL (total 0,75 mL) — pequenas articulações aceitam pouco volume."],
+    posicao: ["Mão apoiada, dedo tracionado."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Palpar a interlinha flexionando/estendendo o dedo; entrar pela face lateral ou medial, evitando o feixe neurovascular volar e o tendão extensor dorsal.",
+        "Injetar em bolus; resistência alta = fora do espaço → reposicionar.",
+        "Osteófitos: anestesiar a cápsula e 'caminhar' até a fenda.",
+      ] },
+    ],
+    posop: ["Sindactilia com o dedo vizinho por alguns dias; depois mobilização sem dor (parafina ajuda)."],
+    perolas: ["Cisto mucoso de IFD associado: ver 'Cistos sinoviais'."],
+    fontes: ["SAUNDERS p. 89"],
+    tags: ["MCF", "interfalangiana", "dedos", "artrite"],
+  },
+  {
+    id: "de-quervain", titulo: "Tenossinovite de De Quervain", secao: "mao", guia: "palpacao",
+    guiaNota: "US permite injetar dentro da bainha (e no septo do 1º compartimento, se houver) e reduz atrofia de pele.",
+    resumo: "Dor no estiloide radial, Finkelstein positivo. Entrar entre APL e EPB na base do 1º metacarpo e deslizar proximalmente dentro da bainha; 10 mg em 1 mL em bolus — deve formar um 'salsichão' na bainha.",
+    indicacoes: ["Tenossinovite do 1º compartimento extensor (APL/EPB) por sobrecarga; comum na gestação e no pós-parto."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,75 mL (total 1 mL).", "Preocupação com atrofia/despigmentação: hidrocortisona."],
+    posicao: ["Mão na vertical (borda radial para cima), polegar em leve flexão."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Ver/palpar os dois tendões com o polegar em extensão; marcar a fenda entre eles na base do 1º metacarpo.",
+        "Entrar perpendicular na fenda e deslizar proximalmente entre os tendões.",
+        "Injetar em bolus dentro da bainha — distensão em 'salsicha' confirma.",
+        "Por US: injetar profundo dentro da bainha diminui o risco de atrofia subcutânea.",
+      ] },
+    ],
+    posop: ["Repouso 1 semana com bandagem/órtese; depois evitar o gesto provocador e fortalecer gradualmente."],
+    complicacoes: ["Despigmentação ou atrofia de gordura (mulheres magras de pele escura) — pode ser permanente; avisar antes.", "Ramo sensitivo do nervo radial superficial: parestesia → reposicionar."],
+    perolas: ["O estiloide é sempre doloroso: comparar com o lado sadio."],
+    fontes: ["SAUNDERS p. 91", "MSK p. 168"],
+    tags: ["De Quervain", "Finkelstein", "1º compartimento", "APL", "EPB"],
+  },
+  {
+    id: "dedo-gatilho", titulo: "Dedo em gatilho", secao: "mao", guia: "palpacao",
+    guiaNota: "US confirma a tenossinovite focal e pode mostrar um 'cisto em semente'.",
+    resumo: "Nódulo doloroso na base do dedo (polia A1) com estalido/bloqueio. Entrar sobre a prega da MCF e injetar na bainha flexora — nunca dentro do tendão; 10 mg em 0,5 mL. Alta taxa de sucesso.",
+    indicacoes: ["Dedo ou polegar em gatilho (idiopático, AR, diabetes, artrose)."],
+    material: ["Seringa de 1 mL", "Agulha 25G de 16 mm"],
+    medicacao: ["Triamcinolona 10 mg + lidocaína 2% 0,25 mL (total 0,5 mL)."],
+    posicao: ["Mão com a palma para cima."],
+    etapas: [
+      { t: "Técnica", passos: [
+        "Marcar o nódulo, em geral sobre a prega palmar distal/prega da MCF.",
+        "Entrar perpendicular e avançar até sentir resistência 'borrachuda' (tendão); se o dedo fletido mover a agulha, ela está no tendão.",
+        "Recuar lentamente mantendo pressão no êmbolo até a resistência sumir — aí a solução entra fácil na bainha e a distende proximalmente.",
+        "A injeção deve ser suave, sem força: nunca injetar na substância do tendão.",
+      ] },
+    ],
+    posop: ["Sem restrições específicas."],
+    perolas: [
+      "O nódulo costuma persistir, mas fica assintomático; recidiva aceita nova injeção (2–3 por ano). Recidivas repetidas → liberação cirúrgica.",
+      "Em diabéticos e no polegar a resposta tende a ser menor.",
+    ],
+    fontes: ["SAUNDERS p. 93", "SILVER p. 94"],
+    tags: ["dedo em gatilho", "polia A1", "tenossinovite", "bainha flexora"],
+  },
+  {
+    id: "tunel-carpo", titulo: "Síndrome do túnel do carpo", secao: "mao", guia: "palpacao",
+    guiaNota: "Por US pode-se injetar ao redor do nervo sem tocá-lo.",
+    resumo: "Parestesia noturna no território do mediano. Entrar na prega proximal do punho entre o flexor radial do carpo e o mediano (ulnar ao FRC), angular 45° e deslizar até o meio do retináculo; 20 mg SEM anestésico (0,5 mL).",
+    indicacoes: ["STC leve a moderada sem déficit motor/atrofia importante.", "STC na gestação, AR, hipotireoidismo, pós-Colles."],
+    contraindicacoes: ["Atrofia tenar estabelecida ou déficit grave — priorizar cirurgia."],
+    material: ["Seringa de 1 mL", "Agulha 23G de 30 mm"],
+    medicacao: ["Triamcinolona 20 mg sem anestésico (0,5 mL) — o sintoma é parestesia e não se quer aumentar a pressão no túnel."],
+    posicao: ["Mão com a palma para cima."],
+    etapas: [
+      { t: "Referências", passos: [
+        "O retináculo tem ~a largura do polegar; sua borda proximal fica na prega distal do punho.",
+        "O mediano fica sob o palmar longo, medial ao FRC. Sem palmar longo: oposição polegar–mínimo; a prega no meio da palma aponta o trajeto do nervo.",
+      ] },
+      { t: "Técnica", passos: [
+        "Entrar no ponto médio da prega proximal do punho, entre o FRC e o mediano.",
+        "Angular a 45° e deslizar distalmente até a ponta ficar sob o meio do retináculo; injetar em bolus.",
+        "Muito vertical = osso; muito horizontal = dentro do retináculo.",
+        "Choque/parestesia = agulha no nervo → recuar e reposicionar.",
+      ] },
+      { t: "Alternativa", passos: ["Entrar entre o nervo e os tendões flexores (ulnar ao nervo), mesma dose."] },
+    ],
+    posop: ["Repouso 1 semana; órtese noturna em neutro no início; evitar dormir com punhos fletidos."],
+    perolas: ["Recidiva é comum; se houve alívio, pode-se repetir. Recidivas persistentes → cirurgia."],
+    fontes: ["SAUNDERS p. 95"],
+    tags: ["túnel do carpo", "mediano", "parestesia", "retináculo"],
+  },
+  {
+    id: "cisto-sinovial", titulo: "Cistos sinoviais (ganglions) e cisto mucoso", secao: "mao", guia: "palpacao",
+    guiaNota: "US ajuda em cistos volares (artéria radial) e pequenos.",
+    resumo: "A maioria regride sozinha. Se dor, parestesia ou incômodo estético: aspiração com agulha grossa resolve ~1/3; acrescentar corticoide não melhora. Cisto mucoso de IFD: múltiplas punções com 25G e < 1 mL de corticoide + anestésico.",
+    indicacoes: [
+      "Cisto dorsal do punho (origem escafossemilunar, ~65%), volar (~20–25%) ou de bainha flexora (~10–15%) sintomático.",
+      "Cisto mucoso da IFD em artrose (frequentemente com deformidade/sulco da unha).",
+    ],
+    contraindicacoes: ["Cisto volar colado à artéria radial sem guia de imagem."],
+    material: ["Agulha 18–19G e seringa de 5–10 mL para aspirar", "Cisto mucoso: agulha 25G e seringa de 1 mL"],
+    medicacao: ["Ganglion: aspiração simples (corticoide opcional, sem ganho comprovado).", "Cisto mucoso: pequeno volume (< 1 mL) de corticoide + anestésico."],
+    etapas: [
+      { t: "Ganglion", passos: [
+        "Aspirar com agulha grossa (conteúdo gelatinoso, espesso); várias punções na parede podem ajudar.",
+        "Explicar que é benigno — após aspiração e explicação, só ~1/4 dos pacientes pede cirurgia.",
+        "Recidiva após uma aspiração raramente responde a novas: discutir cirurgia.",
+      ] },
+      { t: "Cisto mucoso (IFD)", passos: [
+        "Múltiplas punções com agulha 25G e injeção de pequeno volume de corticoide + anestésico.",
+        "~60% sem recidiva em 2 anos; a deformidade da unha costuma melhorar.",
+      ] },
+    ],
+    perolas: ["Cisto da bainha flexora (base do dedo) é pequeno e firme — a punção com agulha fina costuma resolver."],
+    fontes: ["SAUNDERS p. 40–41, 43"],
+    tags: ["ganglion", "cisto sinovial", "cisto mucoso", "aspiração"],
+  },
+];
