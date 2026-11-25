@@ -539,7 +539,7 @@
    "fonte": "ANTRO",
    "alvo": "esporte",
    "arquivo": "ESP-13.txt",
-   "status": "pendente"
+   "status": "feito", "data": "2026-11-25", "resumo": "Editorial e início da revisão sobre síndrome metabólica pediátrica. Acrescentadas notas sobre metabolismo de repouso e equações, bioimpedância x DEXA, limites do IMC e intervenção combinada em criança com excesso de peso.", "ids": ["n-energia", "n-composicao"]
   },
   {
    "id": "ESP-14-01",
