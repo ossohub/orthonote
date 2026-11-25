@@ -306,7 +306,7 @@ function select(k){
   selected=k;
   if(k&&meshes[k]){meshes[k].userData.hidden=false;}
   apply();
-  if(k&&meshes[k])focusOn(meshes[k],isolate);else if(THREE_OK)focusAll();
+  if(k&&meshes[k])focusOn(meshes[k],isolate||(typeof REGIONS!=="undefined"&&REGIONS.includes(k)));else if(THREE_OK)focusAll();
 }
 function focusOn(mesh,tight){
   const bb=new THREE.Box3().setFromObject(mesh),c=bb.getCenter(new THREE.Vector3()),r=bb.getSize(new THREE.Vector3()).length()/2;
@@ -379,7 +379,7 @@ function init(){
     const bb=t?new THREE.Box3().setFromObject(t):null;
     moveCam(t?bb.getCenter(new THREE.Vector3()):center,t?Math.max(bb.getSize(new THREE.Vector3()).length()/2,isolate?0:radius*0.55):radius,new THREE.Vector3(v[0],v[1],v[2]));
   });
-  $("#b-iso").onclick=()=>{isolate=!isolate;if(isolate&&!selected)selected="femur";apply();if(selected)focusOn(meshes[selected],isolate);};
+  $("#b-iso").onclick=()=>{isolate=!isolate;if(isolate&&!selected)selected="femur";apply();if(selected)focusOn(meshes[selected],isolate||(typeof REGIONS!=="undefined"&&REGIONS.includes(selected)));};
   $("#b-spin").onclick=e=>{controls.autoRotate=!controls.autoRotate;e.currentTarget.setAttribute("aria-pressed",controls.autoRotate);invalidate();};
 
   new ResizeObserver(resize).observe(stage);
