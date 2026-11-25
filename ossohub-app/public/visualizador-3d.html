@@ -104,7 +104,7 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
 
   <div class="layout">
     <div class="stage" id="stage">
-      <div class="hud">Selecionado<b id="hudName">—</b></div>
+      <div class="hud" aria-live="polite" aria-atomic="true">Selecionado<b id="hudName">—</b></div>
       <div class="hint">arraste: girar<br>pinça / scroll: zoom<br>toque no osso: selecionar</div>
       <div class="views" role="group" aria-label="Vistas">
         <button type="button" id="v-ant" data-view="ant">Anterior</button>
@@ -201,6 +201,7 @@ function renderRegions(){
   const re=$("#regions");if(!re)return;re.innerHTML="";
   REGIONS.forEach(k=>{
     const b=document.createElement("button");b.type="button";b.textContent=RLABELS[k];
+    b.setAttribute("aria-pressed",String(k===selected));
     if(k===selected)b.className="on";
     b.onclick=()=>select(k===selected?null:k);re.appendChild(b);
   });
@@ -232,7 +233,7 @@ function renderList(){
     const li=document.createElement("li");
     const hidden=meshes[k]&&meshes[k].userData.hidden;
     li.className=(k===selected?"on ":"")+(hidden?"off":"");
-    li.innerHTML='<button type="button" class="pick" id="pick-'+k+'"><span>'+INFO[k].nome+'</span><small>'+DATA.bones[k].ext[1]+' mm</small></button><button type="button" class="eye" id="eye-'+k+'" aria-pressed="'+(!hidden)+'">'+(hidden?"mostrar":"ocultar")+'</button>';
+    li.innerHTML='<button type="button" class="pick" id="pick-'+k+'" aria-pressed="'+(k===selected)+'"><span>'+INFO[k].nome+'</span><small>'+DATA.bones[k].ext[1]+' mm</small></button><button type="button" class="eye" id="eye-'+k+'" aria-label="'+(hidden?"Mostrar ":"Ocultar ")+INFO[k].nome+'" aria-pressed="'+(!hidden)+'">'+(hidden?"mostrar":"ocultar")+'</button>';
     li.querySelector(".pick").onclick=()=>select(k===selected?null:k);
     li.querySelector(".eye").onclick=()=>{meshes[k].userData.hidden=!meshes[k].userData.hidden;apply();};
     list.appendChild(li);
@@ -308,6 +309,7 @@ function init(){
   renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
   renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.domElement.setAttribute("aria-hidden","true");
   stage.insertBefore(renderer.domElement,stage.firstChild);
   scene=new THREE.Scene();
   camera=new THREE.PerspectiveCamera(32,1,1,5000);
