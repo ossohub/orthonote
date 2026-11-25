@@ -91,6 +91,13 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
 .joint-list button:hover,.joint-list button:focus-visible{border-color:var(--accent);outline-offset:2px}
 .joint-list button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,var(--surface));color:var(--accent)}
 @media(max-width:420px){.joint-list{grid-template-columns:1fr}}
+.roi-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.roi-list button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:50px;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:600 12px var(--body);text-align:left;cursor:pointer}
+.roi-list button small{font:11px var(--body);font-weight:400;color:var(--muted)}
+.roi-list button:hover,.roi-list button:focus-visible{border-color:var(--accent);outline-offset:2px}
+.roi-list button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,var(--surface));color:var(--accent)}
+.roi-status{font-size:11px;color:var(--muted);margin:7px 0 0;line-height:1.45}
+@media(max-width:420px){.roi-list{grid-template-columns:1fr}}
 .classification-search-wrap{display:flex;flex-direction:column;gap:6px;margin:0 0 9px}
 .classification-search{display:block;width:100%;min-height:42px;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:14px var(--body);outline-offset:2px}
 .classification-search:focus{outline:2px solid var(--accent)}
@@ -167,6 +174,11 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
         <p class="label">Complexos articulares · membro inferior</p>
         <div class="joint-list" id="joint-list" aria-label="Selecionar complexo articular"></div>
         <p class="region-note">A seleção destaca os ossos que participam do complexo e enquadra o conjunto. As malhas atuais representam ossos completos; superfícies articulares, cartilagem e ligamentos ainda não estão segmentados.</p>
+      </section>
+      <section class="knee-roi-navigation">
+        <p class="label">Joelho · regiões de interesse anatômico</p>
+        <div class="roi-list" id="knee-roi-list" aria-label="Regiões de interesse do joelho"></div>
+        <p class="roi-status" id="knee-roi-status" aria-live="polite">Mapa anatômico conceitual vinculado aos ossos reais do modelo. A seleção enquadra o osso completo; não representa segmentação da região.</p>
       </section>
       <section class="classification-index">
         <p class="label">Índice global de classificações</p>
@@ -254,6 +266,32 @@ const JOINTS={
   joelho:{label:"Joelho",detail:"Fêmur + patela + tíbia",bones:["femur","patela","tibia"],description:"Complexo femorotibial e femoropatelar. Os três modelos ósseos são destacados em conjunto; meniscos, cartilagem e ligamentos não estão representados como malhas independentes."},
   tornozelo:{label:"Tornozelo",detail:"Tíbia + fíbula",bones:["tibia","fibula"],description:"Complexo do tornozelo com a pinça maleolar. As malhas atuais mostram tíbia e fíbula completas, sem segmentação específica da superfície tibiotalar ou dos ligamentos."}
 };
+const KNEE_ROI={
+  femur_condyle_medial:{label:"Côndilo femoral medial",bone:"femur",detail:"Fêmur distal · compartimento medial",description:"Região de interesse do côndilo femoral medial. A malha disponível é do fêmur completo; a superfície condilar ainda não possui geometria segmentada independente.",terms:["distal","côndilo","condilo","fêmur"]},
+  femur_condyle_lateral:{label:"Côndilo femoral lateral",bone:"femur",detail:"Fêmur distal · compartimento lateral",description:"Região de interesse do côndilo femoral lateral. A malha disponível é do fêmur completo; a superfície condilar ainda não possui geometria segmentada independente.",terms:["distal","côndilo","condilo","fêmur"]},
+  femur_trochlea:{label:"Tróclea femoral",bone:"femur",detail:"Fêmur distal · articulação femoropatelar",description:"Região de interesse da tróclea femoral. A malha disponível é do fêmur completo; a superfície troclear ainda não possui geometria segmentada independente.",terms:["distal","articular","fêmur"]},
+  tibia_plateau_medial:{label:"Platô tibial medial",bone:"tibia",detail:"Tíbia proximal · compartimento medial",description:"Região de interesse do platô tibial medial. A malha disponível é da tíbia completa; o platô medial ainda não possui geometria segmentada independente.",terms:["Schatzker","AO/OTA","planalto","platô","tíbia"]},
+  tibia_plateau_lateral:{label:"Platô tibial lateral",bone:"tibia",detail:"Tíbia proximal · compartimento lateral",description:"Região de interesse do platô tibial lateral. A malha disponível é da tíbia completa; o platô lateral ainda não possui geometria segmentada independente.",terms:["Schatzker","AO/OTA","planalto","platô","tíbia"]},
+  tibia_intercondylar:{label:"Eminência intercondilar",bone:"tibia",detail:"Tíbia proximal · região intercondilar",description:"Região de interesse da eminência intercondilar tibial. A malha disponível é da tíbia completa; a eminência ainda não possui geometria segmentada independente.",terms:["intercondilar","espinhas","tíbia","AO/OTA"]},
+  patella_articular:{label:"Facetas patelares",bone:"patela",detail:"Patela · superfícies articulares posteriores",description:"Região de interesse das facetas articulares medial e lateral da patela. A malha disponível representa a patela completa, sem separar as facetas em superfícies independentes.",terms:["patela","AO/OTA"]}
+};
+function renderKneeROIList(){
+  const root=$("#knee-roi-list");if(!root)return;root.innerHTML="";
+  Object.entries(KNEE_ROI).forEach(([key,roi])=>{
+    const button=document.createElement("button");button.type="button";
+    button.className=selectedROI===key?"on":"";
+    button.setAttribute("aria-pressed",String(selectedROI===key));
+    button.setAttribute("aria-label","Enquadrar região de interesse: "+roi.label+"; malha segmentada indisponível");
+    const title=document.createElement("span");title.textContent=roi.label;
+    const detail=document.createElement("small");detail.textContent=roi.detail;
+    button.append(title,detail);button.addEventListener("click",()=>selectROI(selectedROI===key?null:key));
+    root.appendChild(button);
+  });
+  const status=$("#knee-roi-status");
+  if(status)status.textContent=selectedROI
+    ?"Região selecionada como referência anatômica. O modelo destaca o osso completo, não uma malha regional segmentada."
+    :"Mapa anatômico conceitual vinculado aos ossos reais do modelo. A seleção enquadra o osso completo; não representa segmentação da região.";
+}
 function renderJointList(){
   const root=$("#joint-list");if(!root)return;root.innerHTML="";
   Object.entries(JOINTS).forEach(([key,joint])=>{
@@ -310,7 +348,7 @@ function renderClassificationIndex(){
 }
 const $=s=>document.querySelector(s);
 const stage=$("#stage"), list=$("#bones"), card=$("#card");
-let selected=null, selectedJoint=null, isolate=false, anatomyQuery="", classificationQuery="";
+let selected=null, selectedJoint=null, selectedROI=null, isolate=false, anatomyQuery="", classificationQuery="";
 $("#anatomy-search").addEventListener("input",e=>{
   anatomyQuery=e.currentTarget.value.trim().toLocaleLowerCase("pt-BR");
   const boneCount=renderList(),regionCount=renderRegions();
@@ -326,6 +364,12 @@ const meshes={};
 function b64u16(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new Uint16Array(u.buffer);}
 
 function renderCard(){
+  if(selectedROI){
+    const roi=KNEE_ROI[selectedROI],boneInfo=INFO[roi.bone];
+    const groups=boneInfo.cls.map(entry=>'<div class="cls-item"><details><summary>'+entry.sistema+'</summary><ul>'+entry.itens.map(item=>'<li>'+item+'</li>').join("")+'</ul></details></div>').join("");
+    card.innerHTML='<div><h2>'+roi.label+'</h2><span class="lat">Região de interesse · '+boneInfo.nome+'</span></div><p>'+roi.description+'</p><p class="label">Status geométrico</p><div class="chips"><span>Referência anatômica</span><span>Malha independente indisponível</span></div><p class="region-note">O enquadramento destaca o osso inteiro. Nenhuma subdivisão geométrica foi criada ou inferida nesta versão.</p><p class="label">Classificações cadastradas para o osso relacionado</p><div class="cls-list">'+groups+'</div>';
+    $("#hudName").textContent=roi.label;return;
+  }
   if(selectedJoint){
     const joint=JOINTS[selectedJoint];
     const systems=joint.bones.flatMap(key=>INFO[key].cls.map(cls=>({bone:INFO[key].nome,system:cls.sistema,items:cls.itens})));
@@ -422,20 +466,27 @@ function apply(){
     });
   }
   $("#b-iso").setAttribute("aria-pressed",isolate);
-  renderList();renderRegions();renderJointList();renderCard();invalidate();
+  renderList();renderRegions();renderJointList();renderKneeROIList();renderCard();invalidate();
 }
 function select(k){
-  selectedJoint=null;
+  selectedJoint=null;selectedROI=null;
   selected=k;
   if(k&&meshes[k]){meshes[k].userData.hidden=false;}
   apply();
   if(k&&meshes[k])focusOn(meshes[k],isolate||(typeof REGIONS!=="undefined"&&REGIONS.includes(k)));else if(THREE_OK)focusAll();
 }
 function selectJoint(key){
-  selected=null;selectedJoint=key;
+  selected=null;selectedROI=null;selectedJoint=key;
   if(key)JOINTS[key].bones.forEach(k=>{if(meshes[k])meshes[k].userData.hidden=false;});
   apply();
   if(key&&THREE_OK)focusOnMeshes(JOINTS[key].bones);else if(THREE_OK)focusAll();
+}
+function selectROI(key){
+  selectedJoint=null;selectedROI=key;
+  selected=key?KNEE_ROI[key].bone:null;
+  if(selected&&meshes[selected])meshes[selected].userData.hidden=false;
+  apply();
+  if(selected&&meshes[selected])focusOn(meshes[selected],true);else if(THREE_OK)focusAll();
 }
 function focusOnMeshes(keys){
   const bounds=new THREE.Box3();
