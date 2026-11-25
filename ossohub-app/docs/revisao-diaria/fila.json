@@ -559,7 +559,12 @@
    "fonte": "ACL5",
    "alvo": "esporte",
    "arquivo": "ESP-15.txt",
-   "status": "pendente"
+   "status": "feito",
+   "data": "2026-11-25",
+   "resumo": "Reconstrução do LCA: 6 notas \"acrescenta\" (carga progressiva com muletas, uso de muletas na escada, gelo e elevação, dose do programa em casa nas 2 primeiras fases, metas da 2ª fase, progressão do condicionamento) e 1 \"diverge\" (programa único para todos os enxertos x proteção da flexão resistida com enxerto de flexores). Extensão passiva com rolo e elevação do joelho acrescentadas à fase 1.",
+   "ids": [
+    "r-lca"
+   ]
   },
   {
    "id": "ESP-16-01",
