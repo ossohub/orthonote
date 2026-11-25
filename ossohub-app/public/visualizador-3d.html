@@ -367,8 +367,9 @@ function renderList(){
     visible++;
     const li=document.createElement("li");
     const hidden=meshes[k]&&meshes[k].userData.hidden;
-    li.className=(k===selected?"on ":"")+(hidden?"off":"");
-    li.innerHTML='<button type="button" class="pick" id="pick-'+k+'" aria-pressed="'+(k===selected)+'"><span>'+INFO[k].nome+'</span><small>'+DATA.bones[k].ext[1]+' mm</small></button><button type="button" class="eye" id="eye-'+k+'" aria-label="'+(hidden?"Mostrar ":"Ocultar ")+INFO[k].nome+'" aria-pressed="'+(!hidden)+'">'+(hidden?"mostrar":"ocultar")+'</button>';
+    const jointActive=!!(selectedJoint&&JOINTS[selectedJoint].bones.includes(k));
+    li.className=(k===selected||jointActive?"on ":"")+(hidden?"off":"");
+    li.innerHTML='<button type="button" class="pick" id="pick-'+k+'" aria-pressed="'+(k===selected||jointActive)+'"><span>'+INFO[k].nome+'</span><small>'+DATA.bones[k].ext[1]+' mm</small></button><button type="button" class="eye" id="eye-'+k+'" aria-label="'+(hidden?"Mostrar ":"Ocultar ")+INFO[k].nome+'" aria-pressed="'+(!hidden)+'">'+(hidden?"mostrar":"ocultar")+'</button>';
     li.querySelector(".pick").onclick=()=>select(k===selected?null:k);
     li.querySelector(".eye").onclick=()=>{meshes[k].userData.hidden=!meshes[k].userData.hidden;apply();};
     list.appendChild(li);
