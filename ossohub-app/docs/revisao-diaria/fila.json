@@ -549,7 +549,7 @@
    "fonte": "RUSIN",
    "alvo": "esporte",
    "arquivo": "ESP-14.txt",
-   "status": "pendente"
+   "status": "feito", "data": "2026-11-25", "resumo": "Introdução e métodos do programa (séries de aproximação, alongamento intra-série, ênfase excêntrica, aeróbio complementar). Nada errado no site; 4 notas novas (3 acrescenta, 1 diverge sobre a justificativa hormonal da hipertrofia).", "ids": ["f-forca", "f-flexibilidade", "f-aerobio"]
   },
   {
    "id": "ESP-15-01",
