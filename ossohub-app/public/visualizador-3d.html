@@ -79,6 +79,12 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
 .class-search:focus{outline:2px solid var(--accent)}
 .class-search-count{font:11px var(--mono);color:var(--muted);margin:6px 0 9px}
 .class-search-empty{font-size:12px;color:var(--muted);padding:10px 0}
+.anatomy-search-wrap{display:flex;flex-direction:column;gap:6px;margin:0 0 12px}
+.anatomy-search{display:block;width:100%;min-height:42px;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:14px var(--body);outline-offset:2px}
+.anatomy-search:focus{outline:2px solid var(--accent)}
+.anatomy-search-meta{font:11px var(--mono);color:var(--muted);margin:0}
+.anatomy-empty{font-size:12px;color:var(--muted);padding:8px 0}
+.region-note{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45}
 .cls-list{display:flex;flex-direction:column;gap:6px}
 .cls-item details{border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .cls-item summary{padding:7px 11px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--accent);list-style:none;display:flex;align-items:center;justify-content:space-between;user-select:none;line-height:1.3}
@@ -125,12 +131,21 @@ button:focus-visible{outline:2px solid var(--select);outline-offset:2px}
     <div class="panel">
       <p class="cap" style="margin-top:-8px">arraste: girar · pinça: zoom · toque no osso: selecionar</p>
       <section>
-        <p class="label">Ossos · comprimento medido na malha</p>
+        <p class="label">Navegação anatômica</p>
+        <div class="anatomy-search-wrap">
+          <label class="class-search-label" for="anatomy-search">Buscar osso, região ou classificação</label>
+          <input id="anatomy-search" class="anatomy-search" type="search" placeholder="Ex.: fêmur, coluna, Mason, AO/OTA..." autocomplete="off" aria-controls="bones regions">
+          <p class="anatomy-search-meta" id="anatomy-search-meta" aria-live="polite">9 estruturas e regiões disponíveis</p>
+        </div>
+        <p class="label">Membro inferior · ossos individuais</p>
         <ul class="bones" id="bones"></ul>
+        <p class="anatomy-empty" id="bones-empty" hidden>Nenhum osso corresponde à busca.</p>
       </section>
       <section>
-        <p class="label">Outras regiões · classificações</p>
+        <p class="label">Outros segmentos · modelos regionais</p>
         <div class="regions" id="regions"></div>
+        <p class="anatomy-empty" id="regions-empty" hidden>Nenhuma região corresponde à busca.</p>
+        <p class="region-note">Coluna, membro superior, mão e pé são apresentados como malhas regionais compostas. A seleção de ossos individuais nessas regiões será liberada quando houver modelos segmentados e validados.</p>
       </section>
       <section class="card" id="card" aria-live="polite"></section>
     </div>
@@ -204,16 +219,28 @@ const REGIONS=["coluna","ms","mao","pe"];
 const RLABELS={coluna:"Coluna vertebral",ms:"Membro superior",mao:"Mão",pe:"Pé"};
 function renderRegions(){
   const re=$("#regions");if(!re)return;re.innerHTML="";
+  let visible=0;
   REGIONS.forEach(k=>{
+    const searchable=(RLABELS[k]+" "+JSON.stringify(INFO[k])).toLocaleLowerCase("pt-BR");
+    if(anatomyQuery&&!searchable.includes(anatomyQuery))return;
+    visible++;
     const b=document.createElement("button");b.type="button";b.textContent=RLABELS[k];
+    b.setAttribute("aria-label","Selecionar modelo regional: "+RLABELS[k]);
     b.setAttribute("aria-pressed",String(k===selected));
     if(k===selected)b.className="on";
     b.onclick=()=>select(k===selected?null:k);re.appendChild(b);
   });
+  $("#regions-empty").hidden=visible!==0;
+  return visible;
 }
 const $=s=>document.querySelector(s);
 const stage=$("#stage"), list=$("#bones"), card=$("#card");
-let selected=null, isolate=false;
+let selected=null, isolate=false, anatomyQuery="";
+$("#anatomy-search").addEventListener("input",e=>{
+  anatomyQuery=e.currentTarget.value.trim().toLocaleLowerCase("pt-BR");
+  const boneCount=renderList(),regionCount=renderRegions();
+  $("#anatomy-search-meta").textContent=(boneCount+regionCount)+" de 9 estruturas e regiões correspondem à busca";
+});
 const meshes={};
 
 function b64u16(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new Uint16Array(u.buffer);}
@@ -246,7 +273,11 @@ function renderCard(){
 
 function renderList(){
   list.innerHTML="";
+  let visible=0;
   ORDER.forEach(k=>{
+    const searchable=(INFO[k].nome+" "+JSON.stringify(INFO[k])).toLocaleLowerCase("pt-BR");
+    if(anatomyQuery&&!searchable.includes(anatomyQuery))return;
+    visible++;
     const li=document.createElement("li");
     const hidden=meshes[k]&&meshes[k].userData.hidden;
     li.className=(k===selected?"on ":"")+(hidden?"off":"");
@@ -255,6 +286,8 @@ function renderList(){
     li.querySelector(".eye").onclick=()=>{meshes[k].userData.hidden=!meshes[k].userData.hidden;apply();};
     list.appendChild(li);
   });
+  $("#bones-empty").hidden=visible!==0;
+  return visible;
 }
 
 let THREE_OK=typeof THREE!=="undefined"&&THREE.OrbitControls;
