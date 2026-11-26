@@ -87,7 +87,7 @@ export const NAV_SECTIONS: NavSection[] = [
       { href: "/tools/calculadora",             label: "Calculadora Ortopédica", icon: Calculator, desc: "Escores e cálculos do dia a dia." },
       { href: "/tools/algoritmos",              label: "Algoritmos",             icon: GitBranch,  desc: "Fluxogramas de conduta." },
       { href: "/referencia/ortopedia-adulto",   label: "Conteúdo Adulto",        icon: BookOpen,   desc: "Material de estudo de ortopedia do adulto." },
-      { href: "/visualizador-3d.html",          label: "Anatomia 3D",            icon: Bone,       desc: "Modelos anatômicos em 3D para girar e estudar." },
+      { href: "/anatomia",                      label: "Anatomia Muscular",      icon: Bone,       desc: "Origem, inserção, ação, inervação e vascularização de cada músculo, com desenho animado." },
     ],
   },
   {

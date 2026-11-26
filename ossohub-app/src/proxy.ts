@@ -16,6 +16,7 @@ const PROTECTED = [
   "/estudos",
   "/flashcards",
   "/infiltracoes",
+  "/anatomia",
   "/mensuracao",
   "/moderacao",
   "/ortopedia",
