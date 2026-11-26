@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Play, Pause, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/hooks/useUser";
 import type { Musculo, Vista } from "@/data/musculos";
 
 const PASSOS = [
@@ -55,6 +56,8 @@ export function DiagramaMusculo({ m }: { m: Musculo }) {
   const [passo, setPasso] = useState(0);
   const [tocando, setTocando] = useState(true);
   const [ciclo, setCiclo] = useState(0);
+  const { profile, loading } = useUser();
+  const isAdmin = profile?.app_role === "admin";
 
   useEffect(() => {
     if (!tocando) return;
@@ -78,6 +81,9 @@ export function DiagramaMusculo({ m }: { m: Musculo }) {
   const rot = m.forma.rot ? `rotate(${m.forma.rot} ${cx} ${cy})` : undefined;
   const caminho = `M${ox} ${oy} Q${(ox + ix) / 2 + (ix > ox ? -12 : 12)} ${(oy + iy) / 2} ${ix} ${iy}`;
   const k = `${m.id}-${ciclo}`;
+
+  // Animação só para administradores
+  if (loading || !isAdmin) return null;
 
   return (
     <div>

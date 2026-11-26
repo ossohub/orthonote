@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CheckCircle2, Zap, Activity, Lightbulb, ChevronLeft, ChevronRight, Waves, GitBranch } from "lucide-react";
+import { CheckCircle2, Activity, Lightbulb, ChevronLeft, ChevronRight, Waves, GitBranch } from "lucide-react";
 import { MUSCULOS, acharMusculo } from "@/data/musculos";
 import { cn } from "@/lib/utils";
 import { DiagramaMusculo } from "./DiagramaMusculo";
@@ -50,9 +50,9 @@ export default async function MusculoDetalhe({ params }: { params: Promise<{ id:
         <p className="oh-mono mt-1 text-[12px] text-[#8C9AB0]">{m.latim}</p>
       </header>
 
-      <Bloco titulo="Passo a passo animado" icone={Zap} className="mb-4 border-[#38D5E0]/25">
+      <div className="mb-4">
         <DiagramaMusculo m={m} />
-      </Bloco>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Bloco titulo="Origem" icone={CheckCircle2}>
